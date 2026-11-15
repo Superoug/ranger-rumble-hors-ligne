@@ -1,0 +1,336 @@
+RANGER RUMBLE HORS LIGNE - Ratchet & Clank: Ranger Rumble
+=========================================================
+
+À QUOI ÇA SERT
+--------------
+Les serveurs du jeu ferment le 1er mai 2027 : le jeu ne marchera plus et toutes les
+parties seront effacées. Cet outil fait quatre choses, chacune dans un onglet :
+
+1. COPIER LA SAUVEGARDE (avant le 1er mai 2027)
+   Garde une copie de TA sauvegarde et des données du jeu que les serveurs officiels
+   envoient au démarrage (sur iPhone). Sur Android, seules les données du jeu se copient,
+   par le câble USB : la sauvegarde ne peut pas être copiée (voir la partie Android).
+
+2. FABRIQUER L'APK
+   Fabrique une version du jeu qui marche sans serveur, pour un téléphone ou une
+   tablette Android, avec ta sauvegarde dedans. Tu fournis toi-même le jeu officiel,
+   en versions 1.10.4 et 1.10.3 : l'outil ne contient aucun fichier du jeu.
+
+3. ÉDITER UNE SAUVEGARDE
+   Change tout ce que tu veux dans une sauvegarde : héros débloqués et leur niveau,
+   armes, costumes, médailles, monnaies, parties jouées, gagnées, perdues... Ou pars
+   d'une partie vierge. La sauvegarde vient d'un fichier, d'une copie, ou directement
+   du téléphone par le câble, et y retourne de la même façon.
+
+4. MISES À JOUR
+   Installe les nouvelles versions de l'outil, puis met à jour le jeu hors ligne de ton
+   téléphone par le câble, sans perdre ta progression.
+
+Tout reste sur ton ordinateur. L'outil n'envoie rien nulle part : il demande seulement à
+GitHub s'il existe une nouvelle version (le jeu hors ligne aussi, une fois par jour).
+
+
+CE QU'IL TE FAUT
+----------------
+- Un ordinateur Windows, Mac ou Linux.
+- Python 3.12 ou plus récent, avec Tkinter (ce qui fait la fenêtre) :
+    Windows et Mac : https://www.python.org/downloads/ (Tkinter est inclus).
+      Windows : pendant l'installation, coche la case « Add python.exe to PATH ».
+    Linux : les paquets python3, python3-venv et python3-tk.
+- Internet la première fois : l'outil télécharge ses composants (mitmproxy, msgpack et segno,
+  qui dessine le QR code).
+- Pour l'APK : les fichiers du jeu officiel en version 1.10.4 et en version 1.10.3, en
+  .xapk (APKPure) ou .apkm (APKMirror). La 1.10.3 donne les modèles des 7 héros jamais
+  sortis. Il faut aussi environ 5 Go libres sur l'ordinateur, et un téléphone ou une
+  tablette Android 64 bits (Android 7.1 ou plus récent).
+
+
+LANCER L'OUTIL
+--------------
+- Windows : double-clic sur « Lancer (Windows).bat ».
+  Si Windows demande l'autorisation du pare-feu pour Python : coche « Réseaux privés »,
+  puis Autoriser.
+- Mac : clic droit sur « Lancer (Mac).command » > Ouvrir > Ouvrir.
+  Si le Mac demande d'accepter les connexions entrantes pour Python : Autoriser.
+- Linux : ouvre un terminal dans ce dossier et tape : sh lancer.sh
+
+La première fois, l'installation prend quelques minutes. Ensuite une fenêtre s'ouvre.
+Laisse aussi ouverte la fenêtre de texte qui l'a lancée.
+
+En haut de la fenêtre, choisis où est ton jeu : « iPhone ou iPad » ou « Android ».
+La fenêtre n'affiche ensuite que ce qui te concerne. Dans ce guide, lis seulement la
+partie qui correspond à ton choix, puis « Installer l'APK sur Android ».
+
+
+=====================================================================
+SI TON JEU EST SUR IPHONE OU IPAD
+=====================================================================
+
+Il te faut l'iPhone ou l'iPad avec le jeu, sur le même Wi-Fi que l'ordinateur, et les
+serveurs encore ouverts.
+
+ÉTAPE 1 : COPIER LA SAUVEGARDE (onglet 1)
+-----------------------------------------
+Plus besoin de régler un proxy : le profil RatchetRR règle l'iPhone tout seul, et
+seulement pour les serveurs du jeu (le reste de l'iPhone ne passe pas par l'ordinateur).
+
+a. Dans « Wi-Fi de l'iPhone », choisis le nom du Wi-Fi de l'iPhone (celui affiché dans
+   Réglages > Wi-Fi), ou tape-le. Clique sur « Démarrer » : un QR code s'affiche.
+
+b. Sur l'iPhone, vise le QR code avec l'appareil photo et touche le lien qui apparaît
+   (ou ouvre Safari à l'adresse écrite sous le QR code).
+   - Touche « Télécharger le profil RatchetRR », puis « Autoriser ».
+   - Ouvre Réglages : en haut, touche « Profil téléchargé » (ou Général > VPN et gestion
+     de l'appareil > RatchetRR). Installer > code de l'iPhone > Installer.
+     Si l'iPhone demande le mot de passe du Wi-Fi, tape-le.
+   - Reviens dans Général > Informations (pas VPN). Tout en bas de cette page :
+     « Réglages des certificats ». Cette ligne n'apparaît qu'après l'étape précédente.
+     Active « RatchetRR » > Continuer.
+   - Si l'iPhone a encore un profil « mitmproxy » (installé avec une ancienne version
+     de cet outil), supprime-le : il ne sert plus.
+
+c. Ouvre Ranger Rumble et attends l'écran d'accueil. C'est tout. La fenêtre affiche
+   d'abord « Sauvegarde copiée », puis, environ 30 secondes plus tard :
+   « C'EST FAIT : SAUVEGARDE ET DONNÉES COPIÉES ! ». Attends ce message.
+
+d. Après :
+   - Réglages > Général > VPN et gestion de l'appareil > RatchetRR > Supprimer le profil.
+     L'iPhone oublie alors ce Wi-Fi : reconnecte-toi avec ton mot de passe.
+   - Dans la fenêtre, clique sur « Arrêter ».
+   - Si tu avais réglé le proxy à la main (ancienne méthode, ou Wi-Fi non choisi) :
+     Réglages > Wi-Fi > (i) > Configurer le proxy > Désactivé.
+
+Si tu gardes le profil, l'iPhone continue de marcher normalement quand l'outil est
+arrêté (il passe alors en direct), mais il fait toujours confiance au certificat de ton
+ordinateur : mieux vaut le supprimer après la copie.
+
+Tu peux refaire une copie quand tu veux, par exemple après avoir encore joué : seule
+la dernière est à jour. Fais la dernière juste avant le 1er mai 2027.
+
+ÉTAPE 2 : FABRIQUER L'APK (onglet 2)
+------------------------------------
+a. « Jeu officiel 1.10.4 » : clique sur « Choisir... » et prends le fichier .xapk ou
+   .apkm du jeu. L'outil vérifie que c'est bien la version 1.10.4.
+   « Jeu officiel 1.10.3 » : pareil avec le fichier de la version 1.10.3. L'outil y prend
+   seulement les 7 héros jamais sortis, et vérifie que c'est bien la bonne version.
+b. « Copie de sauvegarde » : choisis ta copie dans la liste (la plus récente est en
+   haut). Elle doit être marquée « prête ».
+c. « Sauvegarde exportée » (facultatif) : un fichier exporté depuis RR Options, sur
+   le jeu hors ligne (voir plus bas). L'APK part alors de cette progression au lieu de
+   la sauvegarde de la copie.
+d. « APK à créer » : où mettre le fichier fabriqué.
+e. Clique sur « Fabriquer l'APK ». Ça prend de une à quelques minutes. À la fin,
+   l'APK fait environ 1,3 Go.
+
+ÉTAPE 3 : JOUER
+---------------
+La version hors ligne se joue sur un téléphone ou une tablette Android : il n'y en a
+pas pour iPhone ou iPad. Voir « Installer l'APK sur Android » plus bas.
+
+
+=====================================================================
+SI TON JEU EST SUR ANDROID
+=====================================================================
+
+Ta sauvegarde n'est pas sur ton téléphone : seuls les serveurs officiels la gardent, et
+le jeu la télécharge à chaque lancement. Sur Android, aucune autre appli n'a le droit
+de lire ce que le jeu officiel reçoit ou garde (sans téléphone rooté), et le serveur
+officiel refuse toute version modifiée du jeu. La sauvegarde Android ne peut donc pas
+être copiée : l'outil copie seulement les données du jeu, et l'APK hors ligne part d'une
+nouvelle partie ou d'une sauvegarde exportée.
+
+Il te faut un câble USB qui transmet les données.
+
+AVANT DE COMMENCER : le débogage USB (une seule fois)
+- Paramètres > À propos du téléphone : touche 7 fois de suite « Numéro de build »
+  (sur Samsung : À propos du téléphone > Informations sur le logiciel). Le téléphone
+  dit « Vous êtes maintenant développeur ».
+- Paramètres > Système (ou directement Paramètres) > Options pour les développeurs :
+  active « Débogage USB ».
+- Branche le téléphone à l'ordinateur. Sur le téléphone, touche « Autoriser » quand il
+  demande « Autoriser le débogage USB ? ». La première fois, l'outil propose aussi de
+  télécharger les outils Android de Google (environ 10 Mo).
+
+COPIER LES DONNÉES DU JEU (par le câble)
+L'outil copie les données du jeu, par le câble USB, depuis le jeu officiel installé sur
+ton téléphone. Pour l'APK, tu choisiras alors une sauvegarde
+exportée, ou une nouvelle partie. C'est utile après la fermeture des serveurs : les
+données restent sur le téléphone tant que le jeu officiel n'est pas désinstallé.
+
+a. Ouvre le jeu officiel, connecté à internet, et attends l'écran d'accueil. Il garde
+   alors ses données sur le téléphone.
+b. Active le débogage USB et branche le téléphone (voir « Avant de commencer »).
+c. Dans l'outil, choisis « Android » en haut, puis onglet 1 : « Copier par le câble ».
+d. La copie prend quelques secondes. Elle apparaît dans l'onglet 2, marquée « sans
+   sauvegarde ».
+e. Onglet 2 : choisis cette copie, puis ta sauvegarde exportée, ou coche « Nouvelle
+   partie ». Une nouvelle partie commence comme un nouveau compte qui a fini le
+   tutoriel : héros de départ, 400 boulons, un nom au hasard (Player_...). Au premier
+   lancement, le jeu demande ton âge et tes choix de confidentialité.
+
+Ne désinstalle pas le jeu officiel avant la copie : ses données partent avec lui. Si
+la version hors ligne est déjà installée, l'outil refuse de copier depuis elle.
+
+Garde aussi les fichiers du jeu officiel 1.10.4 et 1.10.3 (.xapk ou .apkm) : ils ne
+seront plus téléchargeables après la fermeture des serveurs.
+
+
+=====================================================================
+INSTALLER L'APK SUR ANDROID
+=====================================================================
+
+- Copie l'APK sur le téléphone ou la tablette (câble USB, carte SD, cloud...) et
+  ouvre-le depuis l'application Fichiers. Android demande d'autoriser l'installation
+  d'applications de cette source : accepte. Si Play Protect affiche un avertissement,
+  choisis d'installer quand même : il prévient parce que l'application n'est pas signée
+  par Sony.
+- Si le jeu officiel est installé sur cet appareil, désinstalle-le d'abord (seulement
+  quand tu n'en as plus besoin, et après la copie des données) :
+  l'APK porte le même nom d'application. Après ça, cet appareil ne joue plus en ligne.
+- Le jeu démarre directement sur ta sauvegarde, sans connexion (le premier démarrage
+  prend quelques minutes). Une deuxième icône, « RR Options », règle quelques options
+  du jeu hors ligne. La difficulté se règle dans les réglages du jeu, onglet Général,
+  ligne « Difficulté ».
+
+Garder ta progression hors ligne : elle vit dans le jeu, sur l'appareil. Si tu le
+désinstalles, si tu changes d'appareil ou s'il casse, elle est perdue. Ouvre de temps en
+temps « RR Options » > « Exporter » : Android demande où enregistrer le fichier. Mets-en
+une copie à l'abri (cloud, ordinateur). « Importer » remet la progression d'un fichier
+exporté (sur le même appareil ou un autre) ; la progression d'avant est rangée dans
+l'historique du jeu.
+
+Mettre à jour plus tard : un nouvel APK fabriqué sur le MÊME ordinateur s'installe
+par-dessus l'ancien, et la progression hors ligne est gardée. L'APK est signé avec une
+clé créée sur ton ordinateur (dossier « .sauvegarde-rr » de ton dossier personnel,
+fichier cle_apk.p12). Garde-la : avec une autre clé, il faut désinstaller l'ancien APK.
+Exporte alors ta progression avant, puis importe-la dans le nouveau.
+
+
+JOUER À PLUSIEURS
+-----------------
+L'APK fabriqué ici joue en groupe avec les autres joueurs dont l'APK vient aussi de cette
+version de l'outil. Avec un APK fait par une version plus ancienne, ils ne se voient pas :
+il faut le refaire.
+- Sur le même Wi-Fi : les joueurs apparaissent tout seuls dans « Amis ». Invite-les avec
+  « Faire équipe » (TEAM UP). Un Wi-Fi « invité » empêche souvent les téléphones de se voir.
+- À distance : le chef du groupe touche « Faire équipe », puis « Créer » (CREATE), et donne
+  le code de 8 caractères. Les autres l'entrent avec « Rejoindre » (JOIN). 0 ou O, 1 ou I :
+  peu importe, le code marche des deux façons.
+- Quand tout le monde est « prêt », le chef appuie sur « Jouer » (PLAY) : tout le groupe
+  entre dans le même combat. C'est le téléphone du chef qui héberge la partie.
+- À distance, le combat passe par des relais internet publics, chiffrés avec le code du
+  groupe. Il peut être un peu moins réactif qu'en Wi-Fi.
+- 3 joueurs au plus par groupe. Seul, on joue toujours hors ligne, sans attendre.
+- Tous les modes se jouent en groupe (Bolt Rush, Bolt Rush Coop et Battle Royale 16
+  compris), sauf Mob Rush (les vagues de monstres), qui se joue seul. Le défi de Rivet et
+  l'arme au hasard aussi se jouent en groupe.
+
+
+ÉDITER UNE SAUVEGARDE (onglet 3)
+--------------------------------
+1. Ouvre une sauvegarde, avec un des boutons du haut :
+   - « Un fichier... » : un save.msgpack, ou une sauvegarde exportée de RR Options ;
+   - « Une copie... » : le dossier d'une copie faite dans l'onglet 1 ;
+   - « Le téléphone (câble) » : la sauvegarde actuelle du jeu hors ligne du téléphone
+     branché (débogage USB activé, voir la partie Android). L'outil en garde une copie
+     dans le dossier Sauvegardes ;
+   - « Partie vierge » : une nouvelle partie, comme un nouveau compte.
+2. Change ce que tu veux. Double-clique sur une valeur pour la changer, ou sur une case
+   « Débloqué » pour la cocher ou la décocher :
+   - Profil et statistiques : pseudo, monnaies, parties jouées, gagnées, perdues,
+     séries de victoires, record de médailles...
+   - Héros : débloqués ou non, niveau (1 à 10, comme dans le jeu), talents, lorbes,
+     médailles de chaque héros, série de victoires ;
+   - Armes et gadgets : débloqués ou non, niveau, améliorations, plans ;
+   - Costumes et Modes de jeu ;
+   - Tout (avancé) : toute la sauvegarde, champ par champ, avec les noms du code du jeu.
+     À manier avec précaution.
+3. Puis :
+   - « Envoyer au téléphone » : le jeu du téléphone se ferme et redémarre avec cette
+     sauvegarde. L'ancienne est rangée dans l'historique du jeu ;
+   - « Enregistrer sous... » : un fichier, à importer dans RR Options (Importer) ;
+   - « Utiliser pour fabriquer l'APK » : l'APK de l'onglet 2 partira de cette sauvegarde.
+Garde une copie de ta sauvegarde avant de faire de gros changements.
+
+
+MISES À JOUR (onglet 4)
+-----------------------
+- À chaque ouverture, l'outil regarde si une nouvelle version est sortie. Si oui, le titre
+  de la fenêtre le dit : onglet 4, « Mettre à jour l'outil ». Tes copies ne bougent pas.
+  Relance l'outil ensuite.
+- Le jeu hors ligne du téléphone le dit aussi, dans sa boîte de réception (Inbox).
+- Pour mettre à jour le jeu du téléphone : branche-le, puis « Mettre à jour le jeu du
+  téléphone ». L'outil refabrique l'APK avec les fichiers de l'onglet 2 et la sauvegarde
+  actuelle du téléphone, et l'installe par-dessus : ta progression est gardée.
+- Si le jeu du téléphone a été fabriqué sur un autre ordinateur, il ne peut pas être
+  installé par-dessus : l'outil propose alors de le désinstaller et de le réinstaller, en
+  repartant de ta sauvegarde. Les réglages du jeu reviennent à leurs valeurs de départ.
+
+
+GALERIE D'ARTWORKS
+------------------
+- Dans le jeu : menu (les 3 traits en haut à droite) > ARTBOOK. Les images s'affichent en
+  grille ; touche une image pour la voir en grand (pince ou touche deux fois pour zoomer,
+  glisse pour passer à la suivante, Retour pour revenir au jeu).
+- Pour y mettre des images : dans l'onglet 2, « Images de la galerie » (un dossier d'images
+  png ou jpg) avant de fabriquer l'APK. Ou plus tard, copie-les par le câble dans le dossier
+  Android/data/com.playstation.rattlesnake/files/artworks du téléphone (il apparaît après la
+  première ouverture de la galerie).
+
+
+OÙ SONT MES COPIES ?
+--------------------
+Dans le dossier « Sauvegardes », à côté de l'outil (bouton « Ouvrir le dossier des
+copies »). Chaque copie a son dossier, nommé avec l'identifiant du compte et la date.
+Il contient :
+- save.msgpack : la sauvegarde exacte envoyée par les serveurs officiels ;
+- sauvegarde_lisible.json : la même chose en texte lisible ;
+- events.msgpack : l'état des événements du compte ;
+- donnees_serveur : les données du jeu qu'il faut pour fabriquer l'APK ;
+- INFO.txt : le compte, la date et le nombre de parties.
+Garde ce dossier en lieu sûr (clé USB, cloud...).
+
+
+SÉCURITÉ
+--------
+- L'outil n'envoie rien nulle part, à part la question « y a-t-il une nouvelle version ? »
+  posée à GitHub (sans aucune donnée sur toi). Pendant la copie, le jeu parle à ses serveurs comme
+  d'habitude, l'outil garde seulement une copie de ce qu'il reçoit. Une seule exception :
+  si le jeu n'a pas téléchargé un fichier de configuration public, l'outil le télécharge
+  lui-même à la même adresse, sans aucune donnée de ton compte.
+- Aucun mot de passe ni jeton de connexion n'est enregistré : chaque fichier est vérifié
+  avant d'être écrit.
+- Seules les connexions du jeu sont lues. Les autres applis passent sans être lues.
+- Le certificat et la clé de l'APK sont créés sur ton ordinateur, dans le dossier
+  « .sauvegarde-rr » de ton dossier personnel. Ne partage jamais ce dossier, et supprime
+  le profil de l'iPhone après la copie.
+- Ne partage pas non plus tes copies : elles contiennent ton compte.
+
+
+SI ÇA NE MARCHE PAS
+-------------------
+- Le bouton « Démarrer » est grisé : choisis « iPhone ou iPad » en haut de la fenêtre.
+- La page http://...:8090 ne s'ouvre pas sur l'iPhone, ou la fenêtre n'affiche jamais
+  « Un appareil passe par l'ordinateur » : les deux ne se voient pas. Vérifie qu'ils sont
+  sur le même Wi-Fi (un Wi-Fi « invité » empêche souvent les appareils de se voir), le
+  nom du Wi-Fi choisi dans la fenêtre, et le pare-feu de l'ordinateur.
+- La fenêtre n'affiche jamais « L'iPhone utilise le réglage automatique du profil » :
+  le Wi-Fi choisi n'est pas celui de l'iPhone. Corrige le nom dans la fenêtre, puis
+  recharge la page sur l'iPhone et réinstalle le profil. En dernier recours, la page
+  donne le proxy à régler à la main (Serveur et Port).
+- « Le jeu refuse le certificat » : il manque l'activation de RatchetRR dans Réglages
+  des certificats (étape 1.b). Ensuite, ferme complètement le jeu et rouvre-le.
+- Le jeu affiche une erreur de connexion : ferme-le complètement et rouvre-le.
+- « La sauvegarde reçue est vide » : le jeu a ouvert un nouveau compte vide au lieu du
+  tien. Ferme le jeu et rouvre-le, ou reconnecte ton compte dans le jeu.
+- « Données du serveur incomplètes » : ferme complètement le jeu, rouvre-le et attends
+  l'écran d'accueil, sans arrêter la copie.
+- Une copie est marquée « ancienne copie, sans les données du serveur » : elle a été
+  faite avec une ancienne version de l'outil, qui ne gardait que la sauvegarde. Refais
+  une copie (étape 1).
+- « Ce fichier n'est pas la version 1.10.4 attendue du jeu » : il faut exactement la
+  version 1.10.4 (pas 1.10.3 ni une autre).
+- « Le deuxième fichier n'est pas la version 1.10.3 attendue du jeu » : il faut
+  exactement la version 1.10.3 pour ce champ.
+- La fabrication échoue faute de place : libère environ 5 Go sur le disque où l'APK
+  est créé.

@@ -1,0 +1,7 @@
+Sauvegardes/
+__pycache__/
+moteur.ancien/
+*.apk
+*.xapk
+*.apkm
+.DS_Store

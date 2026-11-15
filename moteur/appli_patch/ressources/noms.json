@@ -1,0 +1,688 @@
+{
+"CHARACTER_ID": {
+"10": {
+"en": "Tempest",
+"fr": "Tempest"
+},
+"11": {
+"en": "Chance",
+"fr": "Chance"
+},
+"12": {
+"en": "Molly",
+"fr": "Molly"
+},
+"13": {
+"en": "Helen",
+"fr": "Helen"
+},
+"14": {
+"en": "Sprocket",
+"fr": "Sprocket"
+},
+"15": {
+"en": "Zed",
+"fr": "Zed"
+},
+"16": {
+"en": "Rivet",
+"fr": "Rivet"
+},
+"17": {
+"en": "Grimshot",
+"fr": "Grimshot"
+},
+"18": {
+"en": "Flare",
+"fr": "Flare"
+},
+"19": {
+"en": "Nakari",
+"fr": "Nakari"
+},
+"2": {
+"en": "Widget",
+"fr": "Widget"
+},
+"20": {
+"en": "Terry",
+"fr": "Terry"
+},
+"21": {
+"en": "Crumby",
+"fr": "Crumby"
+},
+"22": {
+"en": "Ratchet & Clank",
+"fr": "Ratchet & Clank"
+},
+"3": {
+"en": "Mopz",
+"fr": "Mopz"
+},
+"4": {
+"en": "Lil'Ann",
+"fr": "Lil'Ann"
+},
+"5": {
+"en": "Celeste",
+"fr": "Céleste"
+},
+"6": {
+"en": "Chip",
+"fr": "Chip"
+},
+"7": {
+"en": "Steeljaw",
+"fr": "Steeljaw"
+},
+"8": {
+"en": "Sparky",
+"fr": "Sparky"
+},
+"9": {
+"en": "Lump",
+"fr": "Lump"
+}
+},
+"CURRENCY": {
+"0": {
+"en": "Bolts",
+"fr": "Boulons"
+},
+"1": {
+"en": "Raritanium",
+"fr": "Raritanium"
+},
+"10": {
+"en": "Fashionium",
+"fr": "Fashionium"
+},
+"2": {
+"en": "Qwark Pass XP",
+"fr": "XP du Qwark Pass"
+},
+"4": {
+"en": "Event tokens",
+"fr": "Jetons d'événement"
+},
+"5": {
+"en": "Qredits",
+"fr": "Qrédits"
+},
+"6": {
+"en": "Power Cores",
+"fr": "Coeurs de puissance"
+},
+"9": {
+"en": "Lorbs",
+"fr": "Lorbes"
+}
+},
+"UNLOCKABLE_ID": {
+"1": {
+"en": "Burst Pistol",
+"fr": "Pistorafale"
+},
+"10": {
+"en": "Glove of Doom",
+"fr": "Gant de malheur"
+},
+"104": {
+"en": "Sparky",
+"fr": "Sparky"
+},
+"106": {
+"en": "The Enforcer",
+"fr": "Inquisiteur"
+},
+"107": {
+"en": "Lump",
+"fr": "Lump"
+},
+"108": {
+"en": "Tempest",
+"fr": "Tempest"
+},
+"11": {
+"en": "Headhunter",
+"fr": "Casse-crâne"
+},
+"110": {
+"en": "Blackwater Tempest",
+"fr": "Tempest Blackwater"
+},
+"111": {
+"en": "Dreadzone Tempest",
+"fr": "Tempest Dreadzone"
+},
+"112": {
+"en": "Admiral Lil'Ann",
+"fr": "Amirale Lil'Ann"
+},
+"113": {
+"en": "Buzz Blades",
+"fr": "Discozigzag"
+},
+"114": {
+"en": "Bolt Rush Coop",
+"fr": "Bolt Rush en équipe"
+},
+"115": {
+"en": "Plasma Striker",
+"fr": "Percoplasma"
+},
+"116": {
+"en": "Bombardier",
+"fr": "Bombardier"
+},
+"117": {
+"en": "Holoshield Glove",
+"fr": "Gant d'holobouclier"
+},
+"119": {
+"en": "Chance",
+"fr": "Chance"
+},
+"12": {
+"en": "Omniwrench",
+"fr": "Super clé"
+},
+"120": {
+"en": "Pirate Mopz",
+"fr": "Mopz Pirate"
+},
+"121": {
+"en": "Pirate Sparky",
+"fr": "Sparky Pirate"
+},
+"122": {
+"en": "Molly",
+"fr": "Molly"
+},
+"123": {
+"en": "Helen",
+"fr": "Helen"
+},
+"125": {
+"en": "Total Rumble",
+"fr": "Total Rumble"
+},
+"126": {
+"en": "Blast Ball",
+"fr": "Balle-Bombe"
+},
+"127": {
+"en": "Pyrocitor",
+"fr": "Pyrolanceur"
+},
+"128": {
+"en": "Tesla Claw",
+"fr": "Griffe Tesla"
+},
+"129": {
+"en": "Amoeboid Launcher",
+"fr": "Lanceur améboïde"
+},
+"13": {
+"en": "Suck Cannon",
+"fr": "Canon à succion"
+},
+"130": {
+"en": "Lava Gun",
+"fr": "Pistomagma"
+},
+"131": {
+"en": "Bolt Race",
+"fr": "Course aux Boulons"
+},
+"133": {
+"en": "Tank Cannon",
+"fr": "Canon de char"
+},
+"134": {
+"en": "Nefarious Lump",
+"fr": "Lump Nefarious"
+},
+"135": {
+"en": "Cryoslider",
+"fr": "Cryoglisse"
+},
+"136": {
+"en": "Megalopolis Widget",
+"fr": "Widget Mégalopolis"
+},
+"137": {
+"en": "Blackwater Mopz",
+"fr": "Mopz Blackwater"
+},
+"138": {
+"en": "Dreadzone Mopz",
+"fr": "Mopz Dreadzone"
+},
+"139": {
+"en": "Nefarious Chip",
+"fr": "Chip Nefarious"
+},
+"140": {
+"en": "Amoeboid Chip",
+"fr": "Chip Améboïde"
+},
+"141": {
+"en": "Megalopolis Sparky",
+"fr": "Sparky Mégalopolis"
+},
+"142": {
+"en": "Raritanium Lump",
+"fr": "Lump Raritanium"
+},
+"143": {
+"en": "Sprocket",
+"fr": "Sprocket"
+},
+"144": {
+"en": "Megalopolis Mopz",
+"fr": "Mopz Mégalopolis"
+},
+"145": {
+"en": "Megacorp Lil'Ann",
+"fr": "Lil'Ann MégaCorp"
+},
+"146": {
+"en": "McMarx Sports Celeste",
+"fr": "Céleste McMarx Sports"
+},
+"147": {
+"en": "Raritanium Chip",
+"fr": "Chip Raritanium"
+},
+"148": {
+"en": "Robot Celeste",
+"fr": "Céleste Robot"
+},
+"149": {
+"en": "Raritanium Sparky",
+"fr": "Sparky Raritanium"
+},
+"150": {
+"en": "Blackwater Sprocket",
+"fr": "Sprocket Blackwater"
+},
+"151": {
+"en": "Zed",
+"fr": "Zed"
+},
+"152": {
+"en": "Amoeboid Celeste",
+"fr": "Céleste Améboïde"
+},
+"153": {
+"en": "Robot Sparky",
+"fr": "Sparky Robot"
+},
+"154": {
+"en": "Nefarious Tempest",
+"fr": "Tempest Nefarious"
+},
+"155": {
+"en": "Megacorp Zed",
+"fr": "Zed MégaCorp"
+},
+"156": {
+"en": "Megacorp Sprocket",
+"fr": "Sprocket MégaCorp"
+},
+"157": {
+"en": "Dreadzone Zed",
+"fr": "Zed Dreadzone"
+},
+"158": {
+"en": "Nefarious Zed",
+"fr": "Zed Nefarious"
+},
+"159": {
+"en": "Mob Rush",
+"fr": "Invasion"
+},
+"160": {
+"en": "Rivet",
+"fr": "Rivet"
+},
+"161": {
+"en": "Grimshot",
+"fr": "Grimshot"
+},
+"162": {
+"en": "Dimensional Lump",
+"fr": "Lump Dimensionnel"
+},
+"164": {
+"en": "Dimensional Helen",
+"fr": "Helen Dimensionnelle"
+},
+"165": {
+"en": "McMarx Sports Widget",
+"fr": "Widget McMarx Sports"
+},
+"166": {
+"en": "Zoni Widget",
+"fr": "Widget Zoni"
+},
+"167": {
+"en": "Qwark Force Celeste",
+"fr": "Céleste Force Qwark"
+},
+"168": {
+"en": "McMarx Sports Chip",
+"fr": "Chip McMarx Sports"
+},
+"169": {
+"en": "McMarx Sports Lump",
+"fr": "Lump McMarx Sports"
+},
+"172": {
+"en": "Robot Sprocket",
+"fr": "Sprocket Robot"
+},
+"173": {
+"en": "McMarx Sports Sprocket",
+"fr": "Sprocket McMarx Sports"
+},
+"176": {
+"en": "Raritanium",
+"fr": "Raritanium"
+},
+"180": {
+"en": "Qredits",
+"fr": "Qrédits"
+},
+"181": {
+"en": "Power Cores",
+"fr": "Coeurs de puissance"
+},
+"182": {
+"en": "Hero Tokens",
+"fr": "Jetons de héros"
+},
+"183": {
+"en": "Weapon Tokens",
+"fr": "Jetons d'arme"
+},
+"184": {
+"en": "Lorbs",
+"fr": "Lorbes"
+},
+"185": {
+"en": "Fashionium",
+"fr": "Fashionium"
+},
+"186": {
+"en": "Rebel Widget",
+"fr": "Widget Rebelle"
+},
+"187": {
+"en": "Gary's disciple Lil'Ann",
+"fr": "Lil'Ann disciple de Gary"
+},
+"188": {
+"en": "Nefarious Lil'Ann",
+"fr": "Lil'Ann Nefarious"
+},
+"189": {
+"en": "Blackwater Celeste",
+"fr": "Céleste Blackwater"
+},
+"190": {
+"en": "Blackwater Zed",
+"fr": "Zed Blackwater"
+},
+"191": {
+"en": "Qforce Mopz",
+"fr": "Mopz Qforce"
+},
+"192": {
+"en": "Megacorp Tempest",
+"fr": "Tempest MégaCorp"
+},
+"193": {
+"en": "Team Total Rumble",
+"fr": "Total Rumble en équipe"
+},
+"194": {
+"en": "Raritanium Widget",
+"fr": "Widget Raritanium"
+},
+"195": {
+"en": "Raritanium Lil'Ann",
+"fr": "Lil'Ann Raritanium"
+},
+"196": {
+"en": "Qwark Ball",
+"fr": "Qwark Ball"
+},
+"197": {
+"en": "Amoeboid Grimshot",
+"fr": "Grimshot Améboïde"
+},
+"198": {
+"en": "Nefarious Grimshot",
+"fr": "Grimshot Nefarious"
+},
+"199": {
+"en": "Dreadzone Grimshot",
+"fr": "Grimshot Dreadzone"
+},
+"2": {
+"en": "Shatterbomb",
+"fr": "Bombe à dispersion"
+},
+"200": {
+"en": "DreadZone Lump",
+"fr": "Lump DreadZone"
+},
+"202": {
+"en": "Blackwater Steeljaw",
+"fr": "Steeljaw Blackwater"
+},
+"203": {
+"en": "Robot Steeljaw",
+"fr": "Steeljaw Robot"
+},
+"204": {
+"en": "Dreadzone Steeljaw",
+"fr": "Steeljaw Dreadzone"
+},
+"205": {
+"en": "Amoeboid Steeljaw",
+"fr": "Steeljaw Améboïde"
+},
+"206": {
+"en": "Ancient Lombax Sprocket",
+"fr": "Sprocket ancien Lombax"
+},
+"207": {
+"en": "Zoni Grimshot",
+"fr": "Grimshot Zoni"
+},
+"208": {
+"en": "Gary's disciple Grimshot",
+"fr": "Grimshot disciple de Gary"
+},
+"209": {
+"en": "Flare",
+"fr": "Flare"
+},
+"210": {
+"en": "Nakari",
+"fr": "Nakari"
+},
+"211": {
+"en": "Terry",
+"fr": "Terry"
+},
+"212": {
+"en": "Amoeboid Terry",
+"fr": "Terry Améboïde"
+},
+"213": {
+"en": "Qforce Terry",
+"fr": "Terry Qforce"
+},
+"214": {
+"en": "Galaxy Terry",
+"fr": "Terry galactique"
+},
+"215": {
+"en": "Zone Control",
+"fr": "Contrôle de zone"
+},
+"219": {
+"en": "Last Stand",
+"fr": "Dernier Survivant"
+},
+"220": {
+"en": "Clank Suit Widget",
+"fr": "Widget Tenue Clank"
+},
+"221": {
+"en": "Amoeboid Mopz",
+"fr": "Mopz Améboïde"
+},
+"222": {
+"en": "Zoni Chip",
+"fr": "Chip Zoni"
+},
+"223": {
+"en": "Rebel Sparky",
+"fr": "Sparky Rebelle"
+},
+"224": {
+"en": "Raritanium Tempest",
+"fr": "Tempest Raritanium"
+},
+"225": {
+"en": "McMarx Sports Molly",
+"fr": "Molly McMarx Sports"
+},
+"226": {
+"en": "Pirate Zed",
+"fr": "Zed Pirate"
+},
+"227": {
+"en": "Crumby",
+"fr": "Crumby"
+},
+"228": {
+"en": "Ratchet & Clank",
+"fr": "Ratchet & Clank"
+},
+"229": {
+"en": "Drill Thruster",
+"fr": "Perceuse rotative"
+},
+"230": {
+"en": "Voltage Drop",
+"fr": "Électrochoc"
+},
+"231": {
+"en": "Whirling Blades",
+"fr": "Lames tournoyantes"
+},
+"232": {
+"en": "Ratchet's Blaster",
+"fr": "Pistorafale de Ratchet"
+},
+"233": {
+"en": "Throwable Wrench",
+"fr": "Clé jetable"
+},
+"3": {
+"en": "Hunter Mine Launcher",
+"fr": "Lance-mines chasseuses"
+},
+"4": {
+"en": "Gatling",
+"fr": "Gatling"
+},
+"40": {
+"en": "Clank's bag",
+"fr": "Sac de Clank"
+},
+"5": {
+"en": "Blitz Gun",
+"fr": "Blitzotron"
+},
+"57": {
+"en": "Battle Royale",
+"fr": "Battle Royale"
+},
+"58": {
+"en": "King of the Hill",
+"fr": "Roi de la colline"
+},
+"59": {
+"en": "PvE",
+"fr": "Contre l'IA"
+},
+"6": {
+"en": "Void Repulser",
+"fr": "Repousse-vide"
+},
+"60": {
+"en": "Tower rush",
+"fr": "Course de la tour"
+},
+"64": {
+"en": "Cold Snap",
+"fr": "Glaglatron"
+},
+"65": {
+"en": "Warmonger",
+"fr": "Va-t-en-guerre"
+},
+"68": {
+"en": "Bolt Rush",
+"fr": "Bolt Rush"
+},
+"69": {
+"en": "Hoverboots",
+"fr": "Hoverbottes"
+},
+"70": {
+"en": "Mopz",
+"fr": "Mopz"
+},
+"71": {
+"en": "Lil'Ann",
+"fr": "Lil'Ann"
+},
+"72": {
+"en": "Pirate Widget",
+"fr": "Widget Pirate"
+},
+"74": {
+"en": "Celeste",
+"fr": "Céleste"
+},
+"80": {
+"en": "Chip",
+"fr": "Chip"
+},
+"82": {
+"en": "Widget",
+"fr": "Widget"
+},
+"85": {
+"en": "Steeljaw",
+"fr": "Steeljaw"
+},
+"87": {
+"en": "Megalopolis Lil'Ann",
+"fr": "Lil'Ann Mégalopolis"
+},
+"9": {
+"en": "Scorpion Flail",
+"fr": "Fléau-scorpion"
+}
+}
+}

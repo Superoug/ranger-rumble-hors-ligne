@@ -1,0 +1,2954 @@
+{
+ "parts": {
+  "AdsStatus": {
+   "0": "AdsStatus"
+  },
+  "AttributionData": {
+   "0": "AttributionData"
+  },
+  "BattleInfo": {
+   "0": "BattleInfo"
+  },
+  "CSGiftsStatus": {
+   "0": "CSGiftsStatus"
+  },
+  "CharacterCurrencies": {
+   "0": "CharacterCurrencies"
+  },
+  "DailyRewardsStatus": {
+   "0": "DailyRewardsStatus"
+  },
+  "EquippedSkins": {
+   "0": "UnlockableLoadout_EquippedSkins_prev1",
+   "1": "UnlockableLoadout_EquippedSkins"
+  },
+  "EventsStatus": {
+   "0": "EventsStatus"
+  },
+  "FTUEInfo": {
+   "0": "FTUEInfo"
+  },
+  "GameModeProgression": {
+   "0": "GameModeProgression"
+  },
+  "LockedHeroesLorbs": {
+   "0": "LockedHeroesLorbs"
+  },
+  "MainCurrencies": {
+   "0": "MainCurrencies"
+  },
+  "MedalRunState": {
+   "0": "MedalRunState"
+  },
+  "MessagesStatus": {
+   "0": "MessagesStatus"
+  },
+  "MissionsStatus": {
+   "0": "MissionsStatus"
+  },
+  "PendingLoots": {
+   "0": "PendingLoots"
+  },
+  "PlayPrefs": {
+   "0": "PlayPrefs"
+  },
+  "PlayerAnalyticsInfo": {
+   "0": "PlayerAnalyticsInfo"
+  },
+  "PlayerTimeInfo": {
+   "0": "PlayerTimeInfo"
+  },
+  "PopupStatus": {
+   "0": "PopupStatus"
+  },
+  "PrivacyFlowStatus": {
+   "0": "PrivacyFlowStatus"
+  },
+  "RecentPlayersInformation": {
+   "0": "RecentPlayersInformation"
+  },
+  "SaveInfo": {
+   "0": "SaveInfo"
+  },
+  "SeasonPassStatus": {
+   "0": "SeasonPassStatus"
+  },
+  "ShopStatus": {
+   "0": "ShopStatus"
+  },
+  "SkinPreferences": {
+   "0": "SkinPreferences"
+  },
+  "SurveyCampaignsStatus": {
+   "0": "SurveyCampaignsStatus"
+  },
+  "UnlockablesNotifications": {
+   "0": "UnlockableCollection_UnlockablesNotifications_prev1",
+   "1": "UnlockableCollection_UnlockablesNotifications"
+  },
+  "UnlockedCurrencies": {
+   "0": "UnlockableCollection_UnlockedCurrencies_prev1",
+   "1": "UnlockableCollection_UnlockedCurrencies"
+  },
+  "UnlockedFeatures": {
+   "0": "UnlockableMaskCollection_UnlockedFeatures_prev1",
+   "1": "UnlockableMaskCollection_UnlockedFeatures"
+  },
+  "UnlockedGameModes": {
+   "0": "UnlockableCollection_UnlockedGameModes_prev1",
+   "1": "UnlockableCollection_UnlockedGameModes"
+  },
+  "UnlockedHeroes": {
+   "0": "UpgradableUnlockableCollection_UnlockedHeroes_prev1",
+   "1": "UpgradableUnlockableCollection_UnlockedHeroes"
+  },
+  "UnlockedSkins": {
+   "0": "UnlockableCollection_UnlockedSkins_prev1",
+   "1": "UnlockableCollection_UnlockedSkins"
+  },
+  "UnlockedWeapons": {
+   "0": "UpgradableUnlockableCollection_UnlockedWeapons_prev1",
+   "1": "UpgradableUnlockableCollection_UnlockedWeapons"
+  },
+  "UserCentricsInfo": {
+   "0": "UserCentricsInfo"
+  },
+  "UserIdentity": {
+   "0": "UserIdentity"
+  },
+  "UserPrefs": {
+   "0": "UserPrefs"
+  },
+  "WeaponLoadoutByUID": {
+   "0": "UnlockableLoadout_WeaponLoadoutByUID_prev1",
+   "1": "UnlockableLoadout_WeaponLoadoutByUID"
+  },
+  "WeaponsStatus": {
+   "0": "WeaponsStatus"
+  }
+ },
+ "types": {
+  "ActiveEventInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "leaderboardId",
+     "string"
+    ],
+    [
+     1,
+     "leaderboardRoomId",
+     "string"
+    ],
+    [
+     2,
+     "seed",
+     "uint"
+    ],
+    [
+     3,
+     "highestScore",
+     "int"
+    ],
+    [
+     4,
+     "currentScore",
+     "int"
+    ],
+    [
+     5,
+     "currentRank",
+     "int"
+    ],
+    [
+     6,
+     "recreationEventCount",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "AdsStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "placementsStats",
+     "SortedDictionary<PLACEMENT_ID, PlacementStats>"
+    ],
+    [
+     1,
+     "adFeatureUnlockedEventSent",
+     "bool"
+    ],
+    [
+     2,
+     "adPopupShownAtLeastOneTime",
+     "bool"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "AnalyticsEventInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "lastVisitedTime",
+     "long"
+    ],
+    [
+     1,
+     "eventVisitCount",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "AttributionData": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Network",
+     "string"
+    ],
+    [
+     1,
+     "Campaign",
+     "string"
+    ],
+    [
+     2,
+     "AdGroup",
+     "string"
+    ],
+    [
+     3,
+     "Creative",
+     "string"
+    ],
+    [
+     4,
+     "ReattributionNetwork",
+     "string"
+    ],
+    [
+     5,
+     "ReattributionCampaign",
+     "string"
+    ],
+    [
+     6,
+     "ReattributionAdGroup",
+     "string"
+    ],
+    [
+     7,
+     "ReattributionCreative",
+     "string"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "BattleEntry": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "usedWeapons",
+     "UNLOCKABLE_ID[]"
+    ],
+    [
+     1,
+     "usedCharacter",
+     "CHARACTER_ID"
+    ],
+    [
+     2,
+     "usedGameMode",
+     "UNLOCKABLE_ID"
+    ],
+    [
+     3,
+     "weaponsLevels",
+     "SortedDictionary<UNLOCKABLE_ID, Int32>"
+    ],
+    [
+     4,
+     "result",
+     "BATTLE_RESULT"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "BattleInProgressInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "ID",
+     "long"
+    ],
+    [
+     1,
+     "gameMode",
+     "UNLOCKABLE_ID"
+    ],
+    [
+     2,
+     "userMustFinishBattle",
+     "bool"
+    ],
+    [
+     3,
+     "characterID",
+     "CHARACTER_ID"
+    ],
+    [
+     4,
+     "linkedEventID",
+     "EVENT_ID"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "BattleInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "battleCount",
+     "long"
+    ],
+    [
+     1,
+     "victoryCount",
+     "long"
+    ],
+    [
+     2,
+     "winStreak",
+     "WinStreak"
+    ],
+    [
+     3,
+     "battleInProgressInfo",
+     "BattleInProgressInfo"
+    ],
+    [
+     4,
+     "pendingBattleRewards",
+     "BattleRewards"
+    ],
+    [
+     5,
+     "currentBotDifficulty_0_100",
+     "int"
+    ],
+    [
+     6,
+     "victoryCountToday",
+     "long"
+    ],
+    [
+     7,
+     "defeatCountToday",
+     "long"
+    ],
+    [
+     8,
+     "lastPlayedMap",
+     "string"
+    ],
+    [
+     9,
+     "history",
+     "BattlesHistory"
+    ],
+    [
+     10,
+     "needToForceMapForNextFFABattle",
+     "bool"
+    ],
+    [
+     11,
+     "seenBiomesBitmask",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "BattleRewardMissionProgress": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "missionUniqueID",
+     "long"
+    ],
+    [
+     1,
+     "progressToAdd",
+     "long"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "BattleRewards": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "result",
+     "BATTLE_RESULT"
+    ],
+    [
+     1,
+     "rangerPointsGain",
+     "int"
+    ],
+    [
+     2,
+     "missionsProgress",
+     "List<BattleRewardMissionProgress>"
+    ],
+    [
+     3,
+     "totalSeasonXpGain",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "BattlesHistory": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "lastBattles",
+     "List<BattleEntry>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "BooleanMaskCollection": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "pages",
+     "Byte[]"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "CSGiftParam": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "title",
+     "string"
+    ],
+    [
+     1,
+     "description",
+     "string"
+    ],
+    [
+     2,
+     "csGift",
+     "GiftParam"
+    ],
+    [
+     3,
+     "showGiftInPopup",
+     "bool"
+    ],
+    [
+     4,
+     "source",
+     "LOOT_SOURCE"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "CSGiftsStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "allPendingCSGifts",
+     "List<CSGiftParam>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "CharacterCurrencies": {
+   "msgpack": true,
+   "fields": [
+    [
+     1,
+     "PendingValues",
+     "UInt32[][]"
+    ],
+    [
+     0,
+     "Values",
+     "UInt32[][]"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "CurrencyReward": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "currency",
+     "CURRENCY"
+    ],
+    [
+     1,
+     "rewardID",
+     "UNLOCKABLE_ID"
+    ],
+    [
+     2,
+     "amount",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "DailyRemainings": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "dayLocalTimestamp",
+     "long"
+    ],
+    [
+     1,
+     "victoriesLootboxCount",
+     "uint"
+    ],
+    [
+     2,
+     "bolts",
+     "uint"
+    ],
+    [
+     3,
+     "previousBolts",
+     "uint"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "DailyRewardsStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "amountOfDailyRewardsStarted",
+     "int"
+    ],
+    [
+     1,
+     "isNewUser",
+     "bool"
+    ],
+    [
+     2,
+     "curDayDateTimeLocal",
+     "long"
+    ],
+    [
+     3,
+     "startDateTimeLocal",
+     "long"
+    ],
+    [
+     4,
+     "lastRewardCollectedIndex",
+     "int"
+    ],
+    [
+     5,
+     "lastRewardCollectedDateTimeLocal",
+     "long"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "EventsStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "userEvents",
+     "List<UserEvent>"
+    ],
+    [
+     1,
+     "compensationFlags",
+     "long"
+    ],
+    [
+     2,
+     "pendingLeaderboards",
+     "List<RegisteredLeaderboardInfo>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "FTUEInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "version",
+     "int"
+    ],
+    [
+     1,
+     "currentStep",
+     "FTUE_STEP_ID"
+    ],
+    [
+     2,
+     "isBeginner",
+     "bool"
+    ],
+    [
+     3,
+     "firstFTUEInfoCardHasbeenShown",
+     "bool"
+    ],
+    [
+     4,
+     "userSkippedTutorialLevel",
+     "bool"
+    ],
+    [
+     5,
+     "currentStepID",
+     "string"
+    ],
+    [
+     6,
+     "isComplete",
+     "bool"
+    ],
+    [
+     7,
+     "abTestsGroups",
+     "long"
+    ],
+    [
+     8,
+     "abTestsInitied",
+     "long"
+    ],
+    [
+     9,
+     "firstBattlesInfos",
+     "List<FirstBattleInfo>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "FirstBattleInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "blaster_num_hits_players",
+     "int"
+    ],
+    [
+     1,
+     "blaster_num_headshots_players",
+     "int"
+    ],
+    [
+     2,
+     "blaster_num_critical_players",
+     "int"
+    ],
+    [
+     3,
+     "blaster_num_hits_mobs",
+     "int"
+    ],
+    [
+     4,
+     "blaster_num_critical_mobs",
+     "int"
+    ],
+    [
+     5,
+     "blaster_num_shots",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "GameModeProgression": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "squadSiegeLevel",
+     "int"
+    ],
+    [
+     1,
+     "stats",
+     "SortedDictionary<UNLOCKABLE_ID, GameModeStats>"
+    ],
+    [
+     2,
+     "squadSiegeStats",
+     "SquadSiegeStats"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "GameModeStats": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "battleCount",
+     "long"
+    ],
+    [
+     1,
+     "victoryCount",
+     "long"
+    ],
+    [
+     2,
+     "defeatCount",
+     "long"
+    ],
+    [
+     3,
+     "drawCount",
+     "long"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "GiftParam": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "id",
+     "string"
+    ],
+    [
+     1,
+     "currencyRewards",
+     "List<CurrencyReward>"
+    ],
+    [
+     2,
+     "unlockableRewards",
+     "List<UNLOCKABLE_ID>"
+    ],
+    [
+     3,
+     "lootBoxRewards",
+     "List<LootBoxReward>"
+    ],
+    [
+     4,
+     "heroLorbsRewards",
+     "List<HeroLorbsReward>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "HeroLorbsReward": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "characterID",
+     "CHARACTER_ID"
+    ],
+    [
+     1,
+     "amount",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "LockedHeroesLorbs": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "lorbsCount",
+     "SortedDictionary<UNLOCKABLE_ID, Int32>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "LootBoxReward": {
+   "msgpack": true,
+   "fields": [
+    [
+     1,
+     "amount",
+     "int"
+    ],
+    [
+     2,
+     "lootBoxID",
+     "LOOT_BOX_ID"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "LootData": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "type",
+     "LOOT_TYPE"
+    ],
+    [
+     1,
+     "amount",
+     "int"
+    ],
+    [
+     2,
+     "unlockableID",
+     "UNLOCKABLE_ID"
+    ],
+    [
+     3,
+     "currencyID",
+     "CURRENCY"
+    ],
+    [
+     4,
+     "rarityInfo",
+     "RARITY"
+    ],
+    [
+     5,
+     "lootBoxID",
+     "LOOT_BOX_ID"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "LootboxContainer": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "type",
+     "LOOT_BOX_ID"
+    ],
+    [
+     1,
+     "drawAmount",
+     "int"
+    ],
+    [
+     2,
+     "allLootIDs",
+     "List<Int32>"
+    ],
+    [
+     3,
+     "maxDisplayLevel",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "LootboxDescription": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "tapCount",
+     "uint"
+    ],
+    [
+     1,
+     "rarity",
+     "RARITY"
+    ],
+    [
+     2,
+     "size",
+     "int"
+    ],
+    [
+     3,
+     "type",
+     "LOOT_BOX_ID"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "MainCurrencies": {
+   "msgpack": true,
+   "fields": [
+    [
+     3,
+     "LastEarnSource",
+     "LOOT_SOURCE[]"
+    ],
+    [
+     4,
+     "LastSpendType",
+     "CURRENCY_SPEND_TYPE[]"
+    ],
+    [
+     1,
+     "Pending",
+     "Int32[]"
+    ],
+    [
+     2,
+     "PendingSource",
+     "LOOT_SOURCE[]"
+    ],
+    [
+     0,
+     "Values",
+     "Int32[]"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "MedalRunState": {
+   "msgpack": true,
+   "fields": [
+    [
+     1,
+     "charactersRewardsCollectedState",
+     "BooleanMaskCollection[]"
+    ],
+    [
+     2,
+     "ownedMedalsByCharacterId",
+     "UInt32[]"
+    ],
+    [
+     4,
+     "fakeMedals",
+     "int"
+    ],
+    [
+     5,
+     "appliedPatches",
+     "long"
+    ],
+    [
+     6,
+     "savedOwnedMedalsByCharacterId",
+     "UInt32[]"
+    ],
+    [
+     7,
+     "medalsHighScore",
+     "uint"
+    ],
+    [
+     8,
+     "medalRunCollectedCount",
+     "uint"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "MessageParam": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "type",
+     "MessageType"
+    ],
+    [
+     1,
+     "id",
+     "string"
+    ],
+    [
+     2,
+     "title",
+     "string"
+    ],
+    [
+     3,
+     "description",
+     "string"
+    ],
+    [
+     4,
+     "gifts",
+     "GiftParam"
+    ],
+    [
+     5,
+     "state",
+     "MessageState"
+    ],
+    [
+     6,
+     "expirationDate",
+     "long"
+    ],
+    [
+     7,
+     "receivedDate",
+     "long"
+    ],
+    [
+     8,
+     "spritePath",
+     "string"
+    ],
+    [
+     9,
+     "spriteOpenedPath",
+     "string"
+    ],
+    [
+     10,
+     "isLocalized",
+     "bool"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "MessagesStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "allMessages",
+     "List<MessageParam>"
+    ],
+    [
+     1,
+     "allSavedMessages",
+     "SortedDictionary<String, Int64>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "Mission": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "uniqueID",
+     "long"
+    ],
+    [
+     1,
+     "objective",
+     "MISSION_OBJECTIVE"
+    ],
+    [
+     2,
+     "category",
+     "MISSION_CATEGORY"
+    ],
+    [
+     3,
+     "modifier",
+     "MissionModifier"
+    ],
+    [
+     4,
+     "targetProgression",
+     "long"
+    ],
+    [
+     5,
+     "extraParam",
+     "int"
+    ],
+    [
+     6,
+     "isPaid",
+     "bool"
+    ]
+   ],
+   "base": "IComparable",
+   "unions": [],
+   "formatter": null
+  },
+  "MissionModifier": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "type",
+     "MISSION_MODIFIER_TYPE"
+    ],
+    [
+     1,
+     "metadata",
+     "List<Int32>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "MissionsStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "dailyMissions",
+     "List<Mission>"
+    ],
+    [
+     1,
+     "seasonalMissions",
+     "List<Mission>"
+    ],
+    [
+     2,
+     "progressionTable",
+     "SortedDictionary<Int64, Progression>"
+    ],
+    [
+     3,
+     "missionsID",
+     "int"
+    ],
+    [
+     4,
+     "dailiesEndTimestampLocal",
+     "long"
+    ],
+    [
+     5,
+     "storyProgressions",
+     "List<StoryProgress>"
+    ],
+    [
+     6,
+     "currentBiomeIndex",
+     "int"
+    ],
+    [
+     7,
+     "dailyMissionsResetFlag",
+     "bool"
+    ],
+    [
+     8,
+     "appliedPatches",
+     "long"
+    ],
+    [
+     9,
+     "eventMissions",
+     "List<Mission>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PendingLoot": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "loots",
+     "List<LootData>"
+    ],
+    [
+     1,
+     "lootboxes",
+     "List<LootboxDescription>"
+    ],
+    [
+     2,
+     "rng",
+     "int"
+    ],
+    [
+     3,
+     "source",
+     "LOOT_SOURCE"
+    ],
+    [
+     4,
+     "createdDateUtc",
+     "long"
+    ],
+    [
+     8,
+     "lootboxContainer",
+     "LootboxContainer"
+    ],
+    [
+     5,
+     "cheat_LootDataID",
+     "int"
+    ],
+    [
+     6,
+     "cheat_LootContent",
+     "LootData"
+    ],
+    [
+     7,
+     "cheat_forceSuperLucky",
+     "bool"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PendingLoots": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "pendingLoots",
+     "List<PendingLoot>"
+    ],
+    [
+     1,
+     "dailyRemainings",
+     "DailyRemainings"
+    ],
+    [
+     2,
+     "delayedPendingLoots",
+     "List<PendingLoot>"
+    ],
+    [
+     3,
+     "victoryLootboxStatus",
+     "VictoryLootboxStatus"
+    ],
+    [
+     4,
+     "pendingConversionsFlags",
+     "long"
+    ],
+    [
+     5,
+     "pendingConversionPopup",
+     "RETRO_COMPATIBILITY_CONVERSION_FLAG"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PlacementStats": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "currentDayIndexLocal",
+     "long"
+    ],
+    [
+     1,
+     "lastSuccessfulAdWatchDateTimeLocal",
+     "long"
+    ],
+    [
+     2,
+     "nAdsWatchedTotal",
+     "int"
+    ],
+    [
+     3,
+     "nAdsWatchedToday",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PlayPrefs": {
+   "msgpack": true,
+   "fields": [
+    [
+     2,
+     "selectedGameMode",
+     "UNLOCKABLE_ID"
+    ],
+    [
+     3,
+     "eventMask",
+     "long"
+    ],
+    [
+     4,
+     "cachedGameMode",
+     "UNLOCKABLE_ID"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PlayerAnalyticsInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "dollarSpent",
+     "double"
+    ],
+    [
+     1,
+     "boltsCollected",
+     "int"
+    ],
+    [
+     2,
+     "goalsScored",
+     "int"
+    ],
+    [
+     3,
+     "rivalsEliminated",
+     "int"
+    ],
+    [
+     4,
+     "levelReached",
+     "int"
+    ],
+    [
+     5,
+     "transactionCount",
+     "int"
+    ],
+    [
+     6,
+     "startVersion",
+     "string"
+    ],
+    [
+     7,
+     "lastPurchases",
+     "Queue<PurchaseInfo>"
+    ],
+    [
+     8,
+     "numberOfFriendInvitesSent",
+     "long"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PlayerTimeInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "dayStartLocal_LatestPlayDay",
+     "long"
+    ],
+    [
+     1,
+     "debugTimeOffset",
+     "long"
+    ],
+    [
+     2,
+     "nowUTC_ProfileCreation",
+     "long"
+    ],
+    [
+     3,
+     "differentCalendarPlayDays",
+     "int"
+    ],
+    [
+     4,
+     "consecutivePlayDayStreak",
+     "int"
+    ],
+    [
+     5,
+     "activeUserStatus",
+     "ActiveUserStatus"
+    ],
+    [
+     6,
+     "nowLocal_LatestPlayDay",
+     "long"
+    ],
+    [
+     7,
+     "nowLocal_CurrSessionEnd",
+     "long"
+    ],
+    [
+     8,
+     "nowLocal_LastSessionEnd",
+     "long"
+    ],
+    [
+     9,
+     "num_sessions",
+     "long"
+    ],
+    [
+     10,
+     "nowLocal_currTimeTick",
+     "long"
+    ],
+    [
+     11,
+     "totalSecondsPlayed",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PopupParam": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "id",
+     "POPUP_ID"
+    ],
+    [
+     1,
+     "openingAmount",
+     "int"
+    ],
+    [
+     2,
+     "openingAmountCurrentDay",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PopupStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "allOpenedPopup",
+     "List<PopupParam>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PreviousSeasonPassStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "totalSeasonPassXP",
+     "int"
+    ],
+    [
+     1,
+     "seasonIndex",
+     "int"
+    ],
+    [
+     2,
+     "lastCollectedIndices",
+     "Int32[]"
+    ],
+    [
+     3,
+     "autoCollectPendingLootList",
+     "List<PendingLoot>"
+    ],
+    [
+     4,
+     "currentStepIndex",
+     "int"
+    ],
+    [
+     5,
+     "wasPurchased",
+     "bool"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PrivacyFlowStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "status",
+     "PRIVACY_FLOW_STATUS"
+    ],
+    [
+     1,
+     "age",
+     "int"
+    ],
+    [
+     2,
+     "countryCode",
+     "string"
+    ],
+    [
+     3,
+     "ageLimit",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "Progression": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "currentProgress",
+     "long"
+    ],
+    [
+     1,
+     "targetProgress",
+     "long"
+    ],
+    [
+     3,
+     "status",
+     "Status"
+    ],
+    [
+     4,
+     "generatedMetadata",
+     "List<Int32>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "PurchaseInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "productId",
+     "string"
+    ],
+    [
+     1,
+     "contentId",
+     "string"
+    ],
+    [
+     2,
+     "purchaseDateUTC",
+     "long"
+    ],
+    [
+     3,
+     "dollarAmount",
+     "double"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "RecentPlayerData": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "onlineId",
+     "string"
+    ],
+    [
+     1,
+     "isAlly",
+     "bool"
+    ],
+    [
+     2,
+     "gameMode",
+     "UNLOCKABLE_ID"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "RecentPlayersInformation": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "recentPlayers",
+     "List<RecentPlayerData>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "RegisteredLeaderboardInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "eventID",
+     "EVENT_ID"
+    ],
+    [
+     1,
+     "leaderboardID",
+     "string"
+    ],
+    [
+     2,
+     "roomID",
+     "string"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "SaveInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "saveResetKey",
+     "string"
+    ],
+    [
+     2,
+     "isInEditor",
+     "bool"
+    ],
+    [
+     3,
+     "saveVersionNumber",
+     "int"
+    ],
+    [
+     4,
+     "highestLastVersionUsed",
+     "string"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "SeasonPassStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "xpEarnedToday",
+     "int"
+    ],
+    [
+     1,
+     "curDayDateTimeUTC",
+     "long"
+    ],
+    [
+     2,
+     "passStartDateTimeUTC",
+     "long"
+    ],
+    [
+     3,
+     "passEndDateTimeUTC",
+     "long"
+    ],
+    [
+     4,
+     "seasonPassLevel",
+     "int"
+    ],
+    [
+     5,
+     "seasonID",
+     "int"
+    ],
+    [
+     6,
+     "lastCollectedIndices",
+     "Int32[]"
+    ],
+    [
+     7,
+     "cheat_forceSkinLoots",
+     "bool"
+    ],
+    [
+     8,
+     "version",
+     "int"
+    ],
+    [
+     9,
+     "previousSeasonPassStatus",
+     "PreviousSeasonPassStatus"
+    ],
+    [
+     10,
+     "pendingFlyingSesonPassXP",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "ShopOfferStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "offerUniqueID",
+     "int"
+    ],
+    [
+     1,
+     "purchasedTimeStamp",
+     "long"
+    ],
+    [
+     2,
+     "purchasedMainContentID",
+     "UNLOCKABLE_ID"
+    ],
+    [
+     3,
+     "expirationTimeStamp",
+     "long"
+    ],
+    [
+     4,
+     "enabled",
+     "bool"
+    ],
+    [
+     5,
+     "campaignID",
+     "string"
+    ],
+    [
+     6,
+     "overrideProductId",
+     "INAPP_PRODUCT"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "ShopStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "offers",
+     "List<ShopOfferStatus>"
+    ],
+    [
+     1,
+     "curDayDateTimeLocal",
+     "long"
+    ],
+    [
+     2,
+     "installDayDateTimeLocal",
+     "long"
+    ],
+    [
+     3,
+     "appliedPatches",
+     "long"
+    ],
+    [
+     4,
+     "dailyOfferPurchasedCount",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "SkinPreferences": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "preferedSkins",
+     "SortedDictionary<UNLOCKABLE_ID, UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "SquadSiegeStats": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "level",
+     "int"
+    ],
+    [
+     1,
+     "wave",
+     "int"
+    ],
+    [
+     2,
+     "levelClaimed",
+     "int"
+    ],
+    [
+     3,
+     "waveClaimed",
+     "int"
+    ],
+    [
+     4,
+     "medalLevelProgress",
+     "int"
+    ],
+    [
+     5,
+     "medalWaveProgress",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "StoryProgress": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "storyId",
+     "STORY_ID"
+    ],
+    [
+     1,
+     "chapterProgressions",
+     "List<Progression>"
+    ],
+    [
+     2,
+     "version",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "SurveyCampaignsStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "surveyCampaigns",
+     "SortedDictionary<String, SurveyStatus>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "SurveyStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "nextSurveyToConsumeIndex",
+     "int"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Items",
+     "List<UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": "IReadonlyUnlockableCollection",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection_UnlockablesNotifications": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UnlockableCollection"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection_UnlockablesNotifications_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Items",
+     "List<UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection_UnlockedCurrencies": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UnlockableCollection"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection_UnlockedCurrencies_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Items",
+     "List<UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection_UnlockedGameModes": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UnlockableCollection"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection_UnlockedGameModes_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Items",
+     "List<UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection_UnlockedSkins": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UnlockableCollection"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableCollection_UnlockedSkins_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Items",
+     "List<UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableLoadout": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Slots",
+     "List<UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableLoadout_EquippedSkins": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UnlockableLoadout"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableLoadout_EquippedSkins_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Slots",
+     "List<UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableLoadout_WeaponLoadoutByUID": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UnlockableLoadout"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableLoadout_WeaponLoadoutByUID_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Slots",
+     "List<UNLOCKABLE_ID>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableMaskCollection": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "_pages",
+     "List<Int32>"
+    ]
+   ],
+   "base": "IReadonlyUnlockableCollection",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableMaskCollection_UnlockedFeatures": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UnlockableMaskCollection"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UnlockableMaskCollection_UnlockedFeatures_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "_pages",
+     "List<Int32>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UpgradableUnlockableCollection": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Items",
+     "List<UpgradableUnlockableCollectionElement>"
+    ]
+   ],
+   "base": "IReadonlyUnlockableCollection",
+   "unions": [],
+   "formatter": null
+  },
+  "UpgradableUnlockableCollectionElement": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "id",
+     "UNLOCKABLE_ID"
+    ],
+    [
+     1,
+     "Data",
+     "List<Int32>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UpgradableUnlockableCollection_UnlockedHeroes": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UpgradableUnlockableCollection"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UpgradableUnlockableCollection_UnlockedHeroes_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Items",
+     "List<UpgradableUnlockableCollectionElement>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UpgradableUnlockableCollection_UnlockedWeapons": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "unlockables",
+     "UpgradableUnlockableCollection"
+    ]
+   ],
+   "base": "ISavePartMigration",
+   "unions": [],
+   "formatter": null
+  },
+  "UpgradableUnlockableCollection_UnlockedWeapons_prev1": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "Items",
+     "List<UpgradableUnlockableCollectionElement>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UserCentricsInfo": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "countryCode",
+     "string"
+    ],
+    [
+     1,
+     "regionCode",
+     "string"
+    ],
+    [
+     2,
+     "controllerID",
+     "string"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UserEvent": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "eventID",
+     "EVENT_ID"
+    ],
+    [
+     1,
+     "startTimeUTC",
+     "long"
+    ],
+    [
+     2,
+     "tickets",
+     "int"
+    ],
+    [
+     3,
+     "lastTicketTimeUTC",
+     "long"
+    ],
+    [
+     4,
+     "tokens",
+     "int"
+    ],
+    [
+     5,
+     "rewardIndex",
+     "int"
+    ],
+    [
+     6,
+     "eventEndCleanupDone",
+     "bool"
+    ],
+    [
+     7,
+     "badgingBitField",
+     "long"
+    ],
+    [
+     8,
+     "cheat_forcedUnlockedDaysCount",
+     "int"
+    ],
+    [
+     9,
+     "eventLogicIsInInLocalTime",
+     "bool"
+    ],
+    [
+     10,
+     "allCompensationLoots",
+     "List<LootData>"
+    ],
+    [
+     11,
+     "activeEventInfo",
+     "ActiveEventInfo"
+    ],
+    [
+     12,
+     "analyticsEventInfo",
+     "AnalyticsEventInfo"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UserIdentity": {
+   "msgpack": true,
+   "fields": [
+    [
+     1,
+     "isPlaytestCloudBuild",
+     "bool"
+    ],
+    [
+     2,
+     "NicknameUpdateCount",
+     "int"
+    ],
+    [
+     3,
+     "NicknameChangeToken",
+     "bool"
+    ],
+    [
+     4,
+     "nicknameSetFromSNS",
+     "bool"
+    ],
+    [
+     0,
+     "Nickname",
+     "string"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "UserPrefs": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "netRegion",
+     "string"
+    ],
+    [
+     1,
+     "camRotateOption",
+     "bool"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "VictoryLootboxStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "version",
+     "int"
+    ],
+    [
+     1,
+     "unlockedCount",
+     "uint"
+    ],
+    [
+     2,
+     "timerStart",
+     "long"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "WeaponsStatus": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "lockedWeaponsBlueprints",
+     "SortedDictionary<UNLOCKABLE_ID, Int32>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  },
+  "WinStreak": {
+   "msgpack": true,
+   "fields": [
+    [
+     0,
+     "currentCapped",
+     "uint"
+    ],
+    [
+     1,
+     "invalidated",
+     "bool"
+    ],
+    [
+     2,
+     "highest",
+     "uint"
+    ],
+    [
+     3,
+     "current",
+     "uint"
+    ],
+    [
+     4,
+     "winStreakPerCharacter",
+     "SortedDictionary<CHARACTER_ID, UInt32>"
+    ]
+   ],
+   "base": null,
+   "unions": [],
+   "formatter": null
+  }
+ },
+ "enums": {
+  "ActiveUserStatus": {
+   "0": "New",
+   "1": "Returning",
+   "2": "Active",
+   "3": "Committed"
+  },
+  "BATTLE_RESULT": {
+   "0": "UNKNOWN",
+   "1": "WIN",
+   "2": "LOSE",
+   "3": "DRAW"
+  },
+  "CHARACTER_ID": {
+   "0": "NONE",
+   "1": "CLANK_BAG",
+   "2": "SANDY",
+   "3": "RAIDEN",
+   "4": "LIL_ANN",
+   "5": "CELESTE",
+   "6": "CHIP",
+   "7": "STEELJAW",
+   "8": "FUSE",
+   "9": "LUMP",
+   "10": "MARKUS",
+   "11": "CHANCE",
+   "12": "MOLLY",
+   "13": "HELEN",
+   "14": "SPROCKET",
+   "15": "ZEDONE",
+   "16": "AVATAR",
+   "17": "GRIMSHOT",
+   "18": "FLARE",
+   "19": "NAKARI",
+   "20": "TERRY",
+   "21": "CRUMBY",
+   "22": "RATCHET"
+  },
+  "CURRENCY": {
+   "0": "NONE",
+   "1": "RARITANIUM",
+   "2": "SEASON_PASS_XP",
+   "3": "RANGER_POINTS_DEPRECATED",
+   "4": "EVENT_TOKENS",
+   "5": "CREDITS",
+   "6": "CORES",
+   "7": "HERO_TOKENS_DEPRECATED",
+   "8": "WEAPON_TOKENS_DEPRECATED",
+   "9": "HERO_LORBS",
+   "10": "FASHIONIUM",
+   "11": "COUNT"
+  },
+  "CURRENCY_SPEND_TYPE": {
+   "0": "UNKNOWN",
+   "1": "HERO_UNLOCK",
+   "2": "HERO_UPGRADE",
+   "3": "WEAPON_UNLOCK",
+   "4": "WEAPON_UPGRADE",
+   "5": "NICKNAME_CHANGE",
+   "6": "CHEAT",
+   "7": "CUSTOMER_SUPPORT",
+   "8": "SEASON_PASS_RESET",
+   "9": "SHOP",
+   "10": "REGEN_DAILY_MISSIONS",
+   "11": "SAVE_WINSTREAK",
+   "12": "SKIN_UNLOCK",
+   "13": "WEAPON_ENHANCE",
+   "14": "TALENT_UNLOCK"
+  },
+  "EVENT_ID": {
+   "0": "NONE",
+   "1": "COLLECT_ZURKON",
+   "2": "RANDOM_WEAPON",
+   "3": "WELCOME_00",
+   "4": "RATCHET_EVENT",
+   "5": "LEADERBOARD_ELIMINATION",
+   "6": "COUNT"
+  },
+  "FTUE_STEP_ID": {
+   "0": "NONE",
+   "1": "GAMEPLAY_TUTORIAL",
+   "2": "META1",
+   "3": "META2",
+   "4": "META3",
+   "5": "META4",
+   "6": "META5",
+   "7": "META6",
+   "8": "META7",
+   "9": "COMPLETE"
+  },
+  "INAPP_PRODUCT": {
+   "0": "None",
+   "1": "Raritanium_02",
+   "2": "Raritanium_05",
+   "3": "Raritanium_10",
+   "4": "Raritanium_20",
+   "5": "Raritanium_50",
+   "6": "Raritanium_100",
+   "7": "WelcomeOffer_05",
+   "8": "Hero_Upgrade_10",
+   "9": "Super_Pass_12",
+   "10": "WeaponBoost_03",
+   "11": "WeaponBoost_05"
+  },
+  "LOOT_BOX_ID": {
+   "0": "NONE",
+   "1": "WIN",
+   "2": "COMMON",
+   "3": "RARE",
+   "4": "EPIC",
+   "5": "TUTO1",
+   "6": "TUTO2",
+   "7": "TUTO3",
+   "8": "COUNT"
+  },
+  "LOOT_SOURCE": {
+   "-1": "UNKNOWN",
+   "0": "SEASON_PASS",
+   "1": "DAILY_REWARDS",
+   "2": "SHOP",
+   "3": "PLAYER_JOURNEY",
+   "4": "HEROES_MENU",
+   "5": "ARSENAL_MENU",
+   "6": "MEDAL_RUN",
+   "7": "CS_GIFT",
+   "8": "EVENT",
+   "9": "INBOX",
+   "10": "MISSIONS",
+   "11": "DAILY_GIFTS",
+   "12": "CHEAT",
+   "13": "NEW_USER",
+   "14": "COMPENSATION",
+   "15": "FTUE",
+   "16": "SURVEY_GIFT",
+   "17": "HERO_MEDALS",
+   "18": "EVENT_MISSION",
+   "19": "SQUAD_SIEGE_WAVE",
+   "20": "CONVERSION",
+   "21": "AD"
+  },
+  "LOOT_TYPE": {
+   "0": "NONE",
+   "1": "WEAPON_UNLOCK",
+   "2": "SKIN",
+   "3": "LOOT_BOX",
+   "5": "BLUEPRINT_DEPRECATED",
+   "6": "CURRENCY",
+   "8": "FEATURE_UNLOCK",
+   "9": "BIOME",
+   "10": "GAME_MODE",
+   "11": "BLUEPRINT_FAVORITE_WEAPON_DEPRECATED",
+   "12": "HERO_UNLOCK",
+   "13": "HERO_LORBS"
+  },
+  "MISSION_CATEGORY": {
+   "0": "NONE",
+   "1": "SINGLE_GAME",
+   "2": "SESSION",
+   "3": "CHALLENGE"
+  },
+  "MISSION_MODIFIER_TYPE": {
+   "0": "NONE",
+   "1": "GAME_MODE",
+   "2": "RARITY",
+   "3": "WITH_RANDOM_HERO_1",
+   "4": "WITH_RANDOM_HERO_3",
+   "5": "WITH_RANDOM_WEAPON_1",
+   "6": "WITH_RANDOM_WEAPON_3",
+   "7": "SPECIFIC_HERO",
+   "8": "SPECIFIC_WEAPON"
+  },
+  "MISSION_OBJECTIVE": {
+   "0": "NONE",
+   "1": "ELIMINATE_N_MOBS",
+   "2": "ELIMINATE_N_OPPONENTS",
+   "3": "WIN_N_BATTLES",
+   "4": "BREAK_N_CRATES",
+   "5": "USE_ULTIMATE_N_TIMES",
+   "6": "PICKUP_GOLDEN_BOLT_N_TIMES",
+   "7": "SCORE_N_GOALS",
+   "8": "GRIND_FOR_N_SECONDS",
+   "9": "REACH_MEDALS",
+   "10": "OWN_WEAPONS",
+   "11": "UPGRADE_WEAPONS",
+   "12": "ENHANCE_WEAPONS",
+   "13": "PLAY_N_GAMES",
+   "14": "DAILY_MISSION",
+   "15": "SHOP_SOFT",
+   "16": "GATHER_BOLTS",
+   "17": "SPEND_HARD",
+   "18": "PLAY_N_GAMES_IN_SQUAD",
+   "19": "OWN_HEROES",
+   "20": "UPGRADE_HEROES",
+   "21": "ENHANCE_HEROES",
+   "22": "FINISH_TUTORIAL",
+   "23": "DEAL_X_DAMAGE",
+   "24": "MEDALS_HERO",
+   "25": "UPGRADE_HEROES_N_TIMES",
+   "26": "UPGRADE_WEAPONS_N_TIMES",
+   "27": "USE_GADGET_N_TIMES"
+  },
+  "MessageState": {
+   "0": "NONE",
+   "1": "WAITING",
+   "2": "OPENED",
+   "3": "HIDDEN"
+  },
+  "MessageType": {
+   "0": "NONE",
+   "1": "INFO",
+   "2": "GIFT",
+   "3": "SURVEY_WITH_GIFT"
+  },
+  "PLACEMENT_ID": {
+   "0": "MAIN_MENU_AD_BUTTON"
+  },
+  "POPUP_ID": {
+   "0": "NONE",
+   "1": "APP_RATING",
+   "2": "SEASON_PASS_REWARDS",
+   "3": "EVENT_INFO",
+   "4": "SHOP_OFFER",
+   "5": "RETRO_COMPAT_CONVERSION",
+   "6": "EVENT_COMPENSATION"
+  },
+  "PRIVACY_FLOW_STATUS": {
+   "0": "NOT_DONE",
+   "1": "DONE_TRACKING_ALLOWED",
+   "2": "DONE_TRACKING_FORBIDDEN"
+  },
+  "RARITY": {
+   "0": "NONE",
+   "1": "COMMON",
+   "2": "RARE",
+   "3": "EPIC",
+   "4": "COUNT"
+  },
+  "RETRO_COMPATIBILITY_CONVERSION_FLAG": {
+   "1": "HERO_LORBS_AND_GADGETS_190"
+  },
+  "STORY_ID": {
+   "0": "None",
+   "1": "PlayerJourney"
+  },
+  "Status": {
+   "0": "Initialized",
+   "1": "NewPending",
+   "2": "Pending",
+   "3": "Collected",
+   "4": "Locked"
+  },
+  "UNLOCKABLE_ID": {
+   "0": "NONE",
+   "1": "WP_BLASTER",
+   "2": "WP_GRENADELAUNCHER",
+   "3": "WP_MINELAUNCHER",
+   "4": "WP_GATLING",
+   "5": "WP_SHOTGUN",
+   "6": "WP_VOIDREPULSER",
+   "9": "WP_SCORPIONFLAIL_DEPRECATED",
+   "10": "WP_GLOVEOFDOOM",
+   "11": "WP_HEADHUNTER",
+   "12": "WP_WRENCH_DEPRECATED",
+   "13": "WP_SUCKER_DEPRECATED",
+   "40": "SKIN_CLANK_BAG_SKIN00",
+   "41": "SKIN_CLANK_BAG_SKIN01_DEPRECATED",
+   "42": "SKIN_CLANK_BAG_SKIN02_DEPRECATED",
+   "43": "SKIN_CLANK_BAG_SKIN03_DEPRECATED",
+   "44": "SKIN_CLANK_BAG_SKIN04_DEPRECATED",
+   "45": "SKIN_CLANK_BAG_SKIN05_DEPRECATED",
+   "46": "SKIN_CLANK_BAG_SKIN06_DEPRECATED",
+   "57": "GAME_MODE_BATTLE_ROYALE_DEPRECATED",
+   "58": "GAME_MODE_KING_OF_THE_HILL_DEPRECATED",
+   "59": "GAME_MODE_PVE_DEPRECATED",
+   "60": "GAME_MODE_TOWER_RUSH_DEPRECATED",
+   "64": "WP_COLDSNAP",
+   "65": "WP_WARMONGER",
+   "68": "GAME_MODE_BOLT_RUSH_DEPRECATED",
+   "69": "WP_HOVERBOOTS",
+   "70": "SKIN_RAIDEN_SKIN00",
+   "71": "SKIN_LIL_ANN_SKIN00",
+   "72": "SKIN_SANDY_SKIN02",
+   "74": "SKIN_CELESTE_SKIN00",
+   "78": "ULTIMATE_NEGATRON_DEPRECATED",
+   "79": "ULTIMATE_SHEEPINATOR_DEPRECATED",
+   "80": "SKIN_CHIP_SKIN00",
+   "81": "ULTIMATE_RYNO_DEPRECATED",
+   "82": "SKIN_SANDY_SKIN00",
+   "83": "SKIN_SANDY_SKIN01_DEPRECATED",
+   "84": "SKIN_SANDY_SKIN03_DEPRECATED",
+   "85": "SKIN_STEELJAW_SKIN00",
+   "86": "SKIN_LIL_ANN_SKIN01_DEPRECATED",
+   "87": "SKIN_LIL_ANN_SKIN02",
+   "88": "FEATURE_GAMEPLAY_ULTIMATE",
+   "89": "FEATURE_SYSTEM_SHOP",
+   "90": "FEATURE_SYSTEM_SEASON_PASS",
+   "91": "FEATURE_GAMEPLAY_SECOND_WEAPON_SLOT",
+   "92": "FEATURE_GAMEPLAY_THIRD_WEAPON_SLOT_DEPRECATED",
+   "93": "FEATURE_SYSTEM_ADVENTURE_TRACK",
+   "94": "FEATURE_SYSTEM_ARSENAL",
+   "95": "FEATURE_SYSTEM_CHARACTER_MENU",
+   "96": "FEATURE_SYSTEM_QUESTS",
+   "97": "FEATURE_SYSTEM_DAILY_LIMITER",
+   "98": "FEATURE_SYSTEM_DAILY_WINS",
+   "99": "FEATURE_SYSTEM_DAILY_LOGIN_REWARDS",
+   "100": "FEATURE_SYSTEM_GROUP_PLAY",
+   "101": "FEATURE_SYSTEM_RANKINGS",
+   "102": "FEATURE_SYSTEM_EVENTS",
+   "103": "FEATURE_SYSTEM_CLANS",
+   "104": "SKIN_FUSE_SKIN00",
+   "105": "FEATURE_TRANSIENT_SEASON_PASS_PURCHASE",
+   "106": "WP_ENFORCER",
+   "107": "SKIN_LUMP_SKIN00",
+   "108": "SKIN_MARKUS_SKIN00",
+   "109": "SKIN_MARKUS_SKIN01_DEPRECATED",
+   "110": "SKIN_MARKUS_SKIN02",
+   "111": "SKIN_MARKUS_SKIN03",
+   "112": "SKIN_LIL_ANN_SKIN03",
+   "113": "WP_BUZZBLADES",
+   "114": "GAME_MODE_BOLT_RUSH_COOP_DEPRECATED",
+   "115": "WP_PLASMASTRIKER",
+   "116": "WP_BOMBARDIER",
+   "117": "WP_HOLOSHIELDGLOVE",
+   "118": "FEATURE_SYSTEM_GAME_MODES",
+   "119": "SKIN_CHANCE_SKIN00",
+   "120": "SKIN_RAIDEN_SKIN04",
+   "121": "SKIN_FUSE_SKIN01",
+   "122": "SKIN_MOLLY_SKIN00",
+   "123": "SKIN_HELEN_SKIN00",
+   "124": "FEATURE_SYSTEM_SQUAD",
+   "125": "GAME_MODE_FREE_FOR_ALL",
+   "126": "GAME_MODE_BLAST_BALL",
+   "127": "WP_PYROCITOR",
+   "128": "WP_TESLACLAW",
+   "129": "WP_AMOEBOIDLAUNCHER",
+   "130": "WP_LAVAGUN",
+   "131": "GAME_MODE_BOLT_KING",
+   "132": "FEATURE_SYSTEM_INBOX",
+   "133": "WP_TANKCANNON_DEPRECATED",
+   "134": "SKIN_LUMP_SKIN01",
+   "135": "WP_CRYOSLIDER",
+   "136": "SKIN_SANDY_SKIN04",
+   "137": "SKIN_RAIDEN_SKIN05",
+   "138": "SKIN_RAIDEN_SKIN06",
+   "139": "SKIN_CHIP_SKIN01",
+   "140": "SKIN_CHIP_SKIN02",
+   "141": "SKIN_FUSE_SKIN02",
+   "142": "SKIN_LUMP_SKIN02",
+   "143": "SKIN_SPROCKET_SKIN00",
+   "144": "SKIN_RAIDEN_SKIN07",
+   "145": "SKIN_LIL_ANN_SKIN04",
+   "146": "SKIN_CELESTE_SKIN02",
+   "147": "SKIN_CHIP_SKIN03",
+   "148": "SKIN_CELESTE_SKIN03",
+   "149": "SKIN_FUSE_SKIN03",
+   "150": "SKIN_SPROCKET_SKIN01",
+   "151": "SKIN_ZEDONE_SKIN00",
+   "152": "SKIN_CELESTE_SKIN04",
+   "153": "SKIN_FUSE_SKIN04",
+   "154": "SKIN_MARKUS_SKIN04",
+   "155": "SKIN_ZEDONE_SKIN02",
+   "156": "SKIN_SPROCKET_SKIN03",
+   "157": "SKIN_ZEDONE_SKIN01",
+   "158": "SKIN_ZEDONE_SKIN03",
+   "159": "GAME_MODE_SQUAD_SIEGE",
+   "160": "SKIN_AVATAR_SKIN00",
+   "161": "SKIN_GRIMSHOT_SKIN00",
+   "162": "SKIN_LUMP_SKIN04",
+   "163": "SKIN_MOLLY_SKIN03",
+   "164": "SKIN_HELEN_SKIN01_DEPRECATED",
+   "165": "SKIN_SANDY_SKIN05",
+   "166": "SKIN_SANDY_SKIN06",
+   "167": "SKIN_CELESTE_SKIN05",
+   "168": "SKIN_CHIP_SKIN04",
+   "169": "SKIN_LUMP_SKIN03",
+   "170": "SKIN_MOLLY_SKIN01",
+   "171": "SKIN_MOLLY_SKIN02",
+   "172": "SKIN_SPROCKET_SKIN02",
+   "173": "SKIN_SPROCKET_SKIN04",
+   "174": "FEATURE_SYSTEM_MEDALS",
+   "175": "FEATURE_TRANSIENT_NICKNAME_CHANGE_PURCHASE",
+   "176": "CURRENCY_RARITANIUM",
+   "177": "CURRENCY_SEASON_PASS_XP",
+   "178": "CURRENCY_RANGER_POINTS_DEPRECATED",
+   "179": "CURRENCY_EVENT_TOKENS",
+   "180": "CURRENCY_CREDITS",
+   "181": "CURRENCY_CORES",
+   "182": "CURRENCY_HERO_TOKENS_DEPRECATED",
+   "183": "CURRENCY_WEAPON_TOKENS_DEPRECATED",
+   "184": "CURRENCY_HERO_LORBS",
+   "185": "CURRENCY_FASHIONIUM",
+   "186": "SKIN_SANDY_SKIN07",
+   "187": "SKIN_LIL_ANN_SKIN05",
+   "188": "SKIN_LIL_ANN_SKIN06",
+   "189": "SKIN_CELESTE_SKIN06",
+   "190": "SKIN_ZEDONE_SKIN04",
+   "191": "SKIN_RAIDEN_SKIN08",
+   "192": "SKIN_MARKUS_SKIN05",
+   "193": "GAME_MODE_TEAM_TOTAL_RUMBLE",
+   "194": "SKIN_SANDY_SKIN08",
+   "195": "SKIN_LIL_ANN_SKIN07",
+   "196": "GAME_MODE_QWARK_BALL_DEPRECATED",
+   "197": "SKIN_GRIMSHOT_SKIN01",
+   "198": "SKIN_GRIMSHOT_SKIN03",
+   "199": "SKIN_GRIMSHOT_SKIN05",
+   "200": "SKIN_LUMP_SKIN05",
+   "201": "FEATURE_SYSTEM_WIN_STREAK",
+   "202": "SKIN_STEELJAW_SKIN01",
+   "203": "SKIN_STEELJAW_SKIN02",
+   "204": "SKIN_STEELJAW_SKIN03",
+   "205": "SKIN_STEELJAW_SKIN04",
+   "206": "SKIN_SPROCKET_SKIN05",
+   "207": "SKIN_GRIMSHOT_SKIN02",
+   "208": "SKIN_GRIMSHOT_SKIN04",
+   "209": "SKIN_FLARE_SKIN00",
+   "210": "SKIN_NAKARI_SKIN00",
+   "211": "SKIN_TERRY_SKIN00",
+   "212": "SKIN_TERRY_SKIN01",
+   "213": "SKIN_TERRY_SKIN02",
+   "214": "SKIN_TERRY_SKIN04",
+   "215": "GAME_MODE_ZONE_CONTROL",
+   "216": "FEATURE_GAMEPLAY_DASH",
+   "217": "FEATURE_GAMEPLAY_DOUBLE_JUMP",
+   "218": "FEATURE_GAMEPLAY_HELIPACK",
+   "219": "GAME_MODE_ELIMINATION",
+   "220": "SKIN_SANDY_SKIN09",
+   "221": "SKIN_RAIDEN_SKIN09",
+   "222": "SKIN_CHIP_SKIN05",
+   "223": "SKIN_FUSE_SKIN05",
+   "224": "SKIN_MARKUS_SKIN06",
+   "225": "SKIN_MOLLY_SKIN05",
+   "226": "SKIN_ZEDONE_SKIN05",
+   "227": "SKIN_CRUMBY_SKIN00",
+   "228": "SKIN_RATCHET_SKIN00",
+   "229": "WP_WIDGETMELEEGADGET",
+   "230": "WP_ELECTRICGRENADE",
+   "231": "WP_LILANNMELEEGADGET",
+   "232": "WP_RATCHETBLASTER",
+   "233": "WP_WRENCHTHROW",
+   "234": "FEATURE_SYSTEM_MAIN_MENU_ADS_BUTTON"
+  }
+ }
+}
