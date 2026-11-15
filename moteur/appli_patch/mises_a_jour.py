@@ -41,7 +41,14 @@ def latest_release(depot=None):
     tag = str(release.get('tag_name', '')).lstrip('vV')
     if not tag:
         return None
-    return {'version': tag, 'notes': (release.get('body') or '').strip(), 'page': release.get('html_url'), 'zip': assets.get(ASSET), 'sha256': assets.get(ASSET + '.sha256')}
+    game = None
+    if assets.get('version.json'):
+        try:
+            with copie_android.url_open(assets['version.json'], timeout=15) as answer:
+                game = json.load(answer).get('jeu')
+        except Exception:
+            game = None
+    return {'version': tag, 'jeu': game, 'notes': (release.get('body') or '').strip(), 'page': release.get('html_url'), 'zip': assets.get(ASSET), 'sha256': assets.get(ASSET + '.sha256')}
 
 def download(url, path):
     with copie_android.url_open(url, timeout=300) as answer, open(path, 'wb') as out:
@@ -114,6 +121,15 @@ def phone_signature(adb, serial):
     _, out, _ = copie_android.run(adb, '-s', serial, 'shell', 'dumpsys', 'package', copie_android.PACKAGE, timeout=60)
     found = copie_android.SIGNATURES.search(out)
     return found.group(1) if found else None
+
+def phone_game_version(adb, serial):
+    remote = f'/sdcard/Android/data/{copie_android.PACKAGE}/files/rr_editeur/version.json'
+    code, out, _ = copie_android.run(adb, '-s', serial, 'shell', 'cat', remote, timeout=60)
+    try:
+        info = json.loads(out)
+        return info.get('jeu') or info.get('version')
+    except ValueError:
+        return None
 
 def phone_save(adb, serial, copies):
     import datetime

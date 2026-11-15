@@ -16,6 +16,8 @@ import signature
 EXPECTED = {'lib/arm64-v8a/libil2cpp.so': 'bb8134f5de8b646caa8db1441cb9d3253cf1ac8d75710972d13e768b9c57a5aa', 'assets/bin/Data/Managed/Metadata/global-metadata.dat': '028b8ac2aafe771681d2c81e28ded2616662bc6e00211863c3e68b0410d95e8b'}
 PARTS = {'com.playstation.rattlesnake.apk': ('com.playstation.rattlesnake.apk', 'base.apk'), 'config.arm64_v8a.apk': ('config.arm64_v8a.apk', 'split_config.arm64_v8a.apk'), 'UnityDataAssetPack.apk': ('UnityDataAssetPack.apk', 'split_UnityDataAssetPack.apk')}
 KEY_FOLDER = os.path.join(os.path.expanduser('~'), '.sauvegarde-rr')
+ARTBOOK = os.path.join(HERE, '..', 'artbook')
+OLD_110_SUBSET = os.path.join(HERE, '..', 'ressources_110', 'jeu_110_ecran_collecte.xapk')
 HERO_BUNDLES = [f'assets/aa/Android/skins_character_{name}_assets_all_{digest}.bundle' for name, digest in (('chance', 'ea1ae1112a40301e645b11ad648e496e'), ('molly', '80f842b062ace3fefa745878c83a6881'), ('helen', '4ef63d6105788453fb4e18743712bea3'), ('flare', '8159a571a17f52f74c15b2204f78c986'), ('nakari', 'a4eb9425bfd989f6ee7fb28826b49a60'), ('terry', 'de70656b1216b2c5250c779049a63de3'), ('crumby', '93cb392aad4df1691bf261475d287895'))]
 
 def say(text):
@@ -93,9 +95,11 @@ def build(official, old, out, data=None, save=None, copy=None, key_store=None, p
         extract(official, parts, PARTS)
         check_version(parts)
         old_version_pack(old, os.path.join(work, 'v1103'))
+        if not old_110 and os.path.isfile(OLD_110_SUBSET):
+            old_110 = OLD_110_SUBSET
         if old_110:
             check_110(old_110)
-            say("Jeu 1.1.0 fourni : l'écran de collecte de Mme Zurkon sera remis.")
+            say('Écran de collecte de Mme Zurkon (version 1.1.0) : remis.')
         if copy:
             data = donnees_capture.convert(copy, os.path.join(work, 'donnees'))
             if not save and (not new_game) and os.path.isfile(os.path.join(copy, 'save.msgpack')):
@@ -115,7 +119,7 @@ def build(official, old, out, data=None, save=None, copy=None, key_store=None, p
         os.makedirs(os.path.join(server, 'etat'))
         shutil.copytree(data, os.path.join(server, 'donnees'))
         unsigned = out + '.tmp'
-        run_script(os.path.join(ANDROID, 'assembler_apk.py'), [os.path.join(work, 'base.apk'), os.path.join(work, 'patched'), os.path.join(HERE, 'ressources', 'serveur.dex'), server, unsigned], {'RR_ALIGNE': '1', 'RR_SAUVEGARDE': os.path.abspath(save), 'RR_VERSION': '1.10.4', 'RR_ARTWORKS': os.path.abspath(artworks) if artworks else ''})
+        run_script(os.path.join(ANDROID, 'assembler_apk.py'), [os.path.join(work, 'base.apk'), os.path.join(work, 'patched'), os.path.join(HERE, 'ressources', 'serveur.dex'), server, unsigned], {'RR_ALIGNE': '1', 'RR_SAUVEGARDE': os.path.abspath(save), 'RR_VERSION': '1.10.4', 'RR_ARTWORKS': os.path.abspath(artworks) if artworks else '', 'RR_ARTBOOK': os.path.abspath(ARTBOOK) if os.path.isfile(os.path.join(ARTBOOK, 'artbook.json')) else ''})
         say('5/6 Signature...')
         key, cert = signature.load_key(key_store, password) if key_store else signature.load_or_make_key(KEY_FOLDER)
         signature.sign(unsigned, key, cert)

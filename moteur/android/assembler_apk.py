@@ -197,8 +197,6 @@ def add_artbook(target):
 
 def add_artworks(target):
     folder = os.environ.get('RR_ARTWORKS')
-    if os.environ.get('RR_ARTBOOK'):
-        return 0
     if not folder or not os.path.isdir(folder):
         return 0
     taken = set()
@@ -480,10 +478,11 @@ else:
     version_file = os.environ.get('RR_VERSION_OUTIL') or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'appli_patch', 'version.json')
     if os.path.isfile(version_file):
         tool_version = json.load(open(version_file, encoding='utf-8'))
+        game_version = {'jeu': tool_version.get('jeu', tool_version['version']), 'outil': tool_version['version'], 'depot': tool_version['depot']}
         if os.environ.get('RR_MAJ_URL'):
-            tool_version['url'] = os.environ['RR_MAJ_URL']
-        add(target, 'assets/rr_offline/version.json', json.dumps(tool_version).encode(), STORED)
-        print(f"version de l'outil : {tool_version['version']}")
+            game_version['url'] = os.environ['RR_MAJ_URL']
+        add(target, 'assets/rr_offline/version.json', json.dumps(game_version).encode(), STORED)
+        print(f"version du jeu : {game_version['jeu']} (outil {game_version['outil']})")
     book = add_artbook(target)
     pictures = add_artworks(target)
     if book or pictures:

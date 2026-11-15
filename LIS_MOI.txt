@@ -14,7 +14,9 @@ parties seront effacées. Cet outil fait quatre choses, chacune dans un onglet :
 2. FABRIQUER L'APK
    Fabrique une version du jeu qui marche sans serveur, pour un téléphone ou une
    tablette Android, avec ta sauvegarde dedans. Tu fournis toi-même le jeu officiel,
-   en versions 1.10.4 et 1.10.3 : l'outil ne contient aucun fichier du jeu.
+   en versions 1.10.4 et 1.10.3 : l'outil ne contient pas le jeu, il modifie le tien.
+   Il apporte tout le reste : l'artbook, des costumes, les cartes de Rivet, Juycee et
+   Wendy, les images de Mme Zurkon et l'écran de collecte de son événement.
 
 3. ÉDITER UNE SAUVEGARDE
    Change tout ce que tu veux dans une sauvegarde : héros débloqués et leur niveau,
@@ -42,9 +44,8 @@ CE QU'IL TE FAUT
   modèles du jeu). Compte quelques minutes.
 - Pour l'APK : les fichiers du jeu officiel en version 1.10.4 et en version 1.10.3, en
   .xapk (APKPure) ou .apkm (APKMirror). La 1.10.3 donne les modèles des 7 héros jamais
-  sortis. Facultatif : la version 1.1.0 en .xapk (APKPure), qui rend à l'événement de
-  Mme Zurkon son écran de collecte d'origine. Il faut aussi environ 5 Go libres sur
-  l'ordinateur, et un téléphone ou une tablette Android 64 bits (Android 7.1 ou plus récent).
+  sortis. Il faut aussi environ 5 Go libres sur l'ordinateur, et un téléphone ou une
+  tablette Android 64 bits (Android 7.1 ou plus récent).
 
 
 LANCER L'OUTIL
@@ -115,9 +116,6 @@ a. « Jeu officiel 1.10.4 » : clique sur « Choisir... » et prends le fichier 
    .apkm du jeu. L'outil vérifie que c'est bien la version 1.10.4.
    « Jeu officiel 1.10.3 » : pareil avec le fichier de la version 1.10.3. L'outil y prend
    seulement les 7 héros jamais sortis, et vérifie que c'est bien la bonne version.
-   « Jeu officiel 1.1.0 » (facultatif) : le fichier .xapk de la version 1.1.0. L'outil y
-   prend seulement l'écran de collecte de l'événement de Mme Zurkon. Sans lui, cet
-   événement garde l'écran de celui de Mopz.
 b. « Copie de sauvegarde » : choisis ta copie dans la liste (la plus récente est en
    haut). Elle doit être marquée « prête ».
 c. « Sauvegarde exportée » (facultatif) : un fichier exporté depuis RR Options, sur
@@ -176,9 +174,9 @@ e. Onglet 2 : choisis cette copie, puis ta sauvegarde exportée, ou coche « Nou
 Ne désinstalle pas le jeu officiel avant la copie : ses données partent avec lui. Si
 la version hors ligne est déjà installée, l'outil refuse de copier depuis elle.
 
-Garde aussi les fichiers du jeu officiel 1.10.4, 1.10.3 et 1.1.0 (.xapk ou .apkm) : ils
-ne seront peut-être plus téléchargeables après la fermeture des serveurs. Ils servent
-aussi aux mises à jour (onglet 4).
+Garde aussi les fichiers du jeu officiel 1.10.4 et 1.10.3 (.xapk ou .apkm) : ils ne
+seront peut-être plus téléchargeables après la fermeture des serveurs. Ils servent aussi
+aux mises à jour (onglet 4).
 
 
 =====================================================================
@@ -261,10 +259,14 @@ Garde une copie de ta sauvegarde avant de faire de gros changements.
 
 MISES À JOUR (onglet 4)
 -----------------------
-- À chaque ouverture, l'outil regarde si une nouvelle version est sortie. Si oui, le titre
-  de la fenêtre le dit : onglet 4, « Mettre à jour l'outil ». Tes copies ne bougent pas.
-  Relance l'outil ensuite.
-- Le jeu hors ligne du téléphone le dit aussi, dans sa boîte de réception (Inbox).
+- Il y a deux numéros de version : celui de l'OUTIL (ce logiciel) et celui du JEU (l'APK du
+  téléphone). Le jeu ne change pas à chaque version de l'outil : seulement quand le jeu
+  lui-même a des nouveautés.
+- À chaque ouverture, l'outil regarde si une nouvelle version de l'outil est sortie. Si oui,
+  le titre de la fenêtre le dit : onglet 4, « Mettre à jour l'outil ». Tes copies ne
+  bougent pas. Relance l'outil ensuite. L'onglet 4 dit aussi si le jeu change avec elle.
+- Le jeu hors ligne du téléphone prévient dans sa boîte de réception (Inbox) quand une
+  nouvelle version du JEU est sortie.
 - Pour mettre à jour le jeu du téléphone : branche-le, puis « Mettre à jour le jeu du
   téléphone ». L'outil refabrique l'APK avec les fichiers de l'onglet 2 et la sauvegarde
   actuelle du téléphone, et l'installe par-dessus : ta progression est gardée.
@@ -275,7 +277,9 @@ MISES À JOUR (onglet 4)
 
 GALERIE D'ARTWORKS
 ------------------
-- Dans le jeu : menu (les 3 traits en haut à droite) > ARTBOOK. Les images s'affichent en
+- Dans le jeu : menu (les 3 traits en haut à droite) > ARTBOOK. L'artbook du jeu (plus de
+  600 images rangées par thème) est là, et tes propres images au chapitre « Mes images ».
+  Les images s'affichent en
   grille ; touche une image pour la voir en grand (pince ou touche deux fois pour zoomer,
   glisse pour passer à la suivante, Retour pour revenir au jeu).
 - Pour y mettre des images : dans l'onglet 2, « Images de la galerie » (un dossier d'images
@@ -338,7 +342,5 @@ SI ÇA NE MARCHE PAS
   version 1.10.4 (pas 1.10.3 ni une autre).
 - « Le deuxième fichier n'est pas la version 1.10.3 attendue du jeu » : il faut
   exactement la version 1.10.3 pour ce champ.
-- « Le troisième fichier n'est pas la version 1.1.0 attendue du jeu » : ce champ attend
-  le .xapk de la version 1.1.0. Il est facultatif : vide-le si tu ne l'as pas.
 - La fabrication échoue faute de place : libère environ 5 Go sur le disque où l'APK
   est créé.

@@ -359,13 +359,10 @@ class Application:
         ttk.Entry(form, textvariable=self.artworks).grid(row=5, column=1, sticky='ew', padx=6)
         ttk.Button(form, text='Choisir...', command=self.pick_artworks).grid(row=5, column=2)
         self.old_110 = tk.StringVar()
-        ttk.Label(form, text='Jeu officiel 1.1.0\n(facultatif) :').grid(row=6, column=0, sticky='w', pady=3)
-        ttk.Entry(form, textvariable=self.old_110).grid(row=6, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Choisir...', command=self.pick_old_110).grid(row=6, column=2)
-        ttk.Label(form, text='APK à créer :').grid(row=7, column=0, sticky='w', pady=3)
-        ttk.Entry(form, textvariable=self.output_path).grid(row=7, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Choisir...', command=self.pick_output).grid(row=7, column=2)
-        paragraph(tab, "Sauvegarde exportée : un fichier exporté depuis RR Options (le jeu hors ligne sur Android), ou le save.msgpack d'une copie. S'il est choisi, l'APK part de cette progression au lieu de la sauvegarde de la copie. Une copie faite par le câble (Android) n'a pas de sauvegarde : choisis alors une sauvegarde exportée, ou « Nouvelle partie ». Images de la galerie : tes images (png, jpg), à voir dans le jeu par le menu (les 3 traits) > ARTBOOK. Jeu officiel 1.1.0 (un .xapk, facultatif) : l'événement de Mme Zurkon retrouve son écran de collecte d'origine.")
+        ttk.Label(form, text='APK à créer :').grid(row=6, column=0, sticky='w', pady=3)
+        ttk.Entry(form, textvariable=self.output_path).grid(row=6, column=1, sticky='ew', padx=6)
+        ttk.Button(form, text='Choisir...', command=self.pick_output).grid(row=6, column=2)
+        paragraph(tab, "Sauvegarde exportée : un fichier exporté depuis RR Options (le jeu hors ligne sur Android), ou le save.msgpack d'une copie. S'il est choisi, l'APK part de cette progression au lieu de la sauvegarde de la copie. Une copie faite par le câble (Android) n'a pas de sauvegarde : choisis alors une sauvegarde exportée, ou « Nouvelle partie ». Images de la galerie : tes images (png, jpg), à voir dans le jeu par le menu (les 3 traits) > ARTBOOK, au chapitre « Mes images », à côté de l'artbook.")
         actions = ttk.Frame(tab)
         actions.pack(anchor='w', pady=4)
         self.build_button = ttk.Button(actions, text="Fabriquer l'APK", command=self.build)
@@ -505,8 +502,10 @@ class Application:
 
     def updates_tab(self, notebook):
         tab = ttk.Frame(notebook, padding=12)
-        self.version = mises_a_jour.current()['version']
-        ttk.Label(tab, text="L'outil", font=('TkDefaultFont', 13, 'bold')).pack(anchor='w')
+        info = mises_a_jour.current()
+        self.version = info['version']
+        self.game = info.get('jeu') or info['version']
+        ttk.Label(tab, text="L'outil (ce logiciel)", font=('TkDefaultFont', 13, 'bold')).pack(anchor='w')
         self.release_text = paragraph(tab, f"Version de l'outil : {self.version}. Recherche d'une nouvelle version...")
         row = ttk.Frame(tab)
         row.pack(anchor='w', pady=6)
@@ -514,8 +513,8 @@ class Application:
         self.tool_button = ttk.Button(row, text="Mettre à jour l'outil", command=self.update_tool, state='disabled')
         self.tool_button.pack(side='left', padx=8)
         ttk.Separator(tab).pack(fill='x', pady=10)
-        ttk.Label(tab, text='Le jeu sur le téléphone Android', font=('TkDefaultFont', 13, 'bold')).pack(anchor='w')
-        paragraph(tab, "Quand une nouvelle version de l'outil est installée, le jeu hors ligne de ton téléphone peut recevoir ses nouveautés : branche le téléphone (débogage USB activé), puis clique ci-dessous. L'outil refabrique l'APK avec les fichiers de l'onglet 2 et la sauvegarde actuelle du téléphone, puis l'installe par-dessus l'ancien : ta progression est gardée. Le jeu se ferme pendant l'installation. Le jeu hors ligne prévient aussi tout seul, dans sa boîte de réception (Inbox), quand une nouvelle version est sortie.")
+        ttk.Label(tab, text="Le jeu (l'APK du téléphone Android)", font=('TkDefaultFont', 13, 'bold')).pack(anchor='w')
+        paragraph(tab, f"Cet outil fabrique la version {self.game} du jeu. Le jeu a son propre numéro : il ne change que quand le jeu lui-même change, pas à chaque mise à jour de l'outil. Le jeu hors ligne prévient tout seul, dans sa boîte de réception (Inbox), quand une nouvelle version du jeu est sortie.\nPour l'installer : mets d'abord l'outil à jour (ci-dessus), branche le téléphone (débogage USB activé), puis clique ci-dessous. L'outil refabrique l'APK avec les fichiers de l'onglet 2 et la sauvegarde actuelle du téléphone, puis l'installe par-dessus l'ancien : ta progression est gardée. Le jeu se ferme pendant l'installation.")
         row = ttk.Frame(tab)
         row.pack(anchor='w', pady=6)
         self.phone_button = ttk.Button(row, text='Mettre à jour le jeu du téléphone', command=self.update_phone)
@@ -532,7 +531,7 @@ class Application:
 
     def restore_settings(self):
         stored = mises_a_jour.settings()
-        for key, variable in (('official', self.official), ('old', self.old_version), ('artworks', self.artworks), ('old_110', self.old_110), ('output', self.output_path)):
+        for key, variable in (('official', self.official), ('old', self.old_version), ('artworks', self.artworks), ('output', self.output_path)):
             value = stored.get(key)
             if value and (key == 'output' or os.path.exists(value)) and (not variable.get().strip()):
                 variable.set(value)
@@ -550,7 +549,12 @@ class Application:
             self.tool_button.configure(state='disabled')
         elif mises_a_jour.newer(release['version'], self.version):
             notes = f"\n\nNouveautés :\n{release['notes'][:600]}" if release['notes'] else ''
-            self.release_text.configure(text=f"Version de l'outil : {self.version}. La version {release['version']} est sortie !{notes}")
+            game = release.get('jeu')
+            if game and mises_a_jour.newer(game, self.game):
+                after = f" Elle apporte aussi une nouvelle version du jeu ({game}) : après la mise à jour de l'outil, mets à jour le jeu du téléphone ci-dessous."
+            else:
+                after = ' Le jeu ne change pas : rien à refaire sur le téléphone.'
+            self.release_text.configure(text=f"Version de l'outil : {self.version}. La version {release['version']} de l'outil est sortie !{after}{notes}")
             self.tool_button.configure(state='normal')
             self.root.title(f"{TITLE}  —  nouvelle version {release['version']} disponible (onglet 4)")
             if not asked:
@@ -606,6 +610,9 @@ class Application:
         signature = mises_a_jour.phone_signature(adb, serial)
         if signature == copie_android.OFFICIAL_SIGNATURE:
             messagebox.showinfo(TITLE, "Le téléphone a le jeu officiel, pas la version hors ligne : il n'y a rien à mettre à jour. Pour installer la version hors ligne, fabrique l'APK dans l'onglet 2.")
+            return
+        phone_game = mises_a_jour.phone_game_version(adb, serial)
+        if phone_game and (not mises_a_jour.newer(self.game, phone_game)) and (not messagebox.askyesno(TITLE, f"Le téléphone a déjà la version {phone_game} du jeu : c'est la plus récente que cet outil fabrique. Le refabriquer et le réinstaller quand même ?")):
             return
         out = self.output_path.get().strip() or str(Path.home() / 'RangerRumble_hors_ligne.apk')
         artworks = self.artworks.get().strip() or None
