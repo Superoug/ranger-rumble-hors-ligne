@@ -343,6 +343,18 @@ def double_medal_gains(config):
     item['value'] = json.dumps(medals, separators=(',', ':'), ensure_ascii=False).encode()
     item['hash'] = hashlib.md5(item['value']).hexdigest()[:12]
     print(f'medailles : gains x{MEDAL_GAIN_FACTOR} ({doubled} valeurs, pertes inchangees)')
+RATCHET_FOR_GOOD_MEDALS = 1000
+HERO_UNLOCK = 12
+
+def ratchet_medal_road(config):
+    item = next((i for i in config['items'] if i['key'] == 'medalrun'))
+    medals = json.loads(item['value'])
+    road = medals['medalRoadByCharacterId'][RATCHET_CHARACTER]['Rewards']
+    reward = next((r for r in road if r['medalCountRequirement'] == RATCHET_FOR_GOOD_MEDALS))
+    reward['loot'] = {'type': HERO_UNLOCK, 'amount': 1, 'unlockableID': RATCHET_SKIN, 'currencyID': 0, 'rarityInfo': 0, 'lootBoxID': 0}
+    item['value'] = json.dumps(medals, separators=(',', ':'), ensure_ascii=False).encode()
+    item['hash'] = hashlib.md5(item['value']).hexdigest()[:12]
+    print(f'Ratchet : lui-meme sur sa ligne de medailles a {RATCHET_FOR_GOOD_MEDALS}')
 
 def open_cinematic_hero(config, character, skin, skin_name, offer_name, model=RATCHET_CHARACTER, model_skin=RATCHET_SKIN, model_skin_name='SKIN_RATCHET_SKIN00', hidden=False):
     items = {i['key']: i for i in config['items']}
@@ -470,6 +482,7 @@ else:
         shop_adjustments(config)
         gadget_plans_offer(config)
         double_medal_gains(config)
+        ratchet_medal_road(config)
     add(target, 'assets/rr_offline/config-map.msgpack', msgpack.packb(config, use_bin_type=True), STORED)
     for name in ('login_modele.msgpack', 'reponses.msgpack', 'er.json'):
         add(target, f'assets/rr_offline/{name}', open(os.path.join(data, name), 'rb').read(), STORED)
