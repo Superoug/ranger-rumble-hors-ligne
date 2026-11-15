@@ -358,10 +358,14 @@ class Application:
         ttk.Label(form, text='Images de la galerie\n(facultatif) :').grid(row=5, column=0, sticky='w', pady=3)
         ttk.Entry(form, textvariable=self.artworks).grid(row=5, column=1, sticky='ew', padx=6)
         ttk.Button(form, text='Choisir...', command=self.pick_artworks).grid(row=5, column=2)
-        ttk.Label(form, text='APK à créer :').grid(row=6, column=0, sticky='w', pady=3)
-        ttk.Entry(form, textvariable=self.output_path).grid(row=6, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Choisir...', command=self.pick_output).grid(row=6, column=2)
-        paragraph(tab, "Sauvegarde exportée : un fichier exporté depuis RR Options (le jeu hors ligne sur Android), ou le save.msgpack d'une copie. S'il est choisi, l'APK part de cette progression au lieu de la sauvegarde de la copie. Une copie faite par le câble (Android) n'a pas de sauvegarde : choisis alors une sauvegarde exportée, ou « Nouvelle partie ». Images de la galerie : tes images (png, jpg), à voir dans le jeu par le menu (les 3 traits) > ARTBOOK.")
+        self.old_110 = tk.StringVar()
+        ttk.Label(form, text='Jeu officiel 1.1.0\n(facultatif) :').grid(row=6, column=0, sticky='w', pady=3)
+        ttk.Entry(form, textvariable=self.old_110).grid(row=6, column=1, sticky='ew', padx=6)
+        ttk.Button(form, text='Choisir...', command=self.pick_old_110).grid(row=6, column=2)
+        ttk.Label(form, text='APK à créer :').grid(row=7, column=0, sticky='w', pady=3)
+        ttk.Entry(form, textvariable=self.output_path).grid(row=7, column=1, sticky='ew', padx=6)
+        ttk.Button(form, text='Choisir...', command=self.pick_output).grid(row=7, column=2)
+        paragraph(tab, "Sauvegarde exportée : un fichier exporté depuis RR Options (le jeu hors ligne sur Android), ou le save.msgpack d'une copie. S'il est choisi, l'APK part de cette progression au lieu de la sauvegarde de la copie. Une copie faite par le câble (Android) n'a pas de sauvegarde : choisis alors une sauvegarde exportée, ou « Nouvelle partie ». Images de la galerie : tes images (png, jpg), à voir dans le jeu par le menu (les 3 traits) > ARTBOOK. Jeu officiel 1.1.0 (un .xapk, facultatif) : l'événement de Mme Zurkon retrouve son écran de collecte d'origine.")
         actions = ttk.Frame(tab)
         actions.pack(anchor='w', pady=4)
         self.build_button = ttk.Button(actions, text="Fabriquer l'APK", command=self.build)
@@ -410,6 +414,11 @@ class Application:
         if path:
             self.phone_save.set(path)
 
+    def pick_old_110(self):
+        path = filedialog.askopenfilename(title='Jeu officiel 1.1.0 (facultatif)', filetypes=[('Jeu Android', '*.xapk'), ('Tous les fichiers', '*')])
+        if path:
+            self.old_110.set(path)
+
     def pick_artworks(self):
         path = filedialog.askdirectory(title="Dossier d'images pour la galerie du jeu")
         if path:
@@ -446,6 +455,10 @@ class Application:
         if artworks and (not os.path.isdir(artworks)):
             messagebox.showerror(TITLE, "Le dossier d'images de la galerie n'existe pas.")
             return
+        old_110 = self.old_110.get().strip() or None
+        if old_110 and (not os.path.isfile(old_110)):
+            messagebox.showerror(TITLE, "Le fichier du jeu officiel 1.1.0 n'existe pas (ce champ est facultatif : tu peux le vider).")
+            return
         if phone_save and (not is_save(phone_save)):
             messagebox.showerror(TITLE, "La sauvegarde exportée choisie n'est pas une sauvegarde de Ranger Rumble.")
             return
@@ -465,12 +478,12 @@ class Application:
         self.target = self.build_log
         self.build_button.configure(state='disabled')
         self.progress.start(12)
-        mises_a_jour.remember(official=official, old=old, copy=str(folder), output=out, artworks=artworks or '')
+        mises_a_jour.remember(official=official, old=old, copy=str(folder), output=out, artworks=artworks or '', old_110=old_110 or '')
 
         def work():
             error = None
             try:
-                patcher.build(official, old, out, save=phone_save, copy=str(folder), new_game=new_game, artworks=artworks)
+                patcher.build(official, old, out, save=phone_save, copy=str(folder), new_game=new_game, artworks=artworks, old_110=old_110)
             except SystemExit as stop:
                 error = str(stop)
             except Exception as failure:
@@ -519,7 +532,7 @@ class Application:
 
     def restore_settings(self):
         stored = mises_a_jour.settings()
-        for key, variable in (('official', self.official), ('old', self.old_version), ('artworks', self.artworks), ('output', self.output_path)):
+        for key, variable in (('official', self.official), ('old', self.old_version), ('artworks', self.artworks), ('old_110', self.old_110), ('output', self.output_path)):
             value = stored.get(key)
             if value and (key == 'output' or os.path.exists(value)) and (not variable.get().strip()):
                 variable.set(value)
@@ -596,6 +609,8 @@ class Application:
             return
         out = self.output_path.get().strip() or str(Path.home() / 'RangerRumble_hors_ligne.apk')
         artworks = self.artworks.get().strip() or None
+        old_110 = self.old_110.get().strip()
+        old_110 = old_110 if old_110 and os.path.isfile(old_110) else None
         self.building = True
         self.target = self.update_log
         self.phone_button.configure(state='disabled')
@@ -606,7 +621,7 @@ class Application:
             try:
                 save = mises_a_jour.phone_save(adb, serial, str(self.copies_folder()))
                 print('Sauvegarde du téléphone lue.' if save else "La version du jeu sur le téléphone ne donne pas sa sauvegarde par le câble : l'APK partira de celle de la copie (seulement s'il fallait le réinstaller).")
-                patcher.build(official, old, out, save=save, copy=str(folder), artworks=artworks)
+                patcher.build(official, old, out, save=save, copy=str(folder), artworks=artworks, old_110=old_110)
                 print('Installation sur le téléphone (le jeu se ferme)...')
                 copie_android.install(adb, serial, out)
             except copie_android.Problem as problem:

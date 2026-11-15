@@ -8,7 +8,7 @@ pause() {
   read _
 }
 
-if ! "$VENV/bin/python" -c "import mitmproxy, msgpack, segno, tkinter" >/dev/null 2>&1; then
+if ! "$VENV/bin/python" -c "import mitmproxy, msgpack, segno, tkinter, UnityPy, numpy, PIL" >/dev/null 2>&1; then
   PY=""
   for candidate in python3.14 python3.13 python3.12 python3; do
     if command -v "$candidate" >/dev/null 2>&1 &&
@@ -41,7 +41,7 @@ if ! "$VENV/bin/python" -c "import mitmproxy, msgpack, segno, tkinter" >/dev/nul
     pause
     exit 1
   fi
-  if ! "$VENV/bin/python" -m pip install --disable-pip-version-check -q "mitmproxy==12.3.1" "msgpack==1.2.4" "segno==1.6.1"; then
+  if ! "$VENV/bin/python" -m pip install --disable-pip-version-check -q "mitmproxy==12.3.1" "msgpack==1.2.4" "segno==1.6.1" "UnityPy==1.25.4" "numpy==2.5.4" "pillow==13.0.0"; then
     echo "L'installation a échoué. Vérifie la connexion Internet et réessaie."
     pause
     exit 1

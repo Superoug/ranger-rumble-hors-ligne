@@ -4,7 +4,7 @@ setlocal
 set "BASE=%LOCALAPPDATA%\sauvegarde-rr"
 set "VPY=%BASE%\venv\Scripts\python.exe"
 
-"%VPY%" -c "import mitmproxy, msgpack, segno, tkinter" >nul 2>&1
+"%VPY%" -c "import mitmproxy, msgpack, segno, tkinter, UnityPy, numpy, PIL" >nul 2>&1
 if not errorlevel 1 goto run
 
 set "PY="
@@ -25,7 +25,7 @@ echo Premiere utilisation : installation des composants, quelques minutes...
 if exist "%BASE%\venv" rmdir /s /q "%BASE%\venv"
 %PY% -m venv "%BASE%\venv"
 if errorlevel 1 goto fail
-"%VPY%" -m pip install --disable-pip-version-check -q "mitmproxy==12.3.1" "msgpack==1.2.4" "segno==1.6.1"
+"%VPY%" -m pip install --disable-pip-version-check -q "mitmproxy==12.3.1" "msgpack==1.2.4" "segno==1.6.1" "UnityPy==1.25.4" "numpy==2.5.4" "pillow==13.0.0"
 if errorlevel 1 goto fail
 
 :run

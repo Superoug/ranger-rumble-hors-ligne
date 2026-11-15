@@ -3673,7 +3673,7 @@ def patch_events_code(data):
         patch_collect_screen(data)
         patch_enemy_tokens(data)
         patch_podium_credits(data)
-OLD_110_XAPK = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ratchet-and-clank-ranger-rumble-1-1-0.xapk')
+OLD_110_XAPK = os.environ.get('RR_JEU_110', os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ratchet-and-clank-ranger-rumble-1-1-0.xapk'))
 COLLECT_SCREEN_FAMILIES = ('ui_atlases_', 'ui_bgs_', 'ui_animations_', 'fonts_', 'ui_materials_', 'fxmanager_', 'shared_textures_', 'default_common_group_', 'material_assets', 'ui_addressables_')
 MONOSCRIPTS_BUNDLE = 'assets/aa/Android/913fdc02988c9f04b9d53c5645e34846_monoscripts_b5e55861ec07d2dfb6815884c7e4041c.bundle'
 COLLECT_SCREEN_CODE = 72375620

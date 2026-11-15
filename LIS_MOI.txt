@@ -37,12 +37,14 @@ CE QU'IL TE FAUT
     Windows et Mac : https://www.python.org/downloads/ (Tkinter est inclus).
       Windows : pendant l'installation, coche la case « Add python.exe to PATH ».
     Linux : les paquets python3, python3-venv et python3-tk.
-- Internet la première fois : l'outil télécharge ses composants (mitmproxy, msgpack et segno,
-  qui dessine le QR code).
+- Internet la première fois : l'outil télécharge ses composants (mitmproxy, msgpack, segno,
+  qui dessine le QR code, et UnityPy, numpy et Pillow, qui retouchent les images et les
+  modèles du jeu). Compte quelques minutes.
 - Pour l'APK : les fichiers du jeu officiel en version 1.10.4 et en version 1.10.3, en
   .xapk (APKPure) ou .apkm (APKMirror). La 1.10.3 donne les modèles des 7 héros jamais
-  sortis. Il faut aussi environ 5 Go libres sur l'ordinateur, et un téléphone ou une
-  tablette Android 64 bits (Android 7.1 ou plus récent).
+  sortis. Facultatif : la version 1.1.0 en .xapk (APKPure), qui rend à l'événement de
+  Mme Zurkon son écran de collecte d'origine. Il faut aussi environ 5 Go libres sur
+  l'ordinateur, et un téléphone ou une tablette Android 64 bits (Android 7.1 ou plus récent).
 
 
 LANCER L'OUTIL
@@ -113,6 +115,9 @@ a. « Jeu officiel 1.10.4 » : clique sur « Choisir... » et prends le fichier 
    .apkm du jeu. L'outil vérifie que c'est bien la version 1.10.4.
    « Jeu officiel 1.10.3 » : pareil avec le fichier de la version 1.10.3. L'outil y prend
    seulement les 7 héros jamais sortis, et vérifie que c'est bien la bonne version.
+   « Jeu officiel 1.1.0 » (facultatif) : le fichier .xapk de la version 1.1.0. L'outil y
+   prend seulement l'écran de collecte de l'événement de Mme Zurkon. Sans lui, cet
+   événement garde l'écran de celui de Mopz.
 b. « Copie de sauvegarde » : choisis ta copie dans la liste (la plus récente est en
    haut). Elle doit être marquée « prête ».
 c. « Sauvegarde exportée » (facultatif) : un fichier exporté depuis RR Options, sur
@@ -171,8 +176,9 @@ e. Onglet 2 : choisis cette copie, puis ta sauvegarde exportée, ou coche « Nou
 Ne désinstalle pas le jeu officiel avant la copie : ses données partent avec lui. Si
 la version hors ligne est déjà installée, l'outil refuse de copier depuis elle.
 
-Garde aussi les fichiers du jeu officiel 1.10.4 et 1.10.3 (.xapk ou .apkm) : ils ne
-seront plus téléchargeables après la fermeture des serveurs.
+Garde aussi les fichiers du jeu officiel 1.10.4, 1.10.3 et 1.1.0 (.xapk ou .apkm) : ils
+ne seront peut-être plus téléchargeables après la fermeture des serveurs. Ils servent
+aussi aux mises à jour (onglet 4).
 
 
 =====================================================================
@@ -332,5 +338,7 @@ SI ÇA NE MARCHE PAS
   version 1.10.4 (pas 1.10.3 ni une autre).
 - « Le deuxième fichier n'est pas la version 1.10.3 attendue du jeu » : il faut
   exactement la version 1.10.3 pour ce champ.
+- « Le troisième fichier n'est pas la version 1.1.0 attendue du jeu » : ce champ attend
+  le .xapk de la version 1.1.0. Il est facultatif : vide-le si tu ne l'as pas.
 - La fabrication échoue faute de place : libère environ 5 Go sur le disque où l'APK
   est créé.

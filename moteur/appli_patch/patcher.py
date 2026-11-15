@@ -48,6 +48,18 @@ def old_version_pack(package, folder):
         names = set(pack.namelist())
     if any((name not in names for name in HERO_BUNDLES)):
         raise SystemExit("Le deuxième fichier n'est pas la version 1.10.3 attendue du jeu.")
+OLD_110_BUNDLES = ('scene_mainmenu_landscape_', '69b923348c4df9ad548573d6b86b9c62_monoscripts_')
+
+def check_110(package):
+    import io
+    try:
+        with zipfile.ZipFile(package) as archive:
+            pack = zipfile.ZipFile(io.BytesIO(archive.read('UnityDataAssetPack.apk')))
+            names = [n.split('/')[-1] for n in pack.namelist() if n.startswith('assets/aa/Android/')]
+    except (OSError, KeyError, zipfile.BadZipFile):
+        raise SystemExit("Le troisième fichier n'est pas le jeu officiel en version 1.1.0 (.xapk).")
+    if not all((any((n.startswith(prefix) for n in names)) for prefix in OLD_110_BUNDLES)):
+        raise SystemExit("Le troisième fichier n'est pas la version 1.1.0 attendue du jeu.")
 
 def rebuilt_base(original, target, copy=False):
     with zipfile.ZipFile(original) as source, zipfile.ZipFile(target, 'w', allowZip64=True) as out:
@@ -72,7 +84,7 @@ def run_script(path, argv, env):
         os.environ.update(saved_env)
         sys.path.remove(os.path.dirname(path))
 
-def build(official, old, out, data=None, save=None, copy=None, key_store=None, password=None, work=None, new_game=False, artworks=None):
+def build(official, old, out, data=None, save=None, copy=None, key_store=None, password=None, work=None, new_game=False, artworks=None, old_110=None):
     work = work or tempfile.mkdtemp(prefix='rr_patch_', dir=os.path.dirname(os.path.abspath(out)))
     try:
         parts = os.path.join(work, 'xapk')
@@ -81,6 +93,9 @@ def build(official, old, out, data=None, save=None, copy=None, key_store=None, p
         extract(official, parts, PARTS)
         check_version(parts)
         old_version_pack(old, os.path.join(work, 'v1103'))
+        if old_110:
+            check_110(old_110)
+            say("Jeu 1.1.0 fourni : l'écran de collecte de Mme Zurkon sera remis.")
         if copy:
             data = donnees_capture.convert(copy, os.path.join(work, 'donnees'))
             if not save and (not new_game) and os.path.isfile(os.path.join(copy, 'save.msgpack')):
@@ -92,7 +107,7 @@ def build(official, old, out, data=None, save=None, copy=None, key_store=None, p
         if not save:
             raise SystemExit('Choisis une sauvegarde, ou une nouvelle partie.')
         say('2/6 Retouches du jeu (quelques minutes)...')
-        run_script(os.path.join(ANDROID, 'construire_apk.py'), [parts, os.path.join(work, 'patched')], {'RR_SANS_CLANG': '1', 'RR_VERSION': '1.10.4', 'RR_HEROS_DOSSIER': os.path.join(work, 'heros')})
+        run_script(os.path.join(ANDROID, 'construire_apk.py'), [parts, os.path.join(work, 'patched')], {'RR_SANS_CLANG': '1', 'RR_VERSION': '1.10.4', 'RR_HEROS_DOSSIER': os.path.join(work, 'heros'), 'RR_JEU_110': os.path.abspath(old_110) if old_110 else ''})
         say('3/6 Manifeste...')
         rebuilt_base(os.path.join(parts, 'com.playstation.rattlesnake.apk'), os.path.join(work, 'base.apk'))
         say('4/6 Serveur, donnees et sauvegarde...')
@@ -154,9 +169,10 @@ def main():
     parser.add_argument('--cle')
     parser.add_argument('--mot-de-passe')
     parser.add_argument('--artworks', help="un dossier d'images pour la galerie du jeu (facultatif)")
+    parser.add_argument('--jeu-110', help="le jeu officiel en version 1.1.0 (facultatif : l'écran de Mme Zurkon)")
     args = parser.parse_args()
     if not args.copie and (not (args.donnees and (args.sauvegarde or args.nouvelle_partie))):
         parser.error('--copie, ou --donnees avec --sauvegarde ou --nouvelle-partie')
-    build(args.officiel, args.ancien, args.sortie, args.donnees, args.sauvegarde, args.copie, args.cle, args.mot_de_passe, new_game=args.nouvelle_partie, artworks=args.artworks)
+    build(args.officiel, args.ancien, args.sortie, args.donnees, args.sauvegarde, args.copie, args.cle, args.mot_de_passe, new_game=args.nouvelle_partie, artworks=args.artworks, old_110=args.jeu_110)
 if __name__ == '__main__':
     main()
