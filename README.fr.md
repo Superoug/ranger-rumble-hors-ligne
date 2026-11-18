@@ -6,35 +6,78 @@ Un outil pour continuer à jouer à *Ratchet & Clank: Ranger Rumble* après la f
 serveurs, le 1er mai 2027. Pour Windows et macOS, en 6 langues : anglais, français, espagnol,
 allemand, italien et portugais.
 
+## iPhone et Android
+
+- **La copie de sauvegarde se fait uniquement sur iPhone ou iPad.**
+- **Le jeu hors ligne (le mod) est uniquement pour Android.**
+- **Une copie faite sur iPhone marche sur Android** : ta progression iPhone continue dans le jeu
+  hors ligne, sur un téléphone ou une tablette Android.
+
 ## Ce que fait l'outil
 
 L'outil s'ouvre sur un accueil aux images du jeu. Tu choisis où est ton jeu (iPhone ou iPad,
 ou Android), puis tu suis les étapes.
 
-1. **Copier ma sauvegarde** (iPhone et iPad, avant le 1er mai 2027) : l'iPhone scanne un QR code
-   et installe un profil. Au démarrage du jeu, l'outil garde une copie de ta sauvegarde et des
-   données du jeu. Rien à régler à la main. Sur Android, il n'y a rien à copier.
-2. **Installer le jeu** : l'outil fabrique une version du jeu qui marche sans serveur (APK
-   Android), à partir du jeu officiel 1.10.4 que tu fournis, avec ta sauvegarde ou une nouvelle
-   partie. Puis il l'installe sur le téléphone par le câble.
+1. **Copier ma sauvegarde** (iPhone et iPad uniquement, avant le 1er mai 2027) : l'iPhone scanne
+   un QR code et installe un profil. Au démarrage du jeu, l'outil garde une copie de ta
+   sauvegarde et des données du jeu. Rien à régler à la main. Sur Android, il n'y a rien à
+   copier : tu pars d'une nouvelle partie.
+2. **Installer le jeu** (Android uniquement) : l'outil fabrique une version du jeu qui marche sans
+   serveur (APK Android), à partir du jeu officiel 1.10.4 que tu fournis, avec ta sauvegarde
+   iPhone ou une nouvelle partie. Puis il l'installe sur le téléphone par le câble.
 3. **Éditer une sauvegarde** : héros, niveaux, armes, costumes, médailles, monnaies,
    statistiques... Depuis un fichier, une copie ou directement le téléphone par le câble.
 4. **Mises à jour** : met l'outil à jour, puis le jeu du téléphone, sans perdre ta progression.
    Le jeu hors ligne annonce lui-même les nouvelles versions dans sa boîte de réception.
 
-## Ce que le jeu hors ligne ajoute
+## Nouveautés et modifications par rapport au jeu original
 
-- Les 7 héros jamais sortis (Molly, Helen, Terry, Crumby, Chance, Flare et Nakari), plus Juycee
-  et Rivet, avec Kit dans le dos et son propre marteau.
-- Les héros ajoutés se gagnent sur la Ranger Road, Nakari s'achète dans la boutique.
+Tout le jeu marche sans serveur : boutique, missions, événements, Ranger Road, amis.
+
+**Héros**
+
+- Les 7 héros jamais sortis : Molly, Helen, Terry, Crumby, Chance, Flare et Nakari.
+- Juycee et Rivet en plus. Rivet a Kit dans le dos, son propre marteau et une attaque sautée.
+- Les héros ajoutés se gagnent sur la Ranger Road, Nakari s'achète dans la boutique. Ils ont
+  chacun une attaque ultime.
+- Des costumes qui ne se téléchargeaient qu'en ligne (Molly, Terry).
+
+**Armes**
+
 - Chaque héros a son arme principale, et un gadget au choix comme arme secondaire.
-- Des modes et des événements : Bolt Rush (à plusieurs ou seul) et son Roi, Battle Royale à 16,
-  les événements de Mme Zurkon et de l'arme au hasard.
-- Jouer entre amis : sur le même Wi-Fi, ou à distance avec un code de salon.
-- Une boutique revue : offres en Qredits, échange de Qredits contre du Raritanium, plus d'offres
-  pour un héros ou une arme déjà au maximum.
-- L'artbook du jeu, et une galerie pour tes propres images.
-- Des costumes qui ne se téléchargeaient qu'en ligne, et le polonais en plus des langues du jeu.
+- L'arme et le gadget d'un héros se débloquent avec lui ; les armes sans héros s'achètent dans
+  la boutique.
+- Une arme jamais sortie : le Scorpion Flail.
+- L'accueil montre de nouveau les armes du héros, comme dans les anciennes versions.
+- Les dégâts de la perceuse sont affichés.
+
+**Modes et événements**
+
+- Bolt Rush à plusieurs, et Bolt Rush seul avec son Roi, comme dans la version 1.1.0 (difficulté
+  dans les réglages du jeu).
+- Battle Royale à 16 joueurs.
+- Les événements de Mme Zurkon et de l'arme au hasard, comme les développeurs les avaient
+  prévus, avec l'écran de collecte de la version 1.1.0.
+
+**Jouer à plusieurs**
+
+- Les amis sur le même Wi-Fi apparaissent dans le jeu : invitations et escouades de 3.
+- À distance, avec le code d'escouade du jeu.
+- Les combats en escouade marchent dans tous les modes, sauf Mob Rush.
+
+**Boutique et récompenses**
+
+- Offres de plans en Qredits, échange de Qredits contre du Raritanium.
+- Plus d'offres pour un héros ou une arme déjà au maximum ; quand tout est au maximum, les
+  tirages au hasard donnent des Qredits.
+- Du Raritanium dans les récompenses quotidiennes (jours 3 et 7).
+
+**Le reste**
+
+- Un artbook dans le menu du jeu : images du jeu, concepts, plans des cartes.
+- Une galerie pour tes propres images (Réseaux sociaux > ARTWORK).
+- Le jeu en polonais, en plus de ses langues.
+- Le jeu annonce les nouvelles versions de l'outil dans sa boîte de réception.
 
 ## Installer
 
@@ -52,7 +95,7 @@ expliqué pas à pas dans `LIS_MOI.txt`.
 Il te faut aussi le jeu officiel 1.10.4 (`.xapk`, `.apkm` ou `.apk` complet), 5 Go libres, et un
 téléphone ou une tablette Android 64 bits (Android 7.1 ou plus récent).
 
-## Nouveautés depuis la version 1.0.5
+## Nouveautés depuis la version 1.0.5 de l'outil
 
 **L'outil**
 
