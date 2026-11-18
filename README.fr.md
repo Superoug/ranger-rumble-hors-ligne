@@ -15,20 +15,19 @@ allemand, italien et portugais.
 
 ## Ce que fait l'outil
 
-L'outil s'ouvre sur un accueil aux images du jeu. Tu choisis où est ton jeu (iPhone ou iPad,
-ou Android), puis tu suis les étapes.
-
-1. **Copier ma sauvegarde** (iPhone et iPad uniquement, avant le 1er mai 2027) : l'iPhone scanne
-   un QR code et installe un profil. Au démarrage du jeu, l'outil garde une copie de ta
-   sauvegarde et des données du jeu. Rien à régler à la main. Sur Android, il n'y a rien à
-   copier : tu pars d'une nouvelle partie.
+1. **Copier ma sauvegarde** (iPhone et iPad uniquement, avant le 1er mai 2027) : Scanne avec ton iPhone 
+   un QR code et installe un profil depuis les réglages. Démarrage le jeu, l'outil garde une copie de ta
+   sauvegarde et des données du jeu. Sur Android, il n'y a rien à copier : tu pars d'une nouvelle partie.
 2. **Installer le jeu** (Android uniquement) : l'outil fabrique une version du jeu qui marche sans
    serveur (APK Android), à partir du jeu officiel 1.10.4 que tu fournis, avec ta sauvegarde
    iPhone ou une nouvelle partie. Puis il l'installe sur le téléphone par le câble.
-3. **Éditer une sauvegarde** : héros, niveaux, armes, costumes, médailles, monnaies,
+   (Sur Android va dans Paramètre USB active Transfert de fichiers)
+4. **Éditer une sauvegarde** : Modifie les héros, niveaux, armes, costumes, médailles, monnaies,
    statistiques... Depuis un fichier, une copie ou directement le téléphone par le câble.
-4. **Mises à jour** : met l'outil à jour, puis le jeu du téléphone, sans perdre ta progression.
+5. **Mises à jour** : Le jeu se met a jour directement sur l'outils avec un simple câble, sans perdre la progression.
    Le jeu hors ligne annonce lui-même les nouvelles versions dans sa boîte de réception.
+   
+Attention supprimer le jeu supprimera également la sauvegarde !
 
 ## Nouveautés et modifications par rapport au jeu original
 
@@ -36,18 +35,18 @@ Tout le jeu marche sans serveur : boutique, missions, événements, Ranger Road,
 
 **Héros**
 
-- Les 7 héros jamais sortis : Molly, Helen, Terry, Crumby, Chance, Flare et Nakari.
-- Juycee et Rivet en plus. Rivet a Kit dans le dos, son propre marteau et une attaque sautée.
-- Les héros ajoutés se gagnent sur la Ranger Road, Nakari s'achète dans la boutique. Ils ont
-  chacun une attaque ultime.
-- Des costumes qui ne se téléchargeaient qu'en ligne (Molly, Terry).
+- Ajout de 7 nouveaux héros: Molly, Helen, Terry, Crumby, Chance, Flare et Nakari.
+- Ajout du personnage de Rivet (Il s'agit d'un mod pas d'un personnage initialement prévus)
+- Nakari est à acheter à 750 raritanium.
+- La voie du Ranger à été mise à jour pour inclure les nouveaux héros.
+- Ajout de nouveaux orbes pour chaque nouveau héros. 
 
 **Armes**
 
-- Chaque héros a son arme principale, et un gadget au choix comme arme secondaire.
-- L'arme et le gadget d'un héros se débloquent avec lui ; les armes sans héros s'achètent dans
-  la boutique.
-- Une arme jamais sortie : le Scorpion Flail.
+- Les armes sont désormais séparer en 2 catégories. Les armes principales et les gadgets.
+- Chaque arme et gadget peut désormais être équipé sur chaque héros. 
+- Les armes et le gadget se débloquent sur la voie du ranger. 
+- Ajout d'une nouvelle armes 
 - L'accueil montre de nouveau les armes du héros, comme dans les anciennes versions.
 - Les dégâts de la perceuse sont affichés.
 
