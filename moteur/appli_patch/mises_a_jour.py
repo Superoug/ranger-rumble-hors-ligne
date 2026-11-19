@@ -10,7 +10,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 VERSION_FILE = os.path.join(HERE, 'version.json')
 SETTINGS = os.path.join(os.path.expanduser('~'), '.sauvegarde-rr', 'reglages.json')
 PACKAGE_NAME = 'OutilSauvegardeRR'
-OBSOLETE = ('lancer.sh',)
+OBSOLETE = ('lancer.sh', 'LIS_MOI.txt')
 ASSET = PACKAGE_NAME + '.zip'
 
 class Problem(Exception):

@@ -10,23 +10,24 @@ allemand, italien et portugais.
 
 - **La copie de sauvegarde se fait uniquement sur iPhone ou iPad.**
 - **Le jeu hors ligne (le mod) est uniquement pour Android.**
-- **Une copie faite sur iPhone marche sur Android** : ta progression iPhone continue dans le jeu
+- **Une copie faite sur iPhone marche sur Android** : la progression iPhone continue dans le jeu
   hors ligne, sur un téléphone ou une tablette Android.
 
 ## Ce que fait l'outil
 
-1. **Copier la sauvegarde** (iPhone et iPad uniquement, avant le 1er mai 2027) : scanne le QR code
-   avec l'iPhone, puis installe le profil depuis les Réglages. Au démarrage du jeu, l'outil garde
-   une copie de ta sauvegarde et des données du jeu. Sur Android, il n'y a rien à copier : tu pars
-   d'une nouvelle partie.
+1. **Copier la sauvegarde** (iPhone et iPad uniquement, avant le 1er mai 2027) : il faut scanner le
+   QR code avec l'iPhone, puis installer le profil depuis les Réglages. Au démarrage du jeu, l'outil
+   garde une copie de la sauvegarde et des données du jeu. Sur Android, il n'y a rien à copier : le
+   jeu part d'une nouvelle partie.
 2. **Installer le jeu** (Android uniquement) : l'outil fabrique une version du jeu qui marche sans
-   serveur (APK Android), à partir du jeu officiel 1.10.4 que tu fournis, avec ta sauvegarde
+   serveur (APK Android), à partir du jeu officiel 1.10.4 fourni par le joueur, avec la sauvegarde
    iPhone ou une nouvelle partie. Puis il l'installe sur le téléphone par le câble (sur Android,
-   active « Transfert de fichiers » dans les paramètres USB).
-3. **Éditer une sauvegarde** : modifie les héros, niveaux, armes, costumes, médailles, monnaies,
-   statistiques... depuis un fichier, une copie ou directement sur le téléphone par le câble.
+   il faut activer « Transfert de fichiers » dans les paramètres USB).
+3. **Éditer une sauvegarde** : modification des héros, niveaux, armes, costumes, médailles,
+   monnaies, statistiques... depuis un fichier, une copie ou directement sur le téléphone par le
+   câble.
 4. **Mises à jour** : le jeu se met à jour directement depuis l'outil, avec un simple câble, sans
-   perdre ta progression. Le jeu hors ligne annonce lui-même les nouvelles versions dans sa boîte
+   perdre la progression. Le jeu hors ligne annonce lui-même les nouvelles versions dans sa boîte
    de réception.
 
 Attention : supprimer le jeu supprime aussi la sauvegarde !
@@ -42,7 +43,7 @@ Tout le jeu marche sans serveur : boutique, missions, événements, Voie du Rang
 - Nakari s'achète pour 750 Raritanium.
 - La Voie du Ranger a été mise à jour pour inclure les nouveaux héros.
 - Ajout de nouveaux orbes pour chaque nouveau héros. Ils s'obtiennent en boutique ou dans les
-  Reebos. Une fois un héros au niveau maximum, le jeu ne te les propose plus.
+  Reebos. Une fois un héros au niveau maximum, le jeu ne les propose plus.
 
 **Armes**
 
@@ -51,7 +52,7 @@ Tout le jeu marche sans serveur : boutique, missions, événements, Voie du Rang
 - Les armes et les gadgets se débloquent sur la Voie du Ranger.
 - Ajout d'une nouvelle arme : le Fléau-scorpion.
 - L'accueil montre de nouveau les armes du héros, comme dans les anciennes versions.
-- Tu peux de nouveau améliorer les armes et les gadgets jusqu'au niveau 10.
+- Les armes et les gadgets s'améliorent de nouveau jusqu'au niveau 10.
 
 **Modes et événements**
 
@@ -65,7 +66,7 @@ Tout le jeu marche sans serveur : boutique, missions, événements, Voie du Rang
 
 - Les amis sur le même Wi-Fi apparaissent dans la liste d'amis : invitations et escouades de 3
   joueurs.
-- Tu peux jouer à distance avec un code d'escouade, jusqu'à 3 joueurs.
+- Jeu à distance avec un code d'escouade, jusqu'à 3 joueurs.
 - Les combats en escouade marchent dans tous les modes, sauf Mob Rush.
 
 **Boutique et récompenses**
@@ -76,25 +77,24 @@ Tout le jeu marche sans serveur : boutique, missions, événements, Voie du Rang
 **Autres**
 
 - Ajout d'un artbook dans le menu du jeu : images du jeu, concepts, plans des cartes.
-- Tu peux désormais choisir parmi quatre niveaux de difficulté (facile, normal, difficile, ultra
-  difficile).
+- Quatre niveaux de difficulté au choix (facile, normal, difficile, ultra difficile).
 - Nouvelle langue : le polonais.
 - Le jeu annonce maintenant les nouvelles versions dans sa boîte de réception.
 
 ## Installer
 
-Télécharge `OutilSauvegardeRR.zip` dans la dernière version (onglet **Releases**), puis
-décompresse-le.
+Télécharger `OutilSauvegardeRR.zip` dans la dernière version (onglet **Releases**), puis le
+décompresser.
 
-- **Windows** : la première fois, double-clique sur `Lancer (Windows).bat`. Il installe ce qu'il
+- **Windows** : la première fois, double-cliquer sur `Lancer (Windows).bat`. Il installe ce qu'il
   faut, puis crée le raccourci « Ranger Rumble hors ligne » sur le Bureau.
-- **Mac** : ouvre « Ranger Rumble hors ligne ». Si le Mac refuse : Réglages Système >
+- **Mac** : ouvrir « Ranger Rumble hors ligne ». Si le Mac refuse : Réglages Système >
   Confidentialité et sécurité > Ouvrir quand même.
 
 **Il est recommandé d'installer Python 3.15 avant.**
 
 La première installation prend quelques minutes (Python est téléchargé s'il manque). Tout est
-expliqué pas à pas dans `LIS_MOI.txt`.
+expliqué pas à pas dans `Read me.txt`.
 
 Il faut aussi le jeu officiel 1.10.4 (`.xapk`, `.apkm` ou `.apk` complet), 5 Go libres, et un
 téléphone ou une tablette Android 64 bits (Android 7.1 ou plus récent).

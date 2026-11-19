@@ -87,7 +87,7 @@ Download `OutilSauvegardeRR.zip` from the latest version (**Releases** tab), the
 **Installing Python 3.15 beforehand is recommended.**
 
 The first installation takes a few minutes (Python is downloaded if missing). Everything is
-explained step by step in `LIS_MOI.txt`.
+explained step by step in `Read me.txt`.
 
 You also need the official 1.10.4 game (`.xapk`, `.apkm` or a complete `.apk`), 5 GB free, and a
 64-bit Android phone or tablet (Android 7.1 or newer).
