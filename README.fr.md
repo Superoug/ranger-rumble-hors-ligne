@@ -15,8 +15,8 @@ allemand, italien et portugais.
 
 ## Ce que fait l'outil
 
-1. **Copier ma sauvegarde** (iPhone et iPad uniquement, avant le 1er mai 2027) : Scanne avec ton iPhone 
-   un QR code et installe un profil depuis les réglages. Démarrage le jeu, l'outil garde une copie de ta
+1. **Copier la sauvegarde** (iPhone et iPad uniquement, avant le 1er mai 2027) : Il faut scanner avec un iPhone 
+   le QR code et installer un profil depuis les réglages. Démarrage le jeu, l'outil garde une copie de ta
    sauvegarde et des données du jeu. Sur Android, il n'y a rien à copier : tu pars d'une nouvelle partie.
 2. **Installer le jeu** (Android uniquement) : l'outil fabrique une version du jeu qui marche sans
    serveur (APK Android), à partir du jeu officiel 1.10.4 que tu fournis, avec ta sauvegarde
@@ -39,44 +39,41 @@ Tout le jeu marche sans serveur : boutique, missions, événements, Ranger Road,
 - Ajout du personnage de Rivet (Il s'agit d'un mod pas d'un personnage initialement prévus)
 - Nakari est à acheter à 750 raritanium.
 - La voie du Ranger à été mise à jour pour inclure les nouveaux héros.
-- Ajout de nouveaux orbes pour chaque nouveau héros. 
+- Ajout de nouveaux orbes pour chaque nouveau héros. Ils sont récupérables soit en boutique, soit dans les Reno. Une fois au niveau maximum le je ne vous les proposera plus.  
 
 **Armes**
 
 - Les armes sont désormais séparer en 2 catégories. Les armes principales et les gadgets.
 - Chaque arme et gadget peut désormais être équipé sur chaque héros. 
 - Les armes et le gadget se débloquent sur la voie du ranger. 
-- Ajout d'une nouvelle armes 
+- Ajout d'une nouvelle arme le fluo-scorpion. 
 - L'accueil montre de nouveau les armes du héros, comme dans les anciennes versions.
-- Les dégâts de la perceuse sont affichés.
+- Vous pouvez de nouveau augmenter les armes et gadgets jusqu'au niveau 10. 
 
 **Modes et événements**
 
-- Bolt Rush à plusieurs, et Bolt Rush seul avec son Roi, comme dans la version 1.1.0 (difficulté
-  dans les réglages du jeu).
-- Battle Royale à 16 joueurs.
-- Les événements de Mme Zurkon et de l'arme au hasard, comme les développeurs les avaient
-  prévus, avec l'écran de collecte de la version 1.1.0.
+- Bolt Rush à plusieurs, et Bolt Rush seul sont désormais disponibles.
+- Un Battle Royale à 16 joueurs à été ajouter. Celui-ci se débloque en autorisant dans les réglages les maps "Prototype".
+- Ajout des événements de Mme Zurkon et arme aléatoire, comme les développeurs les avaient
+  prévus. 
 
 **Jouer à plusieurs**
 
-- Les amis sur le même Wi-Fi apparaissent dans le jeu : invitations et escouades de 3.
-- À distance, avec le code d'escouade du jeu.
+- Les amis sur le même Wi-Fi apparaissent dans la liste d'ami : invitations et escouades de 3 joueurs.
+- Vous pouvez jouer à distance, avec un code d'escouade jusqu’à 3 joueurs. .
 - Les combats en escouade marchent dans tous les modes, sauf Mob Rush.
 
 **Boutique et récompenses**
 
-- Offres de plans en Qredits, échange de Qredits contre du Raritanium.
-- Plus d'offres pour un héros ou une arme déjà au maximum ; quand tout est au maximum, les
-  tirages au hasard donnent des Qredits.
-- Du Raritanium dans les récompenses quotidiennes (jours 3 et 7).
+- Nouvelles offres de plans en Qredits, échange de Qredits contre du Raritanium.
+- Plus de Raritanium dans les récompenses quotidiennes (jours 3 et 7).
 
-**Le reste**
+**Autres**
 
-- Un artbook dans le menu du jeu : images du jeu, concepts, plans des cartes.
-- Une galerie pour tes propres images (Réseaux sociaux > ARTWORK).
-- Le jeu en polonais, en plus de ses langues.
-- Le jeu annonce les nouvelles versions de l'outil dans sa boîte de réception.
+- Ajout d'artbook dans le menu du jeu : images du jeu, concepts, plans des cartes.
+- Vous pouvez désormais choisir parmi trois modes de difficulté (facile, normal, difficile).
+- Nouvelle langue,le polonais.
+- Le jeu annonce maintenant les nouvelles versions dans sa boîte de réception.
 
 ## Installer
 
@@ -87,45 +84,18 @@ décompresse-le.
   faut, puis crée le raccourci « Ranger Rumble hors ligne » sur le Bureau.
 - **Mac** : ouvre « Ranger Rumble hors ligne ». Si le Mac refuse : Réglages Système >
   Confidentialité et sécurité > Ouvrir quand même.
-
+  
+**Il est recommandé d'installer au préalable Python 3.15**
+  
 La première installation prend quelques minutes (Python est téléchargé s'il manque). Tout est
 expliqué pas à pas dans `LIS_MOI.txt`.
 
-Il te faut aussi le jeu officiel 1.10.4 (`.xapk`, `.apkm` ou `.apk` complet), 5 Go libres, et un
+Il faut aussi le jeu officiel 1.10.4 (`.xapk`, `.apkm` ou `.apk` complet), 5 Go libres, et un
 téléphone ou une tablette Android 64 bits (Android 7.1 ou plus récent).
-
-## Nouveautés depuis la version 1.0.5 de l'outil
-
-**L'outil**
-
-- Un nouvel accueil aux images du jeu, et toutes les pages refaites : thème sombre, boutons
-  arrondis, fenêtre adaptée aux petits écrans.
-- Une app pour Mac, et un raccourci Windows avec l'icône du jeu.
-- 6 langues, l'anglais par défaut.
-- La copie iPhone sans réglage de proxy : le profil s'occupe de tout.
-- Windows : marche avec la dernière version de Python, la copie n'utilise plus de composant
-  bloqué par Smart App Control, et le pare-feu est vérifié et réglé si besoin.
-- Plus besoin de la version 1.10.3 : les héros jamais sortis sont fournis avec l'outil.
-- Une nouvelle partie sans copie, et l'installation sur le téléphone depuis l'outil, avec une
-  barre de progression.
-- Linux n'est plus pris en charge.
-
-**Le jeu**
-
-- Les héros ajoutés sur la Ranger Road, Nakari dans la boutique.
-- Rivet : Kit dans le dos et son propre marteau.
-- La boutique : offres de plans en Qredits, échange de Qredits contre du Raritanium, héros et
-  armes au maximum retirés des offres et des tirages.
-- Du Raritanium dans les récompenses quotidiennes (jours 3 et 7).
-- Les dégâts de la perceuse affichés.
-- Le polonais.
 
 ## Ce que l'outil contient, et ce qu'il ne contient pas
 
-Le code de l'outil, nos retouches du jeu et le serveur hors ligne, avec l'artbook (images du jeu
-et de sa promotion), des costumes et des éléments d'anciennes versions (les 7 héros jamais
-sortis de la 1.10.3, l'écran de collecte de la 1.1.0), et des images de cartes faites pour le
-projet. **Pas le jeu lui-même** : chaque joueur fournit son propre exemplaire officiel (1.10.4),
+**Chaque joueur fournit son propre exemplaire officiel (1.10.4)**
 et l'outil le modifie sur son ordinateur. Rien n'est envoyé nulle part, à part la question
 « y a-t-il une nouvelle version ? » posée à GitHub.
 
