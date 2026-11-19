@@ -4,7 +4,6 @@ import hashlib
 import json
 import os
 import re
-import shutil
 import sys
 import msgpack
 WEAPONS_FILE = None
@@ -120,6 +119,9 @@ def restore_blueprints(config_map):
     table = json.loads(item['value'])
     entries = table['lootDataTable']
     twins = {}
+    if any((entry['lootData']['type'] == 5 for entry in entries)):
+        print("plans d'armes deja dans les coffres")
+        return
     for entry in list(entries):
         if entry['lootData']['type'] != 13:
             continue
@@ -173,6 +175,8 @@ def add_orb_offers(config_map):
     next_id = max((o['uniqueID']['_internalPackedID'] for o in offers if o['enumName'].startswith('Lorbs'))) + 1
     next_id = max(next_id, next((o for o in offers if o['enumName'] == 'Cores_1_RSS'))['uniqueID']['_internalPackedID'] + 1)
     for name, hero, rarity in heroes:
+        if any((o['enumName'] == f'Lorbs_{name}_300' for o in offers)):
+            continue
         model = next((o for o in offers if o['enumName'] == models[rarity]))
         offer = json.loads(json.dumps(model))
         offer['uniqueID']['_internalPackedID'] = next_id
@@ -188,6 +192,8 @@ def add_plan_offers(config_map):
     item = next((i for i in config_map['items'] if i['key'] == 'shopdata'))
     table = json.loads(item['value'])
     offers = table['shopOffers']
+    if any((o['enumName'].startswith('DailyBlueprints_R') for o in offers)):
+        return
     model = next((o for o in offers if o['enumName'] == 'DailyOffer06'))
     next_id = max((o['uniqueID']['_internalPackedID'] for o in offers if o['uniqueID']['_internalPackedID'] >> 16 == 513)) + 1
     for rarity, unit_price in ((1, 5), (2, 10), (3, 15)):

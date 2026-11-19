@@ -1,5 +1,7 @@
 import argparse
+import contextlib
 import hashlib
+import io
 import os
 import runpy
 import shutil
@@ -13,12 +15,26 @@ import copie_android
 import donnees_capture
 import manifeste
 import signature
+from langues import tr
 EXPECTED = {'lib/arm64-v8a/libil2cpp.so': 'bb8134f5de8b646caa8db1441cb9d3253cf1ac8d75710972d13e768b9c57a5aa', 'assets/bin/Data/Managed/Metadata/global-metadata.dat': '028b8ac2aafe771681d2c81e28ded2616662bc6e00211863c3e68b0410d95e8b'}
 PARTS = {'com.playstation.rattlesnake.apk': ('com.playstation.rattlesnake.apk', 'base.apk'), 'config.arm64_v8a.apk': ('config.arm64_v8a.apk', 'split_config.arm64_v8a.apk'), 'UnityDataAssetPack.apk': ('UnityDataAssetPack.apk', 'split_UnityDataAssetPack.apk')}
+BASE_ASSETS = {'assets/bin/Data/Managed/Metadata/global-metadata.dat', 'assets/bin/Data/Managed/Resources/OhbibiCore.dll-resources.dat', 'assets/bin/Data/Managed/Resources/System.Collections.Immutable.dll-resources.dat', 'assets/bin/Data/Managed/Resources/System.Data.dll-resources.dat', 'assets/bin/Data/Managed/Resources/System.Drawing.dll-resources.dat', 'assets/bin/Data/Managed/Resources/mscorlib.dll-resources.dat', 'assets/bin/Data/Resources/unity default resources', 'assets/bin/Data/Resources/unity_builtin_extra', 'assets/bin/Data/RuntimeInitializeOnLoads.json', 'assets/bin/Data/ScriptingAssemblies.json', 'assets/bin/Data/boot.config', 'assets/bin/Data/globalgamemanagers', 'assets/bin/Data/globalgamemanagers.assets.split0', 'assets/bin/Data/globalgamemanagers.assets.split1', 'assets/bin/Data/globalgamemanagers.assets.split2', 'assets/bin/Data/level0', 'assets/bin/Data/sharedassets0.assets', 'assets/bin/Data/sharedassets0.resource', 'assets/bin/Data/unity_app_guid', 'assets/dexopt/baseline.prof', 'assets/dexopt/baseline.profm'}
 KEY_FOLDER = os.path.join(os.path.expanduser('~'), '.sauvegarde-rr')
 ARTBOOK = os.path.join(HERE, '..', 'artbook')
 OLD_110_SUBSET = os.path.join(HERE, '..', 'ressources_110', 'jeu_110_ecran_collecte.xapk')
 HERO_BUNDLES = [f'assets/aa/Android/skins_character_{name}_assets_all_{digest}.bundle' for name, digest in (('chance', 'ea1ae1112a40301e645b11ad648e496e'), ('molly', '80f842b062ace3fefa745878c83a6881'), ('helen', '4ef63d6105788453fb4e18743712bea3'), ('flare', '8159a571a17f52f74c15b2204f78c986'), ('nakari', 'a4eb9425bfd989f6ee7fb28826b49a60'), ('terry', 'de70656b1216b2c5250c779049a63de3'), ('crumby', '93cb392aad4df1691bf261475d287895'))]
+
+def bundles_without_lz4():
+    try:
+        import lz4
+    except ImportError:
+        return
+    if not getattr(lz4, 'PUR', False):
+        return
+    from UnityPy.files.BundleFile import BundleFile
+    save = BundleFile.save
+    BundleFile.save = lambda self, packer=None: save(self, 'none' if packer in ('lz4', 'lz4hc') else packer)
+bundles_without_lz4()
 
 def say(text):
     print(text, flush=True)
@@ -33,138 +49,150 @@ def extract(package, folder, wanted):
             with archive.open(found) as source, open(os.path.join(folder, target), 'wb') as out:
                 shutil.copyfileobj(source, out, 1 << 22)
 
+def read_official(package, folder):
+    try:
+        with zipfile.ZipFile(package) as archive:
+            single = 'AndroidManifest.xml' in archive.namelist()
+    except (OSError, zipfile.BadZipFile):
+        raise SystemExit(tr("Ce fichier n'est pas le jeu (.xapk, .apkm ou .apk)."))
+    if single:
+        split_apk(package, folder)
+    else:
+        extract(package, folder, PARTS)
+
+def split_apk(package, folder):
+    base, libs, pack = (os.path.join(folder, part) for part in PARTS)
+    writers = {path: zipfile.ZipFile(path, 'w', allowZip64=True) for path in (base, libs, pack)}
+    try:
+        with zipfile.ZipFile(package) as archive:
+            for info in archive.infolist():
+                name = info.filename
+                if name.endswith('/') or (name.startswith('lib/') and (not name.startswith('lib/arm64-v8a/'))):
+                    continue
+                if name.startswith('lib/'):
+                    target = libs
+                elif name.startswith('assets/') and name not in BASE_ASSETS:
+                    target = pack
+                else:
+                    target = base
+                entry = zipfile.ZipInfo(name, date_time=info.date_time)
+                entry.compress_type = info.compress_type
+                entry.external_attr = info.external_attr
+                entry.file_size = info.file_size
+                with archive.open(info) as source, writers[target].open(entry, 'w') as out:
+                    shutil.copyfileobj(source, out, 1 << 22)
+    finally:
+        for writer in writers.values():
+            writer.close()
+    with zipfile.ZipFile(libs) as code, zipfile.ZipFile(pack) as data:
+        if 'lib/arm64-v8a/libil2cpp.so' not in code.namelist() or 'assets/aa/catalog.bin' not in data.namelist():
+            raise SystemExit(tr("Cette APK n'a pas tout le jeu : prends le .xapk (APKPure) ou le .apkm (APKMirror)."))
+
 def check_version(folder):
     for part in ('config.arm64_v8a.apk', 'com.playstation.rattlesnake.apk'):
         with zipfile.ZipFile(os.path.join(folder, part)) as apk:
             for inner, digest in EXPECTED.items():
                 if inner in apk.namelist() and hashlib.sha256(apk.read(inner)).hexdigest() != digest:
-                    raise SystemExit("Ce fichier n'est pas la version 1.10.4 attendue du jeu.")
+                    raise SystemExit(tr("Ce fichier n'est pas la version 1.10.4 attendue du jeu."))
+HEROES = os.path.join(HERE, 'ressources', 'heros')
 
-def old_version_pack(package, folder):
-    os.makedirs(folder)
-    try:
-        extract(package, folder, {'split_UnityDataAssetPack.apk': PARTS['UnityDataAssetPack.apk']})
-    except (zipfile.BadZipFile, SystemExit):
-        raise SystemExit("Le deuxième fichier n'est pas le jeu officiel en version 1.10.3 (.apkm ou .xapk).")
-    with zipfile.ZipFile(os.path.join(folder, 'split_UnityDataAssetPack.apk')) as pack:
-        names = set(pack.namelist())
-    if any((name not in names for name in HERO_BUNDLES)):
-        raise SystemExit("Le deuxième fichier n'est pas la version 1.10.3 attendue du jeu.")
-OLD_110_BUNDLES = ('scene_mainmenu_landscape_', '69b923348c4df9ad548573d6b86b9c62_monoscripts_')
+def check_heroes():
+    names = set(os.listdir(HEROES)) if os.path.isdir(HEROES) else set()
+    if 'heros.json' not in names or any((os.path.basename(name) not in names for name in HERO_BUNDLES)):
+        raise SystemExit(tr("Les modèles des 7 héros jamais sortis manquent dans l'outil (moteur/appli_patch/ressources/heros) : retélécharge l'outil."))
 
-def check_110(package):
-    import io
-    try:
-        with zipfile.ZipFile(package) as archive:
-            pack = zipfile.ZipFile(io.BytesIO(archive.read('UnityDataAssetPack.apk')))
-            names = [n.split('/')[-1] for n in pack.namelist() if n.startswith('assets/aa/Android/')]
-    except (OSError, KeyError, zipfile.BadZipFile):
-        raise SystemExit("Le troisième fichier n'est pas le jeu officiel en version 1.1.0 (.xapk).")
-    if not all((any((n.startswith(prefix) for n in names)) for prefix in OLD_110_BUNDLES)):
-        raise SystemExit("Le troisième fichier n'est pas la version 1.1.0 attendue du jeu.")
-
-def rebuilt_base(original, target, copy=False):
+def rebuilt_base(original, target):
     with zipfile.ZipFile(original) as source, zipfile.ZipFile(target, 'w', allowZip64=True) as out:
         for info in source.infolist():
             if info.filename.startswith('META-INF/') or info.filename == 'stamp-cert-sha256':
                 continue
             content = source.read(info.filename)
             if info.filename == 'AndroidManifest.xml':
-                content = manifeste.modify(content, copy)
+                content = manifeste.modify(content)
             out.writestr(info, content)
+
+def quietly(function, *args):
+    if os.environ.get('RR_DETAILS') == '1':
+        return function(*args)
+    details = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(details):
+            return function(*args)
+    except BaseException:
+        tail = details.getvalue().strip().splitlines()[-12:]
+        if tail:
+            say('\n'.join(tail))
+        raise
 
 def run_script(path, argv, env):
     saved_argv, saved_env = (sys.argv, dict(os.environ))
     sys.argv = [path] + argv
     os.environ.update(env)
     sys.path.insert(0, os.path.dirname(path))
+    details = io.StringIO()
+    shown = os.environ.get('RR_DETAILS') == '1'
     try:
-        runpy.run_path(path, run_name='__main__')
+        if shown:
+            runpy.run_path(path, run_name='__main__')
+        else:
+            with contextlib.redirect_stdout(details), contextlib.redirect_stderr(details):
+                runpy.run_path(path, run_name='__main__')
+    except BaseException:
+        tail = details.getvalue().strip().splitlines()[-12:]
+        if tail:
+            say('\n'.join(tail))
+        raise
     finally:
         sys.argv = saved_argv
         os.environ.clear()
         os.environ.update(saved_env)
         sys.path.remove(os.path.dirname(path))
 
-def build(official, old, out, data=None, save=None, copy=None, key_store=None, password=None, work=None, new_game=False, artworks=None, old_110=None):
+def build(official, out, data=None, save=None, copy=None, key_store=None, password=None, work=None, new_game=False, artworks=None):
     work = work or tempfile.mkdtemp(prefix='rr_patch_', dir=os.path.dirname(os.path.abspath(out)))
     try:
         parts = os.path.join(work, 'xapk')
         os.makedirs(parts)
-        say('1/6 Lecture du jeu officiel...')
-        extract(official, parts, PARTS)
+        say(tr('1/6 Lecture du jeu officiel...'))
+        read_official(official, parts)
         check_version(parts)
-        old_version_pack(old, os.path.join(work, 'v1103'))
-        if not old_110 and os.path.isfile(OLD_110_SUBSET):
-            old_110 = OLD_110_SUBSET
-        if old_110:
-            check_110(old_110)
-            say('Écran de collecte de Mme Zurkon (version 1.1.0) : remis.')
+        check_heroes()
+        old_110 = OLD_110_SUBSET if os.path.isfile(OLD_110_SUBSET) else None
+        if not copy and (not data):
+            copy = copie_android.builtin_copy(work)
+            if not copy:
+                raise SystemExit(tr('Choisis une copie de sauvegarde.'))
         if copy:
-            data = donnees_capture.convert(copy, os.path.join(work, 'donnees'))
+            data = quietly(donnees_capture.convert, copy, os.path.join(work, 'donnees'))
             if not save and (not new_game) and os.path.isfile(os.path.join(copy, 'save.msgpack')):
                 save = os.path.join(copy, 'save.msgpack')
         if new_game and (not save):
             save = os.path.join(work, 'nouvelle_partie.msgpack')
             with open(save, 'wb') as handle:
-                handle.write(copie_android.pack(copie_android.new_save()))
+                handle.write(copie_android.pack(copie_android.new_account_save()))
         if not save:
-            raise SystemExit('Choisis une sauvegarde, ou une nouvelle partie.')
-        say('2/6 Retouches du jeu (quelques minutes)...')
-        run_script(os.path.join(ANDROID, 'construire_apk.py'), [parts, os.path.join(work, 'patched')], {'RR_SANS_CLANG': '1', 'RR_VERSION': '1.10.4', 'RR_HEROS_DOSSIER': os.path.join(work, 'heros'), 'RR_JEU_110': os.path.abspath(old_110) if old_110 else ''})
-        say('3/6 Manifeste...')
+            raise SystemExit(tr('Choisis une sauvegarde, ou une nouvelle partie.'))
+        say(tr('2/6 Modifications du jeu (quelques minutes)...'))
+        run_script(os.path.join(ANDROID, 'construire_apk.py'), [parts, os.path.join(work, 'patched')], {'RR_SANS_CLANG': '1', 'RR_VERSION': '1.10.4', 'RR_HEROS_DOSSIER': HEROES, 'RR_JEU_110': os.path.abspath(old_110) if old_110 else ''})
+        say(tr('3/6 Préparation...'))
         rebuilt_base(os.path.join(parts, 'com.playstation.rattlesnake.apk'), os.path.join(work, 'base.apk'))
-        say('4/6 Serveur, donnees et sauvegarde...')
+        say(tr('4/6 Sauvegarde...'))
         server = os.path.join(work, 'serveur')
         os.makedirs(os.path.join(server, 'etat'))
         shutil.copytree(data, os.path.join(server, 'donnees'))
         unsigned = out + '.tmp'
         run_script(os.path.join(ANDROID, 'assembler_apk.py'), [os.path.join(work, 'base.apk'), os.path.join(work, 'patched'), os.path.join(HERE, 'ressources', 'serveur.dex'), server, unsigned], {'RR_ALIGNE': '1', 'RR_SAUVEGARDE': os.path.abspath(save), 'RR_VERSION': '1.10.4', 'RR_ARTWORKS': os.path.abspath(artworks) if artworks else '', 'RR_ARTBOOK': os.path.abspath(ARTBOOK) if os.path.isfile(os.path.join(ARTBOOK, 'artbook.json')) else ''})
-        say('5/6 Signature...')
+        say(tr('5/6 Signature...'))
         key, cert = signature.load_key(key_store, password) if key_store else signature.load_or_make_key(KEY_FOLDER)
         signature.sign(unsigned, key, cert)
         os.replace(unsigned, out)
-        say(f'6/6 Fini : {out} ({os.path.getsize(out) / 1048576:.0f} Mo)')
-    finally:
-        shutil.rmtree(work, ignore_errors=True)
-
-def build_copy(official, out, key_store=None, password=None, work=None, upstream=''):
-    work = work or tempfile.mkdtemp(prefix='rr_copie_', dir=os.path.dirname(os.path.abspath(out)))
-    try:
-        parts = os.path.join(work, 'xapk')
-        os.makedirs(parts)
-        say('1/5 Lecture du jeu officiel...')
-        extract(official, parts, PARTS)
-        check_version(parts)
-        say('2/5 Retouches du jeu (adresse du serveur seulement)...')
-        run_script(os.path.join(ANDROID, 'construire_apk.py'), [parts, os.path.join(work, 'patched')], {'RR_SANS_CLANG': '1', 'RR_VERSION': '1.10.4', 'RR_COPIE': '1'})
-        say('3/5 Manifeste...')
-        rebuilt_base(os.path.join(parts, 'com.playstation.rattlesnake.apk'), os.path.join(work, 'base.apk'), copy=True)
-        say('4/5 Relais de copie...')
-        unsigned = out + '.tmp'
-        run_script(os.path.join(ANDROID, 'assembler_apk.py'), [os.path.join(work, 'base.apk'), os.path.join(work, 'patched'), os.path.join(HERE, 'ressources', 'serveur.dex'), work, unsigned], {'RR_ALIGNE': '1', 'RR_VERSION': '1.10.4', 'RR_COPIE': '1', 'RR_RELAIS': upstream})
-        say('5/5 Signature...')
-        key, cert = signature.load_key(key_store, password) if key_store else signature.load_or_make_key(KEY_FOLDER)
-        signature.sign(unsigned, key, cert)
-        os.replace(unsigned, out)
-        say(f'Fini : {out} ({os.path.getsize(out) / 1048576:.0f} Mo)')
+        say(tr('6/6 Fini : {out}', out=out))
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
 def main():
     parser = argparse.ArgumentParser(description="Fabrique l'APK hors ligne de Ranger Rumble.")
-    if len(sys.argv) > 1 and sys.argv[1] == '--rr-copie':
-        copy_parser = argparse.ArgumentParser(description="Fabrique RR Copie, l'appli qui copie la sauvegarde.")
-        copy_parser.add_argument('officiel')
-        copy_parser.add_argument('sortie')
-        copy_parser.add_argument('--cle')
-        copy_parser.add_argument('--mot-de-passe')
-        copy_parser.add_argument('--serveur', default='', help=argparse.SUPPRESS)
-        args = copy_parser.parse_args(sys.argv[2:])
-        build_copy(args.officiel, args.sortie, args.cle, args.mot_de_passe, upstream=args.serveur)
-        return
     parser.add_argument('officiel')
-    parser.add_argument('ancien', help='le jeu officiel en version 1.10.3 (les héros jamais sortis)')
     parser.add_argument('sortie')
     parser.add_argument('--copie')
     parser.add_argument('--donnees')
@@ -173,10 +201,9 @@ def main():
     parser.add_argument('--cle')
     parser.add_argument('--mot-de-passe')
     parser.add_argument('--artworks', help="un dossier d'images pour la galerie du jeu (facultatif)")
-    parser.add_argument('--jeu-110', help="le jeu officiel en version 1.1.0 (facultatif : l'écran de Mme Zurkon)")
     args = parser.parse_args()
-    if not args.copie and (not (args.donnees and (args.sauvegarde or args.nouvelle_partie))):
-        parser.error('--copie, ou --donnees avec --sauvegarde ou --nouvelle-partie')
-    build(args.officiel, args.ancien, args.sortie, args.donnees, args.sauvegarde, args.copie, args.cle, args.mot_de_passe, new_game=args.nouvelle_partie, artworks=args.artworks, old_110=args.jeu_110)
+    if not args.copie and (not args.nouvelle_partie) and (not (args.donnees and args.sauvegarde)):
+        parser.error('--copie, --nouvelle-partie, ou --donnees avec --sauvegarde')
+    build(args.officiel, args.sortie, args.donnees, args.sauvegarde, args.copie, args.cle, args.mot_de_passe, new_game=args.nouvelle_partie, artworks=args.artworks)
 if __name__ == '__main__':
     main()

@@ -110,7 +110,7 @@ class Document:
         return sorted(ranges)
 
     def insert_before_end(self, name, events):
-        for begin, end in self.element_ranges(name):
+        for _, end in self.element_ranges(name):
             self.events[end:end] = events
             return
         raise KeyError(name)

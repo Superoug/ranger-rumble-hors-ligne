@@ -59,9 +59,10 @@ class Catalog:
 def old_hero_info(old_data, heroes):
     old = Catalog(bytes(old_data))
     old_entries = {}
-    for key, name, locations in old.entries():
+    old_prefabs = {}
+    for _, name, locations in old.entries():
         old_entries.setdefault(locations[0] if locations else None, []).append(name)
-    old_prefabs = {name: locations for _, name, locations in old.entries()}
+        old_prefabs[name] = locations
     info = {}
     for hero in heroes:
         old_location = old_prefabs[PREFAB.format(hero)][0]
@@ -78,9 +79,6 @@ def old_hero_info(old_data, heroes):
         guid = next((name for name in old_entries[old_location] if re.fullmatch('[0-9a-f]{32}', str(name))))
         info[hero] = {'guid': guid, 'dependencies': dependencies}
     return info
-
-def add_heroes(new_data, old_data, heroes):
-    return add_heroes_from_info(new_data, old_hero_info(old_data, heroes), heroes)
 
 def add_heroes_from_info(new_data, info, heroes):
     new = Catalog(bytes(new_data))

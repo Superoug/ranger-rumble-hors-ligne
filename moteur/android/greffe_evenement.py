@@ -1,11 +1,11 @@
-import copy
 import collections
+import copy
 import io
 import struct
 import UnityPy
 from UnityPy.enums import ClassIDType
 from UnityPy.helpers import TypeTreeHelper
-from UnityPy.streams import EndianBinaryReader, EndianBinaryWriter
+from UnityPy.streams import EndianBinaryWriter
 SCENE_CAB = 'CAB-8281d924e49aa328c1445f8f7e5b67cc'
 SHARED_CAB = SCENE_CAB + '.sharedAssets'
 ROOT_NAME = 'HUD_EventScreen'
@@ -15,7 +15,6 @@ HOLDER_NAME = 'ModelesEvenement'
 INFO_NAME = 'Button_Info'
 INFO_METHOD = 'OnActiveEventPlayButtonPressed'
 UNITY_DEFAULT = 'unity default resources'
-REPLACEMENTS = {}
 ADDED_SPRITES = {('Sprite', 'S_DialoguePortrait_MsZurkon_04')}
 ADDED_IDS = 7700001
 SPRITE_FIXES = {'HUD_EventScreen/Header/AnimBackButton/BackButton/Image': ('Sprite', 'ico_backBtnGreen'), 'HUD_EventScreen/Layout/Header/AnimBackButton/BackButton/Image': ('Sprite', 'ico_backBtnGreen'), 'HUD_EventScreen/Layout/Header/Button_Back/Image': ('Sprite', 'ico_backBtnGreen'), 'EventRewardTrackItem/Current/Icon/ArrowBounce/Scale/AnimArrow': ('Sprite', 'arrow_02'), 'EventRewardTrackGridItem/Current/Icon/ArrowBounce/Scale/AnimArrow': ('Sprite', 'arrow_02')}
@@ -173,9 +172,6 @@ def write(value, node):
     TypeTreeHelper.write_typetree(value, node, w)
     return w.bytes
 
-def read(data, node):
-    return TypeTreeHelper.read_typetree(node, EndianBinaryReader(data, endian='<'), byte_size=len(data))
-
 def asset_name(o):
     tree = o.read_typetree()
     if o.type == ClassIDType.MonoBehaviour and (not tree.get('m_Name')):
@@ -210,8 +206,9 @@ class Graft:
         _, self.old_files = _load(old_scene_bundle)
         self.scene = self.old_files[SCENE_CAB]
         self.shared = self.old_files[SHARED_CAB]
-        self.old_scripts = _scripts(_load(old_mono_bundle)[1])
-        self.old_mono_cab = next(iter(_load(old_mono_bundle)[1]))
+        _, old_mono_files = _load(old_mono_bundle)
+        self.old_scripts = _scripts(old_mono_files)
+        self.old_mono_cab = next(iter(old_mono_files))
         _, mono_files = _load(new_mono_bundle)
         self.new_mono_cab = next(iter(mono_files))
         self.new_scripts = _scripts(mono_files)
@@ -221,24 +218,16 @@ class Graft:
         self.old_asset_bundles = old_asset_bundles
         self.added = {}
 
-    def _go_path(self, gokey):
-        parts = []
-        while gokey:
-            parts.append(self._tree(gokey)['m_Name'])
-            if gokey == self.root:
-                break
-            father = self._tree(self._transform(gokey))['m_Father']['m_PathID']
-            gokey = (gokey[0], self._tree((gokey[0], father))['m_GameObject']['m_PathID']) if father else None
-        return '/'.join(reversed(parts))
+    def _file(self, where):
+        return self.scene if where == 'scene' else self.shared
 
     def _tree(self, key):
         if key not in self._trees:
-            f = self.scene if key[0] == 'scene' else self.shared
-            self._trees[key] = f.objects[key[1]].read_typetree()
+            self._trees[key] = self._file(key[0]).objects[key[1]].read_typetree()
         return self._trees[key]
 
     def _obj(self, key):
-        return (self.scene if key[0] == 'scene' else self.shared).objects[key[1]]
+        return self._file(key[0]).objects[key[1]]
 
     def _where(self, f, fid):
         if fid == 0:
@@ -274,6 +263,16 @@ class Graft:
                 return gokey
             gokey = (gokey[0], self._tree((gokey[0], father))['m_GameObject']['m_PathID'])
 
+    def _go_path(self, gokey):
+        parts = []
+        while gokey:
+            parts.append(self._tree(gokey)['m_Name'])
+            if gokey == self.root:
+                break
+            father = self._tree(self._transform(gokey))['m_Father']['m_PathID']
+            gokey = (gokey[0], self._tree((gokey[0], father))['m_GameObject']['m_PathID']) if father else None
+        return '/'.join(reversed(parts))
+
     def closure(self):
         self._trees = {}
         root = next((('scene', p) for p, o in self.scene.objects.items() if o.type == ClassIDType.GameObject and o.read_typetree()['m_Name'] == ROOT_NAME))
@@ -283,7 +282,7 @@ class Graft:
         todo = list(chosen)
         while todo:
             k = todo.pop()
-            f = self.scene if k[0] == 'scene' else self.shared
+            f = self._file(k[0])
             for r in _refs(self._tree(k)):
                 if not r['m_PathID']:
                     continue
@@ -291,7 +290,7 @@ class Graft:
                 if where is None or (where, r['m_PathID']) in chosen:
                     continue
                 key = (where, r['m_PathID'])
-                o = self._obj(key) if r['m_PathID'] in (self.scene if where == 'scene' else self.shared).objects else None
+                o = self._obj(key) if r['m_PathID'] in self._file(where).objects else None
                 if o is None or where == 'scene':
                     continue
                 tree = self._tree(key)
@@ -310,7 +309,8 @@ class Graft:
                 sp = self._tree(key)['m_Script']['m_PathID']
                 if self.old_scripts[sp]['m_ClassName'] not in names:
                     self.missing_scripts[sp] = self.old_scripts[sp]
-        self.log(f"greffe : {len(self.chosen)} objets 1.1.0, modeles {[self._tree(p)['m_Name'] for p in self.prefabs]}")
+        models = [self._tree(p)['m_Name'] for p in self.prefabs]
+        self.log(f'greffe : {len(self.chosen)} objets 1.1.0, modeles {models}')
 
     def graft(self, scene_bytes):
         if not hasattr(self, 'chosen'):
@@ -330,16 +330,14 @@ class Graft:
                     script_type.setdefault(name, i)
             elif t.class_id != 114:
                 class_type.setdefault(t.class_id, i)
-        templates = {}
         any_obj = {}
         for o in objects.values():
-            templates.setdefault(o.type_id, o)
             any_obj.setdefault(o.type_id, o)
         tmpl_tree = {}
 
         def template(type_id):
             if type_id not in tmpl_tree:
-                o = templates.get(type_id)
+                o = any_obj.get(type_id)
                 tmpl_tree[type_id] = o.read_typetree() if o is not None else None
             return tmpl_tree[type_id]
         next_id = max(objects) + 1
@@ -398,8 +396,6 @@ class Graft:
                         self.preload.add((UNITY_DEFAULT, pid))
                         return {'m_FileID': ext_fid(UNITY_DEFAULT), 'm_PathID': pid}
                     key = self.old_keys.get((cab, pid))
-                    if key in REPLACEMENTS:
-                        key = REPLACEMENTS[key]
                     if key in ADDED_SPRITES:
                         if key not in self.added:
                             ids = ADDED_IDS + 2 * len(self.added)
@@ -458,8 +454,7 @@ class Graft:
         prefab_rts = [new_id[self._transform(p)] for p in self.prefabs]
         for key in self.chosen:
             o = self._obj(key)
-            f = self.scene if key[0] == 'scene' else self.shared
-            tree = relink(self._tree(key), f)
+            tree = relink(self._tree(key), self._file(key[0]))
             if key == info_go:
                 tree['m_Component'].append({'component': {'m_FileID': 0, 'm_PathID': info_button}})
             if key == info_image:
@@ -489,7 +484,9 @@ class Graft:
         updaters = [c['component']['m_PathID'] for c in self._tree(self.root)['m_Component'] if self._obj(('scene', c['component']['m_PathID'])).type == ClassIDType.MonoBehaviour and self.old_scripts[self._tree(('scene', c['component']['m_PathID']))['m_Script']['m_PathID']]['m_ClassName'] == 'EventScreenUpdater']
         if button_type is None or len(updaters) != 1:
             raise SystemExit("greffe : pas de Button dans la scene 1.10.4 ou d'EventScreenUpdater sur l'ecran")
-        own = lambda pid: {'m_FileID': 0, 'm_PathID': pid}
+
+        def own(pid):
+            return {'m_FileID': 0, 'm_PathID': pid}
         model, like_button = (None, None)
         for o in objects.values():
             if o.type_id == button_type:

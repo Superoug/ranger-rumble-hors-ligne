@@ -1,0 +1,805 @@
+{
+ "bundles": [
+  {
+   "file": "biome_ardolis_common174_assets_all_55bf181e0f094530626aa6c70b75217f.bundle",
+   "internal": "6656dd468825b78db393f57ed2bf8573",
+   "hash": "55bf181e0f094530626aa6c70b75217f",
+   "size": 6187418,
+   "cabs": [
+    "CAB-1b21bd53433e823920a07895b655e207"
+   ]
+  },
+  {
+   "file": "scene_q_ffa_ardolis_02_scenes_all_74a8795d4cc04c90f101304b6a2df24d.bundle",
+   "internal": "db3fc4da01c969f3db978299040ab662",
+   "hash": "74a8795d4cc04c90f101304b6a2df24d",
+   "size": 7996405,
+   "cabs": [
+    "CAB-c9637a2affce563d6e43a3279814ec7a"
+   ]
+  },
+  {
+   "file": "scene_data_q_ffa_ardolis_02_assets_all_726b195a8ba8efa4338884a84fde16be.bundle",
+   "internal": "838644a4d6d9167454fe954c5db82478",
+   "hash": "726b195a8ba8efa4338884a84fde16be",
+   "size": 16310,
+   "cabs": [
+    "CAB-dc8cb5dd53d13ec46eac0d01b2382edb"
+   ]
+  },
+  {
+   "file": "quantum_map_assets_q_ffa_ardolis_02_assets_all_145a940bc56aed180fef02d1497a74aa.bundle",
+   "internal": "55e324ee9ed4a76ce7434e8e5fe131ea",
+   "hash": "145a940bc56aed180fef02d1497a74aa",
+   "size": 181029,
+   "cabs": [
+    "CAB-cc26308a3b2339c8c9f18ec3cc42efc0"
+   ]
+  },
+  {
+   "file": "scene_metadata_q_ffa_ardolis_02_assets_all_f7765025d7eda6ce1576d97cfc933da5.bundle",
+   "internal": "54f55a30f1487152e725132d218dc4c2",
+   "hash": "befa4d131da07ef8309a1d4b02039dfc",
+   "size": 19301,
+   "cabs": [
+    "CAB-df02b589b07d5467e2d37c31161c0d56"
+   ]
+  },
+  {
+   "file": "scene_q_bb_ardolis_01_scenes_all_6bf3445deef0c66913cd3d7426072171.bundle",
+   "internal": "d483045294b448c424cbf2d703ee4374",
+   "hash": "6bf3445deef0c66913cd3d7426072171",
+   "size": 5358796,
+   "cabs": [
+    "CAB-d75dc79ca49214f6a8bd1130b3a68aea"
+   ]
+  },
+  {
+   "file": "quantum_map_assets_q_bb_ardolis_01_assets_all_4fa867f9835bef9b983d97ac6a79d87f.bundle",
+   "internal": "cd4c268b2ff771a425a3f8b990678bd4",
+   "hash": "4fa867f9835bef9b983d97ac6a79d87f",
+   "size": 95495,
+   "cabs": [
+    "CAB-f97366de9966d1128e5489f05c4075c5"
+   ]
+  },
+  {
+   "file": "scene_data_q_bb_ardolis_01_assets_all_bcda52ee5e747b0af79a567b0b93b53d.bundle",
+   "internal": "0939cc4783135759dd58bbf705d6dd5e",
+   "hash": "bcda52ee5e747b0af79a567b0b93b53d",
+   "size": 46633,
+   "cabs": [
+    "CAB-7c364b0aaf728db1a39b986081870783"
+   ]
+  },
+  {
+   "file": "scene_metadata_q_bb_ardolis_01_assets_all_df30e95d2a8ffccc193a81777035f167.bundle",
+   "internal": "e7c20a29ac921f6e6ee06c1668c9e8a0",
+   "hash": "df30e95d2a8ffccc193a81777035f167",
+   "size": 19827,
+   "cabs": [
+    "CAB-c1d2eee2f08e87608fed32985b005128"
+   ]
+  }
+ ],
+ "maps": {
+  "q_FFA_Ardolis_02": {
+   "locations": [
+    {
+     "kind": "scene",
+     "internal": "q_FFA_Ardolis_02",
+     "keys": [
+      "q_FFA_Ardolis_02",
+      "70cc3187e51819449baf8b165cb50690"
+     ],
+     "own": [
+      "scene_q_ffa_ardolis_02_scenes_all_74a8795d4cc04c90f101304b6a2df24d.bundle",
+      "scene_data_q_ffa_ardolis_02_assets_all_726b195a8ba8efa4338884a84fde16be.bundle",
+      "quantum_map_assets_q_ffa_ardolis_02_assets_all_145a940bc56aed180fef02d1497a74aa.bundle",
+      "scene_metadata_q_ffa_ardolis_02_assets_all_f7765025d7eda6ce1576d97cfc933da5.bundle",
+      "biome_ardolis_common174_assets_all_55bf181e0f094530626aa6c70b75217f.bundle"
+     ],
+     "families": [
+      "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets",
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts",
+      "ameboids_anim_controller_group_assets_all",
+      "biome_ardolis_common_assets_all",
+      "biome_main_menu_bg_ardolis_assets_all",
+      "biome_main_menu_bg_megalopolis_assets_all",
+      "biome_main_menu_bg_sargasso_assets_all",
+      "biome_main_menu_bg_simulation_assets_all",
+      "biome_main_menu_bg_torren_iv_assets_all",
+      "biome_megalopolis_common_assets_all",
+      "biome_sargasso_common_assets_all",
+      "biomes_local_common_assets_all",
+      "bury_blossom_anim_controller_group_assets_all",
+      "clankbag_anim_controller_group_assets_all",
+      "default_common_group_assets_all",
+      "defaultlocalgroup_assets_all",
+      "duchesse_anim_controller_group_assets_all",
+      "enemies_visuals_assets_all",
+      "fonts_assets_all",
+      "fxmanager_assets_all",
+      "gadgets_anim_controllers_group_assets_all",
+      "gameplay_common_scriptables_assets_all",
+      "glove_anim_controllers_group_assets_all",
+      "hero_celeste_assets_all",
+      "hero_fuse_assets_all",
+      "hero_lil_ann_assets_all",
+      "hero_lump_assets_all",
+      "hero_markus_assets_all",
+      "hero_raiden_assets_all",
+      "hero_ratchet_assets_all",
+      "hero_sandy_assets_all",
+      "hero_sprocket_assets_all",
+      "hero_zedone_assets_all",
+      "heroes_anim_controllers_group_assets_all",
+      "horny_toad_anim_controller_group_assets_all",
+      "juggernaut_anim_controller_group_assets_all",
+      "legacy_character_clank_assets_all",
+      "legacy_character_qwark_assets_all",
+      "legacy_character_ratchet_assets_all",
+      "local_data_managers_assets_all",
+      "material_assets_all",
+      "medal_run_assets_all",
+      "megacorp_bot_shooter_anim_controller_group_assets_all",
+      "megacorp_bot_slammer_anim_controller_group_assets_all",
+      "megacorp_bot_spinner_anim_controller_group_assets_all",
+      "non_gameplay_scenes_data_assets_all",
+      "popcorn_mob_anim_controller_group_assets_all",
+      "powerup_prefabs_assets_all",
+      "quantum_common_assets_all",
+      "quantum_db_enemies_assets_all",
+      "quantum_db_gagdet_assets_all",
+      "quantum_db_game_modes_assets_all",
+      "quantum_db_heroes_assets_all",
+      "quantum_db_level_design_assets_all",
+      "quantum_db_meleeweapons_assets_all",
+      "quantum_db_player_assets_all",
+      "quantum_db_ultimates_assets_all",
+      "quantum_db_weapons_assets_all",
+      "robotank_anim_controller_group_assets_all",
+      "sandshark_anim_controller_group_assets_all",
+      "scene_data_q_ffa_ardolis_01b_assets_all",
+      "scene_data_q_tuto_no_pve_assets_all",
+      "scene_loadscenebetweenlevels_assets_all",
+      "scene_metadata_q_bk_megalopolis_01_assets_all",
+      "shaders_assets_all",
+      "shaders_default_textures_assets_all",
+      "shared_textures_assets_all",
+      "shop_offer_widgets_assets_all",
+      "skins_character_celeste_assets_all",
+      "skins_character_fuse_assets_all",
+      "skins_character_lilann_assets_all",
+      "skins_character_lump_assets_all",
+      "skins_character_markus_assets_all",
+      "skins_character_raiden_assets_all",
+      "skins_character_ratchet_00_playable_assets_all",
+      "skins_character_sandy_assets_all",
+      "skins_character_sproket_assets_all",
+      "skins_character_zedone_assets_all",
+      "skins_common_assets_all",
+      "ui_addressables_assets_all",
+      "ui_animations_assets_all",
+      "ui_assets_all",
+      "ui_atlases_assets_all",
+      "ui_bgs_assets_all",
+      "ui_hero_logos_assets_all",
+      "ui_main_menu_adventure_track_assets_all",
+      "ui_main_menu_assets_all",
+      "ui_main_menu_endgame_assets_all",
+      "ui_main_menu_maps_previsualisation_assets_all",
+      "ui_main_menu_masks_assets_all",
+      "ui_main_menu_medalrun_assets_all",
+      "ui_main_menu_scrolling_assets_all",
+      "ui_main_menu_shop_assets_all",
+      "ui_materials_assets_all",
+      "ui_portraits_assets_all",
+      "ui_textures_root_assets_all",
+      "ultimate_grimshot_assets_all",
+      "ultimate_lump_assets_all",
+      "ultimate_sprocket_assets_all",
+      "weapon_amoeboidlauncher_assets_all",
+      "weapon_bigboom_assets_all",
+      "weapon_bombardier_assets_all",
+      "weapon_buzzblades_assets_all",
+      "weapon_celestemelee_assets_all",
+      "weapon_chancemelee_assets_all",
+      "weapon_chipmelee_assets_all",
+      "weapon_coldsnap_assets_all",
+      "weapon_cryoslider_assets_all",
+      "weapon_electricgrenade_assets_all",
+      "weapon_enforcer_assets_all",
+      "weapon_flaremelee_assets_all",
+      "weapon_fusemelee_assets_all",
+      "weapon_gatling_assets_all",
+      "weapon_gloveofdoom_assets_all",
+      "weapon_grenadelauncher_assets_all",
+      "weapon_grimshotmelee_assets_all",
+      "weapon_headhunter_assets_all",
+      "weapon_holoshieldglove_assets_all",
+      "weapon_hoverboard_assets_all",
+      "weapon_lavagun_assets_all",
+      "weapon_lilannmeleegadget_assets_all",
+      "weapon_lumpmelee_assets_all",
+      "weapon_markusmelee_assets_all",
+      "weapon_minelauncher_assets_all",
+      "weapon_mollymelee_assets_all",
+      "weapon_mopzmelee_assets_all",
+      "weapon_nakarimelee_assets_all",
+      "weapon_negatron_assets_all",
+      "weapon_plasmastriker_assets_all",
+      "weapon_pyrocitor_assets_all",
+      "weapon_ratchetblaster_assets_all",
+      "weapon_ratchetryno_assets_all",
+      "weapon_sabre_assets_all",
+      "weapon_shotgun_assets_all",
+      "weapon_sprocketmelee_assets_all",
+      "weapon_steeljawmelee_assets_all",
+      "weapon_tankcannon_assets_all",
+      "weapon_terrymelee_assets_all",
+      "weapon_teslaclaw_assets_all",
+      "weapon_voidrepulser_assets_all",
+      "weapon_warmonger_assets_all",
+      "weapon_widgetmelee_assets_all",
+      "weapon_widgetmeleegadget_assets_all",
+      "weapon_wrenchthrow_assets_all",
+      "weapon_zedonemelee_assets_all",
+      "scene_q_ffa_ardolis_01_scenes_all",
+      "quantum_map_assets_q_ffa_ardolis_01_assets_all"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_FFA_Ardolis_02.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_FFA_Ardolis_02.asset|Resources/DB/Maps|Assets",
+      "efe99de9e0c6a8b4286649fa8009bf03"
+     ],
+     "own": [
+      "quantum_map_assets_q_ffa_ardolis_02_assets_all_145a940bc56aed180fef02d1497a74aa.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_FFA_Ardolis_02_customData.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_FFA_Ardolis_02_customData.asset|Resources/DB/Maps|Assets",
+      "1f084ad08e455b840b4537e18331e153"
+     ],
+     "own": [
+      "quantum_map_assets_q_ffa_ardolis_02_assets_all_145a940bc56aed180fef02d1497a74aa.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_FFA_Ardolis_02_GameModeLevelConfig.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_FFA_Ardolis_02_GameModeLevelConfig.asset|Resources/DB/Maps|Assets",
+      "eaed0faab4114974396f4109427561e2"
+     ],
+     "own": [
+      "quantum_map_assets_q_ffa_ardolis_02_assets_all_145a940bc56aed180fef02d1497a74aa.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_FFA_Ardolis_02_mesh.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_FFA_Ardolis_02_mesh.asset|Resources/DB/Maps|Assets",
+      "3956e825674522f499ac26d9de547a7f"
+     ],
+     "own": [
+      "quantum_map_assets_q_ffa_ardolis_02_assets_all_145a940bc56aed180fef02d1497a74aa.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_FFA_Ardolis_02_QuantumNavMesh.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_FFA_Ardolis_02_QuantumNavMesh.asset|Resources/DB/Maps|Assets",
+      "856a000c5f1729045af96317a0aa300b"
+     ],
+     "own": [
+      "quantum_map_assets_q_ffa_ardolis_02_assets_all_145a940bc56aed180fef02d1497a74aa.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_FFA_Ardolis_02_QuantumNavMesh_data.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "data.asset|QuantumNavMesh|Ardolis_02|Assets/Resources/DB/Maps/q_FFA",
+      "0f337ea62cf538744bbabc8fb78fdf67"
+     ],
+     "own": [
+      "quantum_map_assets_q_ffa_ardolis_02_assets_all_145a940bc56aed180fef02d1497a74aa.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "minimap",
+     "internal": "q_FFA_Ardolis_02_minimap.png|UI/Minimap|Textures|Assets",
+     "keys": [
+      "q_FFA_Ardolis_02_minimap.png|UI/Minimap|Textures|Assets",
+      "2b17c5575d2473146aa7738548034e91"
+     ],
+     "own": [
+      "scene_metadata_q_ffa_ardolis_02_assets_all_f7765025d7eda6ce1576d97cfc933da5.bundle"
+     ],
+     "families": []
+    }
+   ],
+   "level": {
+    "status": 0,
+    "sceneName": "q_FFA_Ardolis_02",
+    "biome": {
+     "_proxy": "ARDOLIS",
+     "_index": 3,
+     "_value": 3
+    },
+    "levelDisplayNameKey": {
+     "_value": "LEVEL.FFA_ARDOLIS_02.NAME",
+     "_mode": 0
+    },
+    "levelDisplayVisual": {
+     "m_FileID": 0,
+     "m_PathID": 5631710355927388872
+    },
+    "introDialogue": {
+     "m_FileID": 0,
+     "m_PathID": 0
+    },
+    "music": 0,
+    "introMusic": 0,
+    "gameMode": 1,
+    "meshCombineParameters": {
+     "m_FileID": 0,
+     "m_PathID": -1943625693527821408
+    },
+    "minimapLevelData": {
+     "m_FileID": 0,
+     "m_PathID": -1408277331815885458
+    }
+   },
+   "minimap": {
+    "name": "MinimapLevelData_q_FFA_Ardolis_02",
+    "guid": "2b17c5575d2473146aa7738548034e91",
+    "extent": 168.0,
+    "path_id": -1408277331815885458
+   },
+   "asset_resources": [
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_FFA_Ardolis_02",
+     "AssetRef": {
+      "Id": {
+       "Value": 520781414498790056
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_FFA_Ardolis_02.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_FFA_Ardolis_02_QuantumNavMesh_data",
+     "AssetRef": {
+      "Id": {
+       "Value": 564034407336769885
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_FFA_Ardolis_02_QuantumNavMesh_data.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_FFA_Ardolis_02_customData",
+     "AssetRef": {
+      "Id": {
+       "Value": 621679512381732630
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_FFA_Ardolis_02_customData.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_FFA_Ardolis_02_GameModeLevelConfig",
+     "AssetRef": {
+      "Id": {
+       "Value": 957907315439549835
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_FFA_Ardolis_02_GameModeLevelConfig.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_FFA_Ardolis_02_QuantumNavMesh",
+     "AssetRef": {
+      "Id": {
+       "Value": 2079389793772791360
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_FFA_Ardolis_02_QuantumNavMesh.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_FFA_Ardolis_02_mesh",
+     "AssetRef": {
+      "Id": {
+       "Value": 2363975945527492814
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_FFA_Ardolis_02_mesh.asset"
+    }
+   ]
+  },
+  "q_BB_Ardolis_01": {
+   "locations": [
+    {
+     "kind": "scene",
+     "internal": "q_BB_Ardolis_01",
+     "keys": [
+      "q_BB_Ardolis_01",
+      "093bf7943d16abc48a78cc9452e50ec4"
+     ],
+     "own": [
+      "scene_q_bb_ardolis_01_scenes_all_6bf3445deef0c66913cd3d7426072171.bundle",
+      "quantum_map_assets_q_bb_ardolis_01_assets_all_4fa867f9835bef9b983d97ac6a79d87f.bundle",
+      "scene_data_q_bb_ardolis_01_assets_all_bcda52ee5e747b0af79a567b0b93b53d.bundle",
+      "scene_metadata_q_bb_ardolis_01_assets_all_df30e95d2a8ffccc193a81777035f167.bundle",
+      "biome_ardolis_common174_assets_all_55bf181e0f094530626aa6c70b75217f.bundle"
+     ],
+     "families": [
+      "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets",
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts",
+      "ameboids_anim_controller_group_assets_all",
+      "biome_ardolis_common_assets_all",
+      "biome_main_menu_bg_ardolis_assets_all",
+      "biome_main_menu_bg_megalopolis_assets_all",
+      "biome_main_menu_bg_sargasso_assets_all",
+      "biome_main_menu_bg_simulation_assets_all",
+      "biome_main_menu_bg_torren_iv_assets_all",
+      "biome_megalopolis_common_assets_all",
+      "biome_sargasso_common_assets_all",
+      "biome_torren_iv_common_assets_all",
+      "biomes_local_common_assets_all",
+      "bury_blossom_anim_controller_group_assets_all",
+      "clankbag_anim_controller_group_assets_all",
+      "default_common_group_assets_all",
+      "defaultlocalgroup_assets_all",
+      "duchesse_anim_controller_group_assets_all",
+      "enemies_visuals_assets_all",
+      "fonts_assets_all",
+      "fxmanager_assets_all",
+      "gadgets_anim_controllers_group_assets_all",
+      "gameplay_common_scriptables_assets_all",
+      "glove_anim_controllers_group_assets_all",
+      "hero_celeste_assets_all",
+      "hero_fuse_assets_all",
+      "hero_lil_ann_assets_all",
+      "hero_lump_assets_all",
+      "hero_markus_assets_all",
+      "hero_raiden_assets_all",
+      "hero_ratchet_assets_all",
+      "hero_sandy_assets_all",
+      "hero_sprocket_assets_all",
+      "hero_zedone_assets_all",
+      "heroes_anim_controllers_group_assets_all",
+      "horny_toad_anim_controller_group_assets_all",
+      "juggernaut_anim_controller_group_assets_all",
+      "legacy_character_clank_assets_all",
+      "legacy_character_qwark_assets_all",
+      "legacy_character_ratchet_assets_all",
+      "local_data_managers_assets_all",
+      "material_assets_all",
+      "medal_run_assets_all",
+      "megacorp_bot_shooter_anim_controller_group_assets_all",
+      "megacorp_bot_slammer_anim_controller_group_assets_all",
+      "megacorp_bot_spinner_anim_controller_group_assets_all",
+      "non_gameplay_scenes_data_assets_all",
+      "popcorn_mob_anim_controller_group_assets_all",
+      "powerup_prefabs_assets_all",
+      "quantum_common_assets_all",
+      "quantum_db_enemies_assets_all",
+      "quantum_db_gagdet_assets_all",
+      "quantum_db_game_modes_assets_all",
+      "quantum_db_heroes_assets_all",
+      "quantum_db_level_design_assets_all",
+      "quantum_db_meleeweapons_assets_all",
+      "quantum_db_player_assets_all",
+      "quantum_db_ultimates_assets_all",
+      "quantum_db_weapons_assets_all",
+      "robotank_anim_controller_group_assets_all",
+      "sandshark_anim_controller_group_assets_all",
+      "scene_data_q_bb_torreniv_01_assets_all",
+      "scene_data_q_ffa_ardolis_01b_assets_all",
+      "scene_data_q_tuto_no_pve_assets_all",
+      "scene_loadscenebetweenlevels_assets_all",
+      "scene_metadata_q_bk_megalopolis_01_assets_all",
+      "shaders_assets_all",
+      "shaders_default_textures_assets_all",
+      "shared_textures_assets_all",
+      "shop_offer_widgets_assets_all",
+      "skins_character_celeste_assets_all",
+      "skins_character_fuse_assets_all",
+      "skins_character_lilann_assets_all",
+      "skins_character_lump_assets_all",
+      "skins_character_markus_assets_all",
+      "skins_character_raiden_assets_all",
+      "skins_character_ratchet_00_playable_assets_all",
+      "skins_character_sandy_assets_all",
+      "skins_character_sproket_assets_all",
+      "skins_character_zedone_assets_all",
+      "skins_common_assets_all",
+      "ui_addressables_assets_all",
+      "ui_animations_assets_all",
+      "ui_assets_all",
+      "ui_atlases_assets_all",
+      "ui_bgs_assets_all",
+      "ui_hero_logos_assets_all",
+      "ui_main_menu_adventure_track_assets_all",
+      "ui_main_menu_assets_all",
+      "ui_main_menu_endgame_assets_all",
+      "ui_main_menu_maps_previsualisation_assets_all",
+      "ui_main_menu_masks_assets_all",
+      "ui_main_menu_medalrun_assets_all",
+      "ui_main_menu_scrolling_assets_all",
+      "ui_main_menu_shop_assets_all",
+      "ui_materials_assets_all",
+      "ui_portraits_assets_all",
+      "ui_textures_root_assets_all",
+      "ultimate_grimshot_assets_all",
+      "ultimate_lump_assets_all",
+      "ultimate_sprocket_assets_all",
+      "weapon_amoeboidlauncher_assets_all",
+      "weapon_bigboom_assets_all",
+      "weapon_bombardier_assets_all",
+      "weapon_buzzblades_assets_all",
+      "weapon_celestemelee_assets_all",
+      "weapon_chancemelee_assets_all",
+      "weapon_chipmelee_assets_all",
+      "weapon_coldsnap_assets_all",
+      "weapon_cryoslider_assets_all",
+      "weapon_electricgrenade_assets_all",
+      "weapon_enforcer_assets_all",
+      "weapon_flaremelee_assets_all",
+      "weapon_fusemelee_assets_all",
+      "weapon_gatling_assets_all",
+      "weapon_gloveofdoom_assets_all",
+      "weapon_grenadelauncher_assets_all",
+      "weapon_grimshotmelee_assets_all",
+      "weapon_headhunter_assets_all",
+      "weapon_holoshieldglove_assets_all",
+      "weapon_hoverboard_assets_all",
+      "weapon_lavagun_assets_all",
+      "weapon_lilannmeleegadget_assets_all",
+      "weapon_lumpmelee_assets_all",
+      "weapon_markusmelee_assets_all",
+      "weapon_minelauncher_assets_all",
+      "weapon_mollymelee_assets_all",
+      "weapon_mopzmelee_assets_all",
+      "weapon_nakarimelee_assets_all",
+      "weapon_negatron_assets_all",
+      "weapon_plasmastriker_assets_all",
+      "weapon_pyrocitor_assets_all",
+      "weapon_ratchetblaster_assets_all",
+      "weapon_ratchetryno_assets_all",
+      "weapon_sabre_assets_all",
+      "weapon_shotgun_assets_all",
+      "weapon_sprocketmelee_assets_all",
+      "weapon_steeljawmelee_assets_all",
+      "weapon_tankcannon_assets_all",
+      "weapon_terrymelee_assets_all",
+      "weapon_teslaclaw_assets_all",
+      "weapon_voidrepulser_assets_all",
+      "weapon_warmonger_assets_all",
+      "weapon_widgetmelee_assets_all",
+      "weapon_widgetmeleegadget_assets_all",
+      "weapon_wrenchthrow_assets_all",
+      "weapon_zedonemelee_assets_all",
+      "scene_q_ffa_ardolis_01_scenes_all",
+      "quantum_map_assets_q_ffa_ardolis_01_assets_all"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BB_Ardolis_01.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BB_Ardolis_01.asset|Resources/DB/Maps|Assets",
+      "b190cd613fd749942bd8559d58ee28a6"
+     ],
+     "own": [
+      "quantum_map_assets_q_bb_ardolis_01_assets_all_4fa867f9835bef9b983d97ac6a79d87f.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BB_Ardolis_01_customData.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BB_Ardolis_01_customData.asset|Resources/DB/Maps|Assets",
+      "77df6c09a34a3c0449c33f96e4256800"
+     ],
+     "own": [
+      "quantum_map_assets_q_bb_ardolis_01_assets_all_4fa867f9835bef9b983d97ac6a79d87f.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BB_Ardolis_01_GameModeLevelConfig.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BB_Ardolis_01_GameModeLevelConfig.asset|Resources/DB/Maps|Assets",
+      "e4d2458a8083be943b3693b2a1230a43"
+     ],
+     "own": [
+      "quantum_map_assets_q_bb_ardolis_01_assets_all_4fa867f9835bef9b983d97ac6a79d87f.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BB_Ardolis_01_mesh.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BB_Ardolis_01_mesh.asset|Resources/DB/Maps|Assets",
+      "04f448b0b72b74a4ebd930ded31d4857"
+     ],
+     "own": [
+      "quantum_map_assets_q_bb_ardolis_01_assets_all_4fa867f9835bef9b983d97ac6a79d87f.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BB_Ardolis_01_QuantumNavMesh.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BB_Ardolis_01_QuantumNavMesh.asset|Resources/DB/Maps|Assets",
+      "029fa1f0717804849a57b1c65bcbb179"
+     ],
+     "own": [
+      "quantum_map_assets_q_bb_ardolis_01_assets_all_4fa867f9835bef9b983d97ac6a79d87f.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BB_Ardolis_01_QuantumNavMesh_data.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "data.asset|QuantumNavMesh|Ardolis_01|Assets/Resources/DB/Maps/q_BB",
+      "4947665e11bb58144ba26d83b41554d8"
+     ],
+     "own": [
+      "quantum_map_assets_q_bb_ardolis_01_assets_all_4fa867f9835bef9b983d97ac6a79d87f.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "minimap",
+     "internal": "q_BB_Ardolis_01_minimap.png|UI/Minimap|Textures|Assets",
+     "keys": [
+      "q_BB_Ardolis_01_minimap.png|UI/Minimap|Textures|Assets",
+      "b2b5cb1a07f32b64a85d2651fb436203"
+     ],
+     "own": [
+      "scene_metadata_q_bb_ardolis_01_assets_all_df30e95d2a8ffccc193a81777035f167.bundle"
+     ],
+     "families": []
+    }
+   ],
+   "level": {
+    "status": 0,
+    "sceneName": "q_BB_Ardolis_01",
+    "biome": {
+     "_proxy": "ARDOLIS",
+     "_index": 3,
+     "_value": 3
+    },
+    "levelDisplayNameKey": {
+     "_value": "LEVEL.BB_ARDOLIS_01.NAME",
+     "_mode": 0
+    },
+    "levelDisplayVisual": {
+     "m_FileID": 0,
+     "m_PathID": -8699921659168847022
+    },
+    "introDialogue": {
+     "m_FileID": 0,
+     "m_PathID": 0
+    },
+    "music": 0,
+    "introMusic": 0,
+    "gameMode": 2,
+    "meshCombineParameters": {
+     "m_FileID": 0,
+     "m_PathID": 0
+    },
+    "minimapLevelData": {
+     "m_FileID": 0,
+     "m_PathID": 8172453765815145908
+    }
+   },
+   "minimap": {
+    "name": "MinimapLevelData_q_BB_Ardolis_01",
+    "guid": "b2b5cb1a07f32b64a85d2651fb436203",
+    "extent": 56.0,
+    "path_id": 8172453765815145908
+   },
+   "asset_resources": [
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BB_Ardolis_01_mesh",
+     "AssetRef": {
+      "Id": {
+       "Value": 1033402320536498801
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BB_Ardolis_01_mesh.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BB_Ardolis_01_GameModeLevelConfig",
+     "AssetRef": {
+      "Id": {
+       "Value": 1079985973471826390
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BB_Ardolis_01_GameModeLevelConfig.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BB_Ardolis_01_QuantumNavMesh_data",
+     "AssetRef": {
+      "Id": {
+       "Value": 1202650291449799693
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BB_Ardolis_01_QuantumNavMesh_data.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BB_Ardolis_01",
+     "AssetRef": {
+      "Id": {
+       "Value": 3815947065622697244
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BB_Ardolis_01.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BB_Ardolis_01_customData",
+     "AssetRef": {
+      "Id": {
+       "Value": 3884962519588798241
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BB_Ardolis_01_customData.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BB_Ardolis_01_QuantumNavMesh",
+     "AssetRef": {
+      "Id": {
+       "Value": 4026410267516323597
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BB_Ardolis_01_QuantumNavMesh.asset"
+    }
+   ]
+  }
+ }
+}

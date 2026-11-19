@@ -324,8 +324,8 @@ s_credits:      .asciz "RR credits: Qredits du podium donnes"
 s_plans:        .asciz "RR plans: plans des kills donnes"
 s_diag:         .asciz "RR plans diag n="
     .p2align 2
-ranked_modes:   .word 125, 131, 219, 57, 68, 0
-last_paid_rank: .word 3
-test_kills:     .word 0
+ranked_modes:    .word 125, 131, 219, 57, 68, 0
+last_paid_rank:  .word 3
+test_kills:      .word 0
 plan_targets_on: .word 1
-journal:        .word 0
+journal:         .word 0

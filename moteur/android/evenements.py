@@ -35,11 +35,22 @@ CARD_TEXTURE = TEXTURE_TEMPLATE ^ CARD_KEY
 CARD_SPRITE = SPRITE_TEMPLATE ^ CARD_KEY
 CARDS_PER_MISSION = 5
 EVENT_TOKENS_SPRITE = (ATLAS, 4177870253614828354)
+CARD_ART = False
+CARD_ART_KEY = 3417251152475196967
+CARD_ART_TEXTURE = TEXTURE_TEMPLATE ^ CARD_ART_KEY
+CARD_ART_SPRITE = SPRITE_TEMPLATE ^ CARD_ART_KEY
+WEAPON_ART = False
+WEAPON_ART_KEY = 8202227682763847771
+WEAPON_ART_TEXTURE = TEXTURE_TEMPLATE ^ WEAPON_ART_KEY
+WEAPON_ART_SPRITE = SPRITE_TEMPLATE ^ WEAPON_ART_KEY
+STRETCHED = bytes.fromhex('9e71b335da40a736e6ff7f3fb0ff7f3f')
 ZURKON_TOKEN = -5237341124298122588
 TOKEN_ON_GROUND = True
 ZURKON_TOKEN_OBJECTS = (ZURKON_TOKEN, 5952319859663788708, -2466255425291003228, 7861148539676220068)
 
 def card_event03_edits():
+    if CARD_ART:
+        return [(CARD_ILLUSTRATION_IMAGE + 88, struct.pack('<iq', ATLAS, 3487435678033934294), struct.pack('<iq', 0, CARD_ART_SPRITE))]
     picture = struct.pack('<iq', 0, ZURKON_SPRITE) if PICTURE else struct.pack('<iq', *ICO_EVENT_ZURKON)
     anchors = (0.36, 0.04, 0.78, 0.96) if PICTURE else (0.45, 0.05, 0.9, 0.75)
     return [(CARD_ROOT_IMAGE + 12, b'\x00', b'\x01'), (CARD_ROOT_IMAGE + 88, struct.pack('<iq', ATLAS, -81423715014193705), struct.pack('<iq', *BG_EVENT01)), (CARD_ROOT_IMAGE + 104, b'\x01', b'\x00'), (CARD_ILLUSTRATION_IMAGE + 88, struct.pack('<iq', ATLAS, 3487435678033934294), picture), (CARD_ILLUSTRATION_RECT + 68, bytes.fromhex('9e71b335da40a736e6ff7f3fb0ff7f3f'), struct.pack('<4f', *anchors))]
@@ -94,28 +105,10 @@ def serialize(e):
     for name in ('title', 'description', 'rules', 'compensationPart1', 'compensationPart2'):
         raw += key(e[name])
     raw += pptr(e['tokenIcon']) + pptr(e['tokenPrefab']) + pptr(e['ticketIcon'])
-    raw += struct.pack('<i', len(e['requiredCharacters'])) + b''.join((struct.pack('<i', c) for c in e['requiredCharacters']))
+    characters = e['requiredCharacters']
+    raw += struct.pack(f'<i{len(characters)}i', len(characters), *characters)
     raw += struct.pack('<4I', *e['sfx'])
     return raw + pptrs(e['botBehaviours']) + pptrs(e['botProfiles'])
-
-def from_json(e):
-
-    def ref(p):
-        return (p['m_FileID'], p['m_PathID'])
-
-    def act(a):
-        proxies = [a[f'<{n}>k__BackingField'] for n in ('CharacterID', 'ExpressionID', 'CharacterScreenPosition')]
-        return (*[(p['_proxy'], p['_index'], p['_value']) for p in proxies], a['<CharacterMoveDuration>k__BackingField'], a['<CharacterMoveEasing>k__BackingField'])
-    out = {k: ref(v) if isinstance(v, dict) and 'm_PathID' in v else v for k, v in e.items()}
-    out['allAnimatedIcons'] = [ref(p) for p in e['allAnimatedIcons']]
-    out['botBehaviours'] = [ref(p) for p in e['botBehaviours']]
-    out['botProfiles'] = [ref(p) for p in e['botProfiles']]
-    for name in ('legacyCharacter', 'legacyCharacterEndGameScreen', 'legacyCharacterEndGameScreenLose'):
-        out[name] = act(e[name])
-    for name in ('title', 'description', 'rules', 'compensationPart1', 'compensationPart2'):
-        out[name] = (e[name]['_value'], e[name]['_mode'])
-    out['sfx'] = (e['startGameSFX'], e['winGameSFX'], e['loseGameSFX'], e['levelUpSFX'])
-    return out
 
 def events_meta(old):
     name_size, = struct.unpack_from('<I', old, 28)
@@ -137,12 +130,16 @@ def card_event04(object_id, raw):
     elif object_id == CARD_EVENT03_OBJECTS[1]:
         father = raw.index(struct.pack('<iq', 0, 3690149658893217645))
         raw[father:father + 12] = struct.pack('<iq', 0, 0)
+    elif object_id == CARD_EVENT03_OBJECTS[3] and WEAPON_ART:
+        raw[12] = 0
     elif object_id == CARD_EVENT03_OBJECTS[3]:
         raw[44:60] = struct.pack('<4f', *CARD_EVENT04_TINT)
         raw[88:100] = struct.pack('<iq', *GRADIENT2)
         raw[104] = 0
+    elif object_id == CARD_EVENT03_OBJECTS[5] and WEAPON_ART:
+        raw[68:84] = STRETCHED
     elif object_id == CARD_EVENT03_OBJECTS[5]:
         raw[68:84] = struct.pack('<4f', 0.5, 0.24, 0.8, 0.76)
     elif object_id == CARD_EVENT03_OBJECTS[7]:
-        raw[88:100] = struct.pack('<iq', *ICO_EVENT_RANDOM_WEAPON)
+        raw[88:100] = struct.pack('<iq', 0, WEAPON_ART_SPRITE) if WEAPON_ART else struct.pack('<iq', *ICO_EVENT_RANDOM_WEAPON)
     return bytes(raw)

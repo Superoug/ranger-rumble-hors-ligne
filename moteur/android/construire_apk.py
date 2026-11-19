@@ -1,3 +1,4 @@
+import functools
 import io
 import json
 import os
@@ -5,7 +6,8 @@ import re
 import struct
 import sys
 import zipfile
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
 import a64
 import evenements
 import heros_caches
@@ -21,17 +23,25 @@ ZERO_W0 = bytes.fromhex('00008052')
 ZERO_W1 = bytes.fromhex('e1031f2a')
 ZERO_W2 = bytes.fromhex('e2031f2a')
 ARSENAL_NAME = b'\x16\x00\x00\x00FeatureEnabler_Arsenal'
-BUILDS = {'1.10.4': {'https': 1049769, 'wss': 1119405, 'play_available': 72762232, 'play_autologin': 72761948, 'reachability': (142385556, 'fe4fbfa9137b00b0'), 'disable_feature': 64584032, 'ensure_weapon': 64583824, 'equip_button': 67155712, 'equip_selected': 67155880, 'try_button': 67156812, 'free_code': (64583828, 'f44f01a9d4cb02d0f30300aa88a6483988010037209e0290007046f9'), 'log_handler': 142824912, 'debug_log': 74693004, 'offline_game': (69183428, '487b02f0', 69183536), 'wander_tries': [(130818588, '1b018052', '1b088052'), (130818700, 'a0040036', '80040036'), (130818744, '40030037', '20030037'), (130818796, 'ad010054', '8d010054'), (130818836, '60000036', '40000036')], 'crc_getter': 140539672, 'crc_local': 140548552, 'crc_web': 140541016, 'crc_web_cached': 140541224, 'show_wip_heroes': None, 'map_pool_check': (66656456, '01fdff54'), 'ratchet_lock': (64500552, '99070037', 64500792), 'training_weapon': (66477052, 'e4179f1a'), 'select_map': 66499712, 'string_new': 63431916, 'prefs_get_string': 142892992, 'free_code_map': (64584036, 'f65701a9f44f02a9d5cb02d0369e02d0f403012aa8aa4839d61e41f9f30300aa88010037209e02b000cc43f91a7cfb97209e02d0002041f9177cfb97209e02d0001c41f9147cfb9728008052a8aa0839c00240f9b67cfb97e1031faa'), 'levels_bundle': 'assets/aa/Android/local_data_managers_assets_all_6ff0f696e005a7c20b7fe29b1123faca.bundle', 'heroes_bundle': 'assets/aa/Android/local_data_managers_assets_all_6ff0f696e005a7c20b7fe29b1123faca.bundle', 'heroes_without_ultimate': [2485100, 2487772, 2488572], 'sandy_ultimate': (29, 2773052598463922984), 'heroes_in_progress': [2484604, 2485408, 2488080, 2499728, 2500528, 2501332, 2503536], 'skins_without_model': [2486008, 2486476, 2486944], 'hero_models': True, 'hero_specs_bundle': 'assets/aa/Android/quantum_db_heroes_assets_all_30f4bf696fe07bd88d3fe14d4cbf42da.bundle', 'hero_specs_table': (147764, 91), 'levels': [(1051184, 0, b'q_FFA_Sargasso_02'), (1053304, 0, b'q_EL_Prototype_01'), (1054064, 0, b'q_EL_TorrenIV_01B'), (1054648, 0, b'q_EL_Ardolis_01B')], 'menu_bundle': 'assets/aa/Android/scene_mainmenu_landscape_scenes_all_8205e1f604aef6bc7603d040c2571063.bundle', 'gallery_label': (20923708, b'\t\x00\x00\x00INSTAGRAM', b'\t\x00\x00\x00 ARTBOOK '), 'arsenal_flag': 9994702, 'flail_tables': [(66168456, 120384924, True), (74993060, 94813676, False), (74996044, 119976552, True)], 'flail_cave': 64584132, 'flail_spec': ('assets/aa/Android/quantum_db_weapons_assets_all_3550076b9943b3b450be7dd2d2396dbf.bundle', 1608828), 'flail_sprites': (1609220, 1609244, 1609268), 'flail_reload': 1609740, 'flail_ammo': 1609780, 'flail_fire_button': 1609516, 'flail_autoshoot': 1609856, 'flail_fire_rate': 1609656, 'flail_projectile_speed': 1309624, 'flail_homing': 1311404, 'flail_anticipation': 1310164, 'flail_spin': (129922376, 72330704), 'flail_view': (66140112, 72330704 + 768), 'flail_auto': (67379356, 66260628, 72330704 + 2048, 72330704 + 5660, 142999140, 240), 'try_fix': (67156092, 67156128, 72330704 + 2560), 'difficulty': (70252920, 70252592), 'ultra_bots': {'talent_store': 129640332, 'runtime_config': 880, 'bots_power': 340}, 'difficulty_row_code': {'get_calls': (66621724, 66621760), 'get': 67818320, 'set_call': 66622004, 'set': 67818556, 'done': 66622256, 'set_string': 142892132, 'save': 142893956}, 'difficulty_row': {'scene': (6513924, 19204924), 'table': (1052044, 100066, 1), 'rows': [{'grid': 70831, 'objects': (399, 1157, 2448, 4259, 4591, 7337, 7727, 8355, 11355, 17241, 24370, 31572, 32005, 37290, 38882, 41623, 45953, 46173, 46762, 46879, 47399, 51201, 51948, 55076, 55434, 56953, 59255, 59402, 65328, 67404, 70347, 70831, 72352, 72593, 73985, 74412, 76459, 76675, 77652, 82191, 82766, 84478, 88904, 89034, 92003, 94372, 94923, 97534, 97572, 98605, 98873, 99520, 99970), 'content': (50699, 8264368, 228, 10), 'options': 98605, 'title': 76675, 'title_text': 73985, 'value': 76459, 'names': {4259: ('FOVGrid', 'DifficultyGrid'), 4591: ('CamFOVSelection', 'DifficultySelection')}}, {'grid': 68819, 'objects': (372, 1728, 2487, 4895, 5219, 7833, 7958, 8244, 10780, 16293, 22249, 29780, 33930, 37679, 40757, 43219, 45570, 46230, 46358, 47675, 47750, 49264, 54262, 54959, 55984, 56008, 57453, 58329, 62987, 66527, 68819, 69499, 72391, 72542, 74054, 74304, 76435, 76654, 79498, 79846, 83964, 85029, 91009, 91252, 92971, 96690, 96915, 97155, 97593, 97972, 98055, 99893, 99940), 'content': (48763, 8022224, 228, 10), 'options': 98055, 'title': 76654, 'title_text': 74054, 'value': 76435, 'names': {4895: ('FOVGrid', 'DifficultyGrid'), 5219: ('CamFOVSelection', 'DifficultySelection')}}]}, 'outline_silhouette': (65782180, '0910221e', '0910241e'), 'flail_blueprint': (67707376, 72330704 + 2688), 'flail_spin_aoe': (1449860, 1449956, 1450012, 1450016), 'flail_enhancements': {'table': (707152, 1850), 'weapon_spec': (5078801867238120315, 850512, 1328), 'mega': (-1977668264896138770, 335280, 352, 1237732778874375369), 'torque': (2311922125797020701, 659936, 340, 613788347279680364), 'spin_pusher': (-7802969303589263528, 153952, 412), 'torque_pusher': (-4648941861449245640, 265120, 356, 2339062322271808208), 'pusher_type': (49, 7505018460637316183), 'limit_scale': 1450064}, 'flail_damage': [(1546884, 1546928), (1633360, 1633404)]}, '1.10.3': {'https': 1050567, 'play_available': 72698364, 'play_autologin': 72698080, 'reachability': (142264064, 'fe4fbfa9137b00f0'), 'disable_feature': 64532484, 'ensure_weapon': 64532276, 'equip_button': 67080908, 'equip_selected': 67086228, 'try_button': 67114288, 'free_code': (64532280, 'f44f01a954cb02d0f30300aa885e713988010037809d02b000f447f9'), 'log_handler': 142702924, 'crc_getter': 140418112, 'crc_local': 140426992, 'crc_web': 140419456, 'crc_web_cached': 140419664, 'show_wip_heroes': 128633152, 'internet_check': (72154980, '00004239c0035fd6'), 'training_weapon': (66429744, 'e4179f1a'), 'heroes_bundle': 'assets/aa/Android/local_data_managers_assets_all_d9364b77f6fa2468ad69bcc67c4d7850.bundle', 'heroes_without_ultimate': [2472544, 2483276, 2486108, 2486940], 'sandy_ultimate': (30, 2773052598463922984), 'menu_bundle': 'assets/aa/Android/scene_mainmenu_landscape_scenes_all_75fdd8147a3f4d8dd07e67cb50f343ac.bundle', 'arsenal_flag': 9707534, 'init_bundle': 'assets/aa/Android/scene_init_scenes_all_0fa6525925f9632ff7f78218fb284673.bundle', 'init_host': 180212, 'flail_tables': [(66117716, 120162504, True), (74870060, 94713444, False), (74873044, 119756860, True)], 'flail_cave': 64532488, 'string_new': 63382176, 'flail_spec': ('assets/aa/Android/quantum_db_weapons_assets_all_364571c451faf8437afda9a6cf9d7419.bundle', 1642300), 'flail_sprites': (1642696, 1642720, 1642744), 'flail_reload': 1643200, 'flail_ammo': 1643240, 'flail_fire_button': 1642976, 'flail_autoshoot': 1643316, 'flail_auto': (None, 66209336, 72276792 + 8, 72276792 + 5660, 142876756, 224), 'flail_damage': [(1580356, 1580400), (1668880, 1668924)], 'flail_spin_spec': 1301860}}
-BUILD = BUILDS[os.environ.get('RR_VERSION', '1.10.4')]
-COPIE = os.environ.get('RR_COPIE') == '1'
-if COPIE:
-    os.environ['RR_PHOTON'] = '127.0.0.1'
-GROUPE = not COPIE and os.environ.get('RR_GROUPE', '1') == '1' and ('offline_game' in BUILD)
+BUILDS = {'1.10.4': {'https': 1049769, 'wss': 1119405, 'play_available': 72762232, 'play_autologin': 72761948, 'reachability': (142385556, 'fe4fbfa9137b00b0'), 'disable_feature': 64584032, 'ensure_weapon': 64583824, 'equip_button': 67155712, 'equip_selected': 67155880, 'try_button': 67156812, 'free_code': (64583828, 'f44f01a9d4cb02d0f30300aa88a6483988010037209e0290007046f9'), 'log_handler': 142824912, 'debug_log': 74693004, 'offline_game': (69183428, '487b02f0', 69183536), 'wander_tries': [(130818588, '1b018052', '1b088052'), (130818700, 'a0040036', '80040036'), (130818744, '40030037', '20030037'), (130818796, 'ad010054', '8d010054'), (130818836, '60000036', '40000036')], 'crc_getter': 140539672, 'crc_local': 140548552, 'crc_web': 140541016, 'crc_web_cached': 140541224, 'show_wip_heroes': None, 'map_pool_check': (66656456, '01fdff54'), 'ratchet_lock': (64500552, '99070037', 64500792), 'version_label': {'calls': [(68335168, 73591552), (68336644, 123993588)], 'cave': 72360748 + 256}, 'polish': {'cctor': (68198356, 'c00240f9', 68198384), 'cave': 72360748, 'new_array': 63400676, 'system_table': 25544560}, 'try_weapon': True, 'select_map': 66499712, 'string_new': 63431916, 'prefs_get_string': 142892992, 'free_code_map': (64584036, 'f65701a9f44f02a9d5cb02d0369e02d0f403012aa8aa4839d61e41f9f30300aa88010037209e02b000cc43f91a7cfb97209e02d0002041f9177cfb97209e02d0001c41f9147cfb9728008052a8aa0839c00240f9b67cfb97e1031faa'), 'heroes_bundle': 'assets/aa/Android/local_data_managers_assets_all_6ff0f696e005a7c20b7fe29b1123faca.bundle', 'heroes_without_ultimate': [2485100, 2487772, 2488572], 'sandy_ultimate': (29, 2773052598463922984), 'heroes_in_progress': [2484604, 2485408, 2488080, 2499728, 2500528, 2501332, 2503536], 'skins_without_model': [2486008, 2486476, 2486944], 'hero_models': True, 'hero_specs_bundle': 'assets/aa/Android/quantum_db_heroes_assets_all_30f4bf696fe07bd88d3fe14d4cbf42da.bundle', 'hero_specs_table': (147764, 91), 'levels': [(1051184, 0, b'q_FFA_Sargasso_02'), (1053304, 0, b'q_EL_Prototype_01'), (1054064, 0, b'q_EL_TorrenIV_01B'), (1054648, 0, b'q_EL_Ardolis_01B'), (1050584, 0, b'q_FFA_TorrenIV_01B'), (1051036, 0, b'q_FFA_Sargasso_01B'), (1051476, 0, b'q_FFA_Ardolis_01B'), (1049080, 0, b'q_BK_TorrenIV_02B')], 'menu_bundle': 'assets/aa/Android/scene_mainmenu_landscape_scenes_all_8205e1f604aef6bc7603d040c2571063.bundle', 'gallery_label': (20923708, b'\t\x00\x00\x00INSTAGRAM', b'\t\x00\x00\x00 ARTBOOK '), 'arsenal_flag': 9994702, 'flail_tables': [(66168456, 120384924, True), (74993060, 94813676, False), (74996044, 119976552, True)], 'flail_cave': 64584132, 'flail_spec': ('assets/aa/Android/quantum_db_weapons_assets_all_3550076b9943b3b450be7dd2d2396dbf.bundle', 1608828), 'flail_sprites': (1609220, 1609244, 1609268), 'flail_reload': 1609740, 'flail_ammo': 1609780, 'flail_fire_button': 1609516, 'flail_autoshoot': 1609856, 'plasma_release': 1446864, 'flail_fire_rate': 1609656, 'flail_projectile_speed': 1309624, 'flail_homing': 1311404, 'flail_anticipation': 1310164, 'flail_spin': (129922376, 72330704), 'flail_view': (66140112, 72330704 + 768), 'flail_auto': (67379356, 66260628, 72330704 + 2048, 72330704 + 5660, 142999140, 240), 'try_fix': (67156092, 67156128, 72330704 + 2560), 'difficulty': (70252920, 70252592), 'ultra_bots': {'talent_store': 129640332, 'runtime_config': 880, 'bots_power': 340}, 'difficulty_row_code': {'get_calls': (66621724, 66621760), 'get': 67818320, 'set_call': 66622004, 'set': 67818556, 'done': 66622256, 'set_string': 142892132, 'save': 142893956}, 'difficulty_row': {'scene': (6513924, 19204924), 'table': (1052044, 100066, 1), 'rows': [{'grid': 70831, 'objects': (399, 1157, 2448, 4259, 4591, 7337, 7727, 8355, 11355, 17241, 24370, 31572, 32005, 37290, 38882, 41623, 45953, 46173, 46762, 46879, 47399, 51201, 51948, 55076, 55434, 56953, 59255, 59402, 65328, 67404, 70347, 70831, 72352, 72593, 73985, 74412, 76459, 76675, 77652, 82191, 82766, 84478, 88904, 89034, 92003, 94372, 94923, 97534, 97572, 98605, 98873, 99520, 99970), 'content': (50699, 8264368, 228, 10), 'options': 98605, 'title': 76675, 'title_text': 73985, 'value': 76459, 'names': {4259: ('FOVGrid', 'DifficultyGrid'), 4591: ('CamFOVSelection', 'DifficultySelection')}}, {'grid': 68819, 'objects': (372, 1728, 2487, 4895, 5219, 7833, 7958, 8244, 10780, 16293, 22249, 29780, 33930, 37679, 40757, 43219, 45570, 46230, 46358, 47675, 47750, 49264, 54262, 54959, 55984, 56008, 57453, 58329, 62987, 66527, 68819, 69499, 72391, 72542, 74054, 74304, 76435, 76654, 79498, 79846, 83964, 85029, 91009, 91252, 92971, 96690, 96915, 97155, 97593, 97972, 98055, 99893, 99940), 'content': (48763, 8022224, 228, 10), 'options': 98055, 'title': 76654, 'title_text': 74054, 'value': 76435, 'names': {4895: ('FOVGrid', 'DifficultyGrid'), 5219: ('CamFOVSelection', 'DifficultySelection')}}]}, 'outline_silhouette': (65782180, '0910221e', '0910241e'), 'flail_blueprint': (67707376, 72330704 + 2688), 'flail_spin_aoe': (1449860, 1449956, 1450012, 1450016), 'flail_enhancements': {'table': (707152, 1850), 'weapon_spec': (5078801867238120315, 850512, 1328), 'mega': (-1977668264896138770, 335280, 352, 1237732778874375369), 'torque': (2311922125797020701, 659936, 340, 613788347279680364), 'spin_pusher': (-7802969303589263528, 153952, 412), 'torque_pusher': (-4648941861449245640, 265120, 356, 2339062322271808208), 'pusher_type': (49, 7505018460637316183), 'limit_scale': 1450064}, 'flail_damage': [(1546884, 1546928), (1633360, 1633404)]}, '1.10.3': {'https': 1050567, 'play_available': 72698364, 'play_autologin': 72698080, 'reachability': (142264064, 'fe4fbfa9137b00f0'), 'disable_feature': 64532484, 'ensure_weapon': 64532276, 'equip_button': 67080908, 'equip_selected': 67086228, 'try_button': 67114288, 'free_code': (64532280, 'f44f01a954cb02d0f30300aa885e713988010037809d02b000f447f9'), 'log_handler': 142702924, 'crc_getter': 140418112, 'crc_local': 140426992, 'crc_web': 140419456, 'crc_web_cached': 140419664, 'show_wip_heroes': 128633152, 'internet_check': (72154980, '00004239c0035fd6'), 'training_weapon': (66429744, 'e4179f1a'), 'heroes_bundle': 'assets/aa/Android/local_data_managers_assets_all_d9364b77f6fa2468ad69bcc67c4d7850.bundle', 'heroes_without_ultimate': [2472544, 2483276, 2486108, 2486940], 'sandy_ultimate': (30, 2773052598463922984), 'menu_bundle': 'assets/aa/Android/scene_mainmenu_landscape_scenes_all_75fdd8147a3f4d8dd07e67cb50f343ac.bundle', 'arsenal_flag': 9707534, 'init_bundle': 'assets/aa/Android/scene_init_scenes_all_0fa6525925f9632ff7f78218fb284673.bundle', 'init_host': 180212, 'flail_tables': [(66117716, 120162504, True), (74870060, 94713444, False), (74873044, 119756860, True)], 'flail_cave': 64532488, 'string_new': 63382176, 'flail_spec': ('assets/aa/Android/quantum_db_weapons_assets_all_364571c451faf8437afda9a6cf9d7419.bundle', 1642300), 'flail_sprites': (1642696, 1642720, 1642744), 'flail_reload': 1643200, 'flail_ammo': 1643240, 'flail_fire_button': 1642976, 'flail_autoshoot': 1643316, 'flail_auto': (None, 66209336, 72276792 + 8, 72276792 + 5660, 142876756, 224), 'flail_damage': [(1580356, 1580400), (1668880, 1668924)], 'flail_spin_spec': 1301860}}
+VERSION = os.environ.get('RR_VERSION', '1.10.4')
+BUILD = BUILDS[VERSION]
+GROUPE = os.environ.get('RR_GROUPE', '1') == '1' and 'offline_game' in BUILD
 if GROUPE:
     os.environ.setdefault('RR_PHOTON', '127.0.0.1')
-if os.environ.get('RR_VERSION') == '1.10.3':
+if VERSION == '1.10.3':
     NEW_HOST = NEW_HOST.replace(b'18443', b'18444')
 assert len(OLD_HOST) == len(NEW_HOST)
+BOLT_RUSH = os.environ.get('RR_BOLT_RUSH', '1') == '1' and 'hero_models' in BUILD
+EVENTS = BOLT_RUSH and os.environ.get('RR_EVENEMENTS', '1') == '1'
+JOURNAL = bool(os.environ.get('RR_JOURNAL'))
+
+def data_file(*parts):
+    return os.path.join(HERE, *parts)
+
+def load_json(name):
+    with open(data_file(name), encoding='utf-8') as handle:
+        return json.load(handle)
 
 def at(data, offset, old, new):
     if len(old) != len(new):
@@ -40,25 +50,295 @@ def at(data, offset, old, new):
         raise SystemExit(f'octets inattendus a {offset:#x} : {bytes(data[offset:offset + len(old)]).hex()}')
     data[offset:offset + len(new)] = new
 
+def place(data, address, code):
+    at(data, address, bytes(data[address:address + len(code)]), code)
+
+def replace_once(data, old, new, message):
+    source = bytes(data)
+    if source.count(old) != 1:
+        raise SystemExit(message)
+    at(data, source.index(old), old, new)
+LOADS = {8: 4181721088, 4: 3107979264, 1: 960495616}
+STORES = {8: 4177526784, 4: 3103784960, 1: 956301312}
+OFFSET19_KINDS = {'cbz': 3019898880, 'cbzw': 872415232, 'cbnzw': 889192448, 'cbnzx': 3036676096, 'ldrlit': 1476395008, 'ldrlit_s': 469762048}
+
+def w32(value):
+    return struct.pack('<I', value)
+
+def a64_ldst(base, size, rt, rn, offset):
+    return w32(base | offset // size << 10 | rn << 5 | rt)
+
+def a64_adr(rd, source, target):
+    delta = target - source
+    return w32(268435456 | (delta & 3) << 29 | (delta >> 2 & 524287) << 5 | rd)
+
+def a64_cb(base, rt, source, target):
+    return w32(base | (target - source >> 2 & 524287) << 5 | rt)
+
+def w_store(source, base, offset):
+    return a64_ldst(STORES[4], 4, source, base, offset)
+
+def w_add(destination, first, second):
+    return w32(184549376 | second << 16 | first << 5 | destination)
+
+def w_sub_imm(destination, source, value):
+    return w32(1358954496 | value << 10 | source << 5 | destination)
+
+def x_umaddl(destination, first, second, addend):
+    return w32(2610954240 | second << 16 | addend << 10 | first << 5 | destination)
+
+def fp(value):
+    return struct.pack('<q', round(value * 65536))
+
+class Code:
+
+    def __init__(self, at_address):
+        self.at = at_address
+        self.code = bytearray()
+        self.labels = {}
+        self.fixups = []
+
+    def here(self):
+        return self.at + len(self.code)
+
+    def emit(self, raw):
+        self.code.extend(raw)
+
+    def call(self, target):
+        self.emit(a64.bl(self.here(), target))
+
+    def jump(self, kind, label, register=0):
+        self.fixups.append((kind, len(self.code), label, register))
+        self.code.extend(bytes(4))
+
+    def label(self, name):
+        self.labels[name] = len(self.code)
+
+    def align(self, size=8):
+        while len(self.code) % size:
+            self.emit(a64.NOP)
+
+    def adrp_ldr(self, register, address):
+        page = (address >> 12) - (self.here() + a64.TEXT_DELTA >> 12)
+        self.emit(w32(2415919104 | (page & 3) << 29 | (page >> 2 & 524287) << 5 | register))
+        self.emit(a64.ldr_x(register, register, address & 4095))
+
+    def log(self, label):
+        self.jump('adr', label, 0)
+        self.call(BUILD['string_new'])
+        self.emit(a64.mov_x_zero(1))
+        self.call(DEBUG_LOG)
+
+    def change_state(self, state, restore):
+        self.emit(a64.mov_x_zero(0))
+        self.call(GAME_FSM_INSTANCE)
+        self.jump('cbz', 'no_fsm', 0)
+        self.emit(a64.ldr_x(8, 0, 0))
+        self.emit(a64.movz_w(1, state))
+        self.emit(bytes.fromhex('e2031f2a'))
+        self.emit(a64.movz_w(3, 1))
+        self.emit(CHANGE_TO_STATE)
+        self.emit(restore)
+        self.emit(a64.br(5))
+        self.label('no_fsm')
+        self.emit(restore)
+        self.emit(a64.RET)
+
+    def build(self):
+        for kind, position, label, register in self.fixups:
+            source, target = (self.at + position, self.at + self.labels[label])
+            if kind == 'b':
+                raw = a64.b(source, target)
+            elif kind == 'bl':
+                raw = a64.bl(source, target)
+            elif kind == 'adr':
+                raw = a64_adr(register, source, target)
+            elif kind in OFFSET19_KINDS:
+                raw = a64_cb(OFFSET19_KINDS[kind], register, source, target)
+            elif re.fullmatch('tbn?z\\d+', kind):
+                bit = int(kind.lstrip('tbnz'))
+                raw = w32((922746880 if kind.startswith('tbnz') else 905969664) | (bit & 31) << 19 | (target - source >> 2 & 16383) << 5 | register)
+            else:
+                raw = a64.b_cond(kind[2:], source, target)
+            self.code[position:position + 4] = raw
+        return bytes(self.code)
+ASSEMBLED_CACHE = data_file('code_assemble.json')
+
+@functools.lru_cache(None)
+def assemble_source(name):
+    import hashlib
+    import shutil
+    source = data_file(name)
+    with open(source, 'rb') as handle:
+        digest = hashlib.sha256(handle.read()).hexdigest()
+    cache = {}
+    if os.path.exists(ASSEMBLED_CACHE):
+        with open(ASSEMBLED_CACHE) as handle:
+            cache = json.load(handle)
+    if not shutil.which('clang') or os.environ.get('RR_SANS_CLANG') == '1':
+        entry = cache.get(name)
+        if not entry or entry['sha256'] != digest:
+            raise SystemExit(f'{name} : code assemble absent ou perime (construire une fois sur le Mac)')
+        return (bytes.fromhex(entry['code']), [tuple(use) for use in entry['uses']], entry['labels'])
+    code, uses, labels = assemble_with_clang(source)
+    cache[name] = {'sha256': digest, 'code': code.hex(), 'uses': uses, 'labels': labels}
+    with open(ASSEMBLED_CACHE, 'w') as handle:
+        json.dump(cache, handle, indent=1, sort_keys=True)
+    return (code, uses, labels)
+
+def assemble_with_clang(source):
+    import subprocess
+    import tempfile
+    obj = os.path.join(tempfile.mkdtemp(), 'code.o')
+    subprocess.run(['clang', '-c', '-target', 'arm64-apple-macos', source, '-o', obj], check=True)
+    lines = subprocess.run(['otool', '-s', '__TEXT', '__text', obj], capture_output=True, text=True, check=True).stdout
+    code = b''.join((bytes.fromhex(word)[::-1] for line in lines.splitlines()[2:] for word in line.split()[1:]))
+    relocs = subprocess.run(['objdump', '-d', '-r', obj], capture_output=True, text=True, check=True).stdout
+    uses = []
+    for line in relocs.splitlines():
+        found = re.match('\\s*([0-9a-f]+):\\s+ARM64_RELOC_(\\w+)\\s+(\\S+)', line)
+        if found and found.group(2) != 'PAGEOFF12':
+            uses.append((int(found.group(1), 16), found.group(3)))
+    labels = {}
+    for line in subprocess.run(['nm', obj], capture_output=True, text=True, check=True).stdout.splitlines():
+        parts = line.split()
+        if len(parts) == 3:
+            labels[parts[2]] = int(parts[0], 16)
+    return (code, uses, labels)
+
+def assembled_code(name, journal=False):
+    code, uses, labels = assemble_source(name)
+    code = bytearray(code)
+    if journal and JOURNAL:
+        set_word(code, labels, 'journal', 1)
+    return (code, uses, labels)
+
+def set_word(code, labels, name, value):
+    code[labels[name]:labels[name] + 4] = w32(value)
+
+def place_assembled(data, at_address, code, uses, targets, back):
+    code = bytearray(code)
+    for offset, name in uses:
+        if name.startswith('slot'):
+            c = Code(at_address + offset)
+            c.adrp_ldr(struct.unpack('<I', code[offset + 4:offset + 8])[0] & 31, targets[name])
+            code[offset:offset + 8] = c.build()
+            continue
+        target = back if name.endswith('_back') else targets[name]
+        word = struct.unpack('<I', code[offset:offset + 4])[0]
+        code[offset:offset + 4] = (a64.bl if word >> 26 == 37 else a64.b)(at_address + offset, target)
+    place(data, at_address, bytes(code))
+
+def hook(data, hooks, entry):
+    for address, old, name, kind in hooks:
+        at(data, address, bytes.fromhex(old), (a64.bl if kind == 'bl' else a64.b)(address, entry[name]))
+
+def entries(at_address, labels, start):
+    return {name: at_address + offset - labels[start] for name, offset in labels.items()}
+POLISH_SLOT = 'NL'
+POLISH_LANGUAGE = 15
+POLISH_LANGUAGES = [0, 1, 4, 3, 2, 5, 7, 9, 8, 13, POLISH_LANGUAGE]
+POLISH_TEXTS = data_file('polski.json')
+
+def polish_build():
+    return 'polish' in BUILD and os.path.isfile(POLISH_TEXTS)
+
+def game_version():
+    path = os.environ.get('RR_VERSION_OUTIL') or os.path.join(os.path.dirname(HERE), 'appli_patch', 'version.json')
+    try:
+        info = json.load(open(path, encoding='utf-8'))
+    except (OSError, ValueError):
+        print('version du jeu introuvable : texte de version laisse tel quel')
+        return None
+    return info.get('jeu')
+
+def patch_version_label(data):
+    version = game_version()
+    if not version:
+        return
+    spec = BUILD['version_label']
+    cave = spec['cave']
+    texts = [version.encode(), f'{version}, '.encode()]
+    strings, starts = (b'', [])
+    for text in texts:
+        starts.append(8 * len(texts) + len(strings))
+        strings += text + b'\x00'
+        strings += bytes(-len(strings) % 4)
+    raw = b''
+    for index, start in enumerate(starts):
+        here = cave + 8 * index
+        raw += a64_adr(0, here, cave + start) + a64.b(here + 4, BUILD['string_new'])
+    raw += strings
+    if len(raw) > 864:
+        raise SystemExit('texte de version trop long')
+    data[cave:cave + len(raw)] = raw
+    for index, (call, original) in enumerate(spec['calls']):
+        at(data, call, a64.bl(call, original), a64.bl(call, cave + 8 * index))
+    print(f'texte de version du menu : {version}')
+
+def patch_polish_code(data):
+    if not polish_build():
+        return
+    spec = BUILD['polish']
+    hook, original, back = spec['cctor']
+    cave = spec['cave']
+    code = [4181721792, 1384120320 | len(POLISH_LANGUAGES) << 5 | 1]
+    code.append(None)
+    values = POLISH_LANGUAGES + [0]
+    for index in range(0, len(POLISH_LANGUAGES), 2):
+        low, high = (values[index], values[index + 1])
+        offset = 32 + 4 * index
+        if index + 1 < len(POLISH_LANGUAGES):
+            code.append(3531603968 | low << 5 | 8)
+            if high:
+                code.append(4072669184 | high << 5 | 8)
+            code.append(4177526784 | offset // 8 << 10 | 8)
+        else:
+            code.append(1384120320 | low << 5 | 8)
+            code.append(3103784960 | offset // 4 << 10 | 8)
+    code.append(2852127731)
+    raw = b''
+    for word in code:
+        here = cave + len(raw)
+        raw += a64.bl(here, spec['new_array']) if word is None else struct.pack('<I', word)
+    raw += a64.b(cave + len(raw), back)
+    if len(raw) > 256:
+        raise SystemExit('code des langues trop long')
+    data[cave:cave + len(raw)] = raw
+    at(data, hook, bytes.fromhex(original), a64.b(hook, cave))
+    table = spec['system_table']
+    at(data, table + 4 * (27 - 9), struct.pack('<i', 0), struct.pack('<i', POLISH_LANGUAGE))
+    at(data, table + 4 * (9 - 9), struct.pack('<i', POLISH_LANGUAGE), struct.pack('<i', 0))
+    print(f'polonais : {len(POLISH_LANGUAGES)} langues proposees, telephone polonais -> polonais')
+POLISH_FRAMEWORK_TEXTS = data_file('polski_fidelio.json')
+
+def patch_polish_framework(data):
+    with open(POLISH_FRAMEWORK_TEXTS, encoding='utf-8') as handle:
+        polish = json.load(handle)
+    entries, rest = localization_entries(bytes(data), 'fichier de langue FidelioFramework inattendu')
+    for index, (key, _) in enumerate(entries):
+        text = polish.get(key.decode())
+        if text is not None:
+            entries[index] = (key, localization_entry(key, text))
+    data[:] = localization_file(entries, rest)
+    print(f'polonais : {len(polish)} textes du framework')
+
 def patch_metadata(data):
     at(data, BUILD['https'], b'https://', b'http://1')
-    if 'hero_models' in BUILD and (not COPIE):
-        for old, new in SKIN_RENAMES:
-            if bytes(data).count(old) != 1:
-                raise SystemExit(f'nom introuvable : {old}')
-            at(data, bytes(data).index(old), old, new.ljust(len(old), b'\x00'))
+    if polish_build():
+        replace_once(data, b'Nederlands', b'  Polski  ', 'nom de langue Nederlands introuvable')
+
+    def rename(names):
+        for old, new in names:
+            replace_once(data, old, new.ljust(len(old), b'\x00'), f'nom introuvable : {old}')
+    if 'hero_models' in BUILD:
+        rename(SKIN_RENAMES)
     if BUILD.get('wss'):
         at(data, BUILD['wss'], b'wss://', b'ws://1')
     if BOLT_RUSH:
-        for old, new in BOLT_RUSH_RENAMES:
-            if bytes(data).count(old) != 1:
-                raise SystemExit(f'nom introuvable : {old}')
-            at(data, bytes(data).index(old), old, new.ljust(len(old), b'\x00'))
+        rename(BOLT_RUSH_RENAMES)
     if collect_screen_build():
-        old, new = (b'Price: 2,99\xef\xbf\xbd', '5 000 Qrédits'.encode())
-        if bytes(data).count(old) != 1:
-            raise SystemExit("prix de l'ecran de collecte introuvable")
-        at(data, bytes(data).index(old), old, new)
+        replace_once(data, b'Price: 2,99\xef\xbf\xbd', '5 000 Qrédits'.encode(), "prix de l'ecran de collecte introuvable")
 
 def patch_player_settings(data):
     at(data, 47624, struct.pack('<I', 0), struct.pack('<I', 2))
@@ -69,9 +349,62 @@ def patch_host(data):
     start = data.find(OLD_HOST)
     data[start:start + len(NEW_HOST)] = NEW_HOST
 
-def patch_code(data):
+def patch_play_games(data):
     at(data, BUILD['play_available'], bytes.fromhex('fe0f1ef8f44f01a9'), RETURN_FALSE)
     at(data, BUILD['play_autologin'], bytes.fromhex('fe57bea9f44f01a9'), RETURN_FALSE)
+TRY_WEAPON_HOOK = (69495684, '58030036')
+TRY_WEAPON_EQUIPPED = 69495788
+TRY_WEAPON_ITEM = 69495796
+TRY_WEAPON_CODE = (64583888, '88a60839ff0700f9330400b4602a40f9e00300b4289e02b008d142f9010140f9c1f55294e00700f9e0230091e1031faaf51b2894c00200b4081840b91f0500710b020054e0230091e1031faaee1b2894e00100b4289e0290e1031f2a085d47f9020140f9e0e78294e1031faa6ae92794')
+MAIN_MENU_SLOT = 152460232 + 16384
+GET_WEAPON_ID = 66147612
+TRY_WEAPON_STATE = 15
+
+def try_weapon_code(at_address):
+    c = Code(at_address)
+    c.jump('tbz0', 'equipped', 24)
+    c.adrp_ldr(9, MAIN_MENU_SLOT)
+    c.emit(a64.ldr_x(9, 9, 0))
+    c.jump('cbz', 'equipped', 9)
+    c.emit(a64.ldr_x(9, 9, 184))
+    c.jump('cbz', 'equipped', 9)
+    c.emit(a64.ldr_x(9, 9, 8))
+    c.jump('cbz', 'equipped', 9)
+    c.emit(a64.ldr_w(10, 9, 16))
+    c.emit(a64.cmp_w_imm(10, TRY_WEAPON_STATE))
+    c.jump('b.ne', 'equipped')
+    c.emit(a64.stp_x_pre(0, 30, a64.SP, -16))
+    c.emit(a64.ldr_w(0, 9, 20))
+    c.emit(a64.mov_x_zero(1))
+    c.call(GET_WEAPON_ID)
+    c.emit(a64.mov_w(1, 0))
+    c.emit(a64.ldp_x_post(0, 30, a64.SP, 16))
+    c.jump('cbzw', 'equipped', 1)
+    c.emit(a64.cmp_w_imm(1, 64))
+    c.jump('b.hs', 'item')
+    c.jump('ldrlit', 'gadget_mask', 9)
+    c.emit(w32(2596283392 | 1 << 16 | 9 << 5 | 9))
+    c.jump('tbz0', 'item', 9)
+    c.label('equipped')
+    c.emit(a64.b(c.here(), TRY_WEAPON_EQUIPPED))
+    c.label('item')
+    c.emit(a64.b(c.here(), TRY_WEAPON_ITEM))
+    c.align()
+    c.label('gadget_mask')
+    c.emit(struct.pack('<Q', sum((1 << weapon for weapon, _ in SECONDARY_GADGETS))))
+    return c.build()
+
+def patch_try_weapon(data):
+    at_address, original = TRY_WEAPON_CODE
+    code = try_weapon_code(at_address)
+    if at_address + len(code) > BUILD['disable_feature'] or len(code) > len(bytes.fromhex(original)):
+        raise SystemExit("code de l'essai d'arme trop long")
+    at(data, at_address, bytes.fromhex(original)[:len(code)], code)
+    hook_at, hook_original = TRY_WEAPON_HOOK
+    at(data, hook_at, bytes.fromhex(hook_original), a64.b(hook_at, at_address))
+
+def patch_code(data):
+    patch_play_games(data)
     offset, original = BUILD['reachability']
     at(data, offset, bytes.fromhex(original), RETURN_LOCAL_NETWORK)
     at(data, BUILD['disable_feature'], bytes.fromhex('fe0f1df8'), RETURN_NOW)
@@ -80,17 +413,20 @@ def patch_code(data):
     at(data, BUILD['equip_button'], bytes.fromhex('00a840f9e00000b4080040f9'), bytes.fromhex('e1031f2ae2031faa') + struct.pack('<I', 335544320 | jump))
     cave, original = BUILD['free_code']
     start = BUILD['try_button']
-
-    def branch(opcode, source, target):
-        return struct.pack('<I', opcode | target - source >> 2 & 67108863)
-    at(data, cave, bytes.fromhex(original), bytes.fromhex('e07bbfa9') + bytes.fromhex('e1031f2a') + bytes.fromhex('e2031faa') + branch(2483027968, cave + 12, BUILD['equip_selected']) + bytes.fromhex('e07bc1a8') + bytes.fromhex('ff0301d1') + branch(335544320, cave + 24, start + 4))
-    at(data, start, bytes.fromhex('ff0301d1'), branch(335544320, start, cave))
+    at(data, cave, bytes.fromhex(original), bytes.fromhex('e07bbfa9') + bytes.fromhex('e1031f2a') + bytes.fromhex('e2031faa') + a64.bl(cave + 12, BUILD['equip_selected']) + bytes.fromhex('e07bc1a8') + bytes.fromhex('ff0301d1') + a64.b(cave + 24, start + 4))
+    at(data, start, bytes.fromhex('ff0301d1'), a64.b(start, cave))
     if 'map_pool_check' in BUILD:
         offset, original = BUILD['map_pool_check']
         at(data, offset, bytes.fromhex(original), bytes.fromhex('1f2003d5'))
     if 'training_weapon' in BUILD:
         offset, original = BUILD['training_weapon']
         at(data, offset, bytes.fromhex(original), bytes.fromhex('e4031f2a'))
+    if 'try_weapon' in BUILD:
+        patch_try_weapon(data)
+    if 'polish' in BUILD:
+        patch_polish_code(data)
+    if 'version_label' in BUILD:
+        patch_version_label(data)
     if 'ratchet_lock' in BUILD:
         offset, original, skip = BUILD['ratchet_lock']
         at(data, offset, bytes.fromhex(original), a64.b(offset, skip))
@@ -99,30 +435,29 @@ def patch_code(data):
         cave, original = BUILD['free_code_map']
         start = BUILD['select_map']
         mode = BOLT_RUSH_SWITCH if BOLT_RUSH else None
-        hook = bytes.fromhex('ffc300d1') + bytes.fromhex('e00700a9') + bytes.fromhex('e20f01a9') + bytes.fromhex('fe1300f9') + bytes.fromhex('610000b4') + bytes.fromhex('281040b9') + (bytes.fromhex('48010035') if mode else bytes.fromhex('28010035')) + (bytes.fromhex('e0010010') if mode else bytes.fromhex('c0010010')) + branch(2483027968, cave + 32, BUILD['string_new']) + bytes.fromhex('e1031faa') + branch(2483027968, cave + 40, BUILD['prefs_get_string']) + bytes.fromhex('800000b4') + bytes.fromhex('081040b9') + bytes.fromhex('48000034') + bytes.fromhex('e00700f9') + (branch(2483027968, cave + 60, mode) if mode else b'') + bytes.fromhex('e00740a9') + bytes.fromhex('e20f41a9') + bytes.fromhex('fe1340f9') + bytes.fromhex('ffc30091') + bytes.fromhex('ffc302d1')
-        hook += branch(335544320, cave + len(hook), start + 4) + b'rr_map\x00\x00'
-        if not mode and hook[:len(bytes.fromhex(original))] != hook:
-            pass
+        hook = bytes.fromhex('ffc300d1') + bytes.fromhex('e00700a9') + bytes.fromhex('e20f01a9') + bytes.fromhex('fe1300f9') + bytes.fromhex('610000b4') + bytes.fromhex('281040b9') + (bytes.fromhex('48010035') if mode else bytes.fromhex('28010035')) + (bytes.fromhex('e0010010') if mode else bytes.fromhex('c0010010')) + a64.bl(cave + 32, BUILD['string_new']) + bytes.fromhex('e1031faa') + a64.bl(cave + 40, BUILD['prefs_get_string']) + bytes.fromhex('800000b4') + bytes.fromhex('081040b9') + bytes.fromhex('48000034') + bytes.fromhex('e00700f9') + (a64.bl(cave + 60, mode) if mode else b'') + bytes.fromhex('e00740a9') + bytes.fromhex('e20f41a9') + bytes.fromhex('fe1340f9') + bytes.fromhex('ffc30091') + bytes.fromhex('ffc302d1')
+        hook += a64.b(cave + len(hook), start + 4) + b'rr_map\x00\x00'
         at(data, cave, bytes(data[cave:cave + len(hook)]) if mode else bytes.fromhex(original), hook)
-        at(data, start, bytes.fromhex('ffc302d1'), branch(335544320, start, cave))
+        at(data, start, bytes.fromhex('ffc302d1'), a64.b(start, cave))
     if 'internet_check' in BUILD:
         offset, original = BUILD['internet_check']
         at(data, offset, bytes.fromhex(original), RETURN_TRUE)
     if BUILD['show_wip_heroes']:
         at(data, BUILD['show_wip_heroes'], bytes.fromhex('e0031f2ac0035fd6'), RETURN_TRUE)
-    if os.environ.get('RR_JOURNAL'):
+    if JOURNAL:
         at(data, BUILD['log_handler'], bytes.fromhex('010c01f8'), RETURN_NOW)
         if BUILD.get('debug_log'):
             at(data, BUILD['debug_log'], bytes.fromhex('48070034'), bytes.fromhex('1f2003d5'))
     if GROUPE:
         offset, original, target = BUILD['offline_game']
-        at(data, offset, bytes.fromhex(original), branch(335544320, offset, target))
+        at(data, offset, bytes.fromhex(original), a64.b(offset, target))
         for offset, original, fixed in BUILD['wander_tries']:
             at(data, offset, bytes.fromhex(original), bytes.fromhex(fixed))
     at(data, BUILD['crc_getter'], bytes.fromhex('001840b9'), ZERO_W0)
     at(data, BUILD['crc_local'], bytes.fromhex('011940b9'), ZERO_W1)
     at(data, BUILD['crc_web'], bytes.fromhex('011940b9'), ZERO_W1)
     at(data, BUILD['crc_web_cached'], bytes.fromhex('021940b9'), ZERO_W2)
+BUNDLE_BLOCK = 131072
 
 def lz4_decompress(source, size):
     out = bytearray()
@@ -152,8 +487,12 @@ def lz4_decompress(source, size):
                 count += extra
                 if extra != 255:
                     break
-        for _ in range(count + 4):
-            out.append(out[-distance])
+        count += 4
+        start = len(out) - distance
+        if distance >= count:
+            out += out[start:start + count]
+        else:
+            out += (out[start:] * (count // distance + 1))[:count]
     if len(out) != size:
         raise SystemExit('bloc LZ4 de taille inattendue')
     return out
@@ -182,29 +521,21 @@ def bundle_stream(source):
         stream += lz4_decompress(piece, plain) if block_flags & 63 else piece
     return bytes(stream)
 
-def replace_bundle_stream(data, stream, grown=0, node=0):
+def write_bundle(data, stream, node_place):
     source = bytes(data)
     header_end, _, flags, info_start, info, count, _ = bundle_layout(source)
     block_flags = struct.unpack('>H', info[28:30])[0] & ~63
     nodes = info[20 + count * 10:]
     node_count, = struct.unpack('>i', nodes[:4])
-    if node_count != 1 and (not grown):
-        raise SystemExit('paquet a plusieurs fichiers')
     blocks = [stream[i:i + BUNDLE_BLOCK] for i in range(0, len(stream), BUNDLE_BLOCK)]
     new_info = bytes(info[:16]) + struct.pack('>i', len(blocks))
     new_info += b''.join((struct.pack('>IIH', len(b), len(b), block_flags) for b in blocks))
     new_nodes = bytearray(nodes[:4])
     position = 4
-    for index in range(node_count):
+    for _ in range(node_count):
         offset, size, node_flags = struct.unpack('>qqI', nodes[position:position + 20])
         end = nodes.index(b'\x00', position + 20) + 1
-        if node_count == 1:
-            size = len(stream)
-        elif offset == node:
-            size += grown
-        elif offset > node:
-            offset += grown
-        new_nodes += struct.pack('>qqI', offset, size, node_flags) + nodes[position + 20:end]
+        new_nodes += struct.pack('>qqI', *node_place(offset, size), node_flags) + nodes[position + 20:end]
         position = end
     new_info += bytes(new_nodes) + bytes(nodes[position:])
     data_start = info_start + len(new_info) + 15 & ~15
@@ -213,9 +544,47 @@ def replace_bundle_stream(data, stream, grown=0, node=0):
     head = head.ljust(info_start, b'\x00') + new_info
     data[:] = head.ljust(data_start, b'\x00') + bytes(stream)
 
+def bundle_node_count(data):
+    _, _, _, _, info, count, _ = bundle_layout(bytes(data))
+    return struct.unpack('>i', info[20 + count * 10:24 + count * 10])[0]
+
+def replace_bundle_stream(data, stream, grown=0, node=0):
+    single = bundle_node_count(data) == 1
+    if not single and (not grown):
+        raise SystemExit('paquet a plusieurs fichiers')
+
+    def node_place(offset, size):
+        if single:
+            return (offset, len(stream))
+        if offset == node:
+            return (offset, size + grown)
+        return (offset + grown if offset > node else offset, size)
+    write_bundle(data, stream, node_place)
+
+def bundle_node_sizes(data):
+    _, _, _, _, info, count, _ = bundle_layout(bytes(data))
+    nodes = info[20 + count * 10:]
+    node_count, = struct.unpack('>i', nodes[:4])
+    position, sizes, expected = (4, [], 0)
+    for _ in range(node_count):
+        offset, size, _ = struct.unpack('>qqI', nodes[position:position + 20])
+        if offset != expected:
+            raise SystemExit('fichiers du paquet non contigus')
+        sizes.append(size)
+        expected += size
+        position = nodes.index(b'\x00', position + 20) + 1
+    return sizes
+
+def replace_bundle_nodes(data, stream, sizes):
+    if bundle_node_count(data) != len(sizes) or sum(sizes) != len(stream):
+        raise SystemExit('tailles de fichiers du paquet incoherentes')
+    starts = iter([sum(sizes[:index]) for index in range(len(sizes))])
+    sizes_left = iter(sizes)
+    write_bundle(data, stream, lambda offset, size: (next(starts), next(sizes_left)))
+
 def patch_bundle(data, edits):
     source = bytes(data)
-    header_end, packed_size, flags, info_start, info, count, start = bundle_layout(source)
+    header_end, _, flags, info_start, info, count, start = bundle_layout(source)
     stream = 0
     pieces = []
     for index in range(count):
@@ -239,19 +608,17 @@ def patch_bundle(data, edits):
     head = source[:header_end] + struct.pack('>qIII', total, len(info), len(info), flags & ~63)
     head = head.ljust(info_start, b'\x00') + bytes(info)
     data[:] = head.ljust(data_start, b'\x00') + b''.join(pieces)
-_HEAVY = []
 
+@functools.lru_cache(None)
 def heavy_tools():
-    if not _HEAVY:
-        try:
-            import numpy
-            import PIL
-            import UnityPy
-            _HEAVY.append(True)
-        except ImportError:
-            _HEAVY.append(False)
-            print("UnityPy, numpy ou Pillow absent : retouches d'images et de modèles laissées de côté")
-    return _HEAVY[0]
+    try:
+        import numpy
+        import PIL
+        import UnityPy
+        return True
+    except ImportError:
+        print("UnityPy, numpy ou Pillow absent : retouches d'images et de modèles laissées de côté")
+        return False
 
 def artbook_menu(scene):
     try:
@@ -262,10 +629,29 @@ def artbook_menu(scene):
         print('menu : ARTBOOK reste dans Social media')
         return scene
     return menu_artbook.artbook_menu(scene)
+LEFT_COLUMN_ANCHORS = struct.pack('<4f', 0.0, 0.24577656388282776, 0.0, 0.7400000095367432)
+LEFT_COLUMN_Y, LEFT_COLUMN_NEW_Y = (-12.0, 10.0)
+LEFT_COLUMN_WIDE_SCALE = 1.05
+
+def left_column_edits(stream):
+    if VERSION != '1.10.4':
+        return []
+
+    def text(value):
+        raw = value.encode()
+        return struct.pack('<I', len(raw)) + raw + bytes(-len(raw) % 4)
+    wide = text('Ultra-Large (21:9)') + struct.pack('<2f', 2.21, 2.5)
+    intervals = wide + struct.pack('<3f', 1.2, 1.2, 1.0) + text('Standard PC (16:9)') + struct.pack('<5f', 1.6, 2.2, 1.2, 1.2, 1.0) + text('Ancien / Tablette (4:3)') + struct.pack('<5f', 1.0, 1.59, 1.5, 1.5, 1.0)
+    if stream.count(LEFT_COLUMN_ANCHORS) != 1 or stream.count(intervals) != 1:
+        raise SystemExit('menu principal : colonne de gauche introuvable')
+    position = stream.find(LEFT_COLUMN_ANCHORS) + 16
+    scale = stream.find(intervals) + len(wide)
+    return [(position + 4, struct.pack('<f', LEFT_COLUMN_Y), struct.pack('<f', LEFT_COLUMN_NEW_Y)), (scale, struct.pack('<2f', 1.2, 1.2), struct.pack('<2f', LEFT_COLUMN_WIDE_SCALE, LEFT_COLUMN_WIDE_SCALE))]
 
 def patch_main_menu(data):
     arsenal = (BUILD['arsenal_flag'] - 30, ARSENAL_NAME + bytes(5), ARSENAL_NAME + bytes(4) + b'\x01')
     edits = [arsenal] + ([BUILD['gallery_label']] if 'gallery_label' in BUILD else [])
+    edits += left_column_edits(bundle_stream(bytes(data)))
     if weapon_slots_build():
         edits += weapon_slots_flag_edits()
     if 'difficulty_row' not in BUILD:
@@ -292,53 +678,18 @@ def patch_main_menu(data):
         scene = bytearray(artbook_menu(scene))
     stream[start:start + size] = scene
     replace_bundle_stream(data, stream, len(scene) - size, node=start)
-
-def bundle_node_sizes(data):
-    _, _, _, _, info, count, _ = bundle_layout(bytes(data))
-    nodes = info[20 + count * 10:]
-    node_count, = struct.unpack('>i', nodes[:4])
-    position, sizes, expected = (4, [], 0)
-    for _ in range(node_count):
-        offset, size, _ = struct.unpack('>qqI', nodes[position:position + 20])
-        if offset != expected:
-            raise SystemExit('fichiers du paquet non contigus')
-        sizes.append(size)
-        expected += size
-        position = nodes.index(b'\x00', position + 20) + 1
-    return sizes
-
-def replace_bundle_nodes(data, stream, sizes):
-    source = bytes(data)
-    header_end, _, flags, info_start, info, count, _ = bundle_layout(source)
-    block_flags = struct.unpack('>H', info[28:30])[0] & ~63
-    nodes = info[20 + count * 10:]
-    node_count, = struct.unpack('>i', nodes[:4])
-    if node_count != len(sizes) or sum(sizes) != len(stream):
-        raise SystemExit('tailles de fichiers du paquet incoherentes')
-    blocks = [stream[i:i + BUNDLE_BLOCK] for i in range(0, len(stream), BUNDLE_BLOCK)]
-    new_info = bytes(info[:16]) + struct.pack('>i', len(blocks))
-    new_info += b''.join((struct.pack('>IIH', len(b), len(b), block_flags) for b in blocks))
-    new_nodes = bytearray(nodes[:4])
-    position, offset = (4, 0)
-    for size in sizes:
-        _, _, node_flags = struct.unpack('>qqI', nodes[position:position + 20])
-        end = nodes.index(b'\x00', position + 20) + 1
-        new_nodes += struct.pack('>qqI', offset, size, node_flags) + nodes[position + 20:end]
-        offset += size
-        position = end
-    new_info += bytes(new_nodes) + bytes(nodes[position:])
-    data_start = info_start + len(new_info) + 15 & ~15
-    total = data_start + len(stream)
-    head = source[:header_end] + struct.pack('>qIII', total, len(new_info), len(new_info), flags & ~63)
-    head = head.ljust(info_start, b'\x00') + new_info
-    data[:] = head.ljust(data_start, b'\x00') + bytes(stream)
 DIFFICULTY_ROW_TITLE = 'RR.SETTINGS.DIFFICULTY'
 DIFFICULTY_ROW_KEYS = ('RR.DIFFICULTY.EASY', 'RR.DIFFICULTY.NORMAL', 'RR.DIFFICULTY.HARD', 'RR.DIFFICULTY.ULTRA')
 DIFFICULTY_TEXTS = {'EN': ('Difficulty', 'Easy', 'Normal', 'Hard', 'Ultra hard'), 'FR': ('Difficulté', 'Facile', 'Normal', 'Difficile', 'Ultra difficile'), 'DE': ('Schwierigkeit', 'Leicht', 'Normal', 'Schwer', 'Ultraschwer'), 'ES': ('Dificultad', 'Fácil', 'Normal', 'Difícil', 'Ultradifícil'), 'IT': ('Difficoltà', 'Facile', 'Normale', 'Difficile', 'Ultra difficile'), 'BR': ('Dificuldade', 'Fácil', 'Normal', 'Difícil', 'Ultradifícil'), 'NL': ('Moeilijkheid', 'Makkelijk', 'Normaal', 'Moeilijk', 'Ultramoeilijk'), 'RU': ('Сложность', 'Легко', 'Нормально', 'Сложно', 'Ультрасложно'), 'TR': ('Zorluk', 'Kolay', 'Normal', 'Zor', 'Çok zor'), 'JP': ('難易度', 'かんたん', 'ふつう', 'むずかしい', 'ちょうむずかしい'), 'KR': ('난이도', '쉬움', '보통', '어려움', '매우 어려움'), 'CN': ('难度', '简单', '普通', '困难', '极难'), 'TW': ('難度', '簡單', '普通', '困難', '極難')}
+PROTOTYPES_ROW_TITLE = 'RR.SETTINGS.PROTOTYPES'
+PROTOTYPES_ROW_KEYS = ('RR.PROTOTYPES.NO', 'RR.PROTOTYPES.YES')
+PROTOTYPES_TEXTS = {'EN': ('Prototype maps and modes', 'Off', 'On'), 'FR': ('Cartes et modes prototypes', 'Non', 'Oui'), 'DE': ('Prototyp-Karten und -Modi', 'Aus', 'An'), 'ES': ('Mapas y modos prototipo', 'No', 'Sí'), 'IT': ('Mappe e modalità prototipo', 'No', 'Sì'), 'BR': ('Mapas e modos protótipo', 'Não', 'Sim'), 'NL': ('Mapy i tryby prototypowe', 'Nie', 'Tak'), 'RU': ('Прототипы карт и режимов', 'Выкл.', 'Вкл.'), 'TR': ('Prototip haritalar ve modlar', 'Kapalı', 'Açık'), 'JP': ('試作マップとモード', 'オフ', 'オン'), 'KR': ('프로토타입 맵과 모드', '끔', '켬'), 'CN': ('原型地图和模式', '关', '开'), 'TW': ('原型地圖和模式', '關', '開')}
+SETTINGS_ROWS = ((DIFFICULTY_ROW_TITLE, DIFFICULTY_ROW_KEYS, DIFFICULTY_TEXTS['EN'][0], 1, ('DifficultyGrid', 'DifficultySelection')), (PROTOTYPES_ROW_TITLE, PROTOTYPES_ROW_KEYS, PROTOTYPES_TEXTS['EN'][0], 0, ('PrototypesGrid', 'PrototypesSelection')))
 
 def difficulty_texts(language):
     title, *levels = DIFFICULTY_TEXTS.get(language) or DIFFICULTY_TEXTS['EN']
-    return {DIFFICULTY_ROW_TITLE: title, **dict(zip(DIFFICULTY_ROW_KEYS, levels))}
+    proto_title, *choices = PROTOTYPES_TEXTS.get(language) or PROTOTYPES_TEXTS['EN']
+    return {DIFFICULTY_ROW_TITLE: title, **dict(zip(DIFFICULTY_ROW_KEYS, levels)), PROTOTYPES_ROW_TITLE: proto_title, **dict(zip(PROTOTYPES_ROW_KEYS, choices))}
 
 def difficulty_row(scene):
     table, count, padding = BUILD['difficulty_row']['table']
@@ -348,36 +699,43 @@ def difficulty_row(scene):
     olds = sorted((old for row in rows for old in row['objects']))
     if len(set(olds)) != len(olds):
         raise SystemExit('reglages de difficulte en double')
-    new_ids = {old: count + 1 + index for index, old in enumerate(olds)}
-    grows, edits = ({}, {})
+    new_ids = [{old: count + 1 + copy_index * len(olds) + index for index, old in enumerate(olds)} for copy_index in range(len(SETTINGS_ROWS))]
+    grows, edits = ({}, [{} for _ in SETTINGS_ROWS])
     for row in rows:
         content, content_start, content_size, children = row['content']
 
-        def add_child(old, children=children, grid=row['grid']):
+        def add_children(old, children=children, grid=row['grid']):
             end = 56 + children * 12
             if struct.unpack_from('<i', old, 52)[0] != children or struct.unpack_from('<iq', old, end - 12) != (0, grid):
                 raise SystemExit('liste des reglages inattendue')
-            return old[:52] + struct.pack('<i', children + 1) + old[56:end] + struct.pack('<iq', 0, new_ids[grid]) + old[end:]
-        grows[content] = (content_start, content_size, add_child)
-        edits.update({row['options']: [(struct.pack('<I', 2) + raw_text('UI.SETTINGS.CAMFOV.NARROW') + raw_text('UI.SETTINGS.CAMFOV.WIDE'), struct.pack('<I', len(DIFFICULTY_ROW_KEYS)) + b''.join((raw_text(key) for key in DIFFICULTY_ROW_KEYS)))], row['title']: [(raw_text('UI.SETTINGS.CAMFOV_MODE'), raw_text(DIFFICULTY_ROW_TITLE))], row['title_text']: [(unity_string('Field of View'), unity_string(DIFFICULTY_TEXTS['EN'][0]))], row['value']: [(raw_text('UI.SETTINGS.CAMFOV.NARROW'), raw_text(DIFFICULTY_ROW_KEYS[1]))], **{object_id: [(unity_string(old), unity_string(new))] for object_id, (old, new) in row['names'].items()}})
+            added = b''.join((struct.pack('<iq', 0, ids[grid]) for ids in new_ids))
+            return old[:52] + struct.pack('<i', children + len(new_ids)) + old[56:end] + added + old[end:]
+        grows[content] = (content_start, content_size, add_children)
+        for copy_index, (title, keys, english, shown, names) in enumerate(SETTINGS_ROWS):
+            renamed = dict(zip(('FOVGrid', 'CamFOVSelection'), names))
+            edits[copy_index].update({row['options']: [(struct.pack('<I', 2) + raw_text('UI.SETTINGS.CAMFOV.NARROW') + raw_text('UI.SETTINGS.CAMFOV.WIDE'), struct.pack('<I', len(keys)) + b''.join((raw_text(key) for key in keys)))], row['title']: [(raw_text('UI.SETTINGS.CAMFOV_MODE'), raw_text(title))], row['title_text']: [(unity_string('Field of View'), unity_string(english))], row['value']: [(raw_text('UI.SETTINGS.CAMFOV.NARROW'), raw_text(keys[shown]))], **{object_id: [(unity_string(old), unity_string(renamed[old]))] for object_id, (old, _) in row['names'].items()}})
 
-    def copy(old_id):
+    def copy(old_id, copy_index):
+        ids = new_ids[copy_index]
 
         def change(raw):
             raw = bytearray(raw)
             for offset in range(0, len(raw) - 11, 4):
                 file_id, path_id = struct.unpack_from('<iq', raw, offset)
-                if file_id == 0 and path_id in new_ids:
-                    struct.pack_into('<iq', raw, offset, 0, new_ids[path_id])
+                if file_id == 0 and path_id in ids:
+                    struct.pack_into('<iq', raw, offset, 0, ids[path_id])
             raw = bytes(raw)
-            for old, new in edits.get(old_id, ()):
+            for old, new in edits[copy_index].get(old_id, ()):
                 if raw.count(old) != 1:
                     raise SystemExit(f'objet {old_id} du reglage inattendu')
                 raw = raw.replace(old, new)
             return raw
         return change
     grow_objects(scene, table, count, grows)
-    scene, _ = add_object_copies(scene, table, count, {new_ids[old]: (old, copy(old)) for old in olds}, padding)
+    copies = {}
+    for copy_index, ids in enumerate(new_ids):
+        copies.update({ids[old]: (old, copy(old, copy_index)) for old in olds})
+    scene, _ = add_object_copies(scene, table, count, copies, padding)
     return scene
 
 def level_edits():
@@ -417,45 +775,57 @@ def model_reference_edits(stream, skins=None, heroes=True):
         if cut < len(old):
             edits.append((position + cut, old[cut:], new[cut:]))
     return edits
-NEW_SKIN_RECORDS = [('Helen_Skin01', 'HELEN', 'Skin01', 'SKIN_HELEN_SKIN01', 164, 'SKIN.HELEN_01', 'Helen_01'), ('Juycee', 'JUYCEE', 'Skin00', 'SKIN_JUYCEE_SKIN00', 83, 'SKIN.JUYCEE_00', 'Chance_01'), ('Juycee_Skin01', 'JUYCEE', 'Skin01', 'SKIN_JUYCEE_SKIN01', 84, 'SKIN.JUYCEE_01', 'Chance_02'), ('Juycee_Skin02', 'JUYCEE', 'Skin02', 'SKIN_JUYCEE_SKIN02', 86, 'SKIN.JUYCEE_02', 'Chance_03'), ('Juycee_Skin03', 'JUYCEE', 'Skin03', 'SKIN_JUYCEE_SKIN03', 109, 'SKIN.JUYCEE_03', 'Chance_04'), ('Juycee_Skin04', 'JUYCEE', 'Skin04', 'SKIN_JUYCEE_SKIN04', 41, 'SKIN.JUYCEE_04', 'Helen_02'), ('Rivet', 'RATCHET', 'Skin01', 'SKIN_RATCHET_SKIN01', 42, 'SKIN.RIVET_00', 'Avatar_00')]
+NEW_SKIN_RECORDS = [('Helen_Skin01', 'HELEN', 'Skin01', 'SKIN_HELEN_SKIN01', 164, 'SKIN.HELEN_01', 'Helen_01'), ('Juycee', 'JUYCEE', 'Skin00', 'SKIN_JUYCEE_SKIN00', 83, 'SKIN.JUYCEE_00', 'Steeljaw_00'), ('Juycee_Skin01', 'JUYCEE', 'Skin01', 'SKIN_JUYCEE_SKIN01', 84, 'SKIN.JUYCEE_01', 'Steeljaw_01'), ('Juycee_Skin02', 'JUYCEE', 'Skin02', 'SKIN_JUYCEE_SKIN02', 86, 'SKIN.JUYCEE_02', 'Steeljaw_02'), ('Juycee_Skin03', 'JUYCEE', 'Skin03', 'SKIN_JUYCEE_SKIN03', 109, 'SKIN.JUYCEE_03', 'Steeljaw_03'), ('Juycee_Skin04', 'JUYCEE', 'Skin04', 'SKIN_JUYCEE_SKIN04', 41, 'SKIN.JUYCEE_04', 'Steeljaw_04'), ('Rivet', 'RATCHET', 'Skin01', 'SKIN_RATCHET_SKIN01', 42, 'SKIN.RIVET_00', 'Avatar_00')]
 SKIN_RENAMES = [(b'\x00SKIN_HELEN_SKIN01_DEPRECATED\x00', b'\x00SKIN_HELEN_SKIN01\x00'), (b'\x00SKIN_SANDY_SKIN01_DEPRECATED\x00', b'\x00SKIN_JUYCEE_SKIN00\x00'), (b'\x00SKIN_SANDY_SKIN03_DEPRECATED\x00', b'\x00SKIN_JUYCEE_SKIN01\x00'), (b'\x00SKIN_LIL_ANN_SKIN01_DEPRECATED\x00', b'\x00SKIN_JUYCEE_SKIN02\x00'), (b'\x00SKIN_MARKUS_SKIN01_DEPRECATED\x00', b'\x00SKIN_JUYCEE_SKIN03\x00'), (b'\x00SKIN_CLANK_BAG_SKIN01_DEPRECATED\x00', b'\x00SKIN_JUYCEE_SKIN04\x00'), (b'\x00SKIN_CLANK_BAG_SKIN02_DEPRECATED\x00', b'\x00SKIN_RATCHET_SKIN01\x00')]
 CHARACTERS_TABLE = 1675660113974991469
-PORTRAIT_GUIDS = {'Helen_01': '5fe037b27649b224bb050825b7394347', 'ico_dialog_rivet': '50a2ee5f61bc002478b510de6734f123', 'Avatar_00': '89021fa48bc16bd4d860f312445fd3ea', 'ico_dialog_Wendy': '9e30195c68d6d614a96fb2e04fc5ff20', 'Chance_01': '8a333de86511eac448e31832f5e23b24', 'Chance_02': '00504f4136ad1bb4db86dca6eed2c133', 'Chance_03': 'd9b6088f6f1a5c448ac61bc1ec83599c', 'Chance_04': 'e94e78b70f2a3f443a8eeadbdfff0f47', 'Helen_02': '229f47f367804114a98c390aecc73dcb', 'ico_dialog_evilWendy': '261e3233b77bcbc47ad820cf19bfea3f'}
-JUYCEE_CARDS = [('Chance_01', 'Juycee_carte.png', (512, 374)), ('Chance_02', 'Juycee_carte_1.png', (512, 374)), ('Chance_03', 'Juycee_carte_2.png', (512, 374)), ('Chance_04', 'Juycee_carte_3.png', (512, 374)), ('Helen_02', 'Juycee_carte_4.png', (512, 374)), ('ico_dialog_evilWendy', 'Juycee_icone.png', (256, 256))]
+PORTRAIT_GUIDS = {'Helen_01': '5fe037b27649b224bb050825b7394347', 'ico_dialog_rivet': '50a2ee5f61bc002478b510de6734f123', 'Avatar_00': '89021fa48bc16bd4d860f312445fd3ea', 'ico_dialog_Wendy': '9e30195c68d6d614a96fb2e04fc5ff20', 'Chance_01': '8a333de86511eac448e31832f5e23b24', 'ico_dialog_evilWendy': '261e3233b77bcbc47ad820cf19bfea3f', 'Steeljaw_00': '930c593d1e2d65544a7f63cb139f0a74', 'Steeljaw_01': 'f59c124e5b3a4454b97d490291039b72', 'Steeljaw_02': '98d165ceed37c61449a2a21d86f6e095', 'Steeljaw_03': '5c21eb8f39f567d4a89ff38d61b902b0', 'Steeljaw_04': '47de09fa9cc3c694f8c2172b1bb56a24'}
+JUYCEE_CARDS = [('ico_dialog_evilWendy', 'Juycee_icone.png', (256, 256))]
 
 def juycee_picture(name):
     for portrait, file, _ in JUYCEE_CARDS:
-        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'juycee', file)
+        path = data_file('juycee', file)
         if portrait == name and os.path.isfile(path):
             return path
     return None
 RIVET_TEXTS = {'FR': ('Rivet', "La Lombax d'une autre dimension, venue faire équipe avec Ratchet."), 'EN': ('Rivet', 'The Lombax from another dimension, teaming up with Ratchet.')}
 JUYCEE_TEXTS = {'FR': ['Juycee', 'Juycee Néon', 'Juycee Chantier', 'Juycee Crâne rouge', 'Juycee Améboïde'], 'EN': ['Juycee', 'Neon Juycee', 'Construction Juycee', 'Red Skull Juycee', 'Amoeboid Juycee']}
 
+@functools.lru_cache(None)
 def new_skin_records():
     if 'hero_models' not in BUILD:
-        return []
+        return ()
     try:
         import UnityPy
     except ImportError:
         print('UnityPy absent : pas de nouvelles fiches de costume')
-        return []
+        return ()
     info = hero_sources()[0]
-    records = [record for record in NEW_SKIN_RECORDS if record[0] in info]
-    return [record[:6] + ('Chance_01',) if record[1] == 'JUYCEE' and (not juycee_picture(record[6])) else record for record in records]
+    return tuple((record for record in NEW_SKIN_RECORDS if record[0] in info))
+
+def has_record(model=None, hero=None):
+    return any((record[0] == model or record[1] == hero for record in new_skin_records()))
+
+def typetree_change(obj, edit):
+    from UnityPy.helpers import TypeTreeHelper
+    from UnityPy.streams import EndianBinaryReader, EndianBinaryWriter
+    node, assets = (obj._get_typetree_node(), obj.assets_file)
+
+    def change(raw):
+        tree = TypeTreeHelper.read_typetree(node, EndianBinaryReader(raw, endian='<'), as_dict=True, byte_size=len(raw), assetsfile=assets)
+        edit(tree)
+        writer = EndianBinaryWriter(endian='<')
+        TypeTreeHelper.write_typetree(tree, node, writer, assets)
+        return writer.bytes
+    return change
 
 def characters_table_change(data, records):
     import UnityPy
-    from UnityPy.helpers import TypeTreeHelper
-    from UnityPy.streams import EndianBinaryReader, EndianBinaryWriter
     env = UnityPy.load(bytes(data))
     table = next((o for o in env.objects if o.path_id == CHARACTERS_TABLE))
-    node, assets = (table._get_typetree_node(), table.assets_file)
-    start = table.byte_start - assets.header.data_offset
+    start = table.byte_start - table.assets_file.header.data_offset
     info = hero_sources()[0]
 
-    def change(old):
-        tree = TypeTreeHelper.read_typetree(node, EndianBinaryReader(old, endian='<'), as_dict=True, byte_size=len(old), assetsfile=assets)
+    def edit(tree):
         characters = {c['enumName']: c for c in tree['characters']}
         if any((record[1] == 'JUYCEE' for record in records)) and 'JUYCEE' not in characters:
             juycee = juycee_character(characters['CHANCE'])
@@ -486,22 +856,78 @@ def characters_table_change(data, records):
             wendy_hero(characters, info['Wendy']['guid'])
         if weapon_slots_build():
             secondary_gadget_lists(characters)
+            hero_ultimates(characters)
+            if nakari_icon():
+                nakari_icon().nakari_ultimate(characters)
         if 'JUYCEE' in characters and juycee_picture('ico_dialog_evilWendy'):
             icon = characters['JUYCEE']['thumbnailRef']
             for skin in characters['JUYCEE']['skins']:
                 skin['thumbnailBackgroundRef'] = dict(icon)
-        writer = EndianBinaryWriter(endian='<')
-        TypeTreeHelper.write_typetree(tree, node, writer, assets)
-        return writer.bytes
-    return (CHARACTERS_TABLE, (start, table.byte_size, change))
+        empty = melee_specs_without_visual()
+        for character in characters.values():
+            if character['equipMeleeWeaponInMenu'] and character['meleeWeaponSpec']['m_PathID'] in empty:
+                character['equipMeleeWeaponInMenu'] = 0
+                print(f"{character['enumName']} : sans arme de melee dans les menus (pas de modele)")
+    return (CHARACTERS_TABLE, (start, table.byte_size, typetree_change(table, edit)))
+
+@functools.lru_cache(None)
+def melee_specs_without_visual():
+    import UnityPy
+    _, bundle = asset_pack_bundle('quantum_db_meleeweapons_assets_all')
+    if not bundle:
+        return frozenset()
+    empty = set()
+    for obj in UnityPy.load(bundle).objects:
+        if obj.type.name == 'MonoBehaviour':
+            try:
+                tree = obj.read_typetree()
+            except Exception:
+                continue
+            visual = tree.get('<finalVisual>k__BackingField')
+            if visual is not None and (not visual['m_PathID']):
+                empty.add(obj.path_id)
+    return frozenset(empty)
 AVATAR_SKIN = 160
+RIVET_DIRECTORY = data_file('rivet')
+RIVET_HAMMER = 'hero_models' in BUILD and os.environ.get('RR_MARTEAU', '1') == '1' and (VERSION == '1.10.4')
+RIVET_JUMP = RIVET_HAMMER and os.environ.get('RR_SAUT', '1') == '1'
+
+def hammer_module():
+    if RIVET_DIRECTORY not in sys.path:
+        sys.path.insert(0, RIVET_DIRECTORY)
+    import marteau
+    return marteau
+
+def rivet_hammer_patches():
+    if not RIVET_HAMMER or not heavy_tools():
+        return {}
+    marteau = hammer_module()
+    weapon = asset_pack_path('weapon_steeljawmelee_assets_all')
+    database = asset_pack_path('quantum_db_meleeweapons_assets_all')
+    _, wrench = asset_pack_bundle('weapon_wrenchmelee_assets_all')
+    if not (weapon and database and wrench):
+        return {}
+
+    def patch_weapon(data):
+        done = marteau.patch_weapon_bundle(data, wrench)
+        print(f'marteau de Rivet : modele et textures ({done})')
+
+    def patch_database(data):
+        marteau.patch_melee_db(data)
+        print('marteau de Rivet : fiche de la cle, donne a Rivet (arme 37)')
+    return {weapon: patch_weapon, database: patch_database}
 RIVET_HERO_SPECS = [('HeroesTable', struct.pack('<iiq', 16, 0, -7414600841294808171), struct.pack('<iiq', 16, 0, -307863333376545080)), ('SimulationHeroesTable', struct.pack('<iq', 16, 1675496277196913591), struct.pack('<iq', 16, 640634350159564227))]
-RIVET_HERO_TEXTS = {'FR': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'CHARACTER.BIO.AVATAR': "Venue d'une autre dimension, Rivet la Lombax fait équipe avec Ratchet et Clank : mêmes armes, même gadget, même RYNO, et un sacré caractère."}, 'EN': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'CHARACTER.BIO.AVATAR': 'From another dimension, Rivet the Lombax teams up with Ratchet and Clank: same weapons, same gadget, same RYNO, and plenty of attitude.'}}
+RIVET_HERO_TEXTS = {'FR': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'UI.WEAPONS.MELEE.RIVET': 'Marteau de Rivet', 'UI.WEAPON_DESCRIPTION.MELEE.RIVET': 'Son marteau : aussi rapide que la clé de Ratchet, en plus lourd.', 'UI.HERO_IMPROVEMENT.NAME.RIVET_SLAM': 'Marteau plongeant', 'UI.HERO_IMPROVEMENT.DESC.RIVET_SLAM': "En l'air, coup de mêlée : Rivet plonge et frappe le sol.", 'CHARACTER.BIO.AVATAR': "Venue d'une autre dimension, Rivet la Lombax fait équipe avec Ratchet et Clank : mêmes armes, même gadget, et un sacré caractère."}, 'EN': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'UI.WEAPONS.MELEE.RIVET': "Rivet's Hammer", 'UI.WEAPON_DESCRIPTION.MELEE.RIVET': "Her hammer: as quick as Ratchet's wrench, and heavier.", 'UI.HERO_IMPROVEMENT.NAME.RIVET_SLAM': 'Hammer Slam', 'UI.HERO_IMPROVEMENT.DESC.RIVET_SLAM': 'Melee in the air: Rivet dives and slams the ground.', 'CHARACTER.BIO.AVATAR': 'From another dimension, Rivet the Lombax teams up with Ratchet and Clank: same weapons, same gadget, and plenty of attitude.'}}
 
 def rivet_hero(characters, guid):
     avatar, ratchet = (characters['AVATAR'], characters['RATCHET'])
     for field in ('_defaultWeapon', '_commonFavoriteWeapon', '_rareFavoriteWeapon', '_epicFavoriteWeapon', 'ultimates', 'gadgets', 'meleeWeaponSpec', 'maxHeroImprovementLevel', 'equipMeleeWeaponInMenu', 'menusAnimID', 'specificWinLoseAnimID'):
         avatar[field] = json_copy(ratchet[field])
+    if RIVET_HAMMER and heavy_tools():
+        hammer = characters['STEELJAW']['meleeWeaponSpec']
+        if hammer['m_PathID'] != hammer_module().STEELJAW_MELEE_SPEC:
+            raise SystemExit('marteau de Rivet : fiche de Steeljaw introuvable')
+        avatar['meleeWeaponSpec'] = json_copy(hammer)
     portrait = {'m_AssetGUID': PORTRAIT_GUIDS['ico_dialog_rivet'], 'm_SubObjectName': 'ico_dialog_rivet', 'm_SubObjectType': ratchet['thumbnailRef']['m_SubObjectType']}
     avatar['thumbnailRef'] = dict(portrait)
     avatar['visibleInCharactersMenu'] = 1
@@ -520,7 +946,7 @@ PORTRAITS_BUNDLE = 'assets/aa/Android/ui_portraits_assets_all_c5d463435920b8f4fc
 RIVET_PORTRAIT = ('Avatar_00', '89021fa48bc16bd4d860f312445fd3ea')
 RIVET_ILLUSTRATION = ('ui_atlases_assets_all', 'RivetsChallenge_Illustration')
 RIVET_PORTRAIT_CROP = (230, 30, 790, 439)
-RIVET_CARD = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rivet', 'Rivet_carte.png')
+RIVET_CARD = data_file('rivet', 'Rivet_carte.png')
 
 def rivet_portrait():
     import UnityPy
@@ -581,7 +1007,7 @@ def patch_rivet_portrait(data):
         pictures.append((RIVET_PORTRAIT[0], rivet_portrait()))
     if 'Wendy' in info and os.path.isfile(WENDY_PORTRAIT[1]):
         pictures.append((WENDY_PORTRAIT[0], Image.open(WENDY_PORTRAIT[1]).convert('RGBA').resize((512, 374))))
-    if any((record[1] == 'JUYCEE' for record in new_skin_records())):
+    if has_record(hero='JUYCEE'):
         for name, _, size in JUYCEE_CARDS:
             path = juycee_picture(name)
             if path:
@@ -603,9 +1029,17 @@ def patch_rivet_portrait(data):
     print(f"portraits de heros : {', '.join((name for name, _ in pictures))}")
 WENDY_SKIN = 85
 WENDY_HERO_SPECS = [('HeroesTable', struct.pack('<iiq', 7, 0, 2651809124107139903), struct.pack('<iiq', 7, 0, -307863333376545080)), ('SimulationHeroesTable', struct.pack('<iq', 7, 4109542338586538912), struct.pack('<iq', 7, 640634350159564227))]
-WENDY_PORTRAIT = ('Steeljaw_00', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wendy', 'Wendy_carte.png'))
+WENDY_PORTRAIT = ('Chance_01', data_file('wendy', 'Wendy_carte.png'))
 WENDY_HERO_TEXTS = {'FR': {'UI.CHARACTER.STEELJAW': 'Wendy', 'SKIN.STEELJAW_00': 'Wendy', 'CHARACTER.BIO.STEELJAW': "Sortie tout droit des cinématiques de la simulation, Wendy rejoint la bagarre avec l'arsenal de Ratchet : mêmes armes, même gadget, même RYNO."}, 'EN': {'UI.CHARACTER.STEELJAW': 'Wendy', 'SKIN.STEELJAW_00': 'Wendy', 'CHARACTER.BIO.STEELJAW': "Straight out of the simulation's cutscenes, Wendy joins the rumble with Ratchet's arsenal: same weapons, same gadget, same RYNO."}}
 WENDY_VISIBLE = os.environ.get('RR_WENDY') == '1'
+WENDY_CHARACTER = 7
+CHARACTER_AVAILABLE = 66646448
+CHARACTER_ID_OFFSET = 16
+STABLE_ENUM_VALUE = 28
+ON_MAIN_THREAD = 142970296
+
+def wendy_switch():
+    return not WENDY_VISIBLE and VERSION == '1.10.4' and ('hero_models' in BUILD) and ('Wendy' in hero_sources()[0])
 
 def wendy_hero(characters, guid):
     hero, ratchet = (characters['STEELJAW'], characters['RATCHET'])
@@ -613,7 +1047,7 @@ def wendy_hero(characters, guid):
         hero[field] = json_copy(ratchet[field])
     icon = {'m_AssetGUID': PORTRAIT_GUIDS['ico_dialog_Wendy'], 'm_SubObjectName': 'ico_dialog_Wendy', 'm_SubObjectType': ratchet['thumbnailRef']['m_SubObjectType']}
     hero['thumbnailRef'] = dict(icon)
-    hero['visibleInCharactersMenu'] = 1 if WENDY_VISIBLE else 0
+    hero['visibleInCharactersMenu'] = 1 if WENDY_VISIBLE or wendy_switch() else 0
     hero['wip'] = 0
     hero['canBeUsedByBots'] = 0
     ratchet_skin = ratchet['skins'][0]
@@ -624,6 +1058,7 @@ def wendy_hero(characters, guid):
         skin['localizedDescription'] = json_copy(ratchet_skin['localizedDescription'])
         skin['rarity'] = ratchet_skin['rarity']
         skin['thumbnailBackgroundRef'] = dict(icon)
+        skin['thumbnailRef'] = dict(skin['thumbnailRef'], m_SubObjectName=WENDY_PORTRAIT[0], m_AssetGUID=PORTRAIT_GUIDS[WENDY_PORTRAIT[0]])
         skin['addressableRef'] = {'m_AssetGUID': guid, 'm_SubObjectName': '', 'm_SubObjectType': ''}
         skin['size'] = ratchet_skin['size']
         skin['menusAnimIDOverride'] = -1
@@ -649,7 +1084,7 @@ def juycee_hero_specs(stream, table, count):
         changes[object_id] = (start, length, change)
     grow_objects(stream, table, count, changes)
 
-def rivet_hero_specs(stream, changes=RIVET_HERO_SPECS):
+def ratchet_hero_specs(stream, changes):
     for name, old, new in changes:
         if stream.count(old) != 1:
             raise SystemExit(f'table de heros inattendue : {name}')
@@ -679,12 +1114,17 @@ IS_SKIN = 75018420
 CHARACTER_OF_SKIN = 75046628
 SKIN_FUNCTION_START = bytes.fromhex('fe57bea9')
 CHARACTER_IDS = {'HELEN': 13, 'CHANCE': 11, 'RATCHET': 22, 'AVATAR': 16, 'JUYCEE': 23}
+CHARACTER_TABLE_HOOK = 74998016
+DICTIONARY_INT_ADD = 120384924
+IS_HERO = 75038916
+STABLE_ENUM_CALL = 110877252
+STABLE_ENUM_TRY_PARSE = 85361292
 
 def new_skin_code(data):
     skins = [(record[4], record[1]) for record in new_skin_records()]
     if not skins:
         return
-    if any((record[0] == 'Rivet' for record in new_skin_records())):
+    if has_record(model='Rivet'):
         skins.append((AVATAR_SKIN, 'AVATAR'))
     c = Code(SKIN_CODE + 4)
     c.label('is_skin')
@@ -718,7 +1158,7 @@ def new_skin_code(data):
         c.emit(SKIN_FUNCTION_START)
         c.emit(a64.b(c.here(), IS_HERO + 4))
     if pairs:
-        c.label('rivet_table')
+        c.label('character_table')
         for skin, character in pairs:
             c.emit(bytes.fromhex('a30240f9'))
             c.emit(bytes.fromhex('e00313aa'))
@@ -729,53 +1169,46 @@ def new_skin_code(data):
         c.emit(a64.b(c.here(), CHARACTER_TABLE_HOOK + 4))
     if juycee:
         c.label('stable_enum')
-        c.emit(struct.pack('<I', 2843738112 | 124 << 15 | 19 << 10 | 31 << 5 | 30))
+        c.emit(w32(2843738112 | 124 << 15 | 19 << 10 | 31 << 5 | 30))
         c.emit(bytes.fromhex('f30301aa'))
-        c.emit(struct.pack('<I', 3107979881))
-        c.emit(struct.pack('<I', 3103790057))
+        c.emit(w32(3107979881))
+        c.emit(w32(3103790057))
         c.call(STABLE_ENUM_TRY_PARSE)
-        c.emit(struct.pack('<I', 301989896))
+        c.emit(w32(301989896))
         c.jump('cbnzw', 'stable_enum_done', 8)
-        c.emit(struct.pack('<I', 3107984361))
-        c.emit(struct.pack('<I', 3103785577))
+        c.emit(w32(3107984361))
+        c.emit(w32(3103785577))
         c.label('stable_enum_done')
-        c.emit(struct.pack('<I', 2831155200 | 4 << 15 | 19 << 10 | 31 << 5 | 30))
+        c.emit(w32(2831155200 | 4 << 15 | 19 << 10 | 31 << 5 | 30))
         c.emit(a64.RET)
     code, entries = (c.build(), c.labels)
-    if isinstance(code, tuple):
-        code = code[0]
     if len(code) + 4 > 1128:
         raise SystemExit('plus de place pour les costumes ajoutes')
-    at(data, SKIN_CODE, bytes(data[SKIN_CODE:SKIN_CODE + 4]), a64.RET)
-    at(data, SKIN_CODE + 4, bytes(data[SKIN_CODE + 4:SKIN_CODE + 4 + len(code)]), code)
+    place(data, SKIN_CODE, a64.RET)
+    place(data, SKIN_CODE + 4, code)
     at(data, IS_SKIN, SKIN_FUNCTION_START, a64.b(IS_SKIN, SKIN_CODE + 4 + entries['is_skin']))
     at(data, CHARACTER_OF_SKIN, SKIN_FUNCTION_START, a64.b(CHARACTER_OF_SKIN, SKIN_CODE + 4 + entries['character']))
     if pairs:
-        at(data, CHARACTER_TABLE_HOOK, bytes.fromhex('880240f9'), a64.b(CHARACTER_TABLE_HOOK, SKIN_CODE + 4 + entries['rivet_table']))
+        at(data, CHARACTER_TABLE_HOOK, bytes.fromhex('880240f9'), a64.b(CHARACTER_TABLE_HOOK, SKIN_CODE + 4 + entries['character_table']))
     if heroes:
         at(data, IS_HERO, SKIN_FUNCTION_START, a64.b(IS_HERO, SKIN_CODE + 4 + entries['is_hero']))
     if juycee:
         at(data, STABLE_ENUM_CALL, a64.bl(STABLE_ENUM_CALL, STABLE_ENUM_TRY_PARSE), a64.bl(STABLE_ENUM_CALL, SKIN_CODE + 4 + entries['stable_enum']))
-CHARACTER_TABLE_HOOK = 74998016
-DICTIONARY_INT_ADD = 120384924
-IS_HERO = 75038916
-STABLE_ENUM_CALL = 110877252
-STABLE_ENUM_TRY_PARSE = 85361292
 
 def new_skin_texts(language):
     names = JUYCEE_TEXTS.get(language) or JUYCEE_TEXTS['EN']
     texts = {}
-    for model, _, _, _, _, text, _ in new_skin_records():
+    for _, _, _, _, _, text, _ in new_skin_records():
         if text.startswith('SKIN.JUYCEE_'):
             name = names[int(text[-2:])]
             texts[text] = texts[text + '.DESCRIPTION'] = name
         elif text == 'SKIN.RIVET_00':
             texts[text], texts[text + '.DESCRIPTION'] = RIVET_TEXTS.get(language) or RIVET_TEXTS['EN']
-    if any((record[0] == 'Rivet' for record in new_skin_records())):
+    if has_record(model='Rivet'):
         texts.update(RIVET_HERO_TEXTS.get(language) or RIVET_HERO_TEXTS['EN'])
     if 'Wendy' in hero_sources()[0]:
         texts.update(WENDY_HERO_TEXTS.get(language) or WENDY_HERO_TEXTS['EN'])
-    if any((record[1] == 'JUYCEE' for record in new_skin_records())):
+    if has_record(hero='JUYCEE'):
         texts.update(JUYCEE_HERO_TEXTS.get(language) or JUYCEE_HERO_TEXTS['EN'])
     return texts
 
@@ -810,6 +1243,7 @@ def bot_edits(stream):
 
 def patch_local_data(data):
     edits = level_edits() + hero_edits()
+    stream = None
     if BOLT_RUSH and 'hero_models' in BUILD:
         offset, old, new = BR_LEVEL_NAME
         if len(old) != len(new):
@@ -825,26 +1259,25 @@ def patch_local_data(data):
         patch_bundle(data, edits)
         return
     table_change = characters_table_change(data, records) if records else None
-    if not EVENTS:
-        stream = bytearray(bundle_stream(bytes(data)))
-        for position, old, new in edits:
-            at(stream, position, old, new)
-        table, count = evenements.LOCAL_DATA_OBJECTS
-        grown = grow_objects(stream, table, count, dict([table_change]))
-        replace_bundle_stream(data, stream, grown)
-        return
-    evenements.PICTURE = os.path.isfile(ZURKON_PICTURE)
-    evenements.CARD = os.path.isfile(ZURKON_CARD)
-    edits += evenements.card_event03_edits()
-    stream = bytearray(bundle_stream(bytes(data)))
-    if evenements.CARD:
-        edits.append(event_tokens_sprite_edit(stream))
-    edits.append(loot_box_sprite_edit(stream))
+    if EVENTS:
+        evenements.PICTURE = os.path.isfile(ZURKON_PICTURE)
+        evenements.CARD = os.path.isfile(ZURKON_CARD)
+        evenements.CARD_ART = os.path.isfile(ZURKON_CARD_ART) and heavy_tools()
+        evenements.WEAPON_ART = os.path.isfile(WEAPON_CARD_ART) and heavy_tools()
+        edits += evenements.card_event03_edits()
+    stream = bytearray(stream if stream is not None else bundle_stream(bytes(data)))
+    if EVENTS:
+        if evenements.CARD:
+            edits.append(event_tokens_sprite_edit(stream))
+        edits.append(loot_box_sprite_edit(stream))
     for position, old, new in edits:
         at(stream, position, old, new)
+    table, count = evenements.LOCAL_DATA_OBJECTS
+    if not EVENTS:
+        replace_bundle_stream(data, stream, grow_objects(stream, table, count, dict([table_change])))
+        return
     evenements.TOKEN_ON_GROUND = heavy_tools()
     object_id, start, size = evenements.EVENTS_META
-    table, count = evenements.LOCAL_DATA_OBJECTS
     changes = {object_id: (start, size, evenements.events_meta)}
     if table_change:
         changes[table_change[0]] = table_change[1]
@@ -855,8 +1288,10 @@ def patch_local_data(data):
     copies.update(zurkon_token_copies(data))
     stream, added = add_object_copies(stream, table, count, copies)
     replace_bundle_stream(data, stream, grown + added)
-ZURKON_PICTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'zurkon', 'MmeZurkon.png')
-ZURKON_CARD = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'zurkon', 'CarteZurkon.png')
+ZURKON_PICTURE = data_file('zurkon', 'MmeZurkon.png')
+ZURKON_CARD = data_file('zurkon', 'CarteZurkon.png')
+ZURKON_CARD_ART = data_file('zurkon', 'MmeZurkon_carte.png')
+WEAPON_CARD_ART = data_file('arme_hasard', 'ArmeHasard_carte.png')
 
 def event_tokens_sprite_edit(stream):
     old = struct.pack('<iq', *evenements.EVENT_TOKENS_SPRITE)
@@ -890,7 +1325,7 @@ def zurkon_token_copies(data):
     from UnityPy.helpers import TypeTreeHelper
     from UnityPy.streams import EndianBinaryWriter
     local = list(UnityPy.load(bytes(data)).objects)
-    pack = zipfile.ZipFile(os.path.join(xapk, 'UnityDataAssetPack.apk'))
+    pack = asset_pack()
     common_name = next((n for n in pack.namelist() if n.split('/')[-1].startswith('default_common_group_')))
     common = {o.path_id: o for o in UnityPy.load(pack.read(common_name)).objects}
     local_file, common_file = (local[0].assets_file, next(iter(common.values())).assets_file)
@@ -938,25 +1373,14 @@ def zurkon_token_copies(data):
     return {go: written('GameObject', game_object), transform: written('Transform', transform_tree), mesh_filter: written('MeshFilter', filter_tree), renderer: written('MeshRenderer', renderer_tree)}
 
 def zurkon_copies(data):
-    if not evenements.PICTURE and (not evenements.CARD) or not heavy_tools():
+    if not (evenements.PICTURE or evenements.CARD or evenements.CARD_ART or evenements.WEAPON_ART) or not heavy_tools():
         return {}
     import UnityPy
     from PIL import Image
-    from UnityPy.helpers import TypeTreeHelper
-    from UnityPy.streams import EndianBinaryReader, EndianBinaryWriter
     objects = {o.path_id: o for o in UnityPy.load(bytes(data)).objects}
 
     def rewrite(old_id, edit):
-        obj = objects[old_id]
-        node, assets = (obj._get_typetree_node(), obj.assets_file)
-
-        def change(raw):
-            tree = TypeTreeHelper.read_typetree(node, EndianBinaryReader(raw, endian='<'), as_dict=True, byte_size=len(raw), assetsfile=assets)
-            edit(tree)
-            writer = EndianBinaryWriter(endian='<')
-            TypeTreeHelper.write_typetree(tree, node, writer, assets)
-            return writer.bytes
-        return change
+        return typetree_change(objects[old_id], edit)
     copies = {}
     if evenements.CARD:
         card = Image.open(ZURKON_CARD).convert('RGBA')
@@ -972,6 +1396,22 @@ def zurkon_copies(data):
         copies[evenements.CARD_TEXTURE] = (evenements.TEXTURE_TEMPLATE, rewrite(evenements.TEXTURE_TEMPLATE, card_texture))
         copies[evenements.CARD_SPRITE] = (evenements.SPRITE_TEMPLATE, rewrite(evenements.SPRITE_TEMPLATE, card_sprite))
         print(f"carte Zurkon : {card.size[0]} x {card.size[1]}, image des jetons d'evenement")
+    for wanted, path, name, texture_id, sprite_id, key in ((evenements.CARD_ART, ZURKON_CARD_ART, 'MsZurkon_Illustration', evenements.CARD_ART_TEXTURE, evenements.CARD_ART_SPRITE, 460213289), (evenements.WEAPON_ART, WEAPON_CARD_ART, 'RandomWeapon_Illustration', evenements.WEAPON_ART_TEXTURE, evenements.WEAPON_ART_SPRITE, 1828956133)):
+        if not wanted:
+            continue
+        art = Image.open(path).convert('RGBA')
+
+        def art_texture(tree, art=art, name=name):
+            tree['m_Name'] = name
+            rgba_texture(tree, art)
+
+        def art_sprite(tree, art=art, name=name, texture_id=texture_id, key=key):
+            tree['m_Name'] = name
+            tree['m_RenderDataKey'][0]['data[0]'] ^= key
+            full_rect_sprite(tree, texture_id, *art.size)
+        copies[texture_id] = (evenements.TEXTURE_TEMPLATE, rewrite(evenements.TEXTURE_TEMPLATE, art_texture))
+        copies[sprite_id] = (evenements.SPRITE_TEMPLATE, rewrite(evenements.SPRITE_TEMPLATE, art_sprite))
+        print(f"carte d'evenement {name} : {art.size[0]} x {art.size[1]}")
     if not evenements.PICTURE:
         return copies
     picture = Image.open(ZURKON_PICTURE).convert('RGBA')
@@ -1022,7 +1462,6 @@ def zurkon_copies(data):
 RENAMED_FILES = {b'CAB-362daa32c55d2edb2ee260b161e8e33f': b'CAB-fefaa237ca08b3d094dadff5db545f76', b'CAB-486da8644fe5dca7369db9153d72fbf6': b'CAB-b00ca7a8a885dc2b23ea44c4388a4105', b'CAB-04de74b3c7c64036e7608340366c745c': b'CAB-6958b85330e8e987f0af28e9b9e03adf', b'CAB-dda31e6215934c6e34e476c72fcd26fa': b'CAB-718bb4c7469902c1c4dcc978dd716d84', b'CAB-aa319b2de83cf7027e416601fb60c3ae': b'CAB-b7bb29c43e97a57482540f25c56a0b03'}
 HERO_MODELS = {'Chance': '966f2d8d9c7f95149a7cb4237fcdfd54', 'Molly': 'adcdb763f80f3894f81c197594889b6e', 'Helen': '777a95af41a038b409cd394e0ffb931d', 'Flare': '102bd3a17a4e39b479d896308773c0a8', 'Nakari': '2904978eddf9d4143befcc2778e457de', 'Terry': 'c52cf61167f55554da126cac604d17b6', 'Crumby': '57cadf1fb1a4aaa43988ed5f816d22d0'}
 SPRITE_TYPE = 'UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0'
-BUNDLE_BLOCK = 131072
 EXTRA_MODELS = {'Juycee': '0e7a24019654c904aa852294fce5eb52'}
 
 def hero_model_bundles(pack):
@@ -1030,13 +1469,7 @@ def hero_model_bundles(pack):
     for hero in list(HERO_MODELS) + [name for name in EXTRA_MODELS if any((f'skins_character_{name.lower()}_assets_all_' in entry for entry in pack.namelist()))]:
         prefix = f'assets/aa/Android/skins_character_{hero.lower()}_assets_all_'
         path = next((name for name in pack.namelist() if name.startswith(prefix)))
-        data = bytearray(pack.read(path))
-        stream = bundle_stream(bytes(data))
-        edits = []
-        for old, new in RENAMED_FILES.items():
-            edits += [(match.start(), old, new) for match in re.finditer(re.escape(old), stream)]
-        patch_bundle(data, edits)
-        found.append((hero, path, bytes(data)))
+        found.append((hero, path, relinked(pack.read(path))))
     return found
 HEALTH_TALENT = 932205718080381358
 AMMO_TALENT = 3261721121919404876
@@ -1044,8 +1477,10 @@ FIRE_RATE_TALENT = 806155625543343013
 HERO_TALENTS = struct.pack('<6q', AMMO_TALENT, FIRE_RATE_TALENT, HEALTH_TALENT, AMMO_TALENT, FIRE_RATE_TALENT, HEALTH_TALENT)
 HEROES_WITHOUT_TALENTS = {8164001146724866422: 32, -450373368699069825: 28, -3740259518235205799: 28, 4055337521773987031: 32, 1834682198767006603: 32, -8106055942199915665: 32, -986822564360228212: 32}
 
-def patch_hero_talents(data):
+def patch_hero_talents(data, edits=()):
     stream = bytearray(bundle_stream(bytes(data)))
+    for offset, old, new in edits:
+        at(stream, offset, old, new)
     file_size, data_offset = struct.unpack('>QQ', stream[24:40])
     table, count = BUILD['hero_specs_table']
     objects = [struct.unpack_from('<qqIi', stream, table + i * 24) for i in range(count)]
@@ -1065,30 +1500,24 @@ def patch_hero_talents(data):
             size += len(HERO_TALENTS)
         struct.pack_into('<qqIi', stream, table + i * 24, object_id, moved, size, kind)
     struct.pack_into('>Q', stream, 24, file_size + len(HERO_TALENTS) * len(specs))
-    if 'Rivet' in hero_sources()[0]:
-        rivet_hero_specs(stream)
+    if 'Rivet' in hero_sources()[0] and (not (RIVET_JUMP and heavy_tools())):
+        ratchet_hero_specs(stream, RIVET_HERO_SPECS)
     if 'Wendy' in hero_sources()[0]:
-        rivet_hero_specs(stream, WENDY_HERO_SPECS)
-    if any((record[1] == 'JUYCEE' for record in new_skin_records())):
+        ratchet_hero_specs(stream, WENDY_HERO_SPECS)
+    if has_record(hero='JUYCEE'):
         juycee_hero_specs(stream, table, count)
     replace_bundle_stream(data, stream)
-BOLT_RUSH = not COPIE and os.environ.get('RR_BOLT_RUSH', '1') == '1' and ('hero_models' in BUILD)
-EVENTS = BOLT_RUSH and os.environ.get('RR_EVENEMENTS', '1') == '1'
-BOLT_RUSH_EDITS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bolt_rush.json')))
-
-def bolt_rush_data(path):
-
-    def patch(data):
-        patch_bundle(data, [(offset, bytes.fromhex(old), bytes.fromhex(new)) for offset, old, new in BOLT_RUSH_EDITS[path]])
-    return patch
+BOLT_RUSH_EDITS = load_json('bolt_rush.json')
 BOLT_RUSH_RENAMES = [(b'\x00QWARK_BALL\x00', b'\x00BOLT_RUSH\x00'), (b'\x00GAME_MODE_BOLT_RUSH_COOP_DEPRECATED\x00', b'\x00GAME_MODE_BOLT_RUSH\x00')]
 BOLT_RUSH_GAME_MODE = 9
 GAME_MODES_BUNDLE = 'assets/aa/Android/quantum_db_game_modes_assets_all_ce297b7193854380ca79aaddc5810ab1.bundle'
 GAME_MODES_OBJECTS = (832524, 18219)
 TUTORIAL_SPEC = (2716020363603892662, 3668960, 828)
-TUTORIAL_TABLE_ENTRY = struct.pack('<iqqi', 5, 387317373446263462, 2540651079593046860, 0)
+TUTORIAL_GAME_MODE = 5
+TUTORIAL_TABLE_ENTRY = struct.pack('<iqqi', TUTORIAL_GAME_MODE, 387317373446263462, 2540651079593046860, 0)
 UI_ATLAS_FILE = 2
-BOLT_RUSH_TEXTS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bolt_rush_textes.json'), encoding='utf-8'))
+BOLT_RUSH_TEXTS = load_json('bolt_rush_textes.json')
+KING_ANNOUNCER_KEYS = ['ANNOUNCER.BOLTKING.PLAYER_BECAME_KING', 'ANNOUNCER.BOLTKING.YOU_BECAME_KING', 'ANNOUNCER.BOLTKING.KING_ELIMINATED']
 LOCALIZATION_FILE = 'assets/Data/Localization/{}/_DEFAULT.protobd'
 LANGUAGES = ['AR', 'BR', 'CN', 'DE', 'EN', 'ES', 'FR', 'GD', 'IT', 'JP', 'KR', 'MY', 'NL', 'RU', 'TR', 'TW']
 BOLT_RUSH_CARD = {'name': 'UI.GAME_MODE.BOLT_RUSH', 'description': 'UI.GAME_MODE.BOLT_RUSH_DESC', 'icon': 2472658898744702415, 'illustration': -81423715014193705, 'animated': 4212379821872507239, 'steps': [('UI.GAME_MODE.BOLT_KING.STEP_01', -2923374288120182764), ('UI.GAME_MODE.BOLT_RUSH_SOLO.STEP_02', 8644978053141830954), ('UI.GAME_MODE.BOLT_RUSH.STEP_03', -940617046196073270)], 'weapons': [1, 2, 14]}
@@ -1128,6 +1557,28 @@ def proto_fields(data, start, end):
         size, position = read_varint(data, position)
         yield (tag >> 3, first, position, position + size)
         position += size
+
+def localization_entries(source, error):
+    (_, _, root_start, root_end), = list(proto_fields(source, 0, len(source)))
+    inner = list(proto_fields(source, root_start, root_end))
+    if inner[0][0] != 500:
+        raise SystemExit(error)
+    _, _, table_start, table_end = inner[0]
+    entries = []
+    for _, first, start, end in proto_fields(source, table_start, table_end):
+        key = next((source[s:e] for f, _, s, e in proto_fields(source, start, end) if f == 1))
+        entries.append((key, source[first:end]))
+    return (entries, source[table_end:root_end])
+
+def localization_entry(key, text):
+    value = text.encode('utf-8')
+    body = b'\n' + varint(len(key)) + key + b'\x12' + varint(len(value)) + value
+    return b'\n' + varint(len(body)) + body
+
+def localization_file(entries, rest):
+    table = b''.join((raw for _, raw in entries))
+    root_body = varint(500 << 3 | 2) + varint(len(table)) + table + rest
+    return b'\n' + varint(len(root_body)) + root_body
 CDN_SKIN_TEXTS = {'FR': {'Molly_Skin01': 'Molly Mystique', 'Molly_Skin02': 'Molly Robot', 'Molly_Skin03': 'Molly galactique'}, 'EN': {'Molly_Skin01': 'Mystic Molly', 'Molly_Skin02': 'Robo Molly', 'Molly_Skin03': 'Galaxy Molly'}}
 
 def cdn_skin_texts(language):
@@ -1139,6 +1590,8 @@ def cdn_skin_texts(language):
             key = f'SKIN.{hero.upper()}_{number}'
             texts[key] = texts[key + '.DESCRIPTION'] = names[skin]
     return texts
+MAPS_174_TEXTS = {'FR': 'Stade des pirates', 'EN': 'Pirate Stadium', 'DE': 'Piratenstadion', 'ES': 'Estadio pirata', 'IT': 'Stadio dei pirati', 'BR': 'Estádio pirata', 'NL': 'Stadion piratów'}
+MAPS_174_NAME_KEY = 'LEVEL.BB_ARDOLIS_01.NAME'
 
 def patch_localization(language):
     texts = dict(BOLT_RUSH_TEXTS.get(language) or BOLT_RUSH_TEXTS['EN']) if BOLT_RUSH else {}
@@ -1154,34 +1607,27 @@ def patch_localization(language):
     if EVENTS:
         texts.update(ZURKON_TEXTS.get(language) or ZURKON_TEXTS['EN'])
         texts['UI.EVENT.ZURKON.RULES'] = ZURKON_RULES.get(language) or ZURKON_RULES['EN']
+    if maps_174():
+        texts[MAPS_174_NAME_KEY] = MAPS_174_TEXTS.get(language) or MAPS_174_TEXTS['EN']
 
     def patch(data):
-        source = bytes(data)
-        (_, _, root_start, root_end), = list(proto_fields(source, 0, len(source)))
-        inner = list(proto_fields(source, root_start, root_end))
-        if inner[0][0] != 500:
-            raise SystemExit(f'fichier de langue {language} inattendu')
-        _, _, table_start, table_end = inner[0]
-        entries = []
-        for _, first, start, end in proto_fields(source, table_start, table_end):
-            key = next((source[s:e] for f, _, s, e in proto_fields(source, start, end) if f == 1))
-            entries.append((key, source[first:end]))
+        entries, rest = localization_entries(bytes(data), f'fichier de langue {language} inattendu')
         known = {key for key, _ in entries}
-        replaced = {key.encode() for key in list(RIVET_HERO_TEXTS['EN']) + list(WENDY_HERO_TEXTS['EN']) + list(WEAPON_SLOTS_TEXTS['EN'])}
+        replaced = {key.encode() for key in list(RIVET_HERO_TEXTS['EN']) + list(WENDY_HERO_TEXTS['EN']) + list(WEAPON_SLOTS_TEXTS['EN']) + [MAPS_174_NAME_KEY] + KING_ANNOUNCER_KEYS}
         for key, text in texts.items():
-            key, text = (key.encode(), text.encode('utf-8'))
+            key = key.encode()
             if key in known and key in replaced:
                 entries = [entry for entry in entries if entry[0] != key]
             elif key in known:
                 raise SystemExit(f'cle deja presente : {key}')
-            body = b'\n' + varint(len(key)) + key + b'\x12' + varint(len(text)) + text
-            entries.append((key, b'\n' + varint(len(body)) + body))
+            entries.append((key, localization_entry(key, text)))
+        if language == POLISH_SLOT and polish_build():
+            with open(POLISH_TEXTS, encoding='utf-8') as handle:
+                polish = json.load(handle)
+            entries = [(key, localization_entry(key, polish[key.decode()]) if polish.get(key.decode()) else raw) for key, raw in entries]
+            print(f'polonais : {sum((1 for key, _ in entries if polish.get(key.decode())))} textes')
         entries.sort(key=lambda item: item[0])
-        table = b''.join((raw for _, raw in entries))
-        rest = source[inner[0][3]:root_end]
-        table_field = varint(500 << 3 | 2) + varint(len(table)) + table
-        root_body = table_field + rest
-        data[:] = b'\n' + varint(len(root_body)) + root_body
+        data[:] = localization_file(entries, rest)
     return patch
 
 def bolt_rush_card_fields(card=BOLT_RUSH_CARD):
@@ -1204,9 +1650,8 @@ def bolt_rush_spec(old):
     guid = rest.index(path) + len(path) + -len(path) % 4
     if rest[guid:guid + 12] != struct.pack('<qi', 2540651079593046860, 5):
         raise SystemExit('identifiant du tutoriel inattendu')
-    struct.pack_into('<i', rest, guid + 8, BOLT_RUSH_GAME_MODE)
     return bytes(old[:name]) + bolt_rush_card_fields() + bytes(rest)
-RUSH_GAME_MODE = 5
+RUSH_GAME_MODE = 13
 RUSH_UNLOCKABLE = 68
 GAME_MODES_TABLE = (1776920553094465429, 3431440, 360)
 SHOWCASE_SPEC = (1362803872253417729, 3333856, 5044)
@@ -1230,7 +1675,7 @@ RUSH_GOLDEN_DELAYS = (60, 60, 120, 120)
 RUSH_GOLDEN_BOLTS = 75
 RUSH_GOLDEN_DROP = 1474560
 RUSH_GOLDEN_HEIGHT = 1966080
-RUSH_MAP_POINTS = {'assets/aa/Android/quantum_map_assets_q_bk_sargasso_01_assets_all_a40920a2717fdbf541b730ebc78f0ff1.bundle': ((97968, 7), (-8094758613156511176, 395808, 10940), 1124, [(-2621439, 589824, 2621440), (-131072, 196608, 0), (2621440, 589824, -2621440), (2146304, 786432, 2179071), (-2146304, 786432, -2179072)]), 'assets/aa/Android/quantum_map_assets_q_bk_torreniv_01_assets_all_80833395b99dd7f69dd57fd576e3e057.bundle': ((97968, 13), (-3114715822146110700, 576448, 11620), 1020, [(2686976, 786432, -2097152), (-2686976, 786432, 2097152), (0, 524288, 0), (-655360, 688128, -3866624), (655360, 688128, 3866624)]), 'assets/aa/Android/quantum_map_assets_q_bk_torreniv_02_assets_all_85d23b5e205308433d95349c0a02342a.bundle': ((97968, 13), (-1287192862409957299, 908080, 10724), 1020, [(0, 393216, 0), (-2555904, 753664, 1048576), (2555904, 753664, -1048576), (655360, 917504, 2097152), (-655360, 917504, -2097152)]), 'assets/aa/Android/quantum_map_assets_q_bk_ardolis_01_assets_all_9e50eadafc80e9a53e0b96483c49694b.bundle': ((97968, 7), (-9187427915300057292, 0, 4500), 912, [(-2402785, 655360, 1489868), (2402785, 655360, -1489868), (0, 196608, 0), (2664604, 557056, 2664604), (-2664604, 557056, -2664605)])}
+RUSH_MAP_POINTS = {'assets/aa/Android/quantum_map_assets_q_bk_sargasso_01_assets_all_a40920a2717fdbf541b730ebc78f0ff1.bundle': ((97968, 7), (-8094758613156511176, 395808, 10940), 1124, [(-2621439, 589824, 2621440), (-131072, 196608, 0), (2621440, 589824, -2621440), (2146304, 786432, 2179071), (-2146304, 786432, -2179072)]), 'assets/aa/Android/quantum_map_assets_q_bk_torreniv_01_assets_all_80833395b99dd7f69dd57fd576e3e057.bundle': ((97968, 13), (-3114715822146110700, 576448, 11620), 1020, [(2686976, 786432, -2097152), (-2686976, 786432, 2097152), (0, 524288, 0), (-655360, 688128, -3866624), (655360, 688128, 3866624)]), 'assets/aa/Android/quantum_map_assets_q_bk_torreniv_02_assets_all_85d23b5e205308433d95349c0a02342a.bundle': ((97968, 13), (-1287192862409957299, 908080, 10724), 1020, [(0, 393216, 0), (-2555904, 753664, 1048576), (2555904, 753664, -1048576), (655360, 917504, 2097152), (-655360, 917504, -2097152)]), 'assets/aa/Android/quantum_map_assets_q_bk_ardolis_01_assets_all_9e50eadafc80e9a53e0b96483c49694b.bundle': ((97968, 7), (-9187427915300057292, 0, 4500), 912, [(-2402785, 655360, 1489868), (2402785, 655360, -1489868), (0, 196608, 0), (2664604, 557056, 2664604), (-2664604, 557056, -2664605)]), 'assets/aa/Android/quantum_map_assets_q_bk_megalopolis_00_assets_all_17e4e0ab8b87be0756e41315370ef97f.bundle': ((97968, 7), (-3342730429618726170, 111632, 5252), 816, [(0, 131072, 0), (917504, 393216, 1703936), (-917504, 393216, -1703936), (1703936, 393216, -2162688), (-1703936, 393216, 2162688)]), 'assets/aa/Android/quantum_map_assets_q_bk_megalopolis_01c_assets_all_facc055495154defa7c621dec2d92309.bundle': ((97968, 7), (5464993316374041169, 748592, 2828), 1132, [(0, 669481, 0), (0, 524288, 2621440), (0, 655360, -2293760), (-2621440, 655360, 1310720), (2621440, 655360, 1310720)]), 'assets/aa/Android/quantum_map_assets_q_bk_megalopolis_02b_assets_all_23f580cfdc258930b02642d438599885.bundle': ((97968, 7), (-4282096647975423578, 0, 11192), 1080, [(0, 393216, 0), (-2949120, 262144, -655360), (2949120, 262144, -655360), (-1802240, 262144, 3440640), (1802240, 262144, 3440640)])}
 
 def grow_objects(stream, table, count, changes, shrink=False, types=None):
     file_size, data_offset = struct.unpack('>QQ', stream[24:40])
@@ -1294,15 +1739,15 @@ def game_modes_table(old):
     count, = struct.unpack_from('<i', old, first - 4)
     entries = [struct.unpack_from('<iqqi', old, first + i * 24) for i in range(count)]
     ids = [entry[0] for entry in entries]
-    if count != 10 or ids.count(RUSH_GAME_MODE) != 1 or BOLT_RUSH_GAME_MODE in ids or (BR_GAME_MODE in ids):
+    if count != 10 or ids[0] != TUTORIAL_GAME_MODE or ids.count(TUTORIAL_GAME_MODE) != 1 or any((mode in ids for mode in (BOLT_RUSH_GAME_MODE, BR_GAME_MODE, RUSH_GAME_MODE))):
         raise SystemExit('table des modes inattendue')
+    tutorial = entries[0]
     bolt_king = next((entry for entry in entries if entry[0] == 3))
     showcase = next((entry for entry in entries if entry[0] == 6))
     training = next((entry for entry in entries if entry[0] == 7))
     elimination = next((entry for entry in entries if entry[0] == 11))
     new = bytearray(old)
-    struct.pack_into('<i', new, first, BOLT_RUSH_GAME_MODE)
-    added = [(RUSH_GAME_MODE, bolt_king[1], showcase[2], 0), (BR_GAME_MODE, elimination[1], training[2], 0)]
+    added = [(BOLT_RUSH_GAME_MODE, tutorial[1], tutorial[2], 0), (BR_GAME_MODE, elimination[1], training[2], 0), (RUSH_GAME_MODE, bolt_king[1], showcase[2], 0)]
     struct.pack_into('<i', new, first - 4, count + len(added))
     end = first + count * 24
     new[end:end] = b''.join((struct.pack('<iqqi', *entry) for entry in added))
@@ -1365,22 +1810,17 @@ BOLT_KING_SPEC = 985954205684366378
 FIND_ASSET = 128650348
 SPEC_FIELDS = [(48, 8), (184, 8), (224, 8), (232, 8), (376, 8), (384, 8), (416, 8), (488, 8), (456, 8), (464, 8), (80, 4), (208, 4), (480, 4), (240, 1), (408, 1)]
 BOLT_KING_VALUES = {48: 180 << 16, 184: 1944011347666261512, 224: 1299186242396030174, 232: 1067394776428191794, 376: 1522270081786856041, 384: 2304507479634667108, 416: 0, 488: 0, 80: 100, 208: 30, 480: 300, 240: 0, 408: 0, 456: 0, 464: 0}
-BOLT_RUSH_POWER = 751619029107946806
-KING_SCORE = int(os.environ.get('RR_KING_SCORE', '200'))
+KING_SCORE = int(os.environ.get('RR_KING_SCORE', '200')) if JOURNAL else 200
 KING_GATHERER = 80969588127492484
 SPEC_VALUES = {'solo': BOLT_KING_VALUES, 'coop': {**BOLT_KING_VALUES, 48: 150 << 16, 384: 4457707506713145229, 184: RUSH_GOLDEN_GUID, 416: 0, 80: 200, 480: 600, 240: 1, 408: 1}, 'rush': {**BOLT_KING_VALUES, 184: RUSH_GOLDEN_GUID, 488: 30 << 16, 384: KING_GATHERER, 480: KING_SCORE}, 'br': {**BOLT_KING_VALUES, 488: 1}}
 
-def a64_ldst(base, size, rt, rn, offset):
-    return struct.pack('<I', base | offset // size << 10 | rn << 5 | rt)
-
-def a64_adr(rd, source, target):
-    delta = target - source
-    return struct.pack('<I', 268435456 | (delta & 3) << 29 | (delta >> 2 & 524287) << 5 | rd)
-
-def a64_cb(base, rt, source, target):
-    return struct.pack('<I', base | (target - source >> 2 & 524287) << 5 | rt)
-LOADS = {8: 4181721088, 4: 3107979264, 1: 960495616}
-STORES = {8: 4177526784, 4: 3103784960, 1: 956301312}
+def bolt_king_settings(c, fail, label='bolt_king_spec'):
+    c.jump('ldrlit', label, 0)
+    c.emit(a64.mov_x_zero(1))
+    c.call(FIND_ASSET)
+    c.jump('cbz', fail, 0)
+    c.emit(a64.ldr_x(8, 0, 136))
+    c.jump('cbz', fail, 8)
 
 def spec_values_block(values):
     out = bytearray()
@@ -1411,12 +1851,7 @@ def bolt_rush_switch(c):
     c.jump('b.ne', 'switch_find')
     c.emit(a64.movz_w(19, 2))
     c.label('switch_find')
-    c.jump('ldrlit', 'bolt_king_spec', 0)
-    c.emit(a64.mov_x_zero(1))
-    c.call(FIND_ASSET)
-    c.jump('cbz', 'switch_end', 0)
-    c.emit(a64.ldr_x(8, 0, 136))
-    c.jump('cbz', 'switch_end', 8)
+    bolt_king_settings(c, 'switch_end')
     c.jump('adr', 'values_solo', 9)
     c.jump('cbzw', 'switch_write', 19)
     c.jump('adr', 'values_coop', 9)
@@ -1444,8 +1879,12 @@ def bolt_rush_switch_data(c):
     c.emit(b'rr_coop\x00')
 SELECT_RANDOM_MAP_CALL = 66500760
 SELECT_RANDOM_MAP = 66501224
-BOLT_RUSH_MAPS = [b'q_BK_Sargasso_01', b'q_BK_Megalopolis_01C', b'q_BK_TorrenIV_01', b'q_BK_TorrenIV_02', b'q_BK_Ardolis_01']
-RUSH_MAPS = [b'q_BK_Sargasso_01', b'q_BK_TorrenIV_01', b'q_BK_TorrenIV_02', b'q_BK_Ardolis_01']
+RUSH_MAPS = [b'q_BK_Sargasso_01', b'q_BK_TorrenIV_01', b'q_BK_TorrenIV_02', b'q_BK_Ardolis_01', b'q_BK_Megalopolis_00', b'q_BK_Megalopolis_01C', b'q_BK_Megalopolis_02B']
+RUSH_MAPS_ADDED = [b'q_BK_Megalopolis_02']
+
+def rush_maps():
+    added = maps_174()['maps'] if maps_174() else {}
+    return RUSH_MAPS + [m for m in RUSH_MAPS_ADDED if m.decode() in added]
 MAP_NAME_SLOT = 24
 TEAM_COUNTER_FLAG = 130603656
 TITLE_KEY_LOAD = 131610760
@@ -1491,7 +1930,10 @@ BIND_PLAYER_CALL = 67587488
 OWN_BOLTS_MARK = 8796023608539197463
 ALLY_COLOR = (0.3, 0.72, 1.0, 1.0)
 OPPONENT_COLOR = (1.0, 0.36, 0.32, 1.0)
+COOP_BATTLE_HOST = 67925936
 COOP_BATTLE_CODE = 67926192
+COOP_BATTLE_END = COOP_BATTLE_HOST + 1456
+BOLT_COUNTER_LOAD = 67351280
 
 def mark_x(c, register):
     for shift in range(4):
@@ -1513,14 +1955,20 @@ def coop_battle_code(at_address):
         c.jump('cbz', fail, 8)
         c.emit(a64.ldr_x(22, 8, 16))
         c.jump('cbz', fail, 22)
+
+    def nickname_colour():
+        c.emit(a64.cmp_w(0, 23))
+        c.jump('adr', 'ally', 9)
+        c.jump('adr', 'opponent', 10)
+        c.emit(w32(2592079872 | 10 << 16 | 0 << 12 | 9 << 5 | 9))
+        c.emit(w32(759169024 | 1 << 10 | 9 << 5 | 0))
+        c.emit(w32(759169024 | 2 << 15 | 3 << 10 | 9 << 5 | 2))
+        c.emit(bytes.fromhex('e00308aa'))
+        c.emit(a64.mov_x_zero(1))
+        c.call(TMP_SET_COLOR)
     c.label('is_coop')
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
-    c.jump('ldrlit', 'spec', 0)
-    c.emit(a64.mov_x_zero(1))
-    c.call(FIND_ASSET)
-    c.jump('cbz', 'not_coop', 0)
-    c.emit(a64.ldr_x(8, 0, 136))
-    c.jump('cbz', 'not_coop', 8)
+    bolt_king_settings(c, 'not_coop', 'spec')
     c.emit(struct.pack('<I', 960495616 | 240 << 10 | 8 << 5))
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
     c.emit(a64.RET)
@@ -1605,15 +2053,7 @@ def coop_battle_code(at_address):
     c.call(GET_TEAM_ID)
     c.emit(a64.ldr_x(8, 21, 40))
     c.jump('cbz', 'row_done', 8)
-    c.emit(a64.cmp_w(0, 23))
-    c.jump('adr', 'ally', 9)
-    c.jump('adr', 'opponent', 10)
-    c.emit(struct.pack('<I', 2592079872 | 10 << 16 | 0 << 12 | 9 << 5 | 9))
-    c.emit(struct.pack('<I', 759169024 | 1 << 10 | 9 << 5 | 0))
-    c.emit(struct.pack('<I', 759169024 | 2 << 15 | 3 << 10 | 9 << 5 | 2))
-    c.emit(bytes.fromhex('e00308aa'))
-    c.emit(a64.mov_x_zero(1))
-    c.call(TMP_SET_COLOR)
+    nickname_colour()
     c.label('row_done')
     c.emit(restore)
     c.emit(a64.RET)
@@ -1655,15 +2095,7 @@ def coop_battle_code(at_address):
     c.call(GET_TEAM_ID)
     c.emit(a64.ldr_x(8, 21, 32))
     c.jump('cbz', 'item_done', 8)
-    c.emit(a64.cmp_w(0, 23))
-    c.jump('adr', 'ally', 9)
-    c.jump('adr', 'opponent', 10)
-    c.emit(struct.pack('<I', 2592079872 | 10 << 16 | 0 << 12 | 9 << 5 | 9))
-    c.emit(struct.pack('<I', 759169024 | 1 << 10 | 9 << 5 | 0))
-    c.emit(struct.pack('<I', 759169024 | 2 << 15 | 3 << 10 | 9 << 5 | 2))
-    c.emit(bytes.fromhex('e00308aa'))
-    c.emit(a64.mov_x_zero(1))
-    c.call(TMP_SET_COLOR)
+    nickname_colour()
     c.label('item_done')
     c.emit(restore)
     c.emit(a64.RET)
@@ -1728,8 +2160,7 @@ def coop_battle_code(at_address):
     c.emit(a64.ldr_x(19, a64.SP, 16))
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 48))
     c.emit(a64.RET)
-    while len(c.code) % 8:
-        c.emit(a64.NOP)
+    c.align()
     c.label('spec')
     c.emit(struct.pack('<q', BOLT_KING_SPEC))
     c.label('ally')
@@ -1741,6 +2172,214 @@ def coop_battle_code(at_address):
     c.label('vs_open')
     c.emit(ENEMY_TOTAL_OPEN + b'\x00')
     return (c.build(), {name: at_address + c.labels[name] for name in ('is_coop', 'own_bolts', 'team_flag', 'result', 'row', 'team_split', 'item_color', 'max_key', 'max_text')})
+PROTOTYPES_KEY = b'rr_prototypes'
+PROTOTYPE_LEVELS = ['q_EL_Prototype_01', 'q_FFA_Sargasso_01B', 'q_FFA_TorrenIV_01B', 'q_BK_TorrenIV_02B']
+
+def prototype_maps():
+    maps = list(PROTOTYPE_LEVELS)
+    if maps_174():
+        maps += [m for m in maps_174()['maps'] if m not in MAPS_FINISHED]
+    return maps
+PROTOTYPES_CODE = 72327892 + 512
+PROTOTYPES_CODE_END = 72327892 + 2804
+FFA_GAME_MODE = 1
+SPECIAL_EVERY = 5
+SPECIAL_COUNT_KEY = b'rr_serie_tr'
+SPECIAL_MAPS = ['q_FFA_Ardolis_02']
+FFA_END_BIND_CALL, GAME_MODE_END_BIND = (70538512, 70532172)
+FFA_END_VICTORY, FFA_END_DEFEAT = (152, 160)
+GAME_OBJECT_SET_ACTIVE = 142943076
+
+def eight_player_maps():
+    return [m for m in SPECIAL_MAPS if maps_174() and m in maps_174()['maps']]
+
+def prototypes_code(at_address):
+    c = Code(at_address)
+    prototypes = prototype_maps()
+    row = BUILD['difficulty_row_code']
+
+    def prefs_get(label):
+        c.jump('adr', label, 0)
+        c.call(BUILD['string_new'])
+        c.emit(a64.mov_x_zero(1))
+        c.call(BUILD['prefs_get_string'])
+
+    def first_char(fail):
+        c.jump('cbz', fail, 0)
+        c.emit(a64.ldr_w(8, 0, 16))
+        c.jump('cbzw', fail, 8)
+        c.emit(w32(2034247688))
+    c.emit(a64.stp_x_pre(29, 30, a64.SP, -80))
+    c.emit(a64.stp_x(0, 1, a64.SP, 16))
+    c.emit(a64.str_x(2, a64.SP, 32))
+    c.emit(a64.stp_x(19, 20, a64.SP, 40))
+    c.emit(a64.movz_w(20, 0))
+    prefs_get('proto_key')
+    first_char('proto_checked')
+    c.emit(a64.cmp_w_imm(8, ord('1')))
+    c.jump('b.ne', 'proto_checked')
+    c.emit(a64.movz_w(20, 1))
+    c.label('proto_checked')
+    eights = eight_player_maps()
+    if eights:
+        c.emit(a64.movz_w(19, 0))
+        c.emit(a64.cmp_w_imm(21, FFA_GAME_MODE))
+        c.jump('b.ne', 'count_store')
+        c.emit(w32(840893076))
+        prefs_get('count_key')
+        first_char('count_read')
+        c.emit(w32(1359003912))
+        c.emit(a64.cmp_w_imm(8, SPECIAL_EVERY + 1))
+        c.jump('b.hs', 'count_read')
+        c.emit(a64.mov_w(19, 8))
+        c.label('count_read')
+        c.emit(w32(285214323))
+        c.emit(a64.cmp_w_imm(19, SPECIAL_EVERY + 1))
+        c.jump('b.lo', 'count_store')
+        c.emit(a64.movz_w(19, 0))
+        c.emit(w32(840762004))
+        c.label('count_store')
+        c.jump('adr', 'digits', 8)
+        c.emit(w32(2335393024))
+        c.call(BUILD['string_new'])
+        c.emit(a64.str_x(0, a64.SP, 64))
+        c.jump('adr', 'count_key', 0)
+        c.call(BUILD['string_new'])
+        c.emit(a64.ldr_x(1, a64.SP, 64))
+        c.emit(a64.mov_x_zero(2))
+        c.call(row['set_string'])
+        c.emit(a64.mov_x_zero(0))
+        c.call(row['save'])
+        c.jump('tbnz3', 'special', 20)
+    c.label('draw_start')
+    c.emit(a64.movz_x(19, 12))
+    c.label('draw')
+    c.emit(a64.ldp_x(0, 1, a64.SP, 16))
+    c.emit(a64.ldr_x(2, a64.SP, 32))
+    c.call(SELECT_RANDOM_MAP)
+    c.emit(a64.str_x(0, a64.SP, 48))
+    c.jump('tbnz0', 'proto_ok', 20)
+    c.jump('adr', 'proto_names', 10)
+    c.jump('bl', 'listed')
+    c.jump('cbnzw', 'redraw', 0)
+    c.label('proto_ok')
+    c.jump('tbz1', 'done', 20)
+    c.emit(a64.ldr_x(0, a64.SP, 48))
+    c.jump('adr', 'eight_names', 10)
+    c.jump('bl', 'listed')
+    c.jump('cbzw', 'done', 0)
+    c.label('redraw')
+    c.emit(w32(4043310707))
+    c.jump('b.ne', 'draw')
+    c.label('done')
+    c.emit(a64.ldr_x(0, a64.SP, 48))
+    c.label('leave')
+    c.emit(a64.ldp_x(19, 20, a64.SP, 40))
+    c.emit(a64.ldp_x_post(29, 30, a64.SP, 80))
+    c.emit(a64.RET)
+    if eights:
+        c.label('special')
+        c.jump('tbz0', 'draw_start', 20)
+        c.jump('adr', 'special_names', 0)
+        if len(eights) > 1:
+            c.emit(a64.mrs_counter(8))
+            c.jump('tbz8', 'special_name', 8)
+            c.jump('adr', 'special_second', 0)
+        c.label('special_name')
+        c.call(BUILD['string_new'])
+        c.jump('b', 'leave')
+    c.label('listed')
+    c.emit(a64.ldr_x(0, a64.SP, 48))
+    c.jump('cbz', 'no', 0)
+    c.emit(a64.ldr_w(9, 0, 16))
+    c.label('entry')
+    c.emit(a64.ldr_w(11, 10, 0))
+    c.jump('cbzw', 'no', 11)
+    c.emit(a64.cmp_w(11, 9))
+    c.jump('b.ne', 'next')
+    c.emit(w32(2432716812))
+    c.emit(w32(2432700749))
+    c.emit(a64.mov_w(14, 11))
+    c.label('char')
+    c.emit(w32(2017469839))
+    c.emit(w32(2017469872))
+    c.emit(a64.cmp_w(15, 16))
+    c.jump('b.ne', 'next')
+    c.emit(w32(1895826894))
+    c.jump('b.ne', 'char')
+    c.emit(a64.movz_w(0, 1))
+    c.emit(a64.RET)
+    c.label('next')
+    c.emit(w32(2432762186))
+    c.jump('b', 'entry')
+    c.label('no')
+    c.emit(a64.movz_w(0, 0))
+    c.emit(a64.RET)
+    if wendy_switch():
+        c.label('available')
+        c.emit(a64.ldr_x(9, 0, CHARACTER_ID_OFFSET))
+        c.jump('cbz', 'available_game', 9)
+        c.emit(a64.ldr_w(9, 9, STABLE_ENUM_VALUE))
+        c.emit(a64.cmp_w_imm(9, WENDY_CHARACTER))
+        c.jump('b.ne', 'available_game')
+        c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
+        c.call(ON_MAIN_THREAD)
+        c.jump('tbz0', 'available_no', 0)
+        prefs_get('proto_key')
+        first_char('available_no')
+        c.emit(a64.cmp_w_imm(8, ord('1')))
+        c.jump('b.ne', 'available_no')
+        c.emit(a64.movz_w(0, 1))
+        c.jump('b', 'available_end')
+        c.label('available_no')
+        c.emit(a64.movz_w(0, 0))
+        c.label('available_end')
+        c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
+        c.emit(a64.RET)
+        c.label('available_game')
+        c.emit(a64.stp_x_pre(30, 19, a64.SP, -16))
+        c.emit(a64.b(c.here(), CHARACTER_AVAILABLE + 4))
+    c.label('end_screen')
+    c.emit(a64.stp_x_pre(29, 30, a64.SP, -32))
+    c.emit(a64.str_x(19, a64.SP, 16))
+    c.emit(w32(2852127731))
+    c.call(GAME_MODE_END_BIND)
+    for offset, active in ((FFA_END_DEFEAT, 1), (FFA_END_VICTORY, 0)):
+        c.emit(a64.ldr_x(0, 19, offset))
+        c.jump('cbz', f'end_{offset}', 0)
+        c.emit(a64.movz_w(1, active))
+        c.emit(a64.mov_x_zero(2))
+        c.call(GAME_OBJECT_SET_ACTIVE)
+        c.label(f'end_{offset}')
+    c.emit(a64.ldr_x(19, a64.SP, 16))
+    c.emit(a64.ldp_x_post(29, 30, a64.SP, 32))
+    c.emit(a64.RET)
+    c.label('digits')
+    c.emit(b''.join((str(n).encode() + b'\x00' for n in range(SPECIAL_EVERY + 1))))
+    c.label('proto_key')
+    c.emit(PROTOTYPES_KEY + b'\x00')
+    c.label('count_key')
+    c.emit(SPECIAL_COUNT_KEY + b'\x00')
+    if eights:
+        c.label('special_names')
+        c.emit(eights[0].encode() + b'\x00')
+        c.label('special_second')
+        c.emit(eights[-1].encode() + b'\x00')
+    c.emit(bytes(-len(c.code) % 4))
+
+    def names_table(label, names):
+        c.label(label)
+        for map_name in names:
+            text = map_name.encode('utf-16-le')
+            if len(text) > 60:
+                raise SystemExit(f'nom de carte trop long : {map_name}')
+            c.emit(struct.pack('<I', len(map_name)) + text.ljust(60, b'\x00'))
+        c.emit(bytes(4))
+    names_table('proto_names', prototypes)
+    names_table('eight_names', eight_player_maps())
+    built = c.build()
+    available = at_address + c.labels['available'] if 'available' in c.labels else None
+    return (built, at_address + c.labels['end_screen'], available)
 
 def rush_code(at_address):
     c = Code(at_address)
@@ -1761,8 +2400,8 @@ def rush_code(at_address):
     c.emit(a64.ldp_x(0, 1, a64.SP, 16))
     c.emit(a64.ldr_x(2, a64.SP, 32))
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 48))
-    c.emit(a64.b(c.here(), SELECT_RANDOM_MAP))
-    for mode, name, maps in ((1, 'coop', RUSH_MAPS), (2, 'rush', RUSH_MAPS), (3, 'br', BR_MAPS)):
+    c.emit(a64.b(c.here(), PROTOTYPES_CODE))
+    for mode, name, maps in ((1, 'coop', rush_maps()), (2, 'rush', rush_maps()), (3, 'br', BR_MAPS)):
         c.label(name + '_map')
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
         c.emit(a64.movz_x(0, mode))
@@ -1789,12 +2428,7 @@ def rush_code(at_address):
         c.emit(a64.b(c.here(), function + 4))
     c.label('is_rush')
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
-    c.jump('ldrlit', 'bolt_king_spec', 0)
-    c.emit(a64.mov_x_zero(1))
-    c.call(FIND_ASSET)
-    c.jump('cbz', 'not_rush', 0)
-    c.emit(a64.ldr_x(8, 0, 136))
-    c.jump('cbz', 'not_rush', 8)
+    bolt_king_settings(c, 'not_rush')
     c.emit(a64.ldr_x(9, 8, 184))
     c.jump('ldrlit', 'rush_golden', 10)
     c.emit(a64.cmp_x(9, 10))
@@ -1813,14 +2447,13 @@ def rush_code(at_address):
     c.emit(a64_ldst(LOADS[1], 1, 11, 19, 240))
     c.emit(struct.pack('<I', 167772160 | 11 << 16 | 10 << 5 | 10))
     c.emit(a64.RET)
-    while len(c.code) % 8:
-        c.emit(a64.NOP)
+    c.align()
     c.label('bolt_king_spec')
     c.emit(struct.pack('<q', BOLT_KING_SPEC))
     c.label('rush_golden')
     c.emit(struct.pack('<q', RUSH_GOLDEN_GUID))
     bolt_rush_switch_data(c)
-    for name, maps in (('coop', RUSH_MAPS), ('rush', RUSH_MAPS), ('br', BR_MAPS)):
+    for name, maps in (('coop', rush_maps()), ('rush', rush_maps()), ('br', BR_MAPS)):
         c.label(name + '_maps')
         for map_name in maps:
             if len(map_name) >= MAP_NAME_SLOT:
@@ -1835,12 +2468,7 @@ def display_code(at_address, is_coop, is_rush):
     c.emit(a64.RET)
     c.label('is_br')
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
-    c.jump('ldrlit', 'bolt_king_spec', 0)
-    c.emit(a64.mov_x_zero(1))
-    c.call(FIND_ASSET)
-    c.jump('cbz', 'not_br', 0)
-    c.emit(a64.ldr_x(8, 0, 136))
-    c.jump('cbz', 'not_br', 8)
+    bolt_king_settings(c, 'not_br')
     c.emit(a64.ldr_x(9, 8, 488))
     c.emit(a64.cmp_x_imm(9, 0))
     c.emit(struct.pack('<I', 446629856))
@@ -1954,8 +2582,7 @@ def display_code(at_address, is_coop, is_rush):
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 32))
     c.emit(BR_RANK_CMP)
     c.emit(a64.RET)
-    while len(c.code) % 8:
-        c.emit(a64.NOP)
+    c.align()
     c.label('bolt_king_spec')
     c.emit(struct.pack('<q', BOLT_KING_SPEC))
     for kind, key in ((1, TITLE_BOLT_KING), (2, TITLE_ELIMINATION)):
@@ -1972,7 +2599,16 @@ WEAPON_CODE_END = WEAPON_CODE + 1656
 ARENA_MAP_GUID = 3380846735053013127
 POWERUP_START_CALL = 129778204
 POWERUP_START = 130611340
-OVERHEALTH_TYPE = 1
+TRY_GET_ENTITY_TO_SPAWN = 130606988
+TRY_GET_ENTITY_TO_SPAWN_FIRST = bytes.fromhex('fe57bea9')
+SHIELD_SPAWNER_CONFIG = 532715640707764868
+SHIELD_PICKUP = 1437006399148191985
+WEAPON_PICKUP = 853357992720254033
+WEAPON_PICKUP_SPEC = 241661061706034376
+RANDOM_POOL_SLOT_TYPE = 130019888
+STATS_AMMO_STORE = 130067696
+DASH_AMMO_STORE = 129931688
+MULTIPLIER_STORE = 129470656
 FRAME_GET_RNG = 130444020
 RNG_NEXT = 128490436
 RANDOM_WEAPON_GIVE = 129773692
@@ -2006,18 +2642,10 @@ def br_weapons_code(at_address):
         c.jump('ldrlit', 'arena', 9)
         c.emit(a64.cmp_x(8, 9))
         c.jump('b.ne', fail)
-
-    def bk_settings(fail):
-        c.jump('ldrlit', 'bolt_king_spec', 0)
-        c.emit(a64.mov_x_zero(1))
-        c.call(FIND_ASSET)
-        c.jump('cbz', fail, 0)
-        c.emit(a64.ldr_x(8, 0, 136))
-        c.jump('cbz', fail, 8)
     c.label('flag_store')
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -32))
     c.emit(a64.stp_x(0, 1, a64.SP, 16))
-    bk_settings('flag_store_done')
+    bolt_king_settings(c, 'flag_store_done')
     c.emit(a64.ldp_x(9, 10, a64.SP, 16))
     c.emit(struct.pack('<I', 4162873344 | 9 << 16 | 8 << 5 | 10))
     c.label('flag_store_done')
@@ -2026,7 +2654,7 @@ def br_weapons_code(at_address):
     c.label('flag_load')
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -32))
     c.emit(a64.str_x(0, a64.SP, 16))
-    bk_settings('flag_load_zero')
+    bolt_king_settings(c, 'flag_load_zero')
     c.emit(a64.ldr_x(9, a64.SP, 16))
     c.emit(struct.pack('<I', 4167067648 | 9 << 16 | 8 << 5 | 0))
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 32))
@@ -2040,29 +2668,12 @@ def br_weapons_code(at_address):
     c.emit(a64.stp_x(0, 1, a64.SP, 16))
     c.emit(a64.stp_x(2, 3, a64.SP, 32))
     arena_check(1, 'powerup_original')
-    c.emit(a64.ldr_x(8, 0, 0))
-    c.emit(a64.ldp_x(9, 1, 8, 408))
-    c.emit(struct.pack('<I', 3594453280))
-    c.emit(a64.cmp_w_imm(0, OVERHEALTH_TYPE))
+    c.emit(a64.ldr_x(8, 0, 24))
+    c.jump('ldrlit', 'weapon_spec', 9)
+    c.emit(a64.cmp_x(8, 9))
     c.jump('b.ne', 'powerup_original')
-    c.emit(a64.ldr_x(0, a64.SP, 24))
-    c.emit(a64.mov_x_zero(1))
-    c.call(FRAME_GET_RNG)
-    c.emit(a64.movz_w(1, 0) + a64.movz_w(2, 2) + a64.mov_x_zero(3))
-    c.call(RNG_NEXT)
-    if os.environ.get('RR_JOURNAL'):
-        c.emit(a64.str_x(0, a64.SP, 48))
-        c.jump('adr', 'log_shield', 0)
-        c.call(BUILD['string_new'])
-        c.emit(a64.mov_x_zero(1))
-        c.call(DEBUG_LOG)
-        c.emit(a64.ldr_x(0, a64.SP, 48))
-    c.jump('cbzw', 'powerup_original', 0)
-    if os.environ.get('RR_JOURNAL'):
-        c.jump('adr', 'log_weapon', 0)
-        c.call(BUILD['string_new'])
-        c.emit(a64.mov_x_zero(1))
-        c.call(DEBUG_LOG)
+    if JOURNAL:
+        c.log('log_weapon')
     c.emit(a64.movz_x(0, FLAG_GIVEN_WEAPON) + a64.movz_x(1, 1))
     c.jump('bl', 'flag_store')
     c.emit(a64.mov_x_zero(0))
@@ -2136,6 +2747,12 @@ def br_weapons_code(at_address):
     c.emit(a64.stp_x(2, 9, a64.SP, 32))
     c.emit(a64.movz_x(0, FLAG_GIVEN_WEAPON))
     c.jump('bl', 'flag_load')
+    if JOURNAL:
+        c.emit(a64.str_x(0, a64.SP, 48))
+        c.jump('cbnzx', 'created_logged', 0)
+        c.log('log_created')
+        c.label('created_logged')
+        c.emit(a64.ldr_x(0, a64.SP, 48))
     c.emit(a64.ldr_x(9, a64.SP, 40))
     c.jump('cbz', 'created_empty', 0)
     c.emit(bytes.fromhex('e00309aa'))
@@ -2171,18 +2788,195 @@ def br_weapons_code(at_address):
         c.label(name + '_original')
         c.emit(bytes.fromhex(first))
         c.emit(a64.b(c.here(), function + 4))
-    while len(c.code) % 8:
-        c.emit(a64.NOP)
+
+    def logged(label):
+        if JOURNAL:
+            c.emit(a64.stp_x_pre(0, 30, a64.SP, -16))
+            c.jump('adr', label, 0)
+            c.jump('bl', 'keep_log')
+            c.emit(a64.ldp_x_post(0, 30, a64.SP, 16))
+    if JOURNAL:
+        c.label('keep_log')
+        c.emit(a64.stp_x_pre(29, 30, a64.SP, -160))
+        for i in range(1, 17, 2):
+            c.emit(a64.stp_x(i, i + 1, a64.SP, 16 + (i - 1) * 8))
+        c.emit(a64.str_x(17, a64.SP, 144))
+        c.call(BUILD['string_new'])
+        c.emit(a64.mov_x_zero(1))
+        c.call(DEBUG_LOG)
+        for i in range(1, 17, 2):
+            c.emit(a64.ldp_x(i, i + 1, a64.SP, 16 + (i - 1) * 8))
+        c.emit(a64.ldr_x(17, a64.SP, 144))
+        c.emit(a64.ldp_x_post(29, 30, a64.SP, 160))
+        c.emit(a64.RET)
+    for name, base, store in (('stats_store', 19, w_store(0, 19, 32)), ('dash_store', 24, w_store(0, 24, 32)), ('multiplier_store', 0, a64_ldst(STORES[8], 8, 8, 0, 120))):
+        c.label(name)
+        c.emit(a64.ldr_x(9, base, 120))
+        mark(10)
+        c.emit(a64.cmp_x(9, 10))
+        c.jump('b.eq', name + '_marked')
+        c.label(name + '_store')
+        c.emit(store)
+        c.emit(a64.RET)
+        c.label(name + '_marked')
+        if name == 'stats_store':
+            c.emit(a64.stp_x_pre(29, 30, a64.SP, -32))
+            c.emit(a64.str_x(0, a64.SP, 16))
+            c.emit(a64.movz_x(0, FLAG_GIVEN_WEAPON))
+            c.jump('bl', 'flag_load')
+            c.emit(w32(2852127721))
+            c.emit(a64.ldr_x(0, a64.SP, 16))
+            c.emit(a64.ldp_x_post(29, 30, a64.SP, 32))
+            c.jump('cbnzx', name + '_store', 9)
+        logged('log_' + name)
+        c.emit(a64.RET)
+    c.label('spawn_pick')
+    c.jump('cbz', 'spawn_original', 1)
+    c.emit(a64.ldr_x(8, 0, 24))
+    c.jump('ldrlit', 'shield_spawner', 9)
+    c.emit(a64.cmp_x(8, 9))
+    c.jump('b.ne', 'spawn_original')
+    arena_check(1, 'spawn_original')
+    c.emit(a64.stp_x_pre(29, 30, a64.SP, -32))
+    c.emit(a64.str_x(2, a64.SP, 16))
+    c.emit(w32(2852193248))
+    c.emit(a64.mov_x_zero(1))
+    c.call(FRAME_GET_RNG)
+    c.emit(a64.movz_w(1, 0) + a64.movz_w(2, 2) + a64.mov_x_zero(3))
+    c.call(RNG_NEXT)
+    c.jump('ldrlit', 'shield_pickup', 9)
+    c.jump('cbzw', 'spawn_store', 0)
+    c.jump('ldrlit', 'weapon_pickup', 9)
+    c.label('spawn_store')
+    c.emit(a64.ldr_x(2, a64.SP, 16))
+    c.emit(a64.str_x(9, 2, 0))
+    if JOURNAL:
+        c.emit(a64.str_x(0, a64.SP, 24))
+        c.log('log_spawn')
+        c.emit(a64.ldr_x(0, a64.SP, 24))
+        c.jump('cbzw', 'spawn_done', 0)
+        c.log('log_spawn_weapon')
+        c.label('spawn_done')
+    c.emit(a64.movz_w(0, 1))
+    c.emit(a64.ldp_x_post(29, 30, a64.SP, 32))
+    c.emit(a64.RET)
+    c.label('spawn_original')
+    c.emit(TRY_GET_ENTITY_TO_SPAWN_FIRST)
+    c.emit(a64.b(c.here(), TRY_GET_ENTITY_TO_SPAWN + 4))
+    c.label('pool_type')
+    c.emit(a64.ldr_w(8, 0, 36))
+    c.jump('cbnzw', 'pool_done', 8)
+    c.emit(a64.cmp_w_imm(26, 64))
+    c.jump('b.hs', 'pool_done')
+    c.jump('ldrlit', 'gadget_mask', 9)
+    c.emit(w32(2596283392 | 26 << 16 | 9 << 5 | 9))
+    c.emit(w32(301990184))
+    if JOURNAL:
+        c.jump('cbzw', 'pool_done', 8)
+        logged('log_pool')
+        c.emit(a64.movz_w(8, 1))
+    c.label('pool_done')
+    c.emit(a64.RET)
+    c.align()
     c.label('arena')
     c.emit(struct.pack('<q', ARENA_MAP_GUID))
     c.label('bolt_king_spec')
     c.emit(struct.pack('<q', BOLT_KING_SPEC))
-    c.label('log_shield')
-    c.emit(b'RR BR: bonus ramasse, tirage (0 bouclier, 1 arme)\x00')
-    c.label('log_weapon')
-    c.emit(b'RR BR: arme au hasard donnee\x00')
-    names = ('br_powerup', 'br_prewarm', 'ammo_init', 'created', 'reset_store', 'start_reload', 'update_reloading')
+    c.label('shield_spawner')
+    c.emit(struct.pack('<q', SHIELD_SPAWNER_CONFIG))
+    c.label('shield_pickup')
+    c.emit(struct.pack('<q', SHIELD_PICKUP))
+    c.label('weapon_pickup')
+    c.emit(struct.pack('<q', WEAPON_PICKUP))
+    c.label('weapon_spec')
+    c.emit(struct.pack('<q', WEAPON_PICKUP_SPEC))
+    c.label('gadget_mask')
+    c.emit(struct.pack('<Q', sum((1 << weapon for weapon, _ in SECONDARY_GADGETS))))
+    if JOURNAL:
+        for label, text in (('log_weapon', 'RR BR: arme ramassee, arme au hasard donnee'), ('log_created', 'RR BR: arme principale vide creee'), ('log_spawn', 'RR BR: apparition sur un socle de bouclier'), ('log_spawn_weapon', "RR BR: ... c'est une arme"), ('log_stats_store', 'RR BR: recharge bloquee (statistiques)'), ('log_dash_store', 'RR BR: recharge bloquee (esquive)'), ('log_multiplier_store', 'RR BR: recharge bloquee (bonus de munitions)'), ('log_pool', "RR BR: gadget retire du tirage d'arme")):
+            c.label(label)
+            c.emit(text.encode() + b'\x00')
+    names = ('br_powerup', 'br_prewarm', 'ammo_init', 'created', 'reset_store', 'start_reload', 'update_reloading', 'stats_store', 'dash_store', 'multiplier_store', 'spawn_pick', 'pool_type')
     return (c.build(), {name: at_address + c.labels[name] for name in names})
+BR_BOTS_CODE = 72304372
+BR_BOTS_END = BR_BOTS_CODE + 1868
+SEEK_CRATE_EXECUTE = 130788124
+BR_BOTS_TARGETS = {'ext_is_able_to_seek': 130789640, 'ext_try_get_weapon_user': 130023848, 'ext_try_get_weapon': 87024380, 'slot_weapon': 153002032, 'ext_try_get_powerup': 87012320, 'slot_powerup': 153009520, 'ext_get_transform': 82475968, 'slot_transform': 152486528, 'ext_zone_pointer': 130405168, 'ext_near_border': 130405084, 'ext_init_metadata': 63400440, 'ext_init_rgctx': 63636616}
+WEAPON_PICKUP_BUNDLE = 'quantum_common_assets_all'
+WEAPON_PICKUP_ROOT = 'Q_PowerUp_ExtraDamagePVE'
+WEAPON_PICKUP_ICON = ('ui_atlases_assets_all', 'WeaponIcon_Blaster_toon')
+BUILTIN_CUBE = 10202
+WEAPON_PICKUP_SLAB = ((0.0, 0.86, 0.0), (0.3, 1.15, 1.15))
+
+def patch_weapon_pickup(data):
+    if not heavy_tools():
+        return
+    import UnityPy
+    from PIL import Image, ImageDraw
+    env = UnityPy.load(bytes(data))
+    objects = {o.path_id: o for o in env.objects}
+    named = {}
+    for o in env.objects:
+        if o.type.name in ('GameObject', 'Material', 'Texture2D'):
+            named.setdefault((o.type.name, o.peek_name()), []).append(o)
+
+    def one(kind, name):
+        found = named.get((kind, name), [])
+        if len(found) != 1:
+            raise SystemExit(f"ramassage d'arme : {name} ({len(found)})")
+        return found[0]
+
+    def components(game_object):
+        return {objects[c['component']['m_PathID']].type.name: objects[c['component']['m_PathID']] for c in game_object.read_typetree()['m_Component'] if c['component']['m_FileID'] == 0}
+
+    def find(transform, name):
+        tree = transform.read_typetree()
+        if objects[tree['m_GameObject']['m_PathID']].peek_name() == name:
+            return objects[tree['m_GameObject']['m_PathID']]
+        for child in tree['m_Children']:
+            found = find(objects[child['m_PathID']], name)
+            if found:
+                return found
+        return None
+    fist = find(components(one('GameObject', WEAPON_PICKUP_ROOT))['Transform'], 'SM_Fist_PowerUp')
+    if fist is None:
+        raise SystemExit("ramassage d'arme : poing introuvable")
+    parts = components(fist)
+    serialized = next(iter(objects.values())).assets_file
+    builtin = [i for i, e in enumerate(serialized.externals, 1) if e.path == 'Library/unity default resources']
+    if len(builtin) != 1:
+        raise SystemExit("ramassage d'arme : ressources de Unity absentes")
+    _, atlas = asset_pack_bundle(WEAPON_PICKUP_ICON[0])
+    sprite = next((o for o in UnityPy.load(atlas).objects if o.type.name == 'Sprite' and o.peek_name() == WEAPON_PICKUP_ICON[1]))
+    face = Image.new('RGBA', (256, 256), (24, 28, 40, 255))
+    ImageDraw.Draw(face).rounded_rectangle((6, 6, 249, 249), radius=28, outline=(255, 150, 20, 255), width=12)
+    face.alpha_composite(sprite.read().image.convert('RGBA').resize((196, 196), Image.LANCZOS), (30, 30))
+    textures = {'TEX_Energytank_ALB': face, 'TEX_Energytank_MSAO': Image.new('RGBA', (4, 4), (0, 180, 255, 255)), 'TEX_Energytank_NRM': Image.new('RGBA', (4, 4), (128, 128, 255, 255))}
+    for name, picture in textures.items():
+        texture = one('Texture2D', name)
+        tree = texture.read_typetree()
+        rgba_texture(tree, picture)
+        texture.save_typetree(tree)
+    material = one('Material', 'MAT_Pickable_EnergyTank')
+    tree = material.read_typetree()
+    slots = {'_Diffuse': 'TEX_Energytank_ALB', '_Emission': 'TEX_Energytank_ALB', '_MRAO': 'TEX_Energytank_MSAO', '_Normal': 'TEX_Energytank_NRM'}
+    for slot, value in tree['m_SavedProperties']['m_TexEnvs']:
+        if slot in slots:
+            value['m_Texture'] = {'m_FileID': 0, 'm_PathID': one('Texture2D', slots[slot]).path_id}
+    material.save_typetree(tree)
+    tree = parts['MeshFilter'].read_typetree()
+    tree['m_Mesh'] = {'m_FileID': builtin[0], 'm_PathID': BUILTIN_CUBE}
+    parts['MeshFilter'].save_typetree(tree)
+    tree = parts['MeshRenderer'].read_typetree()
+    tree['m_Materials'] = [{'m_FileID': 0, 'm_PathID': material.path_id}]
+    parts['MeshRenderer'].save_typetree(tree)
+    tree = parts['Transform'].read_typetree()
+    position, scale = WEAPON_PICKUP_SLAB
+    tree['m_LocalPosition'] = dict(zip('xyz', position))
+    tree['m_LocalScale'] = dict(zip('xyz', scale))
+    parts['Transform'].save_typetree(tree)
+    data[:] = env.file.save(packer='lz4')
+    print("Battle Royale : ramassage d'arme avec l'icone du Blaster")
 KING_CODE = 67942024 + 8
 KING_CODE_END = 67942024 + 2768
 KCC_SURFACE_RESET = 129863956
@@ -2197,7 +2991,6 @@ IS_ALIVE = 129762052
 ADD_MAX_SPEED = 130351612
 TRY_GET_WEAPON_USER = 130023848
 SET_SCALE = 129851800
-POWER_UP_START = 130611340
 POWER_UP_FINISH = 130611976
 SET_SHIELD_STATE = 130757268
 BACK_AND_FORTH_TIME_SCALE = 129622232
@@ -2208,11 +3001,42 @@ KING_CHASE = 20
 KING_TIMER_CALL = 67359724
 KING_TIMER_CODE = 72395584
 KING_TIMER_END = 72395584 + 1868
-KING_TIMER_TARGETS = {'ext_try_get_spec': TRY_GET_BOLT_KING_SPEC, 'ext_set_color': 140937804, 'ext_ceil_to_int': 128387256}
-ONE_SECOND = 65536
+KING_TIMER_TARGETS = {'ext_try_get_spec': TRY_GET_BOLT_KING_SPEC, 'ext_set_color': TMP_SET_COLOR, 'ext_ceil_to_int': 128387256, 'ext_animate_last_seconds': 67360616, 'ext_set_active': 142943076, 'ext_is_local_player': 66468108, 'ext_get_instance': 103153532, 'ext_player_name': 66675808, 'ext_trigger_line': 66669332, 'ext_array_new': 63400676, 'ext_write_barrier': 63400356, 'ext_init_metadata': 63400440, 'ext_class_init': 63400820, 'ext_get_transform': 142923708, 'ext_child_count': 143028624, 'ext_get_child': 143032228, 'ext_get_game_object': 142923916, 'slot_announcer': 152467312, 'slot_strings': 152433416, 'slot_quantum_manager': 152465984}
+KING_LINES_BUNDLE = 'gameplay_common_scriptables_assets_all'
+KING_LINES = [(43, 'BOLTKING_YOU_BECAME_KING', 'ANNOUNCER.BOLTKING.YOU_BECAME_KING'), (44, 'BOLTKING_PLAYER_BECAME_KING', 'ANNOUNCER.BOLTKING.PLAYER_BECAME_KING'), (45, 'BOLTKING_KING_ELIMINATED', 'ANNOUNCER.BOLTKING.KING_ELIMINATED')]
+KING_CROWN = (4, 1276451307963928147)
+KING_LINE_TIME = 2.5
 
-def w32(value):
-    return struct.pack('<I', value)
+def patch_king_lines(data):
+    stream = bundle_stream(bytes(data))
+    edits = []
+
+    def edit(old, new):
+        if stream.count(old) != 1:
+            raise SystemExit("ligne d'annonce du Roi introuvable")
+        edits.append((stream.index(old), old, new))
+    for line, proxy, key in KING_LINES:
+        head = unity_string(proxy) + struct.pack('<ii', line, line)
+        edit(head + struct.pack('<iif', 0, 0, 1.0), head + struct.pack('<iif', 0, 1, KING_LINE_TIME))
+        edit(raw_text(key) + struct.pack('<iiq', 0, 0, 0), raw_text(key) + struct.pack('<iiq', 1, *KING_CROWN))
+    patch_bundle(data, edits)
+KING_MARK_BUNDLE = 'quantum_db_player_assets_all'
+
+def king_crown_patches():
+    if not BOLT_RUSH or not heavy_tools():
+        return {}
+    import couronne_roi
+
+    def patch(data):
+        data[:] = couronne_roi.king_crown(data)
+
+    def mark(data):
+        data[:] = couronne_roi.mark_crown(data)
+    paths = [asset_pack_path(f'scene_{name.decode().lower()}_scenes_all') for name in RUSH_MAPS]
+    patches = {path: patch for path in paths if path}
+    if asset_pack_path(KING_MARK_BUNDLE):
+        patches[asset_pack_path(KING_MARK_BUNDLE)] = mark
+    return patches
 
 def cmp_x_one_second(register):
     return w32(4047503391 | 16 << 10 | register << 5)
@@ -2221,7 +3045,7 @@ def king_code(at_address):
     c = Code(at_address)
 
     def class_method(slot, method_register):
-        adrp_ldr(c, 0, slot)
+        c.adrp_ldr(0, slot)
         c.jump('bl', 'rgctx')
         c.emit(w32(2852717536 | method_register))
 
@@ -2245,7 +3069,7 @@ def king_code(at_address):
             c.emit(a64.mov_x_zero(4))
             c.call(POWER_UP_FINISH)
         else:
-            c.call(POWER_UP_START)
+            c.call(POWERUP_START)
         c.label(label)
 
     def damage(entity_register, king):
@@ -2287,14 +3111,10 @@ def king_code(at_address):
             c.emit(w32(3533701154))
         c.emit(a64.mov_x_zero(3))
         c.call(SET_SCALE)
-    journal = bool(os.environ.get('RR_JOURNAL'))
 
     def log(label):
-        if journal:
-            c.jump('adr', label, 0)
-            c.call(BUILD['string_new'])
-            c.emit(a64.mov_x_zero(1))
-            c.call(DEBUG_LOG)
+        if JOURNAL:
+            c.log(label)
 
     def is_alive(entity_register):
         c.emit(bytes.fromhex('e00313aa'))
@@ -2454,7 +3274,7 @@ def king_code(at_address):
     c.emit(a64.mov_x_zero(2))
     c.call(FINISH_GAME_MODE)
     log('log_won')
-    if journal:
+    if JOURNAL:
         c.emit(bytes.fromhex('e00313aa'))
         c.emit(a64.mov_x_zero(1))
         c.call(IS_GAME_MODE_FINISHED)
@@ -2481,7 +3301,7 @@ def king_code(at_address):
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 128))
     c.emit(bytes.fromhex('480440f9'))
     c.emit(a64.b(c.here(), KCC_SURFACE_RESET + 4))
-    if journal:
+    if JOURNAL:
         for label, text in (('log_new', b'RR roi: nouveau roi'), ('log_fallen', b'RR roi: roi tombe'), ('log_won', b'RR roi: le roi gagne'), ('log_finished', b'RR roi: fin prevue'), ('log_not_finished', b'RR roi: fin PAS prevue')):
             c.label(label)
             c.emit(text + bytes(4 - len(text) % 4))
@@ -2570,21 +3390,52 @@ def difficulty_code(at_address):
             c.emit(w32(2034249002))
             c.emit(a64.cmp_w_imm(10, ord('R')))
             c.jump('b.ne', fail)
+
+        def is_prototypes(label):
+            c.emit(w32(2034251050))
+            c.emit(a64.cmp_w_imm(10, ord('P')))
+            c.jump('b.eq', label)
         c.label('row_get')
         is_row('fov_get')
+        is_prototypes('proto_get')
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
         c.jump('bl', 'level')
+        c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
+        c.emit(a64.RET)
+        c.label('proto_get')
+        c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
+        c.jump('adr', 'proto_key', 0)
+        c.call(BUILD['string_new'])
+        c.emit(a64.mov_x_zero(1))
+        c.call(BUILD['prefs_get_string'])
+        c.emit(a64.movz_w(9, 0))
+        c.jump('cbz', 'proto_get_done', 0)
+        c.emit(a64.ldr_w(8, 0, 16))
+        c.emit(a64.cmp_w_imm(8, 1))
+        c.jump('b.ne', 'proto_get_done')
+        c.emit(w32(2034247688))
+        c.emit(a64.cmp_w_imm(8, ord('1')))
+        c.jump('b.ne', 'proto_get_done')
+        c.emit(a64.movz_w(9, 1))
+        c.label('proto_get_done')
+        c.emit(a64.mov_w(0, 9))
         c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
         c.emit(a64.RET)
         c.label('fov_get')
         c.emit(a64.b(c.here(), row['get']))
         c.label('row_set')
         is_row('fov_set')
+        c.emit(w32(2034251050))
+        c.emit(w32(2852783092))
         c.jump('adr', 'digits', 8)
         c.emit(w32(2334147840))
         c.call(BUILD['string_new'])
         c.emit(w32(2852127733))
         c.jump('adr', 'key', 0)
+        c.emit(a64.cmp_w_imm(20, ord('P')))
+        c.jump('b.ne', 'set_key')
+        c.jump('adr', 'proto_key', 0)
+        c.label('set_key')
         c.call(BUILD['string_new'])
         c.emit(w32(2853503969))
         c.emit(a64.mov_x_zero(2))
@@ -2610,6 +3461,8 @@ def difficulty_code(at_address):
         c.emit(b''.join((digit.encode() + b'\x00' for digit in DIFFICULTY_MEDALS)))
     c.label('key')
     c.emit(b'rr_difficulte\x00\x00\x00')
+    c.label('proto_key')
+    c.emit(PROTOTYPES_KEY + b'\x00\x00\x00')
     c.label('medals')
     c.emit(struct.pack(f'<{len(DIFFICULTY_MEDALS)}I', *DIFFICULTY_MEDALS.values()))
     names = ('pve', 'power') + (('row_get', 'row_set', 'bot_talent') if 'difficulty_row_code' in BUILD else ())
@@ -2620,56 +3473,15 @@ PHASE_TICK_HOOK = 129750780
 PHASE_SPAWNER_HOOK = 130898780
 PHASE_SPAWNED_CALL = 130900140
 PHASE_KILL_HOOK = 129622224
-PHASE_TARGETS = {'ext_try_get_bolt_king_spec': TRY_GET_BOLT_KING_SPEC, 'ext_set_spawners_enabled': 130895384, 'ext_get_rng': 130444020, 'ext_rng_next': 128490436, 'ext_create_dynamic': 129888456, 'ext_try_get_handler': 129625380, 'ext_has_alive': 130231032, 'ext_debug_log': DEBUG_LOG, 'ext_on_spawned': 130482004, 'ext_has_type': 130872780, 'ext_set_need_update': 129789380, 'ext_back_tick': PHASE_TICK_HOOK + 4, 'ext_back_spawner': PHASE_SPAWNER_HOOK + 4}
-ASSEMBLED_CACHE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'code_assemble.json')
-
-def assemble_source(name):
-    import hashlib
-    import shutil
-    source = os.path.join(os.path.dirname(os.path.abspath(__file__)), name)
-    digest = hashlib.sha256(open(source, 'rb').read()).hexdigest()
-    cache = json.load(open(ASSEMBLED_CACHE)) if os.path.exists(ASSEMBLED_CACHE) else {}
-    if not shutil.which('clang') or os.environ.get('RR_SANS_CLANG') == '1':
-        entry = cache.get(name)
-        if not entry or entry['sha256'] != digest:
-            raise SystemExit(f'{name} : code assemble absent ou perime (construire une fois sur le Mac)')
-        return (bytes.fromhex(entry['code']), [tuple(use) for use in entry['uses']], entry['labels'])
-    code, uses, labels = assemble_with_clang(source)
-    cache[name] = {'sha256': digest, 'code': code.hex(), 'uses': uses, 'labels': labels}
-    with open(ASSEMBLED_CACHE, 'w') as handle:
-        json.dump(cache, handle, indent=1, sort_keys=True)
-    return (code, uses, labels)
-
-def assemble_with_clang(source):
-    import subprocess
-    import tempfile
-    obj = os.path.join(tempfile.mkdtemp(), 'code.o')
-    subprocess.run(['clang', '-c', '-target', 'arm64-apple-macos', source, '-o', obj], check=True)
-    lines = subprocess.run(['otool', '-s', '__TEXT', '__text', obj], capture_output=True, text=True, check=True).stdout
-    code = b''.join((bytes.fromhex(word)[::-1] for line in lines.splitlines()[2:] for word in line.split()[1:]))
-    relocs = subprocess.run(['objdump', '-d', '-r', obj], capture_output=True, text=True, check=True).stdout
-    uses = []
-    for line in relocs.splitlines():
-        found = re.match('\\s*([0-9a-f]+):\\s+ARM64_RELOC_(\\w+)\\s+(\\S+)', line)
-        if found and found.group(2) != 'PAGEOFF12':
-            uses.append((int(found.group(1), 16), found.group(3)))
-    labels = {}
-    for line in subprocess.run(['nm', obj], capture_output=True, text=True, check=True).stdout.splitlines():
-        parts = line.split()
-        if len(parts) == 3:
-            labels[parts[2]] = int(parts[0], 16)
-    return (code, uses, labels)
+PHASE_TARGETS = {'ext_try_get_bolt_king_spec': TRY_GET_BOLT_KING_SPEC, 'ext_set_spawners_enabled': 130895384, 'ext_get_rng': 130444020, 'ext_rng_next': 128490436, 'ext_create_dynamic': 129888456, 'ext_try_get_handler': 129625380, 'ext_debug_log': DEBUG_LOG, 'ext_on_spawned': 130482004, 'ext_has_type': 130872780, 'ext_set_need_update': 129789380, 'ext_back_tick': PHASE_TICK_HOOK + 4, 'ext_back_spawner': PHASE_SPAWNER_HOOK + 4}
 
 def patch_bolt_rush_phases(data):
     at_address = PHASES_CODE
-    code, uses, labels = assemble_source('phases_bolt_rush.s')
+    code, uses, labels = assembled_code('phases_bolt_rush.s', journal=True)
     targets = dict(PHASE_TARGETS, ext_string_new=BUILD['string_new'])
     if at_address + len(code) > PHASES_CODE_END:
         raise SystemExit('plus de place pour les phases de Bolt Rush')
-    code = bytearray(code)
-    if os.environ.get('RR_JOURNAL'):
-        code[labels['journal']:labels['journal'] + 4] = struct.pack('<I', 1)
-    place_assembled(data, at_address, bytes(code), uses, targets, None)
+    place_assembled(data, at_address, code, uses, targets, None)
     at(data, PHASE_TICK_HOOK, bytes.fromhex('ff0301d1'), a64.b(PHASE_TICK_HOOK, at_address + labels['_phase_tick']))
     at(data, PHASE_SPAWNER_HOOK, bytes.fromhex('ffc306d1'), a64.b(PHASE_SPAWNER_HOOK, at_address + labels['_phase_spawner']))
     at(data, PHASE_SPAWNED_CALL, a64.bl(PHASE_SPAWNED_CALL, PHASE_TARGETS['ext_on_spawned']), a64.bl(PHASE_SPAWNED_CALL, at_address + labels['_phase_spawned']))
@@ -2677,7 +3489,11 @@ def patch_bolt_rush_phases(data):
 ACTOR_VIEW_UPDATE = 65870908
 UPDATE_SCALE = 65804912
 VIEW_CHARACTER = 80
-APPLIED_KING = 281
+ACTOR_VIEW_MARK = 576
+COMPONENT_TRANSFORM = 142923708
+TRANSFORM_CHILD_COUNT = 143028624
+TRANSFORM_GET_CHILD = 143032228
+GAME_OBJECT_ACTIVE_SELF = 142943272
 
 def actor_growth_code(at_address):
     c = Code(at_address)
@@ -2703,6 +3519,36 @@ def actor_growth_code(at_address):
     c.emit(a64.ldr_x(9, 20, 456))
     c.emit(a64.cmp_x(8, 9))
     c.emit(w32(446633962))
+    c.emit(w32(3103798250))
+    c.emit(a64.ldr_x(0, 19, ACTOR_VIEW_MARK))
+    c.jump('cbz', 'crown_end', 0)
+    c.emit(a64.mov_x_zero(1))
+    c.call(COMPONENT_TRANSFORM)
+    c.jump('cbz', 'crown_end', 0)
+    c.emit(w32(4177534944))
+    c.emit(a64.mov_x_zero(1))
+    c.call(TRANSFORM_CHILD_COUNT)
+    c.emit(w32(1895828511))
+    c.jump('b.ne', 'crown_end')
+    c.emit(w32(4181729248))
+    c.emit(w32(1384120385))
+    c.emit(a64.mov_x_zero(2))
+    c.call(TRANSFORM_GET_CHILD)
+    c.jump('cbz', 'crown_end', 0)
+    c.emit(a64.mov_x_zero(1))
+    c.call(GET_GAME_OBJECT)
+    c.jump('cbz', 'crown_end', 0)
+    c.emit(w32(4177534944))
+    c.emit(a64.mov_x_zero(1))
+    c.call(GAME_OBJECT_ACTIVE_SELF)
+    c.emit(w32(3107992545))
+    c.emit(w32(1795227679))
+    c.jump('b.eq', 'crown_end')
+    c.emit(w32(4181729248))
+    c.emit(a64.mov_x_zero(2))
+    c.call(GAME_OBJECT_SET_ACTIVE)
+    c.label('crown_end')
+    c.emit(w32(3107992554))
     c.label('compare')
     c.emit(a64.ldr_x(0, 19, VIEW_CHARACTER))
     c.emit(bytes.fromhex('08644439'))
@@ -2715,10 +3561,9 @@ def actor_growth_code(at_address):
     c.emit(w32(1386803211))
     c.emit(w32(505872739))
     c.emit(w32(505616417))
-    label = 'grow'
-    c.jump('cbnzw', label, 10)
+    c.jump('cbnzw', 'grow', 10)
     c.emit(w32(505485377))
-    c.label(label)
+    c.label('grow')
     c.emit(bytes.fromhex('00d041bd'))
     c.emit(bytes.fromhex('0008211e'))
     c.emit(bytes.fromhex('00d001bd'))
@@ -2733,57 +3578,19 @@ def actor_growth_code(at_address):
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 64))
     c.emit(bytes.fromhex('ea0f19fc'))
     c.emit(a64.b(c.here(), ACTOR_VIEW_UPDATE + 4))
-    while len(c.code) % 8:
-        c.emit(a64.NOP)
+    c.align()
     c.label('spec_guid')
     c.emit(struct.pack('<q', BOLT_KING_SPEC))
     return c.build()
-SETUP_POWER_FLAG = 130604400
-POWER_LEVEL_SIM_STORE = 129706692
 POWER_VERIFIED_CHECK = 129706588
 
-def power_debug_code(at_address):
-    c = Code(at_address)
-
-    def log(label, digit_register, index):
-        c.jump('adr', label, 9)
-        c.emit(a64.ldp_x(10, 11, 9, 0) + a64.stp_x(10, 11, a64.SP, 16))
-        c.emit(a64.ldp_x(10, 11, 9, 16) + a64.stp_x(10, 11, a64.SP, 32))
-        c.emit(struct.pack('<I', 285212672 | 48 << 10 | digit_register << 5 | 10))
-        c.emit(struct.pack('<I', 956301312 | 16 + index << 10 | 31 << 5 | 10))
-        c.emit(struct.pack('<I', 2432696320 | 16 << 10 | 31 << 5 | 0))
-        c.call(BUILD['string_new'])
-        c.emit(a64.mov_x_zero(1))
-        c.call(DEBUG_LOG)
-    c.label('setup_log')
-    c.emit(a64.stp_x_pre(29, 30, a64.SP, -64))
-    c.emit(bytes.fromhex('a8624639'))
-    c.emit(a64.str_x(8, a64.SP, 48) if hasattr(a64, 'str_x') else bytes.fromhex('e81b00f9'))
-    log('msg_setup', 8, 20)
-    c.emit(bytes.fromhex('e81b40f9'))
-    c.emit(a64.ldp_x_post(29, 30, a64.SP, 64))
-    c.emit(a64.RET)
-    c.label('sim_log')
-    c.emit(bytes.fromhex('00010079'))
-    c.emit(a64.stp_x_pre(29, 30, a64.SP, -64))
-    c.emit(bytes.fromhex('e01b00f9'))
-    log('msg_sim', 0, 24)
-    c.emit(bytes.fromhex('e01b40f9'))
-    c.emit(a64.ldp_x_post(29, 30, a64.SP, 64))
-    c.emit(a64.RET)
-    c.label('msg_setup')
-    c.emit(b'RR puissance prevue 0'.ljust(32, b'\x00'))
-    c.label('msg_sim')
-    c.emit(b'RR puissance simulation 0'.ljust(32, b'\x00'))
-    return (c.build(), {name: at_address + c.labels[name] for name in ('setup_log', 'sim_log')})
-
 def patch_bolt_rush_code(data):
-    for host in (67925936, RUSH_CODE, DISPLAY_CODE, WEAPON_CODE):
-        at(data, host, bytes(data[host:host + 4]), a64.RET)
+    for host in (COOP_BATTLE_HOST, RUSH_CODE, DISPLAY_CODE, WEAPON_CODE):
+        place(data, host, a64.RET)
     battle, entries = coop_battle_code(COOP_BATTLE_CODE)
-    if COOP_BATTLE_CODE + len(battle) > 67925936 + 1456:
+    if COOP_BATTLE_CODE + len(battle) > COOP_BATTLE_END:
         raise SystemExit('plus de place pour le code de partie Bolt Rush')
-    at(data, COOP_BATTLE_CODE, bytes(data[COOP_BATTLE_CODE:COOP_BATTLE_CODE + len(battle)]), battle)
+    place(data, COOP_BATTLE_CODE, battle)
     at(data, RANKING_COLLECTED_BOLTS_CALL, a64.bl(RANKING_COLLECTED_BOLTS_CALL, GET_COLLECTED_BOLTS), a64.bl(RANKING_COLLECTED_BOLTS_CALL, entries['own_bolts']))
     at(data, TEAM_COUNTER_CHECK, bytes.fromhex('000540b9'), a64.bl(TEAM_COUNTER_CHECK, entries['team_flag']))
     at(data, BATTLE_RESULT_STORE, bytes.fromhex('680200b9'), a64.bl(BATTLE_RESULT_STORE, entries['result']))
@@ -2797,13 +3604,22 @@ def patch_bolt_rush_code(data):
     code, rush = rush_code(RUSH_CODE)
     if RUSH_CODE + len(code) > RUSH_CODE_END:
         raise SystemExit('plus de place pour le code de Bolt Rush')
+    checked, end_screen, available = prototypes_code(PROTOTYPES_CODE)
+    if PROTOTYPES_CODE + len(checked) > PROTOTYPES_CODE_END:
+        raise SystemExit('plus de place pour le tirage sans prototypes')
+    place(data, PROTOTYPES_CODE, checked)
+    at(data, FFA_END_BIND_CALL, a64.bl(FFA_END_BIND_CALL, GAME_MODE_END_BIND), a64.bl(FFA_END_BIND_CALL, end_screen))
+    if available:
+        at(data, CHARACTER_AVAILABLE, a64.stp_x_pre(30, 19, a64.SP, -16), a64.b(CHARACTER_AVAILABLE, available))
+        print('Wendy : heroine seulement avec les prototypes du reglage')
+    print(f"tirage des cartes : prototypes ({', '.join(prototype_maps())}) seulement avec le reglage ; partie speciale a 8 joueurs apres {SPECIAL_EVERY} parties de Total Rumble ({', '.join(eight_player_maps())}) ; ecran de fin a 8 joueurs corrige")
     if rush['switch'] != BOLT_RUSH_SWITCH:
         raise SystemExit('aiguillage de Bolt Rush mal place')
-    at(data, RUSH_CODE + 4, bytes(data[RUSH_CODE + 4:RUSH_CODE + len(code)]), code[4:])
+    place(data, RUSH_CODE + 4, code[4:])
     shown, display = display_code(DISPLAY_CODE, entries['is_coop'], rush['is_rush'])
     if DISPLAY_CODE + len(shown) > DISPLAY_CODE_END:
         raise SystemExit("plus de place pour l'affichage des nouveaux modes")
-    at(data, DISPLAY_CODE + 4, bytes(data[DISPLAY_CODE + 4:DISPLAY_CODE + len(shown)]), shown[4:])
+    place(data, DISPLAY_CODE + 4, shown[4:])
     rush.update(display)
     king_at = KING_CODE
     king, king_entries = king_code(king_at)
@@ -2814,22 +3630,21 @@ def patch_bolt_rush_code(data):
     grow = actor_growth_code(grow_at)
     if grow_at < EVENTS_CODE + len(events_code(EVENTS_CODE)[0]) + 16:
         raise SystemExit('plus de place pour la taille du Roi')
-    at(data, grow_at, bytes(data[grow_at:grow_at + len(grow)]), grow)
+    place(data, grow_at, grow)
     at(data, ACTOR_VIEW_UPDATE, bytes.fromhex('ea0f19fc'), a64.b(ACTOR_VIEW_UPDATE, grow_at))
-    at(data, king_at, bytes(data[king_at:king_at + len(king)]), king)
+    place(data, king_at, king)
     crown_at = king_at + len(king) + 15 & ~15
     crown = crown_code(crown_at)
     if crown_at + len(crown) > KING_CODE_END:
         raise SystemExit('plus de place pour la couronne')
-    at(data, crown_at, bytes(data[crown_at:crown_at + len(crown)]), crown)
+    place(data, crown_at, crown)
     at(data, CROWN_SCORE_LOAD, w32(3108102154), a64.bl(CROWN_SCORE_LOAD, crown_at))
     difficulty_at = crown_at + len(crown) + 15 & ~15
-    difficulty = b''
     if 'difficulty' in BUILD:
         difficulty, entries = difficulty_code(difficulty_at)
         if difficulty_at + len(difficulty) > KING_CODE_END:
             raise SystemExit('plus de place pour la difficulte')
-        at(data, difficulty_at, bytes(data[difficulty_at:difficulty_at + len(difficulty)]), difficulty)
+        place(data, difficulty_at, difficulty)
         pve, power = BUILD['difficulty']
         at(data, pve, bytes.fromhex('fe4fbfa9'), a64.b(pve, entries['pve']))
         at(data, power, bytes.fromhex('ffc300d1'), a64.b(power, entries['power']))
@@ -2851,14 +3666,6 @@ def patch_bolt_rush_code(data):
     at(data, KING_TIMER_CALL, a64.bl(KING_TIMER_CALL, KING_TIMER_TARGETS['ext_ceil_to_int']), a64.bl(KING_TIMER_CALL, KING_TIMER_CODE + timer_labels['_kt_timer'] - timer_labels['_kt_start']))
     print(f'chrono du Roi : {len(timer)} octets')
     at(data, POWER_VERIFIED_CHECK, bytes.fromhex('c8030034'), a64.NOP)
-    if os.environ.get('RR_DIAG_PUISSANCE') and os.environ.get('RR_JOURNAL'):
-        debug_at = difficulty_at + len(difficulty) + 15 & ~15
-        debug, hooks = power_debug_code(debug_at)
-        if debug_at + len(debug) > KING_CODE_END:
-            raise SystemExit('plus de place pour le diagnostic de puissance')
-        at(data, debug_at, bytes(data[debug_at:debug_at + len(debug)]), debug)
-        at(data, SETUP_POWER_FLAG, bytes.fromhex('a8624639'), a64.bl(SETUP_POWER_FLAG, hooks['setup_log']))
-        at(data, POWER_LEVEL_SIM_STORE, bytes.fromhex('00010079'), a64.bl(POWER_LEVEL_SIM_STORE, hooks['sim_log']))
     at(data, SELECT_RANDOM_MAP_CALL, a64.bl(SELECT_RANDOM_MAP_CALL, SELECT_RANDOM_MAP), a64.bl(SELECT_RANDOM_MAP_CALL, rush['select_map']))
     for function, first, _ in ID_SHORTCUTS:
         at(data, function, first, a64.b(function, rush[f'shortcut_{function:x}']))
@@ -2871,7 +3678,8 @@ def patch_bolt_rush_code(data):
     weapons, hooks = br_weapons_code(WEAPON_CODE)
     if WEAPON_CODE + len(weapons) > WEAPON_CODE_END:
         raise SystemExit('plus de place pour les armes du Battle Royale')
-    at(data, WEAPON_CODE + 4, bytes(data[WEAPON_CODE + 4:WEAPON_CODE + len(weapons)]), weapons[4:])
+    print(f'armes du Battle Royale : {len(weapons)} octets')
+    place(data, WEAPON_CODE + 4, weapons[4:])
     at(data, POWERUP_START_CALL, a64.bl(POWERUP_START_CALL, POWERUP_START), a64.bl(POWERUP_START_CALL, hooks['br_powerup']))
     at(data, PREWARM_CALL, a64.bl(PREWARM_CALL, LOADOUT_PREWARM_WEAPON), a64.bl(PREWARM_CALL, hooks['br_prewarm']))
     at(data, WEAPON_AMMO_INIT, bytes.fromhex('602200b9'), a64.bl(WEAPON_AMMO_INIT, hooks['ammo_init']))
@@ -2879,20 +3687,26 @@ def patch_bolt_rush_code(data):
     at(data, WEAPON_CREATED_SIGNAL_CALL, a64.bl(WEAPON_CREATED_SIGNAL_CALL, WEAPON_ON_CREATED), a64.bl(WEAPON_CREATED_SIGNAL_CALL, hooks['created']))
     at(data, START_RELOAD, bytes.fromhex('ff4305d1'), a64.b(START_RELOAD, hooks['start_reload']))
     at(data, UPDATE_RELOADING, bytes.fromhex('fe67bca9'), a64.b(UPDATE_RELOADING, hooks['update_reloading']))
+    for address, old, name in ((STATS_AMMO_STORE, '602200b9', 'stats_store'), (DASH_AMMO_STORE, '002300b9', 'dash_store'), (MULTIPLIER_STORE, '083c00f9', 'multiplier_store'), (RANDOM_POOL_SLOT_TYPE, '082440b9', 'pool_type')):
+        at(data, address, bytes.fromhex(old), a64.bl(address, hooks[name]))
+    at(data, TRY_GET_ENTITY_TO_SPAWN, TRY_GET_ENTITY_TO_SPAWN_FIRST, a64.b(TRY_GET_ENTITY_TO_SPAWN, hooks['spawn_pick']))
+    bots, bots_uses, bots_labels = assembled_code('robots_br.s', journal=True)
+    if BR_BOTS_CODE + len(bots) > BR_BOTS_END:
+        raise SystemExit('plus de place pour les robots du Battle Royale')
+    place_assembled(data, BR_BOTS_CODE, bots, bots_uses, dict(BR_BOTS_TARGETS, ext_string_new=BUILD['string_new'], ext_debug_log=DEBUG_LOG), SEEK_CRATE_EXECUTE + 4)
+    at(data, SEEK_CRATE_EXECUTE, bytes.fromhex('fd7bbaa9'), a64.b(SEEK_CRATE_EXECUTE, BR_BOTS_CODE + bots_labels['_bb_seek'] - bots_labels['_bb_start']))
+    print(f'robots du Battle Royale : {len(bots)} octets')
     at(data, 129619716, bytes.fromhex('1f050031'), bytes.fromhex('1f01086b'))
     at(data, TEAM_COUNTER_FLAG, bytes.fromhex('480a00b4'), a64.bl(TEAM_COUNTER_FLAG, rush['team_counter_flag']))
     at(data, 130603664, bytes.fromhex('170100b9'), bytes.fromhex('17290029'))
     at(data, 129706600, bytes.fromhex('480040f9'), bytes.fromhex('480840f9'))
     at(data, 129706620, bytes.fromhex('7d000094'), bytes.fromhex('000140b9'))
     cave = BUILD['free_code'][0] + len(bytes.fromhex(BUILD['free_code'][1]))
-    counter = 67351280
-    get_collected_bolts = 129707120
-
-    def branch(opcode, source, target):
-        return struct.pack('<I', opcode | target - source >> 2 & 67108863)
-    code = bytes.fromhex('e07bbfa9') + bytes.fromhex('e00314aa') + bytes.fromhex('e10316aa') + bytes.fromhex('e2031faa') + branch(2483027968, cave + 16, get_collected_bolts) + bytes.fromhex('f503002a') + bytes.fromhex('e07bc1a8') + bytes.fromhex('c0035fd6')
-    at(data, cave, bytes(data[cave:cave + len(code)]), code)
-    at(data, counter, bytes.fromhex('f52340b9'), branch(2483027968, counter, cave))
+    code = bytes.fromhex('e07bbfa9') + bytes.fromhex('e00314aa') + bytes.fromhex('e10316aa') + bytes.fromhex('e2031faa') + a64.bl(cave + 16, GET_COLLECTED_BOLTS) + bytes.fromhex('f503002a') + bytes.fromhex('e07bc1a8') + bytes.fromhex('c0035fd6')
+    if cave + len(code) > TRY_WEAPON_CODE[0]:
+        raise SystemExit("plus de place pour le compteur de boulons de l'equipe")
+    place(data, cave, code)
+    at(data, BOLT_COUNTER_LOAD, bytes.fromhex('f52340b9'), a64.bl(BOLT_COUNTER_LOAD, cave))
 WEAPON_LEVEL_CODE = 67924384 + 4
 LOADOUT_ITEM_HERO_LEVEL = 69496144
 MAIN_WEAPON_RETURN = 69495800
@@ -2918,150 +3732,73 @@ USER_EQUIPPED_SKINS = 392
 USER_EQUIPPED_WEAPONS = 400
 CHANGE_TO_STATE = bytes.fromhex('05915ca9')
 
-def weapon_level_code(at_address):
-    code = bytearray()
-    labels, fixups = ({}, [])
-
-    def here():
-        return at_address + len(code)
-
-    def emit(raw):
-        code.extend(raw)
-
-    def jump(kind, label, register=0):
-        fixups.append((kind, len(code), label, register))
-        code.extend(bytes(4))
-    emit(a64.stp_x_pre(29, 30, a64.SP, -48))
-    emit(a64.stp_x(23, 24, a64.SP, 16))
-    emit(a64.str_x(25, a64.SP, 32))
-    emit(a64.mov_w(23, 0))
-    emit(a64.mov_x_zero(1))
-    emit(a64.bl(here(), GET_HERO_LEVEL))
-    emit(a64.mov_x_zero(1))
-    emit(a64.bl(here(), GET_WEAPON_QUANTUM_LEVEL))
-    emit(a64.mov_w(24, 0))
-    emit(a64.ldr_x(9, a64.SP, 48))
-    emit(a64.adrp_add(10, here(), MAIN_WEAPON_RETURN))
-    emit(a64.cmp_x(9, 10))
-    jump('b.ne', 'done')
-    emit(a64.mov_w(0, 20))
-    emit(a64.mov_x_zero(1))
-    emit(a64.bl(here(), GET_WEAPON_UPGRADE_QUANTUM_LEVEL))
-    emit(a64.mov_w(25, 0))
-    emit(a64.mov_x_zero(0))
-    emit(a64.bl(here(), GET_ECONOMY))
-    jump('cbz', 'own', 0)
-    emit(a64.ldr_x(0, 0, 32))
-    jump('cbz', 'own', 0)
-    emit(a64.str_x(0, a64.SP, 40))
-    emit(a64.mov_w(0, 23))
-    emit(a64.mov_x_zero(1))
-    emit(a64.bl(here(), GET_BASE_SKIN))
-    emit(a64.mov_w(1, 0))
-    emit(a64.ldr_x(0, a64.SP, 40))
-    emit(a64.mov_x_zero(2))
-    emit(a64.bl(here(), GET_CHAR_DEF_BY_SKIN))
-    jump('cbz', 'own', 0)
-    emit(a64.ldr_w(8, 0, DEFAULT_WEAPON))
-    emit(a64.cmp_w(8, 19))
-    jump('b.ne', 'own')
-    emit(a64.cmp_w(25, 24))
-    emit(a64.csel_w(24, 25, 24, 'gt'))
-    jump('b', 'done')
-    labels['own'] = len(code)
-    emit(a64.mov_w(24, 25))
-    labels['done'] = len(code)
-    emit(a64.mov_w(0, 24))
-    emit(bytes.fromhex('f91340f9'))
-    emit(a64.ldp_x(23, 24, a64.SP, 16))
-    emit(a64.ldp_x_post(29, 30, a64.SP, 48))
-    emit(a64.RET)
-    for kind, position, label, register in fixups:
-        source, target = (at_address + position, at_address + labels[label])
-        if kind == 'b':
-            raw = a64.b(source, target)
-        elif kind == 'cbz':
-            raw = a64.cbz_x(register, source, target)
-        else:
-            raw = a64.b_cond(kind[2:], source, target)
-        code[position:position + 4] = raw
-    return bytes(code)
-
-class Code:
-
-    def __init__(self, at_address):
-        self.at = at_address
-        self.code = bytearray()
-        self.labels = {}
-        self.fixups = []
-
-    def here(self):
-        return self.at + len(self.code)
-
-    def emit(self, raw):
-        self.code.extend(raw)
-
-    def call(self, target):
-        self.emit(a64.bl(self.here(), target))
-
-    def jump(self, kind, label, register=0):
-        self.fixups.append((kind, len(self.code), label, register))
-        self.code.extend(bytes(4))
-
-    def label(self, name):
-        self.labels[name] = len(self.code)
-
-    def change_state(self, state, restore):
-        self.emit(a64.mov_x_zero(0))
-        self.call(GAME_FSM_INSTANCE)
-        self.jump('cbz', 'no_fsm', 0)
-        self.emit(a64.ldr_x(8, 0, 0))
-        self.emit(a64.movz_w(1, state))
-        self.emit(bytes.fromhex('e2031f2a'))
-        self.emit(a64.movz_w(3, 1))
-        self.emit(CHANGE_TO_STATE)
-        self.emit(restore)
-        self.emit(a64.br(5))
-        self.label('no_fsm')
-        self.emit(restore)
-        self.emit(a64.RET)
-
-    def build(self):
-        for kind, position, label, register in self.fixups:
-            source, target = (self.at + position, self.at + self.labels[label])
-            if kind == 'b':
-                raw = a64.b(source, target)
-            elif kind == 'cbz':
-                raw = a64.cbz_x(register, source, target)
-            elif kind == 'cbzw':
-                raw = struct.pack('<I', 872415232 | (target - source >> 2 & 524287) << 5 | register)
-            elif kind == 'adr':
-                raw = a64_adr(register, source, target)
-            elif kind == 'ldrlit':
-                raw = a64_cb(1476395008, register, source, target)
-            elif kind == 'ldrlit_s':
-                raw = a64_cb(469762048, register, source, target)
-            elif kind == 'cbnzw':
-                raw = struct.pack('<I', 889192448 | (target - source >> 2 & 524287) << 5 | register)
-            elif kind == 'cbnzx':
-                raw = struct.pack('<I', 3036676096 | (target - source >> 2 & 524287) << 5 | register)
-            elif kind == 'bl':
-                raw = a64.bl(source, target)
-            elif kind == 'tbz0':
-                raw = struct.pack('<I', 905969664 | (target - source >> 2 & 16383) << 5 | register)
-            elif kind == 'tbnz31':
-                raw = struct.pack('<I', 922746880 | 31 << 19 | (target - source >> 2 & 16383) << 5 | register)
-            else:
-                raw = a64.b_cond(kind[2:], source, target)
-            self.code[position:position + 4] = raw
-        return bytes(self.code)
+def weapon_level_code(at_address, gadget_return=None):
+    c = Code(at_address)
+    c.emit(a64.stp_x_pre(29, 30, a64.SP, -48))
+    c.emit(a64.stp_x(23, 24, a64.SP, 16))
+    c.emit(a64.str_x(25, a64.SP, 32))
+    c.emit(a64.mov_w(23, 0))
+    c.emit(a64.mov_x_zero(1))
+    c.call(GET_HERO_LEVEL)
+    c.emit(a64.mov_x_zero(1))
+    c.call(GET_WEAPON_QUANTUM_LEVEL)
+    c.emit(a64.mov_w(24, 0))
+    c.emit(a64.ldr_x(9, a64.SP, 48))
+    c.emit(a64.adrp_add(10, c.here(), MAIN_WEAPON_RETURN))
+    c.emit(a64.cmp_x(9, 10))
+    if gadget_return:
+        c.jump('b.eq', 'main')
+        c.emit(a64.adrp_add(10, c.here(), gadget_return))
+        c.emit(a64.cmp_x(9, 10))
+        c.jump('b.ne', 'done')
+        c.emit(a64.mov_w(0, 20))
+        c.emit(a64.mov_x_zero(1))
+        c.call(GET_WEAPON_UPGRADE_QUANTUM_LEVEL)
+        c.emit(a64.mov_w(24, 0))
+        c.jump('b', 'done')
+        c.label('main')
+    else:
+        c.jump('b.ne', 'done')
+    c.emit(a64.mov_w(0, 20))
+    c.emit(a64.mov_x_zero(1))
+    c.call(GET_WEAPON_UPGRADE_QUANTUM_LEVEL)
+    c.emit(a64.mov_w(25, 0))
+    c.emit(a64.mov_x_zero(0))
+    c.call(GET_ECONOMY)
+    c.jump('cbz', 'own', 0)
+    c.emit(a64.ldr_x(0, 0, 32))
+    c.jump('cbz', 'own', 0)
+    c.emit(a64.str_x(0, a64.SP, 40))
+    c.emit(a64.mov_w(0, 23))
+    c.emit(a64.mov_x_zero(1))
+    c.call(GET_BASE_SKIN)
+    c.emit(a64.mov_w(1, 0))
+    c.emit(a64.ldr_x(0, a64.SP, 40))
+    c.emit(a64.mov_x_zero(2))
+    c.call(GET_CHAR_DEF_BY_SKIN)
+    c.jump('cbz', 'own', 0)
+    c.emit(a64.ldr_w(8, 0, DEFAULT_WEAPON))
+    c.emit(a64.cmp_w(8, 19))
+    c.jump('b.ne', 'own')
+    c.emit(a64.cmp_w(25, 24))
+    c.emit(a64.csel_w(24, 25, 24, 'gt'))
+    c.jump('b', 'done')
+    c.label('own')
+    c.emit(a64.mov_w(24, 25))
+    c.label('done')
+    c.emit(a64.mov_w(0, 24))
+    c.emit(bytes.fromhex('f91340f9'))
+    c.emit(a64.ldp_x(23, 24, a64.SP, 16))
+    c.emit(a64.ldp_x_post(29, 30, a64.SP, 48))
+    c.emit(a64.RET)
+    return c.build()
 
 def open_arsenal_code(at_address):
     c = Code(at_address)
     restore = a64.ldr_x(19, a64.SP, 16) + a64.ldp_x_post(29, 30, a64.SP, 32)
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -32))
     c.emit(a64.str_x(19, a64.SP, 16))
-    c.emit(a64.mov_w(0, 0) and bytes.fromhex('f30300aa'))
+    c.emit(bytes.fromhex('f30300aa'))
     c.emit(a64.mov_x_zero(0))
     c.call(USER_INSTANCE)
     c.jump('cbz', 'open', 0)
@@ -3078,9 +3815,6 @@ def open_arsenal_code(at_address):
     c.label('open')
     c.change_state(WEAPON_LOADOUT_STATE, restore)
     return c.build()
-
-def equip_and_return_code(at_address):
-    return a64.b(at_address, HERO_RETURN_CODE)
 INIT_METADATA = 63400440
 MONO_SINGLETON_GET_INSTANCE = 103153532
 COMPONENT_GET_COMPONENT = 80193396
@@ -3126,11 +3860,6 @@ def max_ammo_check_code(at_address):
     c.emit(b'InitializeWidget\x00')
     return c.build()
 
-def adrp_ldr(c, register, address):
-    page = (address >> 12) - (c.here() + a64.TEXT_DELTA >> 12)
-    c.emit(struct.pack('<I', 2415919104 | (page & 3) << 29 | (page >> 2 & 524287) << 5 | register))
-    c.emit(a64.ldr_x(register, register, address & 4095))
-
 def hero_return_code(at_address):
     c = Code(at_address)
     restore = a64.ldp_x(19, 20, a64.SP, 16) + a64.ldp_x_post(29, 30, a64.SP, 48)
@@ -3138,7 +3867,7 @@ def hero_return_code(at_address):
     c.emit(a64.stp_x(19, 20, a64.SP, 16))
     c.call(BUILD['equip_selected'])
     for slot in (SLOT_GET_HUD_CHARACTER, SLOT_MONO_SINGLETON):
-        adrp_ldr(c, 0, slot)
+        c.adrp_ldr(0, slot)
         c.call(INIT_METADATA)
     c.emit(a64.mov_x_zero(0))
     c.call(USER_INSTANCE)
@@ -3150,13 +3879,13 @@ def hero_return_code(at_address):
     c.emit(a64.mov_x_zero(2))
     c.call(GET_AT_SLOT)
     c.emit(a64.mov_w(19, 0))
-    adrp_ldr(c, 8, SLOT_MONO_SINGLETON)
+    c.adrp_ldr(8, SLOT_MONO_SINGLETON)
     c.emit(a64.ldr_x(0, 8, 0))
     c.call(MONO_SINGLETON_GET_INSTANCE)
     c.jump('cbz', 'go', 0)
     c.emit(a64.ldr_x(0, 0, 160))
     c.jump('cbz', 'go', 0)
-    adrp_ldr(c, 8, SLOT_GET_HUD_CHARACTER)
+    c.adrp_ldr(8, SLOT_GET_HUD_CHARACTER)
     c.emit(a64.ldr_x(1, 8, 0))
     c.call(COMPONENT_GET_COMPONENT)
     c.jump('cbz', 'go', 0)
@@ -3203,36 +3932,47 @@ def shown_weapon_code(at_address):
     c.emit(a64.RET)
     return c.build()
 
-def patch_weapons_code(data):
+def gadget_weapon_return(data):
 
-    def place(at_address, code):
-        at(data, at_address, bytes(data[at_address:at_address + len(code)]), code)
-    place(WEAPON_LEVEL_CODE - 4, a64.RET)
-    place(EVENTS_CODE, a64.RET)
+    def target(call):
+        word = struct.unpack_from('<I', data, call)[0]
+        if word >> 26 != 37:
+            return None
+        offset = word & 67108863
+        return call + (offset - (1 << 26) if offset & 33554432 else offset) * 4
+    main, gadget = (MAIN_WEAPON_RETURN, MAIN_WEAPON_RETURN + 24)
+    if target(main - 4) is None or target(main - 4) != target(gadget - 4):
+        print('niveau du gadget : appel introuvable, le gadget garde le niveau du heros')
+        return None
+    return gadget
+
+def patch_weapons_code(data):
+    place(data, WEAPON_LEVEL_CODE - 4, a64.RET)
+    place(data, EVENTS_CODE, a64.RET)
     hero = hero_return_code(HERO_RETURN_CODE)
-    place(HERO_RETURN_CODE, hero)
+    place(data, HERO_RETURN_CODE, hero)
     check_at = HERO_RETURN_CODE + len(hero) + 15 & ~15
     check = max_ammo_check_code(check_at)
     if check_at + len(check) > EVENTS_CODE_END:
         raise SystemExit('plus de place pour le code du HUD des armes')
-    place(check_at, check)
+    place(data, check_at, check)
     at(data, MAX_AMMO_ONCE, bytes.fromhex('68664339'), a64.bl(MAX_AMMO_ONCE, check_at))
-    level = weapon_level_code(WEAPON_LEVEL_CODE)
-    place(WEAPON_LEVEL_CODE, level)
+    level = weapon_level_code(WEAPON_LEVEL_CODE, gadget_weapon_return(data))
+    place(data, WEAPON_LEVEL_CODE, level)
     at(data, LOADOUT_ITEM_HERO_LEVEL, bytes.fromhex('0e000094'), a64.bl(LOADOUT_ITEM_HERO_LEVEL, WEAPON_LEVEL_CODE))
     at(data, LOADOUT_ITEM_HERO_LEVEL + 4, bytes.fromhex('98000094'), a64.NOP)
     equip_at = WEAPON_LEVEL_CODE + len(level) + 15 & ~15
-    equip = equip_and_return_code(equip_at)
-    place(equip_at, equip)
+    place(data, equip_at, a64.b(equip_at, HERO_RETURN_CODE))
     jump_at = BUILD['equip_button'] + 8
     at(data, jump_at, a64.b(jump_at, BUILD['equip_selected']), a64.b(jump_at, equip_at))
-    shown_at = equip_at + len(equip) + 15 & ~15
+    shown_at = equip_at + 4 + 15 & ~15
     shown = shown_weapon_code(shown_at)
     if shown_at + len(shown) > LOADING_SCREEN_CODE:
         raise SystemExit('plus de place pour le code des armes')
-    place(shown_at, shown)
-    at(data, WEAPON_WIDGET_DEFAULT_WEAPON, a64.bl(WEAPON_WIDGET_DEFAULT_WEAPON, GET_DEFAULT_WEAPON_UID), a64.bl(WEAPON_WIDGET_DEFAULT_WEAPON, shown_at))
-    place(OPEN_WEAPON_INFO_POPUP, open_arsenal_code(OPEN_WEAPON_INFO_POPUP))
+    place(data, shown_at, shown)
+    if not weapon_slots_build():
+        at(data, WEAPON_WIDGET_DEFAULT_WEAPON, a64.bl(WEAPON_WIDGET_DEFAULT_WEAPON, GET_DEFAULT_WEAPON_UID), a64.bl(WEAPON_WIDGET_DEFAULT_WEAPON, shown_at))
+    place(data, OPEN_WEAPON_INFO_POPUP, open_arsenal_code(OPEN_WEAPON_INFO_POPUP))
 LOADING_SCREEN_STATES = 70559104
 DESTROY_LOADING_SCREEN = 70562932
 LEVEL_INTRO_STATE = 5
@@ -3254,11 +3994,11 @@ def loading_screen_code(at_address):
 
 def patch_loading_screen(data):
     host = 67924384
-    at(data, host, bytes(data[host:host + 4]), a64.RET)
+    place(data, host, a64.RET)
     code = loading_screen_code(LOADING_SCREEN_CODE)
     if LOADING_SCREEN_CODE + len(code) > host + 1136:
         raise SystemExit("plus de place pour le code de l'ecran de chargement")
-    at(data, LOADING_SCREEN_CODE, bytes(data[LOADING_SCREEN_CODE:LOADING_SCREEN_CODE + len(code)]), code)
+    place(data, LOADING_SCREEN_CODE, code)
     at(data, LOADING_SCREEN_STATES, a64.cmp_w_imm(24, 6), a64.bl(LOADING_SCREEN_STATES, LOADING_SCREEN_CODE))
 EVENTS_CODE = 67945436
 EVENTS_CODE_END = EVENTS_CODE + 1632
@@ -3283,18 +4023,6 @@ RANDOM_SYSTEM_CHECK = 129773636
 RANDOM_SYSTEM_SKIP = 28
 RANDOM_PLAYER_INIT = (129773692, 'ffc300d1')
 RANDOM_CHANGE = (129773956, 'ff0302d1')
-
-def w_store(source, base, offset):
-    return struct.pack('<I', 3103784960 | offset // 4 << 10 | base << 5 | source)
-
-def w_add(destination, first, second):
-    return struct.pack('<I', 184549376 | second << 16 | first << 5 | destination)
-
-def w_sub_imm(destination, source, value):
-    return struct.pack('<I', 1358954496 | value << 10 | source << 5 | destination)
-
-def x_umaddl(destination, first, second, addend):
-    return struct.pack('<I', 2610954240 | second << 16 | addend << 10 | first << 5 | destination)
 
 def events_code(at_address):
     c = Code(at_address)
@@ -3345,12 +4073,9 @@ def events_code(at_address):
     c.jump('b.ne', 'win_done')
     c.emit(a64.ldr_w(12, 11, 52))
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -32))
-    if os.environ.get('RR_JOURNAL'):
+    if JOURNAL:
         c.emit(a64.str_x(12, a64.SP, 16))
-        c.jump('adr', 'log_box', 0)
-        c.call(BUILD['string_new'])
-        c.emit(a64.mov_x_zero(1))
-        c.call(DEBUG_LOG)
+        c.log('log_box')
         c.emit(a64.ldr_x(12, a64.SP, 16))
     c.emit(a64.ldr_x(0, 20, 24))
     c.emit(a64.mov_w(1, 12))
@@ -3406,14 +4131,11 @@ def events_code(at_address):
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 32))
     c.emit(a64.RET)
     names = ('big_reward_points', 'on_win_tokens', 'streak_result', 'battle_event')
-    if os.environ.get('RR_JOURNAL'):
+    if JOURNAL:
         c.label('token_log')
         c.jump('cbzw', 'token_skip', 0)
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
-        c.jump('adr', 'log_token', 0)
-        c.call(BUILD['string_new'])
-        c.emit(a64.mov_x_zero(1))
-        c.call(DEBUG_LOG)
+        c.log('log_token')
         c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
         c.emit(a64.RET)
         c.label('token_skip')
@@ -3442,10 +4164,7 @@ def events_code(at_address):
             c.label(name)
             c.emit(a64.stp_x_pre(29, 30, a64.SP, -64))
             c.emit(a64.stp_x(0, 1, a64.SP, 16) + a64.stp_x(2, 3, a64.SP, 32) + a64.str_x(4, a64.SP, 48))
-            c.jump('adr', message, 0)
-            c.call(BUILD['string_new'])
-            c.emit(a64.mov_x_zero(1))
-            c.call(DEBUG_LOG)
+            c.log(message)
             c.emit(a64.ldp_x(0, 1, a64.SP, 16) + a64.ldp_x(2, 3, a64.SP, 32) + a64.ldr_x(4, a64.SP, 48))
             c.emit(a64.ldp_x_post(29, 30, a64.SP, 64))
             c.emit(bytes.fromhex(first[1]))
@@ -3455,10 +4174,7 @@ def events_code(at_address):
         c.label('random_system_log')
         c.jump('cbzw', 'random_system_skip', 0)
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
-        c.jump('adr', 'log_system', 0)
-        c.call(BUILD['string_new'])
-        c.emit(a64.mov_x_zero(1))
-        c.call(DEBUG_LOG)
+        c.log('log_system')
         c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
         c.emit(a64.RET)
         c.label('random_system_skip')
@@ -3483,10 +4199,11 @@ def events_code(at_address):
 WEAPON_SLOTS_CODE = 72180780
 WEAPON_SLOTS_END = WEAPON_SLOTS_CODE + 4632
 SECONDARY_GADGETS = [(51, 2), (52, 3), (53, 4), (41, 5), (10, 6), (3, 8), (26, 9), (6, 10), (16, 14), (22, 15), (23, 17), (56, 22)]
-WEAPON_SLOTS_TARGETS = {'ext_string_new': 63431916, 'ext_get_int': 142891136, 'ext_set_int': 142891048, 'ext_save': 142893956, 'slot_filter_key': 152488048 + 16384, 'ext_init_metadata': 63400440, 'ext_user_instance': 69480108, 'ext_get_at_slot': 75099120, 'ext_char_of_skin': 75046628, 'ext_weapon_uid': 66149436, 'ext_is_human': 130379140, 'ext_player_data': 130479552, 'ext_equip_weapon_body': 69489000 + 4, 'ext_equip_skin_body': 69488712 + 4, 'ext_get_economy': 68364052, 'ext_char_def_by_skin': 66636884, 'ext_default_weapon_uid': 66646824, 'ext_weapon_locked_body': 69520768 + 4, 'ext_is_available': 66150176, 'ext_is_ultimate': 66149824, 'ext_is_melee': 66150000, 'ext_slots_create': 67107728, 'ext_slots_null': 67109132, 'ext_slots_next': 67108512, 'ext_create_slots': 67106480, 'ext_refresh_slots': 67113108, 'ext_can_equip_skin': 69488604, 'ext_equip_skin': 69488712, 'ext_fsm_instance': 70336780, 'ext_weapon_is_unlocked': 69524776, 'ext_bin_weapon': 67125492, 'ext_refresh_body': 67126424 + 4, 'ext_refresh_if_body': 67126800 + 4, 'ext_slot_clicked_body': 67127028 + 4, 'ext_loadout_screen': 67125364, 'ext_loadout_in_state': 67116788, 'ext_dropdown_set_value': 140805172, 'slot_main_menu': 152460616 + 16384, 'ext_mono_instance': 103153532, 'slot_highlight_name': 152501432 + 16384, 'ext_animator_set_bool': 142218168}
-WEAPON_SLOTS_HOOKS = [(69489000, 'ff0301d1', '_ws_equip_weapon', 'b'), (69488712, 'ff0301d1', '_ws_equip_skin', 'b'), (69520768, 'fe0f1ff8', '_ws_weapon_locked', 'b'), (69495296, 'f60300aa', '_ws_loadout_gadget', 'bl'), (67253876, '002c40f9', '_ws_sheet_gadget', 'bl'), (130011492, '610e40b9', '_ws_sim_key', 'bl'), (67107512, 'e00314aa', '_ws_slots_candidate', 'bl'), (67107724, '1a2c00b4', '_ws_slots_mode', 'b'), (67116012, 'c00240f9', '_ws_filter_changed', 'b'), (67516864, 'fe0f1df8', '_ws_open_secondary', 'b'), (67110416, 'c6350994', '_ws_weapon_unlocked', 'bl'), (67110452, 'bd350994', '_ws_weapon_unlocked', 'bl'), (67126424, 'fe0f1cf8', '_ws_slot_refresh', 'b'), (67126800, 'fe57bea9', '_ws_slot_refresh_if', 'b'), (67127028, 'ff8301d1', '_ws_slot_clicked', 'b')]
+WEAPON_SLOTS_TARGETS = {'ext_string_new': 63431916, 'ext_get_int': 142891136, 'ext_set_int': 142891048, 'ext_save': 142893956, 'slot_filter_key': 152488048 + 16384, 'ext_init_metadata': 63400440, 'ext_user_instance': 69480108, 'ext_get_at_slot': 75099120, 'ext_char_of_skin': 75046628, 'ext_weapon_uid': 66149436, 'ext_is_human': 130379140, 'ext_player_data': 130479552, 'ext_equip_weapon_body': 69489000 + 4, 'ext_equip_skin_body': 69488712 + 4, 'ext_get_economy': 68364052, 'ext_char_def_by_skin': 66636884, 'ext_default_weapon_uid': 66646824, 'ext_char_def_by_id': 66635828, 'ext_gadget_weapon_at': 66644204, 'ext_weapon_qlevel': 69496756, 'ext_weapon_upgrade_qlevel': 69517804, 'ext_weapon_power_body': 67271220 + 4, 'ext_weapon_damage_body': 67270176 + 4, 'ext_is_available': 66150176, 'ext_is_ultimate': 66149824, 'ext_is_melee': 66150000, 'ext_slots_create': 67107728, 'ext_slots_null': 67109132, 'ext_slots_next': 67108512, 'ext_create_slots': 67106480, 'ext_refresh_slots': 67113108, 'ext_can_equip_skin': 69488604, 'ext_equip_skin': 69488712, 'ext_fsm_instance': 70336780, 'ext_weapon_is_unlocked': 69524776, 'ext_bin_weapon': 67125492, 'ext_refresh_body': 67126424 + 4, 'ext_refresh_if_body': 67126800 + 4, 'ext_slot_clicked_body': 67127028 + 4, 'ext_loadout_screen': 67125364, 'ext_loadout_in_state': 67116788, 'ext_dropdown_set_value': 140805172, 'slot_main_menu': 152460616 + 16384, 'ext_mono_instance': 103153532, 'slot_highlight_name': 152501432 + 16384, 'ext_animator_set_bool': 142218168}
+WEAPON_SLOTS_HOOKS = [(69489000, 'ff0301d1', '_ws_equip_weapon', 'b'), (69488712, 'ff0301d1', '_ws_equip_skin', 'b'), (69495296, 'f60300aa', '_ws_loadout_gadget', 'bl'), (67253876, '002c40f9', '_ws_sheet_gadget', 'bl'), (130011492, '610e40b9', '_ws_sim_key', 'bl'), (130058876, '610e40b9', '_ws_ultimate_key', 'bl'), (67107512, 'e00314aa', '_ws_slots_candidate', 'bl'), (67107724, '1a2c00b4', '_ws_slots_mode', 'b'), (67116012, 'c00240f9', '_ws_filter_changed', 'b'), (67516864, 'fe0f1df8', '_ws_open_secondary', 'b'), (67270832, '9e9efd97', '_ws_shown_weapon', 'bl'), (67271288, '2c9efd97', '_ws_shown_weapon', 'bl'), (67269812, '9d9ffd97', '_ws_shown_weapon', 'bl'), (67271220, 'fe5fbda9', '_ws_popup_weapon_power', 'b'), (67270176, 'ffc301d1', '_ws_popup_weapon_damage', 'b'), (130011680, 'f5630091', '_ws_gadget_level', 'bl'), (67254352, 'f403012a', '_ws_gadget_power_level', 'bl'), (67253168, 'f403002a', '_ws_gadget_cooldown_level', 'bl'), (67254420, '002c40f9', '_ws_sheet_gadget', 'bl'), (67253224, '002c40f9', '_ws_sheet_gadget', 'bl'), (67126424, 'fe0f1cf8', '_ws_slot_refresh', 'b'), (67126800, 'fe57bea9', '_ws_slot_refresh_if', 'b'), (67127028, 'ff8301d1', '_ws_slot_clicked', 'b')]
 WEAPON_SLOTS_OPEN = [(67125664, 'd71c0994'), (67126484, '0a1c0994'), (67127232, '4f1b0994')]
 MOV_W0_1 = bytes.fromhex('20008052')
+GADGET_LEVEL_EDITS = [(130011736, '621a40b9', 'e20340b9'), (67254500, '81060011', 'e103142a')]
 WEAPON_SLOTS_FLAGS = [(11460026, b'LoadoutSlotWidget_0'), (10751530, b'LoadoutSlotWidget_1'), (10342094, b'BgLeft')]
 WEAPON_SLOTS_SCENE_EDITS = [(23897584, struct.pack('<iii', 0, 101, 1), struct.pack('<iii', 0, 0, 1)), (19526416, struct.pack('<ff', -1.3498382568359375, -122.09344482421875), struct.pack('<ff', -1.3498382568359375, -334.2)), (19526348, struct.pack('<3f', 1, 1, 1), struct.pack('<3f', 1.25, 1.25, 1)), (24804368, struct.pack('<ff', 192.9499969482422, 139.60000610351562), struct.pack('<ff', 192.9499969482422, 160)), (18751528, struct.pack('<ff', 0, -185), struct.pack('<ff', 30, -164)), (25082356, struct.pack('<iii', 0, 91, 37), struct.pack('<iii', 0, 0, 37))]
 
@@ -3500,9 +4217,10 @@ def weapon_slots_flag_edits():
 WEAPON_SLOTS_TEXTS = {'FR': {'UI.WEAPON_FILTER.TYPE': 'Armes secondaires'}, 'EN': {'UI.WEAPON_FILTER.TYPE': 'Secondary weapons'}}
 
 def weapon_slots_build():
-    return BUILD is BUILDS['1.10.4'] and BOLT_RUSH
+    return VERSION == '1.10.4' and BOLT_RUSH
 GADGET_DB_BUNDLE = 'assets/aa/Android/quantum_db_gagdet_assets_all_3f1e699b51cce3c6dfd60ba52c57442f.bundle'
-GADGET_CARD_PICTURES = {GADGET_DB_BUNDLE: [('Q_DrillDash_MeleeWeapon_WeaponSpec', 'Q_DrillDash_GadgetSpec'), ('Q_LittleSpin_MeleeWeapon', 'Q_LittleSpin_GadgetSpec')], 'hero_specs': [('Q_WrenchThrow_WeaponSpec', 'Q_WrenchThrow_GadgetSpec')]}
+GADGET_PICTURES_REPLACED = {'Q_ElectricGrenade_WeaponSpec'}
+GADGET_CARD_PICTURES = {GADGET_DB_BUNDLE: [('Q_DrillDash_MeleeWeapon_WeaponSpec', 'Q_DrillDash_GadgetSpec'), ('Q_LittleSpin_MeleeWeapon', 'Q_LittleSpin_GadgetSpec'), ('Q_ElectricGrenade_WeaponSpec', 'Q_ElectricGrenade_GadgetSpec')], 'hero_specs': [('Q_WrenchThrow_WeaponSpec', 'Q_WrenchThrow_GadgetSpec')]}
 GADGET_FINAL_VISUALS = {'Q_DrillDash_MeleeWeapon_WeaponSpec': ('CAB-e558baa0355476ff6a05bf24f0600558', -9011812752001224597), 'Q_WrenchThrow_WeaponSpec': ('CAB-53ec03604fbee74dd8dfe45ec46f104e', -3839807419143728885)}
 GADGET_MENU_RENDER = {'Q_WrenchThrow_WeaponSpec': {'<menuRenderZRotateNeeded>k__BackingField': 0, '<menuRenderXRotationInDegrees>k__BackingField': 0}}
 
@@ -3534,7 +4252,7 @@ def gadget_card_pictures(data, pairs):
         weapon = named[weapon_name]
         tree = weapon.read_typetree()
         for field in ('<spriteColored>k__BackingField', '<sprite3D>k__BackingField', '<spriteUI>k__BackingField', '<smallSpriteUI>k__BackingField'):
-            if tree[field]['m_PathID'] == 0:
+            if tree[field]['m_PathID'] == 0 or weapon_name in GADGET_PICTURES_REPLACED:
                 tree[field] = dict(icon)
         for field, source in (('<LocalizedNameKey>k__BackingField', '<LocalizedName>k__BackingField'), ('<LocalizedDescriptionKey>k__BackingField', '<LocalizedDesc>k__BackingField')):
             if field in tree and gadget[source]['_value']:
@@ -3549,14 +4267,103 @@ def gadget_card_pictures(data, pairs):
         weapon.save_typetree(tree)
     data[:] = env.file.save(packer='lz4')
     print(f"images des cartes de gadget : {', '.join((weapon for weapon, _ in pairs))}")
+SHOP_CARDS_BUNDLE = 'shop_offer_widgets_assets_all'
+SHOP_SMALL_CARDS = ('ShopOfferWidget_BaseSmall', 'ShopOfferWidget_Small')
+SHOP_CARD_PICTURE_LAYER = ('Mask', 'Gradient (1)')
+
+def patch_shop_cards(data):
+    import UnityPy
+    env = UnityPy.load(bytes(data))
+    transforms, names = ({}, {})
+    for obj in env.objects:
+        if obj.type.name in ('Transform', 'RectTransform'):
+            transforms[obj.path_id] = obj.read()
+        elif obj.type.name == 'GameObject':
+            names[obj.path_id] = obj.read().m_Name
+
+    def child(transform, name):
+        return next((c.path_id for c in transform.m_Children if names.get(transforms[c.path_id].m_GameObject.path_id) == name), None)
+    layers = {}
+    for transform in transforms.values():
+        card = names.get(transform.m_GameObject.path_id)
+        if card in SHOP_SMALL_CARDS and (not (transform.m_Father and transform.m_Father.path_id)):
+            layer = transform
+            for name in SHOP_CARD_PICTURE_LAYER:
+                found = child(layer, name)
+                layer = transforms.get(found) if found else None
+                if layer is None:
+                    raise SystemExit(f"carte de boutique {card} : pas de {'/'.join(SHOP_CARD_PICTURE_LAYER)}")
+            layers[transform.m_GameObject.path_id] = (card, found)
+    done = []
+    for obj in env.objects:
+        if obj.type.name != 'MonoBehaviour':
+            continue
+        tree = obj.read_typetree()
+        owner = layers.get(tree.get('m_GameObject', {}).get('m_PathID'))
+        if owner and 'dynamicThumbnailRoot' in tree and (not tree['dynamicThumbnailRoot']['m_PathID']):
+            tree['dynamicThumbnailRoot'] = {'m_FileID': 0, 'm_PathID': owner[1]}
+            obj.save_typetree(tree)
+            done.append(owner[0])
+    if sorted(done) != sorted(SHOP_SMALL_CARDS):
+        raise SystemExit(f'cartes de boutique : {done}')
+    data[:] = env.file.save(packer='lz4')
+    print('boutique : image 3D des petites cartes sous le prix')
+
+def shop_cards_patches():
+    path = asset_pack_path(SHOP_CARDS_BUNDLE)
+    return {path: patch_shop_cards} if path and VERSION == '1.10.4' and heavy_tools() else {}
+
+def gadget_db_bundle():
+    return asset_pack_path('quantum_db_gagdet_assets_all')
 
 def patch_gadget_db(data):
-    gadget_card_pictures(data, GADGET_CARD_PICTURES[GADGET_DB_BUNDLE])
+    patch_weapon_balance(data)
+    if weapon_slots_build():
+        gadget_card_pictures(data, GADGET_CARD_PICTURES[GADGET_DB_BUNDLE])
+    gadget_lines(data)
 
 def patch_hero_specs_bundle(data):
-    patch_hero_talents(data)
+    patch_hero_talents(data, weapon_balance_edits(data))
     if weapon_slots_build():
         gadget_card_pictures(data, GADGET_CARD_PICTURES['hero_specs'])
+    gadget_lines(data)
+    if RIVET_JUMP and heavy_tools() and ('Rivet' in hero_sources()[0]):
+        hammer_module().patch_hero_specs(data)
+        print('marteau de Rivet : sa propre fiche de heros, le marteau plongeant en premier talent')
+HERO_ULTIMATES = {16: 3, 18: 3, 23: 9, 12: 6, 11: 17, 13: 17, 21: 22, 20: 8, 19: 4}
+
+def hero_ultimates(characters):
+    by_id = {c['uniqueID']['_value']: c for c in characters.values()}
+    field = '<UltimateSpec>k__BackingField'
+    for hero, owner in HERO_ULTIMATES.items():
+        record, model = (by_id.get(hero), by_id.get(owner))
+        if record is None:
+            continue
+        if not model or not model['ultimates'] or (not model['ultimates'][0][field]['m_PathID']):
+            raise SystemExit(f'ultime du heros {owner} introuvable')
+        record['ultimates'] = [json_copy(model['ultimates'][0])]
+NAKARI_DIRECTORY = data_file('nakari')
+
+@functools.lru_cache(None)
+def nakari_icon():
+    if not (weapon_slots_build() and 'hero_models' in BUILD and (HERO_ULTIMATES.get(19) == 4) and heavy_tools()):
+        return None
+    if not os.path.isfile(os.path.join(NAKARI_DIRECTORY, 'icone.py')):
+        return None
+    if NAKARI_DIRECTORY not in sys.path:
+        sys.path.insert(0, NAKARI_DIRECTORY)
+    import icone
+    return icone
+
+def nakari_icon_patches():
+    icone = nakari_icon()
+    if not icone:
+        return {}
+    atlases, ultimates = (asset_pack_path('ui_atlases_assets_all'), asset_pack_path('quantum_db_ultimates_assets_all'))
+    _, portraits = asset_pack_bundle('ui_portraits_assets_all')
+    if not (atlases and ultimates and portraits):
+        raise SystemExit('icone de Nakari : paquets introuvables')
+    return {atlases: lambda data: icone.patch_atlases(data, globals(), portraits), ultimates: lambda data: icone.patch_ultimates(data, globals())}
 
 def secondary_gadget_lists(characters):
     by_id = {c['uniqueID']['_value']: c for c in characters.values()}
@@ -3572,7 +4379,9 @@ def secondary_gadget_lists(characters):
 
 def patch_weapon_slots(data):
     code, uses, labels = assemble_source('armes_secondaires.s')
-    start = labels['_ws_start']
+    table = code[labels['_ws_hero_ultimates']:labels['_ws_hero_ultimates'] + 2 * len(HERO_ULTIMATES)]
+    if dict(zip(table[::2], table[1::2])) != HERO_ULTIMATES:
+        raise SystemExit("armes_secondaires.s et HERO_ULTIMATES ne sont plus d'accord")
     if WEAPON_SLOTS_CODE + len(code) > WEAPON_SLOTS_END:
         raise SystemExit('plus de place pour les armes secondaires')
     ids = struct.unpack('<12I', code[labels['_ws_gadget_ids']:labels['_ws_gadget_ids'] + 48])
@@ -3580,15 +4389,16 @@ def patch_weapon_slots(data):
     if list(zip(ids, owners)) != SECONDARY_GADGETS:
         raise SystemExit("armes_secondaires.s et SECONDARY_GADGETS ne sont plus d'accord")
     place_assembled(data, WEAPON_SLOTS_CODE, code, uses, WEAPON_SLOTS_TARGETS, None)
-    entry = {name: WEAPON_SLOTS_CODE + offset - start for name, offset in labels.items()}
-    for address, old, name, kind in WEAPON_SLOTS_HOOKS:
-        at(data, address, bytes.fromhex(old), (a64.bl if kind == 'bl' else a64.b)(address, entry[name]))
-    at(data, 67107516, bytes.fromhex('e103172a'), struct.pack('<I', 905969664 | (67108512 - 67107516 >> 2 & 16383) << 5))
+    entry = entries(WEAPON_SLOTS_CODE, labels, '_ws_start')
+    hook(data, WEAPON_SLOTS_HOOKS, entry)
+    at(data, 67107516, bytes.fromhex('e103172a'), w32(905969664 | (67108512 - 67107516 >> 2 & 16383) << 5))
     at(data, 67107520, bytes.fromhex('e20316aa'), a64.b(67107520, 67107576))
-    at(data, OPEN_WEAPON_INFO_POPUP, bytes(data[OPEN_WEAPON_INFO_POPUP:OPEN_WEAPON_INFO_POPUP + 4]), a64.b(OPEN_WEAPON_INFO_POPUP, entry['_ws_open_primary']))
+    place(data, OPEN_WEAPON_INFO_POPUP, a64.b(OPEN_WEAPON_INFO_POPUP, entry['_ws_open_primary']))
     for address, old in WEAPON_SLOTS_OPEN:
         at(data, address, bytes.fromhex(old), MOV_W0_1)
-    count = len(WEAPON_SLOTS_HOOKS) + len(WEAPON_SLOTS_OPEN) + 3
+    for address, old, new in GADGET_LEVEL_EDITS:
+        at(data, address, bytes.fromhex(old), bytes.fromhex(new))
+    count = len(WEAPON_SLOTS_HOOKS) + len(WEAPON_SLOTS_OPEN) + len(GADGET_LEVEL_EDITS) + 3
     print(f'armes principales et secondaires : {len(code)} octets, {count} retouches')
 EVENT_ICON_CODE = 72307776
 EVENT_META_CHECK = 67423364
@@ -3653,21 +4463,20 @@ def event_icon_code(at_address):
     return c.build()
 
 def patch_events_code(data):
-    icon = event_icon_code(EVENT_ICON_CODE)
-    at(data, EVENT_ICON_CODE, bytes(data[EVENT_ICON_CODE:EVENT_ICON_CODE + len(icon)]), icon)
-    tbz = struct.pack('<I', 905969664 | EVENT_META_FAIL - EVENT_META_CHECK >> 2 << 5)
+    place(data, EVENT_ICON_CODE, event_icon_code(EVENT_ICON_CODE))
+    tbz = w32(905969664 | EVENT_META_FAIL - EVENT_META_CHECK >> 2 << 5)
     at(data, EVENT_META_CHECK, tbz, a64.b(EVENT_META_CHECK, EVENT_ICON_CODE))
     code, entries = events_code(EVENTS_CODE)
     if EVENTS_CODE + len(code) > HERO_RETURN_CODE:
         raise SystemExit('plus de place pour le code des evenements')
-    at(data, EVENTS_CODE, bytes(data[EVENTS_CODE:EVENTS_CODE + len(code)]), code)
+    place(data, EVENTS_CODE, code)
     at(data, BIG_REWARD_POINTS, bytes.fromhex('e86740f9'), a64.bl(BIG_REWARD_POINTS, entries['big_reward_points']))
     at(data, ON_WIN_TOKENS, bytes.fromhex('e8c340b9'), a64.bl(ON_WIN_TOKENS, entries['on_win_tokens']))
     at(data, ON_WIN_TOKENS + 4, bytes.fromhex('0801090b'), a64.b(ON_WIN_TOKENS + 4, ON_WIN_TOKENS_END))
     at(data, STREAK_RESULT, bytes.fromhex('e80b40f9'), a64.bl(STREAK_RESULT, entries['streak_result']))
     at(data, STREAK_RESULT + 4, bytes.fromhex('080140b9'), a64.NOP)
     at(data, BATTLE_EVENT_CALL, a64.bl(BATTLE_EVENT_CALL, ACTIVE_EVENT_ID_OR_DEFAULT), a64.bl(BATTLE_EVENT_CALL, entries['battle_event']))
-    if os.environ.get('RR_JOURNAL'):
+    if JOURNAL:
         at(data, TOKEN_DROP_CHECK, bytes.fromhex('e0010036'), a64.bl(TOKEN_DROP_CHECK, entries['token_log']))
         at(data, BATTLE_MODIFIER_STORE, bytes.fromhex('804600f9'), a64.bl(BATTLE_MODIFIER_STORE, entries['battle_log']))
         at(data, RANDOM_SYSTEM_CHECK, bytes.fromhex('00010036'), a64.bl(RANDOM_SYSTEM_CHECK, entries['random_system_log']))
@@ -3677,24 +4486,18 @@ def patch_events_code(data):
         patch_collect_screen(data)
         patch_enemy_tokens(data)
         patch_podium_credits(data)
-OLD_110_XAPK = os.environ.get('RR_JEU_110', os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'ratchet-and-clank-ranger-rumble-1-1-0.xapk'))
+OLD_110_XAPK = os.environ.get('RR_JEU_110', data_file('..', '..', 'ratchet-and-clank-ranger-rumble-1-1-0.xapk'))
 COLLECT_SCREEN_FAMILIES = ('ui_atlases_', 'ui_bgs_', 'ui_animations_', 'fonts_', 'ui_materials_', 'fxmanager_', 'shared_textures_', 'default_common_group_', 'material_assets', 'ui_addressables_')
 MONOSCRIPTS_BUNDLE = 'assets/aa/Android/913fdc02988c9f04b9d53c5645e34846_monoscripts_b5e55861ec07d2dfb6815884c7e4041c.bundle'
 COLLECT_SCREEN_CODE = 72375620
 COLLECT_SCREEN_END = COLLECT_SCREEN_CODE + 2884
 COLLECT_SCREEN_TARGETS = {'ext_get_mm': 70368028, 'ext_get_updater_body': 70368092 + 4, 'ext_get_canvas_body': 70368176 + 4, 'ext_transition_body': 70368812 + 4, 'ext_init_metadata': 63400440, 'slot_v2_class': 152494672 + 16384, 'ext_string_new': 63431916, 'ext_get_component_by_name': 142935700, 'ext_get_transform': 142923708, 'ext_get_parent': 143014208, 'ext_find': 143030524, 'ext_get_gameobject': 142923916, 'ext_write_barrier': 63400356, 'ext_set_active': 142943076, 'ext_ctx_get': 79645172, 'slot_get_status': 152420880 + 16384, 'ext_ctx_set': 79652708, 'slot_set_status': 152420888 + 16384, 'ext_try_get_user_event': 75039796, 'ext_update_event': 75040200, 'ext_time_implicit': 127791080, 'ext_event_end_time': 64501204, 'ext_events_instance': 69478200, 'ext_try_get_user_event_sys': 69478580, 'ext_get_int': 142891136, 'ext_set_int': 142891048, 'ext_prefs_save': 142893956, 'ext_can_open_body': 75042084 + 4, 'slot_popup_instance': 152460456 + 16384, 'ext_singleton_instance': 103153532, 'ext_show_event_info': 67873744, 'ext_play_pressed_body': 67419032 + 4, 'slot_get_currencies': 152420104 + 16384, 'slot_set_currencies': 152420112 + 16384, 'ext_currencies_get': 79645460, 'ext_currencies_set': 79652888, 'ext_currencies_spend': 75015208}
-COLLECT_SCREEN_INFO_CLICK = (67419032, 'fe4fbfa9')
-COLLECT_SCREEN_POPUP = (75042084, 'fe0f1ff8')
-COLLECT_SCREEN_NEVER_OPENED = (75041912, '08c04039')
-COLLECT_SCREEN_EARN_TOKENS = (64504604, 'c0035fd6')
+COLLECT_SCREEN_HOOKS = [(70368092, 'fe4fbfa9', '_ec_get_updater', 'b'), (70368176, 'fe0f1ef8', '_ec_get_canvas', 'b'), (70368812, 'fe0f1ef8', '_ec_transition_finished', 'b'), (67417244, '156040b9', '_ec_refresh_event', 'bl'), (67419032, 'fe4fbfa9', '_ec_info_clicked', 'b'), (67406836, '60064da9', '_ec_info_text', 'bl'), (64504604, 'c0035fd6', '_ec_earn_tokens', 'b'), (75041912, '08c04039', '_ec_never_opened', 'b'), (75042084, 'fe0f1ff8', '_ec_can_open_popup', 'b')]
 COLLECT_SCREEN_END_TIME = 67417968
-COLLECT_SCREEN_HOOKS = [(70368092, 'fe4fbfa9', '_ec_get_updater'), (70368176, 'fe0f1ef8', '_ec_get_canvas'), (70368812, 'fe0f1ef8', '_ec_transition_finished')]
-COLLECT_SCREEN_EVENT_READ = (67417244, '156040b9')
-COLLECT_SCREEN_INFO_TEXT = (67406836, '60064da9')
 ZURKON_TEXTS = {'FR': {'UI.EVENT.ZURKON.TITLE': 'Campagne de fidélité de Mme Zurkon', 'UI.EVENT.ZURKON.DESC': "Mme Zurkon organise une campagne de fidélité pour ses clients. Récupérez les jetons de fidélité qu'elle a cachés dans la galaxie pour recevoir des prix exclusifs."}, 'EN': {'UI.EVENT.ZURKON.TITLE': 'Mrs. Zurkon Loyalty Campaign', 'UI.EVENT.ZURKON.DESC': 'Mrs. Zurkon is organising a loyalty campaign for her customers. Collect the loyalty tokens she has hidden in the galaxy to receive exclusive prizes.'}, 'DE': {'UI.EVENT.ZURKON.TITLE': 'Frau Zurkon Treuekampagne', 'UI.EVENT.ZURKON.DESC': 'Frau Zurkon organisiert eine Treueaktion für ihre Kunden. Sammle die Treuemarken, die sie in der Galaxie versteckt hat, und erhalte exklusive Preise.'}, 'ES': {'UI.EVENT.ZURKON.TITLE': 'Campaña de lealtad de la Sra. Zurkon', 'UI.EVENT.ZURKON.DESC': 'La Sra. Zurkon está organizando una campaña de fidelización para sus clientes. Reúne las fichas de fidelidad que ha escondido en la galaxia para ganar premios exclusivos.'}, 'IT': {'UI.EVENT.ZURKON.TITLE': 'Campagna fedeltà della signora Zurkon', 'UI.EVENT.ZURKON.DESC': 'La signora Zurkon sta organizzando una campagna fedeltà per i suoi clienti. Raccogli i gettoni fedeltà che ha nascosto nella galassia per ricevere premi esclusivi.'}, 'BR': {'UI.EVENT.ZURKON.TITLE': 'Campanha de fidelidade da Sra. Zurkon', 'UI.EVENT.ZURKON.DESC': 'A Sra. Zurkon está organizando uma campanha de fidelidade para seus clientes. Colete os tokens de fidelidade que ela escondeu na galáxia para receber prêmios exclusivos.'}}
 ZURKON_RULES = {'FR': "Du dimanche au mardi, Mme Zurkon cache ses jetons de fidélité dans les combats :\n- Casse des caisses : une chance sur deux d'y trouver un jeton.\n- Élimine des adversaires : eux aussi lâchent un jeton une fois sur deux.\n- Passe dessus pour le ramasser avant qu'il disparaisse.\nQuand tu as assez de jetons, appuie sur Récupérer : les récompenses se débloquent dans l'ordre.", 'EN': 'From Sunday to Tuesday, Mrs. Zurkon hides her loyalty tokens in battles:\n- Break crates: one chance in two to find a token.\n- Knock out opponents: they drop a token half of the time too.\n- Run over it to pick it up before it vanishes.\nWhen you have enough tokens, press Collect: the rewards unlock in order.'}
 RIVET_LEGENDARY_CODE = COLLECT_SCREEN_CODE + 2816
-RIVET_LEGENDARY_HOOKS = [(68081372, '9f920371', '_rv_rarity'), (67727076, '1f590071', '_rv_background')]
+RIVET_LEGENDARY_HOOKS = [(68081372, '9f920371', '_rv_rarity', 'bl'), (67727076, '1f590071', '_rv_background', 'bl')]
 
 def patch_rivet_legendary(data):
     code, uses, labels = assemble_source('rivet_legendaire.s')
@@ -3702,177 +4505,112 @@ def patch_rivet_legendary(data):
         raise SystemExit('code de Rivet legendaire inattendu')
     if collect_screen_build() and COLLECT_SCREEN_CODE + len(assemble_source('ecran_collecte.s')[0]) > RIVET_LEGENDARY_CODE:
         raise SystemExit("l'ecran de collecte deborde sur le code de Rivet")
-    at(data, RIVET_LEGENDARY_CODE, bytes(data[RIVET_LEGENDARY_CODE:RIVET_LEGENDARY_CODE + len(code)]), code)
-    start = labels['_rv_start']
-    for address, old, name in RIVET_LEGENDARY_HOOKS:
-        at(data, address, bytes.fromhex(old), a64.bl(address, RIVET_LEGENDARY_CODE + labels[name] - start))
+    place(data, RIVET_LEGENDARY_CODE, code)
+    hook(data, RIVET_LEGENDARY_HOOKS, entries(RIVET_LEGENDARY_CODE, labels, '_rv_start'))
     print('Rivet legendaire comme Ratchet')
 ENEMY_TOKENS_CODE = COLLECT_SCREEN_CODE + 1536
 ENEMY_TOKENS_ADDS = (130602840, 130603140)
 QLIST_ADD = 106550964
 ENEMY_TOKENS_NO_BOLT = (130602436, '40180037')
 ENEMY_TOKENS_REPLACED = (130603296, 'ebffff17')
-ENEMY_TOKENS_TARGETS = {'ext_qlist_add': QLIST_ADD, 'ext_try_get_pointer': 87003476, 'ext_alloc_list': 82442972, 'ext_list_ptr': 106555076, 'ext_set_specs': 130293508, 'ext_frame_add': 82420220, 'ext_setup_end': 130603212, 'slot_dropper_class': 152992432 + 16384, 'slot_alloc_list': 153023704 + 16384, 'slot_list_add': 152994096 + 16384, 'slot_list_ptr': 153002288 + 16384, 'slot_frame_add': 153023696 + 16384, 'ext_get_specs': 130293448, 'ext_resolve_list': 82491148, 'slot_resolve_list': 152994056 + 16384, 'ext_class_init': 63636616}
+ENEMY_TOKENS_TARGETS = {'ext_qlist_add': QLIST_ADD, 'ext_try_get_pointer': 87003476, 'ext_alloc_list': 82442972, 'ext_list_ptr': 106555076, 'ext_set_specs': 130293508, 'ext_frame_add': 82420220, 'ext_setup_end': 130603212, 'slot_dropper_class': 152992432 + 16384, 'slot_alloc_list': 153023704 + 16384, 'slot_list_add': 152994096 + 16384, 'slot_list_ptr': 153002288 + 16384, 'slot_frame_add': 153023696 + 16384, 'ext_get_specs': 130293448, 'ext_resolve_list': 82491148, 'slot_resolve_list': 152994056 + 16384, 'ext_init_rgctx': 63636616}
 PODIUM_CREDITS_CODE = 72365488
 PODIUM_CREDITS_END = 72365488 + 2248
 PODIUM_CREDITS_HOOK = (64480916, 'fd7bbaa9')
 PODIUM_CREDITS_TARGETS = {'ext_init_metadata': 63400440, 'slot_modify_pending': 152419288 + 16384, 'ext_ctx_modify': 79648976, 'ext_push_pending': 64542240, 'ext_impl_body': 64480916 + 4, 'ext_string_new': 63431916}
 
 def patch_podium_credits(data):
-    code, uses, labels = assemble_source('credits_podium.s')
+    code, uses, labels = assembled_code('credits_podium.s', journal=True)
     if PODIUM_CREDITS_CODE + len(code) > PODIUM_CREDITS_END:
         raise SystemExit('plus de place pour les credits du podium')
-    code = bytearray(code)
-    if os.environ.get('RR_JOURNAL'):
-        code[labels['journal']:labels['journal'] + 4] = struct.pack('<I', 1)
-        last = int(os.environ.get('RR_RANG_CREDITS', '3'))
-        code[labels['last_paid_rank']:labels['last_paid_rank'] + 4] = struct.pack('<I', last)
-        extra = int(os.environ.get('RR_KILLS_TEST', '0'))
-        code[labels['test_kills']:labels['test_kills'] + 4] = struct.pack('<I', extra)
+    if JOURNAL:
+        set_word(code, labels, 'last_paid_rank', int(os.environ.get('RR_RANG_CREDITS', '3')))
+        set_word(code, labels, 'test_kills', int(os.environ.get('RR_KILLS_TEST', '0')))
     if weapon_slots_build():
         _, _, slot_labels = assemble_source('armes_secondaires.s')
         plan_targets = WEAPON_SLOTS_CODE + slot_labels['_ws_plan_targets'] - slot_labels['_ws_start']
     else:
-        code[labels['plan_targets_on']:labels['plan_targets_on'] + 4] = struct.pack('<I', 0)
+        set_word(code, labels, 'plan_targets_on', 0)
         plan_targets = PODIUM_CREDITS_CODE
     targets = dict(PODIUM_CREDITS_TARGETS, ext_debug_log=DEBUG_LOG, ext_plan_targets=plan_targets)
-    place_assembled(data, PODIUM_CREDITS_CODE, bytes(code), uses, targets, None)
+    place_assembled(data, PODIUM_CREDITS_CODE, code, uses, targets, None)
     address, old = PODIUM_CREDITS_HOOK
     at(data, address, bytes.fromhex(old), a64.b(address, PODIUM_CREDITS_CODE + labels['_cp_battle_end'] - labels['_cp_start']))
     print(f'credits du podium : {len(code)} octets')
 
 def patch_enemy_tokens(data):
-    code, uses, labels = assemble_source('jetons_ennemis.s')
+    code, uses, labels = assembled_code('jetons_ennemis.s', journal=True)
     if ENEMY_TOKENS_CODE + len(code) > RIVET_LEGENDARY_CODE:
         raise SystemExit('plus de place pour les jetons des ennemis')
     if COLLECT_SCREEN_CODE + len(assemble_source('ecran_collecte.s')[0]) > ENEMY_TOKENS_CODE:
         raise SystemExit("l'ecran de collecte deborde sur les jetons des ennemis")
-    code = bytearray(code)
-    if os.environ.get('RR_JOURNAL'):
-        code[labels['journal']:labels['journal'] + 4] = struct.pack('<I', 1)
-    place_assembled(data, ENEMY_TOKENS_CODE, bytes(code), uses, dict(ENEMY_TOKENS_TARGETS, ext_string_new=63431916, ext_debug_log=DEBUG_LOG), None)
-    entry = ENEMY_TOKENS_CODE + labels['_tk_add'] - labels['_tk_start']
+    place_assembled(data, ENEMY_TOKENS_CODE, code, uses, dict(ENEMY_TOKENS_TARGETS, ext_string_new=63431916, ext_debug_log=DEBUG_LOG), None)
+    entry = entries(ENEMY_TOKENS_CODE, labels, '_tk_start')
     for address in ENEMY_TOKENS_ADDS:
-        at(data, address, a64.bl(address, QLIST_ADD), a64.bl(address, entry))
+        at(data, address, a64.bl(address, QLIST_ADD), a64.bl(address, entry['_tk_add']))
     address, old = ENEMY_TOKENS_NO_BOLT
-    at(data, address, bytes.fromhex(old), a64.bl(address, ENEMY_TOKENS_CODE + labels['_tk_no_bolt'] - labels['_tk_start']))
+    at(data, address, bytes.fromhex(old), a64.bl(address, entry['_tk_no_bolt']))
     address, old = ENEMY_TOKENS_REPLACED
-    at(data, address, bytes.fromhex(old), a64.b(address, ENEMY_TOKENS_CODE + labels['_tk_replaced'] - labels['_tk_start']))
+    at(data, address, bytes.fromhex(old), a64.b(address, entry['_tk_replaced']))
     print('jetons de Mme Zurkon aussi sur les heros elimines')
 
 def collect_screen_build():
-    return EVENTS and BUILD is BUILDS['1.10.4'] and os.path.isfile(OLD_110_XAPK)
+    return EVENTS and VERSION == '1.10.4' and os.path.isfile(OLD_110_XAPK)
 
 def patch_collect_screen(data):
-    code, uses, labels = assemble_source('ecran_collecte.s')
+    code, uses, labels = assembled_code('ecran_collecte.s', journal=True)
     if COLLECT_SCREEN_CODE + len(code) > COLLECT_SCREEN_END:
         raise SystemExit("plus de place pour l'ecran de collecte")
-    code = bytearray(code)
-    if os.environ.get('RR_JOURNAL'):
-        code[labels['journal']:labels['journal'] + 4] = struct.pack('<I', 1)
-    place_assembled(data, COLLECT_SCREEN_CODE, bytes(code), uses, dict(COLLECT_SCREEN_TARGETS, ext_debug_log=DEBUG_LOG), None)
-    start = labels['_ec_start']
-    for address, old, name in COLLECT_SCREEN_HOOKS:
-        at(data, address, bytes.fromhex(old), a64.b(address, COLLECT_SCREEN_CODE + labels[name] - start))
-    address, old = COLLECT_SCREEN_EVENT_READ
-    at(data, address, bytes.fromhex(old), a64.bl(address, COLLECT_SCREEN_CODE + labels['_ec_refresh_event'] - start))
-    address, old = COLLECT_SCREEN_INFO_CLICK
-    at(data, address, bytes.fromhex(old), a64.b(address, COLLECT_SCREEN_CODE + labels['_ec_info_clicked'] - start))
-    address, old = COLLECT_SCREEN_INFO_TEXT
-    at(data, address, bytes.fromhex(old), a64.bl(address, COLLECT_SCREEN_CODE + labels['_ec_info_text'] - start))
-    address, old = COLLECT_SCREEN_EARN_TOKENS
-    at(data, address, bytes.fromhex(old), a64.b(address, COLLECT_SCREEN_CODE + labels['_ec_earn_tokens'] - start))
-    address, old = COLLECT_SCREEN_NEVER_OPENED
-    at(data, address, bytes.fromhex(old), a64.b(address, COLLECT_SCREEN_CODE + labels['_ec_never_opened'] - start))
-    address, old = COLLECT_SCREEN_POPUP
-    at(data, address, bytes.fromhex(old), a64.b(address, COLLECT_SCREEN_CODE + labels['_ec_can_open_popup'] - start))
+    place_assembled(data, COLLECT_SCREEN_CODE, code, uses, dict(COLLECT_SCREEN_TARGETS, ext_debug_log=DEBUG_LOG), None)
+    entry = entries(COLLECT_SCREEN_CODE, labels, '_ec_start')
+    hook(data, COLLECT_SCREEN_HOOKS, entry)
     address = COLLECT_SCREEN_END_TIME
-    at(data, address, a64.bl(address, COLLECT_SCREEN_TARGETS['ext_time_implicit']), a64.bl(address, COLLECT_SCREEN_CODE + labels['_ec_end_time'] - start))
+    at(data, address, a64.bl(address, COLLECT_SCREEN_TARGETS['ext_time_implicit']), a64.bl(address, entry['_ec_end_time']))
     print(f'ecran de collecte : {len(code)} octets')
-_COLLECT_GRAFT = []
 
+@functools.lru_cache(None)
 def collect_graft():
-    if not _COLLECT_GRAFT:
-        import greffe_evenement
-        old_pack = zipfile.ZipFile(io.BytesIO(zipfile.ZipFile(OLD_110_XAPK).read('UnityDataAssetPack.apk')))
-        new_pack = zipfile.ZipFile(os.path.join(xapk, 'UnityDataAssetPack.apk'))
+    import greffe_evenement
+    old_pack = zipfile.ZipFile(io.BytesIO(zipfile.ZipFile(OLD_110_XAPK).read('UnityDataAssetPack.apk')))
+    new_pack = asset_pack()
 
-        def bundles(pack, *prefixes):
-            names = [n for n in pack.namelist() if n.startswith('assets/aa/Android/')]
-            return {p: [pack.read(n) for n in names if n.split('/')[-1].startswith(p)] for p in prefixes}
-        old = bundles(old_pack, 'scene_mainmenu_landscape_', '69b923348c4df9ad548573d6b86b9c62_monoscripts_', *COLLECT_SCREEN_FAMILIES)
-        new = bundles(new_pack, *COLLECT_SCREEN_FAMILIES)
-        graft = greffe_evenement.Graft(old['scene_mainmenu_landscape_'][0], old['69b923348c4df9ad548573d6b86b9c62_monoscripts_'][0], [b for p in COLLECT_SCREEN_FAMILIES for b in old[p]], [b for p in COLLECT_SCREEN_FAMILIES for b in new[p]], new_pack.read(MONOSCRIPTS_BUNDLE))
-        graft.closure()
-        _COLLECT_GRAFT.append(graft)
-    return _COLLECT_GRAFT[0]
+    def bundles(pack, *prefixes):
+        names = [n for n in pack.namelist() if n.startswith('assets/aa/Android/')]
+        return {p: [pack.read(n) for n in names if n.split('/')[-1].startswith(p)] for p in prefixes}
+    old = bundles(old_pack, 'scene_mainmenu_landscape_', '69b923348c4df9ad548573d6b86b9c62_monoscripts_', *COLLECT_SCREEN_FAMILIES)
+    new = bundles(new_pack, *COLLECT_SCREEN_FAMILIES)
+    graft = greffe_evenement.Graft(old['scene_mainmenu_landscape_'][0], old['69b923348c4df9ad548573d6b86b9c62_monoscripts_'][0], [b for p in COLLECT_SCREEN_FAMILIES for b in old[p]], [b for p in COLLECT_SCREEN_FAMILIES for b in new[p]], new_pack.read(MONOSCRIPTS_BUNDLE))
+    graft.closure()
+    return graft
 
 def patch_monoscripts(data):
     stream = bundle_stream(bytes(data))
     new = collect_graft().patch_monoscripts(stream)
     replace_bundle_stream(data, new)
-FLAIL_SPIN_CODE = bytes.fromhex('ff0304d1e08708a9e28f09a9f3d30aa9f5db0ba9f7e30ca9f9eb0da9fdfb0ea9f30300aa230d00b4680c40f9e90f00581f0109eba10c0054570440f9770c00b4380840f9340040f9f80a00b400c30091e1031faa00000094600a0036f83640f964000094000a0035e82240b91f010071ad090054e00313aae10314aae2031faa0000009400090037691e40b9e80240b968000035e90200b9e803092a3901084b680240f9092541f9012941f9e00313aa20013fd6fa0300aa2a7f4093557d1a9bf82e40f94b000094e0010034681e40b9e81200b9ff2600b9ab021acbacfe50936bfd50939f010beb00070054e82240b908050051e82200b91f0100716c06005429000014a9090058bf0209ebeb050054e00313aae10314aae2031faa00000094e703002a2900a0d2ff7f01a9ff7f02a9ff7f03a9ffa703a9ff7f00a9e00313aa81070058e2430091e3a30091e40314aae5031faae6031faa00000094e02e00f9f90300aa00000090000040f9000000942900a0d2f4ff04a9e9ff05a9ffff06a9ffff07a903000090630040f9630040f9e00313aae10319aae2230191000000940a000014ff0200b9f82e40f9ff2e00f910000094a0000034e00313aae10318aae2031faa00000094e08748a9e28f49a9f3d34aa9f5db4ba9f7e34ca9f9eb4da9fdfb4ea9ff030491ffc301d100000014e0031f2a682e40b91f01186b29010054681e40f9e80000b4097f60d30871898b080540b909ff60d31f01096be0179f1ac0035fd61f2003d5151c102396a8c1355dba30b004960d1c6626000000000000')
-FLAIL_SPIN_CALLS = {84: 130965704, 128: 129714756, 284: 130417996, 344: 129888084, 364: 63400440, 412: 82550228, 452: 131170080}
-FLAIL_SPIN_BACK = 492
-FLAIL_SPIN_SLOT = ((356, 0), (388, 3))
-SLOT_SET_HIERARCHY = 153019016
-FLAIL_VIEW_CODE = bytes.fromhex('ff0303d1e00705a9f35306a9f55b07a9f76308a9f96b09a9fd7b0aa9e8270b6df30300aa681240f9491c00581f0109eb01190054e00313aae1031faa00000094801800b4f40300aa001c001000000094e10300aae00314aae2031faa00000094801700b4e1031faa00000094201700b4f50300aa801b007000000094e10300aae00315aae2031faa00000094201600b4f50300aa001b001000000094e10300aae00314aae2031faa00000094f60300aa001c007000000094e10300aae00314aae2031faa00000094400000b5e00314aae1031faa00000094e007022de21b00bde0031faa00000094c00d00b4001c40f9800d00b4170c40f9570d00b400000090000040f9400000360000009408000090080140f9180140f9081f40f9680000b5e00318aa00000094081f40f9030540f9e05240f9600b00b4611640f9ff1b00f9e2c3009100000094c00a0036f91b40f9990a00b4383740f988000094c0010034e00318aae1031faa00000094a00900b4e1031faa00000094400900b4e1031faa00000094e007042de22b00bd1a00805224000014382f40f97800009420080034e00318aae1031faa00000094a00700b4e1031faa00000094400700b4e1031faa00000094e007042de22b00bde0031faa00000094210f001c0808211e0041201ee0031faa000000940940201e0041201ee0031faa00000094220e001c0008221e2909221ee313442d6328291ee52b40bda528201ee313042de52b00bd5a008052e00315aae1031faa00000094800100b4f90300aa6011003000000094e10300aae00319aae003271ec10b001cc20b001ce303271ee2031faa00000094e00315aa41008052e2031faa00000094e007422de21b40bde00315aa01008052e2031faa00000094e007442de22b40bde00315aa21008052e2031faa0000009406000014e00315aa01008052e2031faa000000943a008052f60400b4e00316aae1031faa00000094600400b45f030071e1079f1ae2031faa000000945f0b007101020054e003271ee103271ee203271e03102e1ee00316aae1031faa00000094e007442de22b40bd03102d1e2138231ee00316aae1031faa000000940e000014e003271ee103271ee203271ee00316aae1031faa00000094e003271ee103271ee203271e03102e1ee00316aae1031faa00000094e8274b6dfd7b4aa9f96b49a9f76348a9f55b47a9f35346a9e00745a9ff0303910828443900000014e0031f2ae82e40b91f01186b29010054e81e40f9e80000b4097f60d30871898b080540b909ff60d31f01096be0179f1ac0035fd61f2003d546b20890bafdc103abf4b4c1000040401888a73ff30435405046425f46585f57504e5f53636f7270696f6e466c61696c5f547261696c004c696e6552656e646572657200515f576561706f6e56697375616c5f53636f7270696f6e466c61696c2f53636f7270696f6e5f466c61696c2f53636f7270696f6e466c61696c5f42616c6c00515f576561706f6e56697375616c5f53636f7270696f6e466c61696c2f50726f6a656374696c654f726967696e005f436f6c6f724d756c74001f2003d5')
-FLAIL_VIEW_USES = [(60, 'ext_get_transform'), (76, 'ext_string_new'), (92, 'ext_find'), (104, 'ext_get_gameobject'), (120, 'ext_string_new'), (136, 'ext_get_component_by_name'), (152, 'ext_string_new'), (168, 'ext_find'), (180, 'ext_string_new'), (196, 'ext_find'), (212, 'ext_get_position'), (228, 'ext_observed_game'), (252, 'slot'), (264, 'ext_init_metadata'), (268, 'slot'), (292, 'ext_init_rgctx'), (324, 'ext_try_get_pointer'), (360, 'ext_get_entity_view'), (372, 'ext_get_transform'), (384, 'ext_get_position'), (424, 'ext_get_entity_view'), (436, 'ext_get_transform'), (448, 'ext_get_position'), (464, 'ext_time'), (484, 'ext_cos'), (500, 'ext_sin'), (552, 'ext_get_material'), (568, 'ext_string_new'), (600, 'ext_set_color'), (616, 'ext_set_position_count'), (640, 'ext_line_set_position'), (664, 'ext_line_set_position'), (684, 'ext_set_position_count'), (704, 'ext_get_gameobject'), (724, 'ext_set_active'), (760, 'ext_set_rotation'), (788, 'ext_set_position'), (816, 'ext_set_local_position'), (844, 'ext_set_local_rotation'), (884, 'ext_back')]
 FLAIL_VIEW_TARGETS = {'ext_get_transform': 142923708, 'ext_string_new': 63431916, 'ext_find': 143030524, 'ext_get_gameobject': 142923916, 'ext_get_component_by_name': 142935700, 'ext_get_position': 143014424, 'ext_observed_game': 66468604, 'ext_init_metadata': 63400440, 'ext_init_rgctx': 63636616, 'ext_try_get_pointer': 87024380, 'slot': 153002032, 'ext_get_entity_view': 66468228, 'ext_time': 142998892, 'ext_cos': 142867152, 'ext_sin': 142867052, 'ext_set_position_count': 142549188, 'ext_line_set_position': 142552548, 'ext_set_active': 142943076, 'ext_set_rotation': 143015944, 'ext_set_position': 143014636, 'ext_set_local_position': 143009856, 'ext_set_local_rotation': 143016380, 'ext_get_material': 142570704, 'ext_set_color': 142635424}
-
-def place_assembled(data, at_address, code, uses, targets, back):
-    code = bytearray(code)
-    for offset, name in uses:
-        if name.startswith('slot'):
-            c = Code(at_address + offset)
-            adrp_ldr(c, struct.unpack('<I', code[offset + 4:offset + 8])[0] & 31, targets[name])
-            code[offset:offset + 8] = c.build()
-            continue
-        target = back if name.endswith('_back') else targets[name]
-        word = struct.unpack('<I', code[offset:offset + 4])[0]
-        code[offset:offset + 4] = (a64.bl if word >> 26 == 37 else a64.b)(at_address + offset, target)
-    at(data, at_address, bytes(data[at_address:at_address + len(code)]), bytes(code))
 FLAIL_ENHANCEMENTS_CODE = 72330704 + 4864
 FLAIL_ENHANCEMENTS_END = 72330704 + 5660
-FLAIL_ENHANCEMENTS_TARGETS = {'ext_init_metadata': 63400440, 'ext_class_init': 63636616, 'ext_try_get_pointer': 86994632, 'slot_loadout': 153006760, 'slot_aoe': 153007576, 'slot_pusher': 153007680}
+FLAIL_ENHANCEMENTS_TARGETS = {'ext_init_metadata': 63400440, 'ext_init_rgctx': 63636616, 'ext_try_get_pointer': 86994632, 'slot_loadout': 153006760, 'slot_aoe': 153007576, 'slot_pusher': 153007680}
+FLAIL_SPIN_TARGETS = {'ext0_button_is_down': 130965704, 'ext1_is_dead': 129714756, 'ext2_team_id': 130417996, 'ext3_create_dynamic': 129888084, 'ext4_init_metadata': 63400440, 'ext5_set_hierarchy': 82550228, 'ext6_destroy': 131170080, 'ext8_enhancements': FLAIL_ENHANCEMENTS_CODE, 'slot': 153019016}
 
 def patch_flail_spin(data):
     hook, cave = BUILD['flail_spin']
-    if 'flail_enhancements' in BUILD:
-        code, uses, labels = assemble_source('fleau_ameliorations.s')
-        if FLAIL_ENHANCEMENTS_CODE + len(code) > FLAIL_ENHANCEMENTS_END:
-            raise SystemExit('plus de place pour les ameliorations du fleau')
-        code = bytearray(code)
-        code[labels['mega_gain']:labels['mega_gain'] + 8] = fp(FLAIL_MEGASPIN_RADIUS / FLAIL_SPIN_RANGE)
-        code[labels['torque_pusher']:labels['torque_pusher'] + 8] = struct.pack('<q', BUILD['flail_enhancements']['torque_pusher'][3])
-        if os.environ.get('RR_JOURNAL'):
-            code[labels['journal']:labels['journal'] + 4] = struct.pack('<I', 1)
-        place_assembled(data, FLAIL_ENHANCEMENTS_CODE, bytes(code), uses, dict(FLAIL_ENHANCEMENTS_TARGETS, ext_string_new=BUILD['string_new'], ext_debug_log=DEBUG_LOG), None)
-        code, uses, labels = assemble_source('fleau_toupie.s')
-        if cave + len(code) > BUILD['flail_view'][1]:
-            raise SystemExit('plus de place pour le tourbillon du fleau')
-        targets = {'ext%d_%s' % (i, name): address for i, (name, address) in enumerate((('button_is_down', 130965704), ('is_dead', 129714756), ('team_id', 130417996), ('create_dynamic', 129888084), ('init_metadata', 63400440), ('set_hierarchy', 82550228), ('destroy', 131170080)))}
-        targets.update(ext8_enhancements=FLAIL_ENHANCEMENTS_CODE, slot=SLOT_SET_HIERARCHY)
-        place_assembled(data, cave, code, uses, targets, hook + 4)
-    else:
-        code = bytearray(FLAIL_SPIN_CODE)
-        for offset, target in FLAIL_SPIN_CALLS.items():
-            code[offset:offset + 4] = a64.bl(cave + offset, target)
-        code[FLAIL_SPIN_BACK:FLAIL_SPIN_BACK + 4] = a64.b(cave + FLAIL_SPIN_BACK, hook + 4)
-        for offset, register in FLAIL_SPIN_SLOT:
-            c = Code(cave + offset)
-            adrp_ldr(c, register, SLOT_SET_HIERARCHY)
-            code[offset:offset + 8] = c.build()
-        at(data, cave, bytes(data[cave:cave + len(code)]), bytes(code))
+    code, uses, labels = assembled_code('fleau_ameliorations.s', journal=True)
+    if FLAIL_ENHANCEMENTS_CODE + len(code) > FLAIL_ENHANCEMENTS_END:
+        raise SystemExit('plus de place pour les ameliorations du fleau')
+    code[labels['mega_gain']:labels['mega_gain'] + 8] = fp(FLAIL_MEGASPIN_RADIUS / FLAIL_SPIN_RANGE)
+    code[labels['torque_pusher']:labels['torque_pusher'] + 8] = struct.pack('<q', BUILD['flail_enhancements']['torque_pusher'][3])
+    place_assembled(data, FLAIL_ENHANCEMENTS_CODE, code, uses, dict(FLAIL_ENHANCEMENTS_TARGETS, ext_string_new=BUILD['string_new'], ext_debug_log=DEBUG_LOG), None)
+    code, uses, _ = assemble_source('fleau_toupie.s')
+    if cave + len(code) > BUILD['flail_view'][1]:
+        raise SystemExit('plus de place pour le tourbillon du fleau')
+    place_assembled(data, cave, code, uses, FLAIL_SPIN_TARGETS, hook + 4)
     at(data, hook, bytes.fromhex('ffc301d1'), a64.b(hook, cave))
     view_hook, view_cave = BUILD['flail_view']
-    if 'flail_enhancements' in BUILD:
-        code, uses, _ = assemble_source('fleau_vue.s')
-        if view_cave + len(code) > BUILD['flail_auto'][2]:
-            raise SystemExit('plus de place pour la vue du fleau')
-        place_assembled(data, view_cave, code, uses, dict(FLAIL_VIEW_TARGETS, slot_aoe=FLAIL_ENHANCEMENTS_TARGETS['slot_aoe']), view_hook + 4)
-    else:
-        place_assembled(data, view_cave, FLAIL_VIEW_CODE, FLAIL_VIEW_USES, FLAIL_VIEW_TARGETS, view_hook + 4)
+    code, uses, _ = assemble_source('fleau_vue.s')
+    if view_cave + len(code) > BUILD['flail_auto'][2]:
+        raise SystemExit('plus de place pour la vue du fleau')
+    place_assembled(data, view_cave, code, uses, dict(FLAIL_VIEW_TARGETS, slot_aoe=FLAIL_ENHANCEMENTS_TARGETS['slot_aoe']), view_hook + 4)
     at(data, view_hook, bytes.fromhex('08284439'), a64.b(view_hook, view_cave))
 
 def try_fix_code(at_address, back, skip):
@@ -3887,8 +4625,7 @@ def try_fix_code(at_address, back, skip):
 
 def patch_try_fix(data):
     hook, skip, cave = BUILD['try_fix']
-    code = try_fix_code(cave, hook + 4, skip)
-    at(data, cave, bytes(data[cave:cave + len(code)]), code)
+    place(data, cave, try_fix_code(cave, hook + 4, skip))
     at(data, hook, bytes.fromhex('e80240f9'), a64.b(hook, cave))
 FLAIL_BLUEPRINT_SCALE = 0.85
 IMAGE_SET_SPRITE = 144176752
@@ -3945,8 +4682,7 @@ def flail_blueprint_code(at_address):
     c.label('done')
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 48))
     c.emit(a64.RET)
-    while len(c.code) % 8:
-        c.emit(a64.NOP)
+    c.align()
     c.label('guid')
     c.emit(struct.pack('<q', FLAIL_SPEC_GUID))
     c.label('shrink_k')
@@ -3957,8 +4693,7 @@ def flail_blueprint_code(at_address):
 
 def patch_flail_blueprint(data):
     hook, cave = BUILD['flail_blueprint']
-    code = flail_blueprint_code(cave)
-    at(data, cave, bytes(data[cave:cave + len(code)]), code)
+    place(data, cave, flail_blueprint_code(cave))
     at(data, hook, a64.bl(hook, IMAGE_SET_SPRITE), a64.bl(hook, cave))
 
 def patch_flail_auto(data):
@@ -3966,7 +4701,7 @@ def patch_flail_auto(data):
     code, entries = flail_auto_code(cave, delta_time, component)
     if cave + len(code) > cave_end:
         raise SystemExit('plus de place pour le tir automatique du fleau')
-    at(data, cave, bytes(data[cave:cave + len(code)]), code)
+    place(data, cave, code)
     if widget:
         at(data, widget, bytes.fromhex('08bd4639'), a64.bl(widget, entries['widget']))
     at(data, fetch, bytes.fromhex('e8b79f1a'), a64.bl(fetch, entries['input']))
@@ -3975,7 +4710,7 @@ FLAIL_SPEC_GUID = 3873562517302156309
 
 def flail_auto_code(at_address, delta_time, component):
     c = Code(at_address)
-    journal = bool(os.environ.get('RR_JOURNAL')) and os.environ.get('RR_VERSION') != '1.10.3'
+    journal = JOURNAL and VERSION != '1.10.3'
     c.label('widget')
     c.emit(a64.ldr_x(9, 8, 24))
     c.jump('ldrlit', 'guid', 10)
@@ -4015,10 +4750,7 @@ def flail_auto_code(at_address, delta_time, component):
     c.emit(w32(3170987616))
     if journal:
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
-        c.jump('adr', 'log_tap', 0)
-        c.call(BUILD['string_new'])
-        c.emit(a64.mov_x_zero(1))
-        c.call(DEBUG_LOG)
+        c.log('log_tap')
         c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
     c.emit(a64.movz_w(8, 0))
     c.label('manual')
@@ -4026,8 +4758,7 @@ def flail_auto_code(at_address, delta_time, component):
     c.emit(w32(705233160))
     c.label('out')
     c.emit(a64.RET)
-    while len(c.code) % 8:
-        c.emit(a64.NOP)
+    c.align()
     c.label('guid')
     c.emit(struct.pack('<q', FLAIL_SPEC_GUID))
     c.label('press')
@@ -4046,7 +4777,7 @@ def patch_flail(data):
         code += a64.bl(cave + len(code), add)
         code += bytes.fromhex('880240f9')
         code += a64.b(cave + len(code), hook + 4)
-        at(data, cave, bytes(data[cave:cave + len(code)]), code)
+        place(data, cave, code)
         at(data, hook, bytes.fromhex('880240f9'), a64.b(hook, cave))
         cave += len(code)
     if cave > BUILD['disable_feature'] + 192:
@@ -4061,9 +4792,6 @@ FLAIL_FIRE_RATE = 2.5
 FLAIL_PROJECTILE_SPEED = 45.0
 FLAIL_HOMING = 30.0
 FLAIL_WIND_UP = 0.08
-
-def fp(value):
-    return struct.pack('<q', round(value * 65536))
 
 def flail_tuning(data):
     stream = bundle_stream(bytes(data))
@@ -4112,7 +4840,7 @@ def flail_enhancement_spec(texts):
         position = end + 8
         modifiers, = struct.unpack_from('<I', old, position)
         position += 4 + modifiers * 16
-        apply_to, weapon, slot, inner = struct.unpack_from('<4I', old, position)
+        apply_to, _, slot, inner = struct.unpack_from('<4I', old, position)
         if apply_to != 0 or slot != 0 or len(old) != position + 16 + inner * 8 or ('/Enhancements/' not in path):
             raise SystemExit('amelioration reprise inattendue')
         return head + raw_text(name_key) + struct.pack('<iq', FLAIL_ENHANCEMENT_ICON_FILE, icon) + raw_text(description_key) + identifier + struct.pack('<5I', 0, 0, 9, 0, 0)
@@ -4146,7 +4874,7 @@ def flail_enhancement_objects(stream):
     data_offset = struct.unpack_from('>Q', stream, 32)[0]
     if struct.unpack_from('<i', stream, table - 4)[0] != count:
         raise SystemExit('table des armes inattendue')
-    spin_id, spin_start, spin_size = enh['spin_pusher']
+    _, spin_start, spin_size = enh['spin_pusher']
     spin = bytes(stream[data_offset + spin_start:data_offset + spin_start + spin_size])
     pusher_type, pusher_script = enh['pusher_type']
     if spin[16:28] != struct.pack('<iq', 1, pusher_script):
@@ -4165,13 +4893,106 @@ def flail_enhancement_objects(stream):
     def torque_pusher(old):
         return spin[:16] + struct.pack('<iq', 1, pusher_script) + flail_torque_pusher(spin, pusher_guid)(old)[28:]
     return grow_objects(stream, table, count, {spec_id: (spec_start, spec_size, upgrades_list), mega_id: (mega_start, mega_size, flail_enhancement_spec(FLAIL_MEGASPIN)), torque_id: (torque_start, torque_size, flail_enhancement_spec(FLAIL_TORQUE)), pusher_id: (pusher_start, pusher_size, torque_pusher)}, shrink=True, types={pusher_id: pusher_type})
+WEAPON_BALANCE = data_file('equilibrage_armes.json')
+
+def weapon_balance_edits(data):
+    if not heavy_tools() or not os.path.isfile(WEAPON_BALANCE):
+        return []
+    import UnityPy
+    with open(WEAPON_BALANCE, encoding='utf-8') as handle:
+        plan = json.load(handle)
+    stream = bundle_stream(bytes(data))
+    env = UnityPy.load(bytes(data))
+    wanted = set(plan['degats']) | set(plan['puissance']) | set(plan['puissance_gadget'])
+    edits, done = ([], [])
+
+    def raw_fp(value):
+        return round(value * 65536)
+
+    def table(values):
+        return struct.pack('<i', len(values)) + b''.join((struct.pack('<q', v) for v in values))
+    for obj in env.objects:
+        if obj.type.name != 'MonoBehaviour':
+            continue
+        name = obj.peek_name()
+        if name not in wanted:
+            continue
+        settings = obj.read_typetree()['Settings']
+        raw = bytes(obj.get_raw_data())
+        base = obj.byte_start
+        if stream[base:base + len(raw)] != raw:
+            base = stream.find(raw)
+            if base < 0 or stream.find(raw, base + 1) >= 0:
+                raise SystemExit(f'equilibrage : {name} introuvable dans le paquet')
+        if name in plan['degats']:
+            target = plan['degats'][name]
+            old = [v['RawValue'] for v in settings['AmountPerLevel']]
+            if len(old) != 10:
+                raise SystemExit(f'equilibrage : {name} a {len(old)} niveaux')
+            at_table = raw.find(table(old))
+            edits.append((base + at_table + 4, table(old)[4:], table([raw_fp(v) for v in target['valeurs']])[4:]))
+            if settings['Mode'] != target['mode']:
+                mode = struct.pack('<q', settings['BaseUnscaledAmount']['RawValue']) + struct.pack('<i', settings['Mode'])
+                at_mode = raw.find(mode)
+                if at_mode < 0:
+                    raise SystemExit(f'equilibrage : mode de {name} introuvable')
+                edits.append((base + at_mode + 8, struct.pack('<i', settings['Mode']), struct.pack('<i', target['mode'])))
+        for kind, prop in (('puissance', 9), ('puissance_gadget', 2)):
+            if name not in plan[kind]:
+                continue
+            for modifier in settings.get('levelUpModifiers', []):
+                if modifier['prop'] != prop:
+                    continue
+                old = [v['RawValue'] for v in modifier['values']]
+                head = struct.pack('<iii', modifier['prop'], modifier['operation'], len(old))
+                at_values = raw.find(head + table(old)[4:])
+                if at_values < 0 or len(old) != 10:
+                    raise SystemExit(f'equilibrage : puissance de {name} introuvable')
+                edits.append((base + at_values + 12, table(old)[4:], table([raw_fp(v) for v in plan[kind][name]])[4:]))
+        done.append(name)
+    if done:
+        print(f"equilibrage des armes : {len(done)} fiches ({', '.join(sorted(done)[:3])}...)")
+    return edits
+GADGET_AMMUNITION = {'Q_DrillDash_MeleeWeapon_WeaponSpec': 245539642024836795, 'Q_LittleSpin_MeleeWeapon': 4229535951622918670}
+
+def gadget_lines(data):
+    if not heavy_tools() or not os.path.isfile(WEAPON_BALANCE):
+        return
+    import UnityPy
+    with open(WEAPON_BALANCE, encoding='utf-8') as handle:
+        added = json.load(handle).get('puissance_ajout', {})
+    env = UnityPy.load(bytes(data))
+    done = []
+    for obj in env.objects:
+        if obj.type.name != 'MonoBehaviour':
+            continue
+        name = obj.peek_name()
+        if name not in added and name not in GADGET_AMMUNITION:
+            continue
+        tree = obj.read_typetree()
+        settings = tree['Settings']
+        if name in added and (not any((m['prop'] == 9 for m in settings['levelUpModifiers']))):
+            settings['levelUpModifiers'].append({'prop': 9, 'operation': 0, 'values': [{'RawValue': round(v * 65536)} for v in added[name]]})
+        if name in GADGET_AMMUNITION:
+            settings['AmmunitionAsset']['Id']['Value'] = GADGET_AMMUNITION[name]
+        obj.save_typetree(tree)
+        done.append(name)
+    if done:
+        data[:] = env.file.save(packer='lz4')
+        print(f"gadgets : puissance et degats dans l'Arsenal ({', '.join(sorted(done))})")
+
+def patch_weapon_balance(data):
+    edits = weapon_balance_edits(data)
+    if edits:
+        patch_bundle(data, edits)
 
 def patch_flail_spec(data):
     colored, model, small = BUILD['flail_sprites']
     empty = bytes(12)
-    edits = flail_tuning(data) + [(BUILD['flail_spec'][1], struct.pack('<i', 2), struct.pack('<i', 0)), (colored, empty, FLAIL_CARD_SPRITE), (model, empty, FLAIL_CARD_SPRITE), (small, empty, FLAIL_SMALL_SPRITE), (BUILD['flail_reload'], struct.pack('<i', 0), struct.pack('<i', 1)), (BUILD['flail_ammo'], struct.pack('<II', 12, 4), struct.pack('<II', FLAIL_MAX_AMMO, FLAIL_AMMO_PER_THROW)), (BUILD['flail_fire_button'], struct.pack('<i', 0), struct.pack('<i', 1)), *([] if 'flail_auto' in BUILD else [(BUILD['flail_autoshoot'], struct.pack('<i', 1), struct.pack('<i', 0))]), *flail_spin_aoe_edits(), *([(BUILD['flail_fire_rate'], struct.pack('<q', 93623), fp(FLAIL_FIRE_RATE))] if 'flail_fire_rate' in BUILD else []), *([(BUILD['flail_projectile_speed'], fp(20.0), fp(FLAIL_PROJECTILE_SPEED))] if 'flail_projectile_speed' in BUILD else []), *([(BUILD['flail_homing'], fp(10.0), fp(FLAIL_HOMING))] if 'flail_homing' in BUILD else []), *([(BUILD['flail_anticipation'], fp(0.25), fp(FLAIL_WIND_UP))] if 'flail_anticipation' in BUILD else [])]
+    edits = flail_tuning(data) + weapon_balance_edits(data) + [(BUILD['flail_spec'][1], struct.pack('<i', 2), struct.pack('<i', 0)), (colored, empty, FLAIL_CARD_SPRITE), (model, empty, FLAIL_CARD_SPRITE), (small, empty, FLAIL_SMALL_SPRITE), (BUILD['flail_reload'], struct.pack('<i', 0), struct.pack('<i', 1)), (BUILD['flail_ammo'], struct.pack('<II', 12, 4), struct.pack('<II', FLAIL_MAX_AMMO, FLAIL_AMMO_PER_THROW)), (BUILD['flail_fire_button'], struct.pack('<i', 0), struct.pack('<i', 1)), *([] if 'flail_auto' in BUILD else [(BUILD['flail_autoshoot'], struct.pack('<i', 1), struct.pack('<i', 0))]), *flail_spin_aoe_edits(), *([(BUILD['flail_fire_rate'], struct.pack('<q', 93623), fp(FLAIL_FIRE_RATE))] if 'flail_fire_rate' in BUILD else []), *([(BUILD['flail_projectile_speed'], fp(20.0), fp(FLAIL_PROJECTILE_SPEED))] if 'flail_projectile_speed' in BUILD else []), *([(BUILD['flail_homing'], fp(10.0), fp(FLAIL_HOMING))] if 'flail_homing' in BUILD else []), *([(BUILD['flail_anticipation'], fp(0.25), fp(FLAIL_WIND_UP))] if 'flail_anticipation' in BUILD else []), *([(BUILD['plasma_release'], struct.pack('<i', 0) + fp(1.0), struct.pack('<i', 1) + fp(0.0))] if 'plasma_release' in BUILD else [])]
     if 'flail_enhancements' not in BUILD:
         patch_bundle(data, edits)
+        gadget_lines(data)
         return
     stream = bytearray(bundle_stream(bytes(data)))
     limit = BUILD['flail_enhancements']['limit_scale']
@@ -4179,6 +5000,7 @@ def patch_flail_spec(data):
     for offset, old, new in edits:
         at(stream, offset, old, new)
     replace_bundle_stream(data, stream, flail_enhancement_objects(stream))
+    gadget_lines(data)
 
 def flail_spin_aoe_edits():
     if 'flail_spin_aoe' not in BUILD:
@@ -4186,7 +5008,7 @@ def flail_spin_aoe_edits():
     radius, starts, infinite, duration = BUILD['flail_spin_aoe']
     release = BUILD['flail_fire_button'] - 16
     return [(radius, fp(1.0), fp(FLAIL_SPIN_RANGE)), (starts, struct.pack('<i', 0), struct.pack('<i', 1)), (infinite, struct.pack('<i', 1), struct.pack('<i', 0)), (duration, fp(0.0), fp(1.0)), (release, struct.pack('<i', 0) + fp(1.0), struct.pack('<i', 1) + fp(0.05))]
-if os.environ.get('RR_VERSION') == '1.10.3':
+if VERSION == '1.10.3':
     WEAPON_LEVEL_CODE = 67876648 + 4
     LOADING_SCREEN_CODE = 67876648 + 1136 - 64
     EVENTS_CODE = 67897656
@@ -4219,6 +5041,48 @@ if os.environ.get('RR_VERSION') == '1.10.3':
     GET_OBSERVED_GAME = 66422708
     GAME_OBJECT_SEND_MESSAGE = 142816984
     GET_GAME_OBJECT = 142801532
+MEDAL_LOSS_CODE = 72327892
+MEDAL_LOSS_END = MEDAL_LOSS_CODE + 512
+MEDAL_LOSS_CAVE_START = 'ff8303d1'
+MEDAL_LOSS_TARGETS = {'ext_string_new': 63431916}
+MEDAL_LOSS_EDITS = [(66378004, '9f060071', '9f020071'), (66378008, '2b040054', '20040054')]
+MEDAL_LOSS_HOOKS = [(66378064, '080140f9', '_mm_format', 'bl')]
+
+def place_cave(data, source, start, end, cave_start, targets, hooks, start_label, what):
+    code, uses, labels = assemble_source(source)
+    if start + len(code) > end:
+        raise SystemExit(f'plus de place pour {what}')
+    if bytes(code[:4]) != RETURN_NOW:
+        raise SystemExit(f'{source} doit commencer par ret')
+    if bytes(data[start:start + 4]) != bytes.fromhex(cave_start):
+        raise SystemExit(f'la cave pour {what} est deja prise')
+    place_assembled(data, start, code, uses, targets, None)
+    hook(data, hooks, entries(start, labels, start_label))
+    return len(code)
+
+def patch_medal_loss(data):
+    size = place_cave(data, 'medailles_moins.s', MEDAL_LOSS_CODE, MEDAL_LOSS_END, MEDAL_LOSS_CAVE_START, MEDAL_LOSS_TARGETS, MEDAL_LOSS_HOOKS, '_mm_start', 'les medailles perdues')
+    for address, old, new in MEDAL_LOSS_EDITS:
+        at(data, address, bytes.fromhex(old), bytes.fromhex(new))
+    print(f'medailles perdues : -N en rouge sur la Ranger Road ({size} octets)')
+SHOP_MAX_CODE = 72398280
+SHOP_MAX_END = SHOP_MAX_CODE + 1764
+SHOP_MAX_CAVE_START = 'ff4303d1'
+SHOP_MAX_TARGETS = {'ext_is_unlocked': 75102308, 'ext_get_metadata': 75102848, 'ext_orbs_false': 64612528, 'ext_orbs_return': 64612532, 'ext_orbs_locked': 64612584, 'ext_plans_pick': 64609960, 'ext_plans_return': 64610032}
+SHOP_MAX_HOOKS = [(64667760, 'fe0f1ff8', '_mx_weapon', 'b'), (64667792, 'fe0f1ff8', '_mx_hero', 'b'), (64612516, 'e81340b9', '_mx_orbs_none', 'b'), (64609956, '56020034', '_mx_plans_none', 'b')]
+
+def patch_shop_max(data):
+    size = place_cave(data, 'max_boutique.s', SHOP_MAX_CODE, SHOP_MAX_END, SHOP_MAX_CAVE_START, SHOP_MAX_TARGETS, SHOP_MAX_HOOKS, '_mx_start', 'le tri des offres flash')
+    print(f'offres flash : ni plans ni orbes pour une arme ou un heros au max ; sinon des Qredits ({size} octets)')
+NAKARI_ICON_CODE = 72346328
+NAKARI_ICON_END = NAKARI_ICON_CODE + 3096
+NAKARI_ICON_CAVE_START = 'ffc301d1'
+NAKARI_ICON_TARGETS = {'ext_init_metadata': INIT_METADATA, 'ext_class_init': 63400820, 'ext_skin_for_actor': 66634244, 'ext_economy': GET_ECONOMY, 'ext_char_def': 66635828, 'slot_skins_table': 152468872 + 16384}
+NAKARI_ICON_HOOKS = [(68360880, 'e10300aa', '_in_hud', 'bl'), (68361500, 'e10300aa', '_in_hud', 'bl')]
+
+def patch_nakari_icon_code(data):
+    size = place_cave(data, 'icone_nakari.s', NAKARI_ICON_CODE, NAKARI_ICON_END, NAKARI_ICON_CAVE_START, NAKARI_ICON_TARGETS, NAKARI_ICON_HOOKS, '_in_start', "l'icone de Nakari")
+    print(f"icone de Nakari : bouton d'ultime en combat ({size} octets)")
 
 def patch_library(data):
     patch_code(data)
@@ -4239,7 +5103,7 @@ def patch_library(data):
         patch_flail_blueprint(data)
     if BOLT_RUSH:
         patch_bolt_rush_code(data)
-    if BOLT_RUSH or os.environ.get('RR_VERSION') == '1.10.3':
+    if BOLT_RUSH or VERSION == '1.10.3':
         patch_weapons_code(data)
     if weapon_slots_build():
         patch_weapon_slots(data)
@@ -4247,12 +5111,16 @@ def patch_library(data):
         patch_events_code(data)
     if 'hero_models' in BUILD:
         new_skin_code(data)
-        if 'Rivet' in hero_sources()[0] and os.environ.get('RR_VERSION', '1.10.4') == '1.10.4':
+        if 'Rivet' in hero_sources()[0] and VERSION == '1.10.4':
             patch_rivet_legendary(data)
-HEROES_RESOURCES = os.environ.get('RR_HEROS_DOSSIER') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'appli_patch', 'ressources', 'heros')
-_hero_sources = []
+    if VERSION == '1.10.4':
+        patch_medal_loss(data)
+        patch_shop_max(data)
+    if VERSION == '1.10.4' and nakari_icon():
+        patch_nakari_icon_code(data)
+HEROES_RESOURCES = os.environ.get('RR_HEROS_DOSSIER') or data_file('..', 'appli_patch', 'ressources', 'heros')
 CDN_SKINS = ['Molly_Skin01', 'Molly_Skin02', 'Molly_Skin03', 'Molly_Skin05', 'Terry_Skin01', 'Terry_Skin02', 'Terry_Skin04', 'Helen_Skin01', 'Juycee_Skin01', 'Juycee_Skin02', 'Juycee_Skin03', 'Juycee_Skin04']
-COSTUMES = os.environ.get('RR_COSTUMES') or os.path.join(os.path.dirname(os.path.abspath(__file__)), 'costumes_cdn')
+COSTUMES = os.environ.get('RR_COSTUMES') or data_file('costumes_cdn')
 
 def relinked(data):
     data = bytearray(data)
@@ -4289,14 +5157,7 @@ def dimensional_helen(base, costume):
     import UnityPy
     costume_env = UnityPy.load(costume)
     costume_cab = next((name for name in costume_env.file.files if not name.endswith('.resS')))
-    env = UnityPy.load(base)
-    old_cab = next((name for name in env.file.files if not name.endswith('.resS')))
-    serialized = env.file.files[old_cab]
-    renamed = {}
-    for name, item in env.file.files.items():
-        renamed[name.replace(old_cab, DIMENSIONAL_CAB)] = item
-    env.file.files = renamed
-    serialized.name = DIMENSIONAL_CAB
+    env, serialized = renamed_bundle(base, DIMENSIONAL_CAB)
     link = copy.copy(serialized.externals[0])
     link.path = f'archive:/{costume_cab}/{costume_cab}'
     serialized.externals.append(link)
@@ -4305,14 +5166,8 @@ def dimensional_helen(base, costume):
     for obj in serialized.objects.values():
         if obj.type.name == 'Mesh':
             meshes[obj.path_id] = obj.read_typetree()['m_Name']
-    for obj in list(serialized.objects.values()):
-        kind = obj.type.name
-        if kind in ('Texture2D', 'Mesh'):
-            tree = obj.read_typetree()
-            if tree['m_StreamData']['path']:
-                tree['m_StreamData']['path'] = tree['m_StreamData']['path'].replace(old_cab, DIMENSIONAL_CAB)
-                obj.save_typetree(tree)
-        elif kind == 'SkinnedMeshRenderer':
+    for obj in serialized.objects.values():
+        if obj.type.name == 'SkinnedMeshRenderer':
             tree = obj.read_typetree()
             if tree['m_Mesh']['m_FileID'] == 0 and meshes.get(tree['m_Mesh']['m_PathID']) == HELEN_MOSS_MESH:
                 tree['m_Enabled'] = 0
@@ -4320,12 +5175,7 @@ def dimensional_helen(base, costume):
                 if material['m_FileID'] == 0 and material['m_PathID'] == HELEN_BODY_MATERIAL:
                     material['m_FileID'], material['m_PathID'] = (costume_file, DIMENSIONAL_MATERIAL)
             obj.save_typetree(tree)
-        elif kind == 'AssetBundle':
-            tree = obj.read_typetree()
-            name = DIMENSIONAL_BUNDLE.replace('.bundle', '')
-            tree['m_Name'] = tree['m_AssetBundleName'] = name
-            tree['m_Container'] = [(path.replace('Character_Helen.prefab', 'Character_Helen_Skin01.prefab'), info) for path, info in tree['m_Container']]
-            obj.save_typetree(tree)
+    rename_asset_bundle(serialized.objects, DIMENSIONAL_BUNDLE, ('Character_Helen.prefab', 'Character_Helen_Skin01.prefab'))
     return env.file.save(packer='lz4')
 RIVET_BUNDLE = 'skins_character_rivet_assets_all_9a6c1e2f4b8d7035e1f2a3b4c5d6e7f8.bundle'
 RIVET_CAB = 'CAB-9a6c1e2f4b8d7035e1f2a3b4c5d6e7f8'
@@ -4333,31 +5183,190 @@ RIVET_MODEL_BUNDLE = 'legacy_character_rivetrr_assets_all_3e7b9d1c5a2f4e6081b3c5
 RIVET_MODEL_CAB = 'CAB-3e7b9d1c5a2f4e6081b3c5d7e9f1a2b4'
 RIVET_GUID = '7c1e5a9f3b2d4e8f9a0b1c2d3e4f5a6b'
 PLAYABLE_RATCHET_GUID = 'a912ebcc145a6144cba7b5bcc6f50a71'
-RIVET_HEAD_SCALE = 0.88
-CINEMATIC_HEROES = {'Rivet': {'source': 'legacy_character_rivet_assets_all', 'bundle': RIVET_BUNDLE, 'cab': RIVET_CAB, 'model_bundle': RIVET_MODEL_BUNDLE, 'model_cab': RIVET_MODEL_CAB, 'guid': RIVET_GUID, 'renderers': {'Legacy_Ratchet_00': 'Legacy_Rivet_00', 'Lombax_Sandy_face_blendshapes': 'Legacy_Rivet_00_Head'}, 'stand_ins': {'B_jaw': 'B_Head', 'B_Hair': 'B_Head'}, 'head_bones': ['B_Head', 'B_head-scale'], 'head_scale': RIVET_HEAD_SCALE, 'body_scale': 1.15}, 'Wendy': {'source': 'legacy_character_none_assets_all', 'bundle': 'skins_character_wendy_assets_all_4b7d2e9a1c6f3058e2d4a6b8c0e1f3a5.bundle', 'cab': 'CAB-4b7d2e9a1c6f3058e2d4a6b8c0e1f3a5', 'model_bundle': 'legacy_character_wendyrr_assets_all_8e2c4a6b1d3f5e7092a4c6e8b0d2f4a6.bundle', 'model_cab': 'CAB-8e2c4a6b1d3f5e7092a4c6e8b0d2f4a6', 'guid': '5d8f2b6e9a1c4d7e8f0a2b4c6d8e0f13', 'renderers': {'Legacy_Ratchet_00': 'Wendy_01', 'Lombax_Sandy_face_blendshapes': 'Wendy_Face_01', 'Clank_Backpack': 'Wendy_Good_01', 'Clank_Backpack_UpperEyelid': 'Wendy_01a', 'Clank_Backpack_LowerEyelid': None}, 'stand_ins': {'B_head': 'B_head-scale', 'B_jaw': 'B_head-scale', 'B_glasses': 'B_head-scale'}, 'head_bones': ['B_head'], 'head_scale': RIVET_HEAD_SCALE}}
+RIVET_HEAD_SCALE = 0.924
+CINEMATIC_HEROES = {'Rivet': {'source': 'legacy_character_rivet_assets_all', 'bundle': RIVET_BUNDLE, 'cab': RIVET_CAB, 'model_bundle': RIVET_MODEL_BUNDLE, 'model_cab': RIVET_MODEL_CAB, 'guid': RIVET_GUID, 'renderers': {'Legacy_Ratchet_00': 'Legacy_Rivet_00', 'Lombax_Sandy_face_blendshapes': 'Legacy_Rivet_00_Head'}, 'stand_ins': {'B_jaw': 'B_Head', 'B_Hair': 'B_Head'}, 'head_bones': ['B_Head', 'B_head-scale'], 'head_scale': RIVET_HEAD_SCALE, 'body_scale': 1.15, 'sturdier': {'limbs': 1.22, 'torso': 1.08, 'hands': 1.15, 'feet': 1.12}, 'backpack': 'Kit', 'weapon_scale': 0.78, 'blendshapes': {'Mouth_Closed': 100.0}}, 'Wendy': {'source': 'legacy_character_none_assets_all', 'bundle': 'skins_character_wendy_assets_all_4b7d2e9a1c6f3058e2d4a6b8c0e1f3a5.bundle', 'cab': 'CAB-4b7d2e9a1c6f3058e2d4a6b8c0e1f3a5', 'model_bundle': 'legacy_character_wendyrr_assets_all_8e2c4a6b1d3f5e7092a4c6e8b0d2f4a6.bundle', 'model_cab': 'CAB-8e2c4a6b1d3f5e7092a4c6e8b0d2f4a6', 'guid': '5d8f2b6e9a1c4d7e8f0a2b4c6d8e0f13', 'renderers': {'Legacy_Ratchet_00': 'Wendy_01', 'Lombax_Sandy_face_blendshapes': 'Wendy_Face_01', 'Clank_Backpack': 'Wendy_Good_01', 'Clank_Backpack_UpperEyelid': 'Wendy_01a', 'Clank_Backpack_LowerEyelid': None}, 'stand_ins': {'B_head': 'B_head-scale', 'B_jaw': 'B_head-scale', 'B_glasses': 'B_head-scale'}, 'head_bones': ['B_head'], 'head_scale': RIVET_HEAD_SCALE}}
+KIT_BACKPACK = {'source': 'legacy_character_kit_assets_all', 'model_bundle': 'legacy_character_kitrr_assets_all_6c944f7cd7a26e3095bb9042013689ef.bundle', 'model_cab': 'CAB-6c944f7cd7a26e3095bb9042013689ef', 'renderers': {'Clank_Backpack': 'Legacy_Kit_00', 'Clank_Backpack_UpperEyelid': 'Legacy_Kit_Face', 'Clank_Backpack_LowerEyelid': 'Legacy_Kit_Glass_00'}, 'scale': 0.46, 'pose': {'spread': 40.0, 'arm_back': 10.0, 'elbow': 15.0, 'elbow_in': 70.0, 'hip': 30.0, 'knee': 160.0, 'ankle': 0.0, 'leg_spread': 6.0}}
+
+def kit_bag_bone(name):
+    side = name.rsplit('.', 1)[-1] if name[-2:] in ('.L', '.R') else ''
+    if name.startswith(('B_upper_arm.', 'B_forearm.', 'B_hand.', 'B_f_', 'B_thumb')):
+        return f'B_hand.{side}'
+    if name.startswith('B_eyelid_up.'):
+        return f'B_pupil_up.{side}'
+    if name.startswith('B_eyelid_dw.'):
+        return f'B_pupil_down.{side}'
+    if name in ('B_jaw', 'B_antenna'):
+        return name
+    if name in ('B_head', 'head', 'MCH-ROT-head') or name.startswith('Eyelid_'):
+        return 'B_head'
+    return 'B_body'
+
+def kit_backpack(playable, model_file):
+    import copy
+    import math
+    import numpy
+    spec = KIT_BACKPACK
+    _, source = asset_pack_bundle(spec['source'])
+    if not source:
+        return None
+    env, model = renamed_bundle(source, spec['model_cab'])
+    bag = {name: (obj, tree) for obj, tree, name in skinned_renderers(playable.objects) if name in spec['renderers']}
+    if set(bag) != set(spec['renderers']):
+        raise SystemExit('sac de Clank inattendu')
+    bag_tree = bag['Clank_Backpack'][1]
+    bag_bones = {game_object_name(playable.objects, b['m_PathID']): b['m_PathID'] for b in bag_tree['m_Bones']}
+    bag_mesh = playable.objects[bag_tree['m_Mesh']['m_PathID']].read_typetree()
+    bag_world = {name: numpy.linalg.inv(matrix(p)) for name, p in zip([game_object_name(playable.objects, b['m_PathID']) for b in bag_tree['m_Bones']], bag_mesh['m_BindPose'])}
+    his = {}
+    for _, tree, name in skinned_renderers(model.objects):
+        if name in spec['renderers'].values() and (name not in his or len(tree['m_Materials']) > len(his[name]['m_Materials'])):
+            his[name] = tree
+    if set(his) != set(spec['renderers'].values()):
+        raise SystemExit('modele de Kit inattendu')
+    meshes = {}
+    for obj in model.objects.values():
+        if obj.type.name == 'Mesh':
+            meshes[obj.read_typetree()['m_Name']] = obj
+    body = his['Legacy_Kit_00']
+    body_names = [game_object_name(model.objects, b['m_PathID']) for b in body['m_Bones']]
+    kit_world = {name: numpy.linalg.inv(matrix(p)) for name, p in zip(body_names, meshes['Legacy_Kit_00'].read_typetree()['m_BindPose'])}
+
+    def rotation(axis, degrees, about):
+        axis = numpy.asarray(axis, float) / numpy.linalg.norm(axis)
+        a = math.radians(degrees)
+        k = numpy.array([[0, -axis[2], axis[1]], [axis[2], 0, -axis[0]], [-axis[1], axis[0], 0]])
+        m = numpy.eye(4)
+        m[:3, :3] = numpy.eye(3) + math.sin(a) * k + (1 - math.cos(a)) * (k @ k)
+        t, back = (numpy.eye(4), numpy.eye(4))
+        t[:3, 3], back[:3, 3] = (about, -numpy.asarray(about))
+        return t @ m @ back
+    p = spec['pose']
+    moved = {name: numpy.eye(4) for name in body_names}
+    parent = {}
+    for b in body['m_Bones']:
+        up = model.objects[b['m_PathID']].read_typetree()['m_Father']['m_PathID']
+        while up and game_object_name(model.objects, up) not in kit_world:
+            up = model.objects[up].read_typetree()['m_Father']['m_PathID']
+        parent[game_object_name(model.objects, b['m_PathID'])] = game_object_name(model.objects, up) if up else None
+
+    def below(name):
+        found = [name]
+        for child, up in parent.items():
+            if up == name:
+                found += below(child)
+        return found
+
+    def where(name):
+        return (moved[name] @ kit_world[name])[:3, 3]
+
+    def turn(name, m):
+        for n in below(name):
+            moved[n] = m @ moved[n]
+    for side in ('L', 'R'):
+        shoulder = where(f'B_upper_arm.{side}')
+        d = where(f'B_forearm.{side}') - shoulder
+        outward = numpy.sign(d[0])
+        now = math.degrees(math.atan2(abs(d[0]), -d[2]))
+        turn(f'B_upper_arm.{side}', rotation([1, 0, 0], p['arm_back'], shoulder) @ rotation([0, 1, 0], (now - p['spread']) * outward, shoulder))
+        elbow = where(f'B_forearm.{side}')
+        turn(f'B_forearm.{side}', rotation([1, 0, 0], -p['elbow'], elbow) @ rotation([0, 1, 0], p['elbow_in'] * outward, elbow))
+        hip = where(f'B_thigh.{side}')
+        turn(f'B_thigh.{side}', rotation([1, 0, 0], -p['hip'], hip) @ rotation([0, 1, 0], -p['leg_spread'] * outward, hip))
+        turn(f'B_shin.{side}', rotation([1, 0, 0], p['knee'], where(f'B_shin.{side}')))
+        turn(f'B_foot.{side}', rotation([1, 0, 0], -p['ankle'], where(f'B_foot.{side}')))
+    place = numpy.eye(4)
+    place[:3, :3] *= spec['scale']
+    place[:3, 3] = bag_world['B_head'][:3, 3] - spec['scale'] * kit_world['B_head'][:3, 3]
+    bones_of = {}
+    for mesh_name, tree in his.items():
+        names = [game_object_name(model.objects, b['m_PathID']) for b in tree['m_Bones']]
+        mesh = meshes[mesh_name]
+        mtree = mesh.read_typetree()
+        if len(mtree['m_BindPose']) != len(names):
+            raise SystemExit('maillage de Kit inattendu')
+        targets = [kit_bag_bone(n) for n in names]
+        missing = sorted({t for t in targets if t not in bag_bones})
+        if missing:
+            raise SystemExit(f'os du sac manquants pour Kit : {missing}')
+        mtree['m_BindPose'] = [pose(numpy.linalg.inv(bag_world[t]) @ place @ moved.get(n, numpy.eye(4))) for n, t in zip(names, targets)]
+        mesh.save_typetree(mtree)
+        bones_of[mesh_name] = targets
+    rename_asset_bundle(model.objects, spec['model_bundle'])
+    link = copy.copy(playable.externals[0])
+    link.path = f"archive:/{spec['model_cab']}/{spec['model_cab']}"
+    playable.externals.append(link)
+    aabb = copy.deepcopy(bag_tree['m_AABB'])
+    for axis in 'xyz':
+        aabb['m_Extent'][axis] *= 1.4
+    for renderer, mesh_name in spec['renderers'].items():
+        obj, tree = bag[renderer]
+        kit = his[mesh_name]
+        tree['m_Mesh'] = {'m_FileID': model_file, 'm_PathID': meshes[mesh_name].path_id}
+        tree['m_Materials'] = [{'m_FileID': model_file, 'm_PathID': m['m_PathID']} for m in kit['m_Materials']]
+        tree['m_Bones'] = [{'m_FileID': 0, 'm_PathID': bag_bones[t]} for t in bones_of[mesh_name]]
+        tree['m_BlendShapeWeights'] = list(kit['m_BlendShapeWeights'])
+        tree['m_AABB'] = copy.deepcopy(aabb)
+        tree['m_Enabled'] = 1
+        obj.save_typetree(tree)
+    print(f"Kit dans le dos : {len(his)} maillages sur le sac de Clank ({len(set(bones_of['Legacy_Kit_00']))} os du sac pour son corps)")
+    return env.file.save(packer='lz4')
+
+def asset_pack():
+    return pack_parts()['UnityDataAssetPack.apk']
+
+@functools.lru_cache(None)
+def pack_parts():
+    return {name: zipfile.ZipFile(os.path.join(xapk, name)) for name in sorted(os.listdir(xapk)) if name.endswith('.apk')}
+
+@functools.lru_cache(None)
+def pack_bundles():
+    found = {}
+    for name, part in pack_parts().items():
+        for entry in part.namelist():
+            if entry.endswith('.bundle'):
+                found.setdefault(bundle_family_of(entry), (name, entry))
+    return found
+
+def asset_pack_path(family):
+    return pack_bundles().get(family, (None, None))[1]
 
 def asset_pack_bundle(family):
-    for name in sorted(os.listdir(xapk)):
-        if name.endswith('.apk'):
-            pack = zipfile.ZipFile(os.path.join(xapk, name))
-            for entry in pack.namelist():
-                if entry.endswith('.bundle') and bundle_family_of(entry) == family:
-                    return (entry, pack.read(entry))
-    return (None, None)
+    if family not in pack_bundles():
+        return (None, None)
+    name, entry = pack_bundles()[family]
+    return (entry, pack_parts()[name].read(entry))
 
 def bundle_family_of(path):
     return re.sub('_[0-9a-f]{32}\\.bundle$', '', os.path.basename(path))
 
+@functools.lru_cache(None)
 def playable_ratchet_families():
-    for name in sorted(os.listdir(xapk)):
-        if name.endswith('.apk'):
-            pack = zipfile.ZipFile(os.path.join(xapk, name))
-            if 'assets/aa/catalog.bin' in pack.namelist():
-                catalog = heros_caches.Catalog(pack.read('assets/aa/catalog.bin'))
-                for _, key, locations in catalog.entries():
-                    if str(key) == PLAYABLE_RATCHET_GUID and locations:
-                        return [heros_caches.bundle_family(catalog.string(catalog.location(offset)[0])) for offset in catalog.array(catalog.location(locations[0])[3])]
+    for part in pack_parts().values():
+        if 'assets/aa/catalog.bin' in part.namelist():
+            catalog = heros_caches.Catalog(part.read('assets/aa/catalog.bin'))
+            for _, key, locations in catalog.entries():
+                if str(key) == PLAYABLE_RATCHET_GUID and locations:
+                    return [heros_caches.bundle_family(catalog.string(catalog.location(offset)[0])) for offset in catalog.array(catalog.location(locations[0])[3])]
     return []
+
+def game_object_name(objects, transform):
+    game_object = objects[transform].read_typetree()['m_GameObject']['m_PathID']
+    return objects[game_object].read_typetree()['m_Name']
+
+def skinned_renderers(objects):
+    for obj in objects.values():
+        if obj.type.name == 'SkinnedMeshRenderer':
+            tree = obj.read_typetree()
+            yield (obj, tree, objects[tree['m_GameObject']['m_PathID']].read_typetree()['m_Name'])
+
+def rename_asset_bundle(objects, bundle, prefab=None):
+    for obj in objects.values():
+        if obj.type.name == 'AssetBundle':
+            tree = obj.read_typetree()
+            tree['m_Name'] = tree['m_AssetBundleName'] = bundle[:-len('.bundle')]
+            if prefab:
+                tree['m_Container'] = [(path.replace(*prefab), info) for path, info in tree['m_Container']]
+            obj.save_typetree(tree)
 
 def renamed_bundle(data, new_cab):
     import UnityPy
@@ -4381,6 +5390,32 @@ def matrix(pose):
 def pose(values):
     return {f'e{r}{c}': float(values[r][c]) for r in range(4) for c in range(4)}
 
+def sturdier(spec, tree, names, her_names, poses):
+    import numpy
+    settings = spec.get('sturdier')
+    if not settings:
+        return
+    for group in ('limbs', 'torso'):
+        k = settings.get(group, 1.0)
+        thick = numpy.diag([k, 1.0, k, 1.0])
+        for i, name in enumerate(names):
+            if any((name.startswith(prefix) for prefix in STURDY_BONES[group])):
+                tree['m_BindPose'][i] = pose(thick @ matrix(tree['m_BindPose'][i]))
+    for group in ('hands', 'feet'):
+        k = settings.get(group, 1.0)
+        for side in ('.L', '.R'):
+            joint = STURDY_BONES[group][0] + side
+            if k == 1.0 or joint not in her_names:
+                continue
+            h = numpy.linalg.inv(matrix(poses[her_names.index(joint)]))[:3, 3]
+            grow = numpy.eye(4)
+            grow[:3, :3] *= k
+            grow[:3, 3] = h - k * h
+            for i, name in enumerate(names):
+                if name.endswith(side) and any((name.startswith(prefix) for prefix in STURDY_BONES[group])):
+                    tree['m_BindPose'][i] = pose(matrix(tree['m_BindPose'][i]) @ grow)
+STURDY_BONES = {'limbs': ('B_upper_arm.', 'B_forearm.', 'B_thigh.', 'B_shin.'), 'torso': ('B_pelvis', 'B_spine', 'B_chest', 'B_upperchest'), 'hands': ('B_hand', 'B_f_', 'B_thumb'), 'feet': ('B_foot', 'B_toe')}
+
 def cinematic_hero_bundles(key):
     if not heavy_tools():
         return []
@@ -4393,22 +5428,12 @@ def cinematic_hero_bundles(key):
         return []
     env, playable = renamed_bundle(ratchet, spec['cab'])
     model_env, model = renamed_bundle(source, spec['model_cab'])
-
-    def transform_name(objects, transform):
-        game_object = objects[transform].read_typetree()['m_GameObject']['m_PathID']
-        return objects[game_object].read_typetree()['m_Name']
-
-    def renderers(objects):
-        for obj in objects.values():
-            if obj.type.name == 'SkinnedMeshRenderer':
-                tree = obj.read_typetree()
-                yield (obj, tree, objects[tree['m_GameObject']['m_PathID']].read_typetree()['m_Name'])
-    body = next((tree for _, tree, name in renderers(playable.objects) if name == 'Legacy_Ratchet_00'))
-    his = {transform_name(playable.objects, bone['m_PathID']): bone['m_PathID'] for bone in body['m_Bones']}
-    fallback = transform_name(playable.objects, body['m_Bones'][0]['m_PathID'])
+    body = next((tree for _, tree, name in skinned_renderers(playable.objects) if name == 'Legacy_Ratchet_00'))
+    his = {game_object_name(playable.objects, bone['m_PathID']): bone['m_PathID'] for bone in body['m_Bones']}
+    fallback = game_object_name(playable.objects, body['m_Bones'][0]['m_PathID'])
     wanted = {mesh for mesh in spec['renderers'].values() if mesh}
     hers = {}
-    for _, tree, name in renderers(model.objects):
+    for _, tree, name in skinned_renderers(model.objects):
         if name in wanted and (name not in hers or len(tree['m_Materials']) > len(hers[name]['m_Materials'])):
             hers[name] = tree
     if set(hers) != wanted:
@@ -4419,10 +5444,10 @@ def cinematic_hero_bundles(key):
         for child in model.objects[transform].read_typetree()['m_Children']:
             found += descendants(child['m_PathID'])
         return found
-    replaced, bones_of, shrink_of = ({}, {}, {})
+    replaced, bones_of = ({}, {})
     for mesh_name, tree in hers.items():
         her_bones = [bone['m_PathID'] for bone in tree['m_Bones']]
-        her_names = [transform_name(model.objects, bone) for bone in her_bones]
+        her_names = [game_object_name(model.objects, bone) for bone in her_bones]
 
         def stand_in(index):
             name = her_names[index]
@@ -4437,7 +5462,7 @@ def cinematic_hero_bundles(key):
                 transform = model.objects[transform].read_typetree()['m_Father']['m_PathID']
                 if not transform:
                     break
-                parent = transform_name(model.objects, transform)
+                parent = game_object_name(model.objects, transform)
                 if parent in his:
                     return parent
                 if spec['stand_ins'].get(parent) in his:
@@ -4472,25 +5497,23 @@ def cinematic_hero_bundles(key):
                 if name != her_names[i]:
                     tree['m_BindPose'][i] = copy.deepcopy(poses[her_twin(name)])
             scale = spec.get('head_scale', 1.0)
+            h = numpy.linalg.inv(matrix(poses[her_names.index(spec['head_bones'][0])]))[:3, 3] if spec['head_bones'][0] in her_names else numpy.zeros(3)
             if scale != 1.0 and spec['head_bones'][0] in her_names:
-                h = numpy.linalg.inv(matrix(poses[her_names.index(spec['head_bones'][0])]))[:3, 3]
                 shrink = numpy.eye(4)
                 shrink[:3, :3] *= scale
                 shrink[:3, 3] = h - scale * h
                 for i, flag in enumerate(in_head):
                     if flag:
                         tree['m_BindPose'][i] = pose(matrix(tree['m_BindPose'][i]) @ shrink)
+            sturdier(spec, tree, names, her_names, poses)
             obj.save_typetree(tree)
-        elif obj.type.name == 'AssetBundle':
-            tree = obj.read_typetree()
-            tree['m_Name'] = tree['m_AssetBundleName'] = spec['model_bundle'][:-len('.bundle')]
-            obj.save_typetree(tree)
+    rename_asset_bundle(model.objects, spec['model_bundle'])
     link = copy.copy(playable.externals[0])
     link.path = f"archive:/{spec['model_cab']}/{spec['model_cab']}"
     playable.externals.append(link)
     model_file = len(playable.externals)
     root = body['m_RootBone']
-    for obj, tree, name in list(renderers(playable.objects)):
+    for obj, tree, name in list(skinned_renderers(playable.objects)):
         if name not in spec['renderers']:
             continue
         mesh_name = spec['renderers'][name]
@@ -4503,37 +5526,47 @@ def cinematic_hero_bundles(key):
         tree['m_Materials'] = [{'m_FileID': model_file, 'm_PathID': material['m_PathID']} for material in her['m_Materials']]
         tree['m_Bones'] = [{'m_FileID': 0, 'm_PathID': his[bone]} for bone in bones_of[mesh_name][0]]
         tree['m_RootBone'] = dict(root)
-        tree['m_BlendShapeWeights'] = list(her['m_BlendShapeWeights'])
+        weights = list(her['m_BlendShapeWeights'])
+        if spec.get('blendshapes'):
+            channels = [c['name'] for c in model.objects[meshes[mesh_name]].read_typetree()['m_Shapes']['channels']]
+            if any((shape in channels for shape in spec['blendshapes'])):
+                weights = (weights + [0.0] * len(channels))[:len(channels)]
+                for shape, weight in spec['blendshapes'].items():
+                    if shape in channels:
+                        weights[channels.index(shape)] = float(weight)
+        tree['m_BlendShapeWeights'] = weights
         tree['m_AABB'] = copy.deepcopy(her['m_AABB'])
         tree['m_Enabled'] = 1
         obj.save_typetree(tree)
+    kit = kit_backpack(playable, len(playable.externals) + 1) if spec.get('backpack') else None
     if spec.get('body_scale', 1.0) != 1.0:
-        model_root = next((obj for obj in playable.objects.values() if obj.type.name == 'Transform' and transform_name(playable.objects, obj.path_id) == 'Legacy_Ratchet_00_Playable'))
+        model_root = next((obj for obj in playable.objects.values() if obj.type.name == 'Transform' and game_object_name(playable.objects, obj.path_id) == 'Legacy_Ratchet_00_Playable'))
         tree = model_root.read_typetree()
         tree['m_LocalScale'] = {axis: spec['body_scale'] for axis in 'xyz'}
         model_root.save_typetree(tree)
-    for obj in playable.objects.values():
-        if obj.type.name == 'AssetBundle':
-            tree = obj.read_typetree()
-            tree['m_Name'] = tree['m_AssetBundleName'] = spec['bundle'][:-len('.bundle')]
-            tree['m_Container'] = [(path.replace('Character_Ratchet_00_Playable.prefab', f'Character_{key}.prefab'), entry) for path, entry in tree['m_Container']]
-            obj.save_typetree(tree)
+    if spec.get('weapon_scale', 1.0) != 1.0:
+        holder = next((obj for obj in playable.objects.values() if obj.type.name == 'Transform' and game_object_name(playable.objects, obj.path_id) == 'B_Wpn_Parent'))
+        tree = holder.read_typetree()
+        tree['m_LocalScale'] = {axis: spec['weapon_scale'] for axis in 'xyz'}
+        holder.save_typetree(tree)
+    rename_asset_bundle(playable.objects, spec['bundle'], ('Character_Ratchet_00_Playable.prefab', f'Character_{key}.prefab'))
     common = len(bones_of[spec['renderers']['Legacy_Ratchet_00']][0]) - sum((1 for n, h in zip(*bones_of[spec['renderers']['Legacy_Ratchet_00']][:2]) if n != h))
     print(f"{key} : sur le squelette de Ratchet, {common} os en commun, {len(replaced)} rattaches ({', '.join((f'{a}>{b}' for a, b in sorted(replaced.items())))})")
-    return [(key, 'assets/aa/Android/' + spec['bundle'], env.file.save(packer='lz4')), (f'{key} (modele)', 'assets/aa/Android/' + spec['model_bundle'], model_env.file.save(packer='lz4'))]
-
-def rivet_bundles():
-    return cinematic_hero_bundles('Rivet')
+    made = [(key, 'assets/aa/Android/' + spec['bundle'], env.file.save(packer='lz4')), (f'{key} (modele)', 'assets/aa/Android/' + spec['model_bundle'], model_env.file.save(packer='lz4'))]
+    if kit:
+        made.append((f'{key} (Kit)', 'assets/aa/Android/' + KIT_BACKPACK['model_bundle'], kit))
+    return made
 
 def cinematic_hero_info(key):
     spec = CINEMATIC_HEROES[key]
-    own = [{'own': bundle, 'hash': cab[4:], 'internal': bundle[:-len('.bundle')]} for bundle, cab in ((spec['bundle'], spec['cab']), (spec['model_bundle'], spec['model_cab']))]
+    pairs = [(spec['bundle'], spec['cab']), (spec['model_bundle'], spec['model_cab'])]
+    if spec.get('backpack') and asset_pack_path(KIT_BACKPACK['source']):
+        pairs.append((KIT_BACKPACK['model_bundle'], KIT_BACKPACK['model_cab']))
+    own = [{'own': bundle, 'hash': cab[4:], 'internal': bundle[:-len('.bundle')]} for bundle, cab in pairs]
     families = [{'family': family} for family in playable_ratchet_families() if family != 'skins_character_ratchet_00_playable_assets_all']
     return {'guid': spec['guid'], 'dependencies': own + families}
 
-def rivet_info():
-    return cinematic_hero_info('Rivet')
-
+@functools.lru_cache(None)
 def cdn_skin_bundles():
     files = {}
     if os.path.isdir(COSTUMES):
@@ -4549,9 +5582,8 @@ def cdn_skin_bundles():
                 found.append((skin, 'assets/aa/Android/' + name, readable_meshes(relinked(handle.read()))))
     return found
 
+@functools.lru_cache(None)
 def hero_sources():
-    if _hero_sources:
-        return _hero_sources[0]
     old_path = os.path.join(xapk, '..', 'v1103', 'split_UnityDataAssetPack.apk')
     index_path = os.path.join(HEROES_RESOURCES, 'heros.json')
     if os.path.exists(old_path):
@@ -4567,13 +5599,18 @@ def hero_sources():
     else:
         if not os.path.exists(index_path):
             raise SystemExit('Il faut aussi le jeu officiel en version 1.10.3 (fichier .apkm ou .xapk) : il contient les 7 héros jamais sortis.')
-        index = json.load(open(index_path))
+        with open(index_path) as handle:
+            index = json.load(handle)
         info = index['info']
-        bundles = [(hero, path, open(os.path.join(HEROES_RESOURCES, os.path.basename(path)), 'rb').read()) for hero, path in index['bundles']]
+        bundles = []
+        for hero, path in index['bundles']:
+            with open(os.path.join(HEROES_RESOURCES, os.path.basename(path)), 'rb') as handle:
+                bundles.append((hero, path, handle.read()))
     costumes = [entry for entry in cdn_skin_bundles() if os.path.exists(old_path) or entry[0] in info]
     if costumes and os.path.exists(old_path):
         info.update(heros_caches.old_hero_info(zipfile.ZipFile(old_path).read('assets/aa/catalog.bin'), [skin for skin, _, _ in costumes]))
-        index = json.load(open(index_path))
+        with open(index_path) as handle:
+            index = json.load(handle)
         index['info'] = info
         with open(index_path, 'w') as handle:
             json.dump(index, handle, indent=1)
@@ -4587,7 +5624,7 @@ def hero_sources():
             dependencies.insert(0, {'own': DIMENSIONAL_BUNDLE, 'hash': DIMENSIONAL_CAB[4:], 'internal': DIMENSIONAL_BUNDLE[:-len('.bundle')]})
     if costumes:
         print(f"costumes du CDN : {', '.join((skin for skin, _, _ in costumes))}")
-    if os.environ.get('RR_VERSION', '1.10.4') == '1.10.4':
+    if VERSION == '1.10.4':
         for key in CINEMATIC_HEROES:
             made = cinematic_hero_bundles(key)
             if made:
@@ -4598,13 +5635,129 @@ def hero_sources():
         bundles = [entry for entry in bundles if entry[0] not in needing]
         for name in needing:
             info.pop(name, None)
-    _hero_sources.append((info, bundles))
     return (info, bundles)
 
 def patch_catalog(data):
     info, bundles = hero_sources()
     sizes = {hero: len(bundle) for hero, _, bundle in bundles if hero in info}
     data[:] = heros_caches.add_heroes_from_info(data, info, sizes)
+    maps = maps_174()
+    if maps:
+        sys.path.insert(0, MAPS_174_FOLDER)
+        import catalogue_cartes
+        files = {bundle['file']: bundle['size'] for bundle in maps['bundles']}
+        data[:], added = catalogue_cartes.add_maps(data, maps, files)
+        print(f"cartes de la 1.7.4 : {', '.join(maps['maps'])} ({added} entrees de catalogue)")
+MAPS_174_FOLDER = data_file('cartes')
+MAPS_174_STATUS, MAPS_174_POOL = (2, 3)
+MAPS_174_TEMPLATES = {1: 'q_FFA_Ardolis_01', 2: 'q_BB_TorrenIV_01', 3: 'q_BK_Megalopolis_02B'}
+MAPS_142_FILE = 'cartes_142.json'
+MAPS_POOLS = {'q_BK_Megalopolis_02': 0}
+MAPS_FINISHED = {'q_BK_Megalopolis_02'}
+
+@functools.lru_cache(maxsize=None)
+def maps_174():
+    path = os.path.join(MAPS_174_FOLDER, 'cartes.json')
+    if VERSION != '1.10.4' or os.environ.get('RR_CARTES_174') == '0' or (not os.path.isfile(path)) or (not heavy_tools()):
+        return None
+    with open(path) as handle:
+        info = json.load(handle)
+    if not all((os.path.isfile(os.path.join(MAPS_174_FOLDER, 'fichiers', b['file'])) for b in info['bundles'])):
+        return None
+    old = os.path.join(MAPS_174_FOLDER, MAPS_142_FILE)
+    if os.path.isfile(old) and os.environ.get('RR_CARTES_142') != '0':
+        with open(old) as handle:
+            more = json.load(handle)
+        if all((os.path.isfile(os.path.join(MAPS_174_FOLDER, 'fichiers_142', b['file'])) for b in more['bundles'])):
+            for bundle in more['bundles']:
+                bundle['folder'] = 'fichiers_142'
+            info['bundles'] += more['bundles']
+            info['maps'].update(more['maps'])
+    return info
+
+def maps_174_files():
+    maps = maps_174()
+    if not maps:
+        return []
+    files = []
+    for bundle in maps['bundles']:
+        with open(os.path.join(MAPS_174_FOLDER, bundle.get('folder', 'fichiers'), bundle['file']), 'rb') as handle:
+            files.append((bundle['file'], handle.read()))
+    return files
+
+def patch_maps_local_data(data):
+    import copy
+    import UnityPy
+    maps = maps_174()
+    env = UnityPy.load(bytes(data))
+    serialized = env.assets[0]
+    objects = serialized.objects
+    named = {}
+    for obj in objects.values():
+        if obj.type.name == 'MonoBehaviour':
+            try:
+                named[obj.peek_name()] = obj
+            except Exception:
+                pass
+    levels_object, resources_object = (named['LevelsTable'], named['AssetResources'])
+    levels = levels_object.read_typetree()
+    resources = resources_object.read_typetree()
+    rows = {row['sceneName']: row for row in levels['levels']}
+    known = {entry['AssetRef']['Id']['Value'] for group in ('AddressablesGroup', 'ResourcesGroup') for entry in resources[group]['_resources']}
+    previews = None
+    for scene, info in maps['maps'].items():
+        if scene in rows:
+            continue
+        old = info['level']
+        template = rows[MAPS_174_TEMPLATES[old['gameMode']]]
+        row = json_copy(template)
+        row.update(sceneName=scene, status=MAPS_174_STATUS, pool=MAPS_POOLS.get(scene, MAPS_174_POOL), gameMode=old['gameMode'], levelDisplayNameKey=old['levelDisplayNameKey'], biome=old['biome'])
+        visual = old['levelDisplayVisual']['m_PathID']
+        file_id = template['levelDisplayVisual']['m_FileID']
+        if file_id and visual:
+            if previews is None:
+                previews = maps_preview_ids(serialized.externals[file_id - 1].path)
+            if visual in previews:
+                row['levelDisplayVisual'] = {'m_FileID': file_id, 'm_PathID': visual}
+        mesh = old['meshCombineParameters']['m_PathID']
+        row['meshCombineParameters'] = {'m_FileID': 0, 'm_PathID': mesh if mesh in objects else 0}
+        minimap = info['minimap']
+        like = objects[template['minimapLevelData']['m_PathID']]
+        tree = like.read_typetree()
+        tree['m_Name'] = minimap['name']
+        tree['addressableRef']['m_AssetGUID'] = minimap['guid']
+        tree['levelExtent'] = minimap['extent']
+        path_id = minimap['path_id']
+        if path_id in objects:
+            raise SystemExit(f'cartes 1.7.4 : objet {path_id} deja pris')
+        added = copy.copy(like)
+        added.path_id = path_id
+        objects[path_id] = added
+        added.save_typetree(tree)
+        row['minimapLevelData'] = {'m_FileID': 0, 'm_PathID': path_id}
+        levels['levels'].append(row)
+        for entry in info['asset_resources']:
+            if entry['AssetRef']['Id']['Value'] not in known:
+                resources['AddressablesGroup']['_resources'].append(entry)
+    levels_object.save_typetree(levels)
+    resources_object.save_typetree(resources)
+    data[:] = env.file.save(packer='lz4')
+
+def patch_local_data_and_maps(data):
+    patch_local_data(data)
+    if maps_174():
+        patch_maps_local_data(data)
+
+def maps_preview_ids(external_path):
+    import UnityPy
+    cab = external_path.split('/')[-1]
+    pack = asset_pack()
+    for name in pack.namelist():
+        if 'ui_main_menu_maps_previsualisation' in name:
+            env = UnityPy.load(pack.read(name))
+            if any((cab in f for f in env.file.files)):
+                return {obj.path_id for obj in env.objects}
+    return set()
 
 def patch_init_scene(data):
     patch_bundle(data, [(BUILD['init_host'], OLD_HOST, NEW_HOST)])
@@ -4627,23 +5780,35 @@ def patch_photon_settings(data):
     struct.pack_into('<I', data, 344 + grown, 1)
     struct.pack_into('<I', data, 128, 164 + grown)
     struct.pack_into('>Q', data, 24, 372 + grown)
-PATCHES = {'com.playstation.rattlesnake.apk': {'assets/bin/Data/Managed/Metadata/global-metadata.dat': patch_metadata, 'assets/bin/Data/globalgamemanagers': patch_player_settings}, 'UnityDataAssetPack.apk': {'assets/bin/Data/1bf6573aa4de63f4ab5f6bce63d9c51e': patch_host, **({PHOTON_SETTINGS: patch_photon_settings} if os.environ.get('RR_PHOTON') else {}), BUILD['menu_bundle']: patch_main_menu, **({BUILD['init_bundle']: patch_init_scene} if 'init_bundle' in BUILD else {}), **({BUILD['heroes_bundle']: patch_local_data} if 'heroes_bundle' in BUILD else {}), **({BUILD['flail_spec'][0]: patch_flail_spec} if 'flail_spec' in BUILD else {}), **({'assets/aa/catalog.bin': patch_catalog} if 'hero_models' in BUILD else {}), **({BUILD['hero_specs_bundle']: patch_hero_specs_bundle} if 'hero_specs_bundle' in BUILD else {}), **({GADGET_DB_BUNDLE: patch_gadget_db} if weapon_slots_build() else {}), **({MONOSCRIPTS_BUNDLE: patch_monoscripts} if collect_screen_build() else {}), **({PORTRAITS_BUNDLE: patch_rivet_portrait} if 'hero_models' in BUILD and os.environ.get('RR_VERSION', '1.10.4') == '1.10.4' else {}), **({path: bolt_rush_data(path) for path in BOLT_RUSH_EDITS} if BOLT_RUSH else {}), **({path: rush_map(path) for path in RUSH_MAP_POINTS} if BOLT_RUSH else {}), **({GAME_MODES_BUNDLE: patch_game_modes} if BOLT_RUSH else {}), **({LEVEL_DESIGN_BUNDLE: patch_level_design} if BOLT_RUSH else {}), **({LOCALIZATION_FILE.format(lang): patch_localization(lang) for lang in LANGUAGES} if BOLT_RUSH or 'difficulty_row' in BUILD or 'hero_models' in BUILD else {})}, 'config.arm64_v8a.apk': {'lib/arm64-v8a/libil2cpp.so': patch_library}}
+assert set(BOLT_RUSH_EDITS) <= set(RUSH_MAP_POINTS) | {GAME_MODES_BUNDLE}
+PATCHES = {'com.playstation.rattlesnake.apk': {'assets/bin/Data/Managed/Metadata/global-metadata.dat': patch_metadata, 'assets/bin/Data/globalgamemanagers': patch_player_settings}, 'UnityDataAssetPack.apk': {'assets/bin/Data/1bf6573aa4de63f4ab5f6bce63d9c51e': patch_host, **({PHOTON_SETTINGS: patch_photon_settings} if os.environ.get('RR_PHOTON') else {}), BUILD['menu_bundle']: patch_main_menu, **({BUILD['init_bundle']: patch_init_scene} if 'init_bundle' in BUILD else {}), **({BUILD['heroes_bundle']: patch_local_data_and_maps} if 'heroes_bundle' in BUILD else {}), **({BUILD['flail_spec'][0]: patch_flail_spec} if 'flail_spec' in BUILD else {}), **({'assets/aa/catalog.bin': patch_catalog} if 'hero_models' in BUILD else {}), **({BUILD['hero_specs_bundle']: patch_hero_specs_bundle} if 'hero_specs_bundle' in BUILD else {}), **({gadget_db_bundle(): patch_gadget_db} if gadget_db_bundle() else {}), **shop_cards_patches(), **rivet_hammer_patches(), **({MONOSCRIPTS_BUNDLE: patch_monoscripts} if collect_screen_build() else {}), **({PORTRAITS_BUNDLE: patch_rivet_portrait} if 'hero_models' in BUILD and VERSION == '1.10.4' else {}), **nakari_icon_patches(), **({path: rush_map(path) for path in RUSH_MAP_POINTS} if BOLT_RUSH else {}), **({GAME_MODES_BUNDLE: patch_game_modes} if BOLT_RUSH else {}), **({asset_pack_path(KING_LINES_BUNDLE): patch_king_lines} if BOLT_RUSH and asset_pack_path(KING_LINES_BUNDLE) else {}), **king_crown_patches(), **({asset_pack_path(WEAPON_PICKUP_BUNDLE): patch_weapon_pickup} if BOLT_RUSH and asset_pack_path(WEAPON_PICKUP_BUNDLE) else {}), **({LEVEL_DESIGN_BUNDLE: patch_level_design} if BOLT_RUSH else {}), **({'assets/Data/Localization/NL/FidelioFramework.protobd': patch_polish_framework} if polish_build() else {}), **({LOCALIZATION_FILE.format(lang): patch_localization(lang) for lang in LANGUAGES} if BOLT_RUSH or 'difficulty_row' in BUILD or 'hero_models' in BUILD else {})}, 'config.arm64_v8a.apk': {'lib/arm64-v8a/libil2cpp.so': patch_library}}
+UNITY_TOOLS = data_file('..', 'unity_outils')
 
-def patch_copy_library(data):
-    at(data, BUILD['play_available'], bytes.fromhex('fe0f1ef8f44f01a9'), RETURN_FALSE)
-    at(data, BUILD['play_autologin'], bytes.fromhex('fe57bea9f44f01a9'), RETURN_FALSE)
-if COPIE:
-    PATCHES = {'com.playstation.rattlesnake.apk': {'assets/bin/Data/Managed/Metadata/global-metadata.dat': patch_metadata, 'assets/bin/Data/globalgamemanagers': patch_player_settings}, 'UnityDataAssetPack.apk': {'assets/bin/Data/1bf6573aa4de63f4ab5f6bce63d9c51e': patch_host, PHOTON_SETTINGS: patch_photon_settings}, 'config.arm64_v8a.apk': {'lib/arm64-v8a/libil2cpp.so': patch_copy_library}}
+def edited_map_patches():
+    if os.environ.get('RR_CARTES') == '0' or not os.path.isdir(UNITY_TOOLS):
+        return {}
+    if not os.path.isdir(os.path.expanduser('~/RangerRumble_Unity/scenes_origine')) or not heavy_tools():
+        return {}
+    sys.path.insert(0, UNITY_TOOLS)
+    import remettre_carte
+    return remettre_carte.build_patches(asset_pack())
+for _path, _edit in edited_map_patches().items():
+
+    def _both(data, before=PATCHES['UnityDataAssetPack.apk'].get(_path), edit=_edit):
+        if before:
+            before(data)
+        edit(data)
+    PATCHES['UnityDataAssetPack.apk'][_path] = _both
+ENTRY_DATE = (1981, 1, 1, 1, 1, 0)
 for apk, changes in PATCHES.items():
     source = zipfile.ZipFile(os.path.join(xapk, apk))
-    target_path = os.path.join(out, apk)
     done = set()
-    with zipfile.ZipFile(target_path, 'w', allowZip64=True) as target:
+    with zipfile.ZipFile(os.path.join(out, apk), 'w', allowZip64=True) as target:
         for info in source.infolist():
             name = info.filename
             if name.startswith('META-INF/') or name == 'stamp-cert-sha256':
                 continue
-            entry = zipfile.ZipInfo(name, date_time=(1981, 1, 1, 1, 1, 0))
+            entry = zipfile.ZipInfo(name, date_time=ENTRY_DATE)
             entry.compress_type = info.compress_type
             entry.external_attr = info.external_attr
             data = source.read(name)
@@ -4653,10 +5818,11 @@ for apk, changes in PATCHES.items():
                 data = bytes(data)
                 done.add(name)
             target.writestr(entry, data)
-        if apk == 'UnityDataAssetPack.apk' and 'hero_models' in BUILD and (not COPIE):
+        if apk == 'UnityDataAssetPack.apk' and 'hero_models' in BUILD:
             for _, path, bundle in hero_sources()[1]:
-                entry = zipfile.ZipInfo(path, date_time=(1981, 1, 1, 1, 1, 0))
-                target.writestr(entry, bundle)
+                target.writestr(zipfile.ZipInfo(path, date_time=ENTRY_DATE), bundle)
+            for name, bundle in maps_174_files():
+                target.writestr(zipfile.ZipInfo('assets/aa/Android/' + name, date_time=ENTRY_DATE), bundle)
     missing = set(changes) - done
     if missing:
         raise SystemExit(f'fichiers non trouves : {missing}')

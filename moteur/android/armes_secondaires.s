@@ -160,6 +160,13 @@ apply_chardef:
     mov  w2, #0
     bl   get_pref
     cbz  w0, 8f
+    str  w0, [sp, #0x18]
+    mov  x1, xzr
+    bl   ext_weapon_uid
+    mov  x1, xzr
+    bl   ext_weapon_is_unlocked
+    tbz  w0, #0, 8f
+    ldr  w0, [sp, #0x18]
     bl   gadget_index
     tbnz w0, #31, 8f
     add  w9, w0, #1
@@ -212,6 +219,24 @@ _ws_sim_key:
     str  w9, [sp, #0x08]
 1:  restore_all
     ret
+.globl _ws_ultimate_key
+_ws_ultimate_key:
+    save_all
+    ldr  w9, [x19, #0xc]
+    str  w9, [sp, #0x08]
+    adr  x10, _ws_hero_ultimates
+1:  ldrb w11, [x10], #2
+    cbz  w11, 2f
+    cmp  w11, w9
+    b.ne 1b
+    ldurb w9, [x10, #-1]
+    str  w9, [sp, #0x08]
+2:  restore_all
+    ret
+.globl _ws_hero_ultimates
+_ws_hero_ultimates:
+    .byte 16, 3, 18, 3, 23, 9, 12, 6, 11, 17, 13, 17, 21, 22, 20, 8, 19, 4, 0, 0
+    .p2align 2
 .globl _ws_equip_weapon
 _ws_equip_weapon:
     stp  x29, x30, [sp, #-0x40]!
@@ -229,6 +254,10 @@ _ws_equip_weapon:
     bl   gadget_of_uid
     cbz  w0, 4f
     mov  w23, w0
+    mov  w0, w21
+    mov  x1, xzr
+    bl   ext_weapon_is_unlocked
+    tbz  w0, #0, 7f
     bl   current_hero
     tbnz w0, #31, 3f
     mov  w1, #ALL_HEROES
@@ -242,6 +271,8 @@ _ws_equip_weapon:
     ldr  x2, [x22, #0x28]
     blr  x8
 2:  mov  w0, #1
+    b    9f
+7:  mov  w0, #0
     b    9f
 4:  mov  x0, x19
     mov  w1, w20
@@ -314,46 +345,6 @@ _ws_equip_skin:
 equip_skin_raw:
     sub  sp, sp, #0x40
     b    ext_equip_skin_body
-.globl _ws_weapon_locked
-_ws_weapon_locked:
-    stp  x29, x30, [sp, #-0x20]!
-    stp  x19, x20, [sp, #0x10]
-    mov  x19, x0
-    mov  w20, w1
-    mov  w0, w20
-    bl   gadget_index
-    tbnz w0, #31, 1f
-    bl   secondary_mode
-    cbz  w0, 1f
-    mov  w0, #0
-    b    9f
-1:  mov  x0, x19
-    mov  w1, w20
-    bl   weapon_locked_raw
-9:  ldp  x19, x20, [sp, #0x10]
-    ldp  x29, x30, [sp], #0x20
-    ret
-weapon_locked_raw:
-    str  x30, [sp, #-0x10]!
-    b    ext_weapon_locked_body
-.globl _ws_weapon_unlocked
-_ws_weapon_unlocked:
-    stp  x29, x30, [sp, #-0x20]!
-    str  x19, [sp, #0x10]
-    mov  w19, w0
-    bl   secondary_mode
-    cbz  w0, 1f
-    mov  w0, w19
-    bl   gadget_of_uid
-    cbz  w0, 1f
-    mov  w0, #1
-    b    9f
-1:  mov  w0, w19
-    mov  x1, xzr
-    bl   ext_weapon_is_unlocked
-9:  ldr  x19, [sp, #0x10]
-    ldp  x29, x30, [sp], #0x20
-    ret
 main_weapon_test:
     stp  x29, x30, [sp, #-0x10]!
     cmp  w23, #RATCHET_BLASTER
@@ -712,7 +703,190 @@ _ws_plan_targets:
     ldp  x19, x20, [sp, #0x10]
     ldp  x29, x30, [sp], #0x30
     ret
-.p2align 2
+    .p2align 2
+.globl _ws_shown_weapon
+_ws_shown_weapon:
+    stp  x29, x30, [sp, #-0x20]!
+    str  x19, [sp, #0x10]
+    mov  x1, xzr
+    bl   ext_default_weapon_uid
+    mov  w19, w0
+    mov  x0, xzr
+    bl   ext_user_instance
+    cbz  x0, 1f
+    ldr  x8, [x0, #0x190]
+    str  x8, [sp, #0x18]
+    add  x0, sp, #0x18
+    mov  w1, wzr
+    mov  x2, xzr
+    bl   ext_get_at_slot
+    cbz  w0, 1f
+    mov  w19, w0
+1:  mov  w0, w19
+    ldr  x19, [sp, #0x10]
+    ldp  x29, x30, [sp], #0x20
+    ret
+popup_levels:
+    stp  x29, x30, [sp, #-0x40]!
+    stp  x19, x20, [sp, #0x10]
+    stp  x21, x22, [sp, #0x20]
+    str  x23, [sp, #0x30]
+    ldr  w19, [x0, #0x20]
+    mov  w20, w1
+    mov  x0, xzr
+    bl   ext_get_economy
+    cbz  x0, 8f
+    ldr  x0, [x0, #0x20]
+    cbz  x0, 8f
+    mov  w1, w19
+    mov  x2, xzr
+    bl   ext_char_def_by_id
+    cbz  x0, 8f
+    mov  x21, x0
+    mov  x1, xzr
+    bl   ext_default_weapon_uid
+    mov  w23, w0
+    mov  x0, x21
+    bl   _ws_shown_weapon
+    mov  w22, w0
+    mov  x1, xzr
+    bl   ext_weapon_upgrade_qlevel
+    mov  w21, w0
+    mov  w1, w0
+    cmp  w22, w23
+    b.ne 9f
+    mov  w0, w20
+    mov  x1, xzr
+    bl   ext_weapon_qlevel
+    cmp  w21, w0
+    csel w19, w21, w0, gt
+    add  w0, w20, #1
+    mov  x1, xzr
+    bl   ext_weapon_qlevel
+    cmp  w21, w0
+    csel w1, w21, w0, gt
+    mov  w0, w19
+    b    7f
+8:  mov  w0, w20
+    add  w1, w20, #1
+    b    7f
+9:  mov  w0, w21
+7:  ldr  x23, [sp, #0x30]
+    ldp  x21, x22, [sp, #0x20]
+    ldp  x19, x20, [sp, #0x10]
+    ldp  x29, x30, [sp], #0x40
+    ret
+.globl _ws_popup_weapon_power
+_ws_popup_weapon_power:
+    adr  x9, weapon_power_raw
+    b    popup_stat
+.globl _ws_popup_weapon_damage
+_ws_popup_weapon_damage:
+    adr  x9, weapon_damage_raw
+popup_stat:
+    stp  x29, x30, [sp, #-0x40]!
+    stp  x19, x20, [sp, #0x10]
+    stp  x21, x22, [sp, #0x20]
+    str  x23, [sp, #0x30]
+    mov  x19, x0
+    mov  x20, x2
+    mov  x21, x3
+    mov  x23, x9
+    bl   popup_levels
+    mov  w22, w1
+    mov  w1, w0
+    mov  x0, x19
+    mov  x2, x20
+    add  x3, sp, #0x38
+    blr  x23
+    mov  x0, x19
+    mov  w1, w22
+    mov  x2, x21
+    add  x3, sp, #0x38
+    blr  x23
+    ldr  x23, [sp, #0x30]
+    ldp  x21, x22, [sp, #0x20]
+    ldp  x19, x20, [sp, #0x10]
+    ldp  x29, x30, [sp], #0x40
+    ret
+weapon_power_raw:
+    stp  x30, x23, [sp, #-0x30]!
+    b    ext_weapon_power_body
+weapon_damage_raw:
+    sub  sp, sp, #0x70
+    b    ext_weapon_damage_body
+.globl _ws_gadget_level
+_ws_gadget_level:
+    mov  x9, sp
+    save_all
+    ldr  w10, [x19, #0x18]
+    str  w10, [x9]
+    mov  x0, x19
+    mov  x1, xzr
+    bl   ext_is_human
+    tbz  w0, #0, 1f
+    mov  x0, x21
+    ldr  w1, [x19, #0x34]
+    mov  x2, xzr
+    bl   ext_player_data
+    cbz  x0, 1f
+    ldrb w10, [x0, #0x4d]
+    ldr  x9, [sp, #0x48]
+    str  w10, [x9]
+1:  restore_all
+    add  x21, sp, #0x18
+    ret
+gadget_ui_level:
+    stp  x29, x30, [sp, #-0x30]!
+    stp  x19, x20, [sp, #0x10]
+    str  x21, [sp, #0x20]
+    mov  w19, w0
+    mov  w20, w1
+    mov  x0, xzr
+    bl   ext_get_economy
+    cbz  x0, 9f
+    ldr  x21, [x0, #0x20]
+    cbz  x21, 9f
+    mov  x0, x21
+    mov  w1, w19
+    mov  x2, xzr
+    bl   ext_char_def_by_id
+    cbz  x0, 9f
+    bl   apply_chardef
+    mov  x0, x21
+    mov  w1, wzr
+    mov  w2, w19
+    mov  x3, xzr
+    bl   ext_gadget_weapon_at
+    cbz  w0, 9f
+    mov  x1, xzr
+    bl   ext_weapon_uid
+    cbz  w0, 9f
+    mov  x1, xzr
+    bl   ext_weapon_upgrade_qlevel
+    mov  w20, w0
+9:  mov  w0, w20
+    ldr  x21, [sp, #0x20]
+    ldp  x19, x20, [sp, #0x10]
+    ldp  x29, x30, [sp], #0x30
+    ret
+.globl _ws_gadget_power_level
+_ws_gadget_power_level:
+    save_all
+    ldr  w0, [x0, #0x20]
+    bl   gadget_ui_level
+    mov  w20, w0
+    restore_all
+    ret
+.globl _ws_gadget_cooldown_level
+_ws_gadget_cooldown_level:
+    save_all
+    mov  w1, w0
+    ldr  w0, [x19, #0x20]
+    bl   gadget_ui_level
+    mov  w20, w0
+    restore_all
+    ret
 .globl _ws_gadget_ids
 _ws_gadget_ids:
 gadget_ids:

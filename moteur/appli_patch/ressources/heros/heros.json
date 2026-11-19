@@ -1,0 +1,8470 @@
+{
+ "info": {
+  "Chance": {
+   "guid": "966f2d8d9c7f95149a7cb4237fcdfd54",
+   "dependencies": [
+    {
+     "own": "skins_character_chance_assets_all_ea1ae1112a40301e645b11ad648e496e.bundle",
+     "hash": "ea1ae1112a40301e645b11ad648e496e",
+     "internal": "ae6cf35fade380827f4d90c42b32ec36"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Molly": {
+   "guid": "adcdb763f80f3894f81c197594889b6e",
+   "dependencies": [
+    {
+     "own": "skins_character_molly_assets_all_80f842b062ace3fefa745878c83a6881.bundle",
+     "hash": "80f842b062ace3fefa745878c83a6881",
+     "internal": "33857a3c18200483372c7e4f76e8d999"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Helen": {
+   "guid": "777a95af41a038b409cd394e0ffb931d",
+   "dependencies": [
+    {
+     "own": "skins_character_helen_assets_all_4ef63d6105788453fb4e18743712bea3.bundle",
+     "hash": "4ef63d6105788453fb4e18743712bea3",
+     "internal": "ed1af286422e4aa9846b159d8af77696"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Flare": {
+   "guid": "102bd3a17a4e39b479d896308773c0a8",
+   "dependencies": [
+    {
+     "own": "skins_character_flare_assets_all_8159a571a17f52f74c15b2204f78c986.bundle",
+     "hash": "8159a571a17f52f74c15b2204f78c986",
+     "internal": "24091a1e7730122283e21bca426efc7a"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Nakari": {
+   "guid": "2904978eddf9d4143befcc2778e457de",
+   "dependencies": [
+    {
+     "own": "skins_character_nakari_assets_all_a4eb9425bfd989f6ee7fb28826b49a60.bundle",
+     "hash": "a4eb9425bfd989f6ee7fb28826b49a60",
+     "internal": "81b9d847ef0a5f905947e27df20135c1"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Terry": {
+   "guid": "c52cf61167f55554da126cac604d17b6",
+   "dependencies": [
+    {
+     "own": "skins_character_terry_assets_all_de70656b1216b2c5250c779049a63de3.bundle",
+     "hash": "de70656b1216b2c5250c779049a63de3",
+     "internal": "97b632429b468ce67b7cd8db065d4a1e"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Crumby": {
+   "guid": "57cadf1fb1a4aaa43988ed5f816d22d0",
+   "dependencies": [
+    {
+     "own": "skins_character_crumby_assets_all_93cb392aad4df1691bf261475d287895.bundle",
+     "hash": "93cb392aad4df1691bf261475d287895",
+     "internal": "b090bf04ca4a1e086dcf395689bfbc60"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Juycee": {
+   "guid": "0e7a24019654c904aa852294fce5eb52",
+   "dependencies": [
+    {
+     "own": "skins_character_juycee_assets_all_1d96e189b229e7e92336777b74abc38f.bundle",
+     "hash": "1d96e189b229e7e92336777b74abc38f",
+     "internal": "7dd3f425477965fae139042650c2508b"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Molly_Skin01": {
+   "guid": "9d90d13b20cd5104e956c89842898ee4",
+   "dependencies": [
+    {
+     "own": "skins_character_molly_skin01_assets_all_b26647e6c00f5d661529f9aeca2fb82b.bundle",
+     "hash": "b26647e6c00f5d661529f9aeca2fb82b",
+     "internal": "2c703aa8cd2f02370be5db9cf3e01dfe"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Molly_Skin02": {
+   "guid": "a32cb28303d09b343a917f1d5e1c12b3",
+   "dependencies": [
+    {
+     "own": "skins_character_molly_skin02_assets_all_0fbc318cb6f0f1b40c88e5913f13e8b7.bundle",
+     "hash": "0fbc318cb6f0f1b40c88e5913f13e8b7",
+     "internal": "5a0853246258500ec727ca6d7f93fa40"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Molly_Skin03": {
+   "guid": "29f2e38540612fb4fb137af1af59ab80",
+   "dependencies": [
+    {
+     "own": "skins_character_molly_skin03_assets_all_dee3f22e3d5e0e7c61d89f5a1360a7ae.bundle",
+     "hash": "dee3f22e3d5e0e7c61d89f5a1360a7ae",
+     "internal": "1c3e6cc7ac1ce30fbd015d2331c1c9e2"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "skins_character_lump_skin04_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Molly_Skin05": {
+   "guid": "ea90ba0efb2c07d43af9c877bef71585",
+   "dependencies": [
+    {
+     "own": "skins_character_molly_skin05_assets_all_629c1f4d56eb43be338f49e983d6629d.bundle",
+     "hash": "629c1f4d56eb43be338f49e983d6629d",
+     "internal": "95a606d2df854fa6ebe9d56b14ecf057"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Terry_Skin01": {
+   "guid": "633ee30cc24b56c4297cfaa79ef48d4f",
+   "dependencies": [
+    {
+     "own": "skins_character_terry_skin01_assets_all_1e1c20ca5c74325447ca0b5106330750.bundle",
+     "hash": "1e1c20ca5c74325447ca0b5106330750",
+     "internal": "6426bced3281a76712e5847b43503ea8"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Terry_Skin02": {
+   "guid": "41f0be7fee9e891498306cf07af6dfe4",
+   "dependencies": [
+    {
+     "own": "skins_character_terry_skin02_assets_all_8e27b26d44c1dc80acb2452b587aa879.bundle",
+     "hash": "8e27b26d44c1dc80acb2452b587aa879",
+     "internal": "257b5e58f23bfecda0914498529dab07"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Terry_Skin04": {
+   "guid": "c6198d730120fe14fb848c7adf2396f7",
+   "dependencies": [
+    {
+     "own": "skins_character_terry_skin04_assets_all_fdec881ed046fbd30ac5fe7b15b4f66b.bundle",
+     "hash": "fdec881ed046fbd30ac5fe7b15b4f66b",
+     "internal": "bf085677627af0c8c9a2980103e24203"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "skins_character_lump_skin04_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Helen_Skin01": {
+   "guid": "328f4baef1893bd4ebdf7119b253b6a8",
+   "dependencies": [
+    {
+     "own": "skins_character_helen_skin01_assets_all_761ccc5324cf4ffeb51069b1f4652a8c.bundle",
+     "hash": "761ccc5324cf4ffeb51069b1f4652a8c",
+     "internal": "a6662ed3ddcb0d375fd308829c85e29b"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "skins_character_helen_assets_all"
+    },
+    {
+     "family": "skins_character_lump_skin04_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Juycee_Skin01": {
+   "guid": "203c41384ffb6184881ab0cea4bbda1f",
+   "dependencies": [
+    {
+     "own": "skins_character_juycee_skin01_assets_all_78ab44c97cf6305030745c1777246919.bundle",
+     "hash": "78ab44c97cf6305030745c1777246919",
+     "internal": "0dc69dbb936e12dcce3907cbc7b3e582"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Juycee_Skin02": {
+   "guid": "b527aa10cacb42840896c36f26fa8fc7",
+   "dependencies": [
+    {
+     "own": "skins_character_juycee_skin02_assets_all_44c9f5653267799381e09e0b4dbd29f4.bundle",
+     "hash": "44c9f5653267799381e09e0b4dbd29f4",
+     "internal": "3c9b16bd90b0a6069211a6d2203f7060"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Juycee_Skin03": {
+   "guid": "a3c464b5d2686c8459fe7fe705241d05",
+   "dependencies": [
+    {
+     "own": "skins_character_juycee_skin03_assets_all_0cdae6548c5ce62973dd03099a86eb90.bundle",
+     "hash": "0cdae6548c5ce62973dd03099a86eb90",
+     "internal": "a88294d48484d902c59746634243285e"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  },
+  "Juycee_Skin04": {
+   "guid": "f565d52f806e52348ad5703cb9846c2e",
+   "dependencies": [
+    {
+     "own": "skins_character_juycee_skin04_assets_all_b43560744a6bfc9af9e026244e7ffd97.bundle",
+     "hash": "b43560744a6bfc9af9e026244e7ffd97",
+     "internal": "d66b23b199b7321148887d6fb485e205"
+    },
+    {
+     "family": "heroes_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "clankbag_anim_controller_group_assets_all"
+    },
+    {
+     "family": "quantum_db_level_design_assets_all"
+    },
+    {
+     "family": "shaders_assets_all"
+    },
+    {
+     "family": "skins_common_assets_all"
+    },
+    {
+     "family": "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+    },
+    {
+     "family": "default_common_group_assets_all"
+    },
+    {
+     "family": "scene_loadscenebetweenlevels_assets_all"
+    },
+    {
+     "family": "fxmanager_assets_all"
+    },
+    {
+     "family": "quantum_common_assets_all"
+    },
+    {
+     "family": "fonts_assets_all"
+    },
+    {
+     "family": "ui_atlases_assets_all"
+    },
+    {
+     "family": "weapon_grenadelauncher_assets_all"
+    },
+    {
+     "family": "gameplay_common_scriptables_assets_all"
+    },
+    {
+     "family": "weapon_widgetmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_ratchetblaster_assets_all"
+    },
+    {
+     "family": "shared_textures_assets_all"
+    },
+    {
+     "family": "shaders_default_textures_assets_all"
+    },
+    {
+     "family": "ui_portraits_assets_all"
+    },
+    {
+     "family": "ui_assets_all"
+    },
+    {
+     "family": "biomes_local_common_assets_all"
+    },
+    {
+     "family": "ui_materials_assets_all"
+    },
+    {
+     "family": "ui_bgs_assets_all"
+    },
+    {
+     "family": "hero_raiden_assets_all"
+    },
+    {
+     "family": "hero_sandy_assets_all"
+    },
+    {
+     "family": "scene_data_q_tuto_no_pve_assets_all"
+    },
+    {
+     "family": "hero_markus_assets_all"
+    },
+    {
+     "family": "legacy_character_qwark_assets_all"
+    },
+    {
+     "family": "weapon_gatling_assets_all"
+    },
+    {
+     "family": "skins_character_sandy_assets_all"
+    },
+    {
+     "family": "megacorp_bot_spinner_anim_controller_group_assets_all"
+    },
+    {
+     "family": "ui_animations_assets_all"
+    },
+    {
+     "family": "skins_character_raiden_assets_all"
+    },
+    {
+     "family": "skins_character_markus_assets_all"
+    },
+    {
+     "family": "material_assets_all"
+    },
+    {
+     "family": "ui_hero_logos_assets_all"
+    },
+    {
+     "family": "ui_main_menu_assets_all"
+    },
+    {
+     "family": "biome_megalopolis_common_assets_all"
+    },
+    {
+     "family": "weapon_voidrepulser_assets_all"
+    },
+    {
+     "family": "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets"
+    },
+    {
+     "family": "weapon_bombardier_assets_all"
+    },
+    {
+     "family": "ui_textures_root_assets_all"
+    },
+    {
+     "family": "weapon_gloveofdoom_assets_all"
+    },
+    {
+     "family": "weapon_electricgrenade_assets_all"
+    },
+    {
+     "family": "glove_anim_controllers_group_assets_all"
+    },
+    {
+     "family": "quantum_db_weapons_assets_all"
+    },
+    {
+     "family": "ui_main_menu_maps_previsualisation_assets_all"
+    },
+    {
+     "family": "ui_main_menu_endgame_assets_all"
+    },
+    {
+     "family": "quantum_db_level_perks_assets_all"
+    },
+    {
+     "family": "shop_offer_widgets_assets_all"
+    },
+    {
+     "family": "scene_metadata_q_bk_megalopolis_01_assets_all"
+    },
+    {
+     "family": "ui_main_menu_scrolling_assets_all"
+    },
+    {
+     "family": "ui_main_menu_masks_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_simulation_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_megalopolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_ardolis_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_torren_iv_assets_all"
+    },
+    {
+     "family": "skins_character_lump_assets_all"
+    },
+    {
+     "family": "skins_character_zedone_assets_all"
+    },
+    {
+     "family": "skins_character_ratchet_00_playable_assets_all"
+    },
+    {
+     "family": "skins_character_celeste_assets_all"
+    },
+    {
+     "family": "skins_character_fuse_assets_all"
+    },
+    {
+     "family": "skins_character_sproket_assets_all"
+    },
+    {
+     "family": "legacy_character_clank_assets_all"
+    },
+    {
+     "family": "skins_character_lilann_assets_all"
+    },
+    {
+     "family": "biome_main_menu_bg_sargasso_assets_all"
+    },
+    {
+     "family": "quantum_db_enemies_assets_all"
+    },
+    {
+     "family": "quantum_db_gagdet_assets_all"
+    },
+    {
+     "family": "ameboids_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_minelauncher_assets_all"
+    },
+    {
+     "family": "weapon_plasmastriker_assets_all"
+    },
+    {
+     "family": "weapon_coldsnap_assets_all"
+    },
+    {
+     "family": "weapon_cryoslider_assets_all"
+    },
+    {
+     "family": "weapon_lavagun_assets_all"
+    },
+    {
+     "family": "weapon_headhunter_assets_all"
+    },
+    {
+     "family": "weapon_amoeboidlauncher_assets_all"
+    },
+    {
+     "family": "weapon_shotgun_assets_all"
+    },
+    {
+     "family": "quantum_db_ultimates_assets_all"
+    },
+    {
+     "family": "quantum_db_heroes_assets_all"
+    },
+    {
+     "family": "quantum_db_meleeweapons_assets_all"
+    },
+    {
+     "family": "weapon_buzzblades_assets_all"
+    },
+    {
+     "family": "weapon_hoverboard_assets_all"
+    },
+    {
+     "family": "weapon_teslaclaw_assets_all"
+    },
+    {
+     "family": "weapon_tankcannon_assets_all"
+    },
+    {
+     "family": "weapon_warmonger_assets_all"
+    },
+    {
+     "family": "weapon_pyrocitor_assets_all"
+    },
+    {
+     "family": "weapon_enforcer_assets_all"
+    },
+    {
+     "family": "weapon_holoshieldglove_assets_all"
+    },
+    {
+     "family": "ui_addressables_assets_all"
+    },
+    {
+     "family": "ui_main_menu_shop_assets_all"
+    },
+    {
+     "family": "defaultlocalgroup_assets_all"
+    },
+    {
+     "family": "ui_main_menu_medalrun_assets_all"
+    },
+    {
+     "family": "hero_lump_assets_all"
+    },
+    {
+     "family": "hero_zedone_assets_all"
+    },
+    {
+     "family": "hero_ratchet_assets_all"
+    },
+    {
+     "family": "legacy_character_ratchet_assets_all"
+    },
+    {
+     "family": "hero_celeste_assets_all"
+    },
+    {
+     "family": "hero_fuse_assets_all"
+    },
+    {
+     "family": "hero_sprocket_assets_all"
+    },
+    {
+     "family": "hero_lil_ann_assets_all"
+    },
+    {
+     "family": "megacorp_bot_shooter_anim_controller_group_assets_all"
+    },
+    {
+     "family": "megacorp_bot_slammer_anim_controller_group_assets_all"
+    },
+    {
+     "family": "horny_toad_anim_controller_group_assets_all"
+    },
+    {
+     "family": "enemies_visuals_assets_all"
+    },
+    {
+     "family": "sandshark_anim_controller_group_assets_all"
+    },
+    {
+     "family": "duchesse_anim_controller_group_assets_all"
+    },
+    {
+     "family": "bury_blossom_anim_controller_group_assets_all"
+    },
+    {
+     "family": "popcorn_mob_anim_controller_group_assets_all"
+    },
+    {
+     "family": "robotank_anim_controller_group_assets_all"
+    },
+    {
+     "family": "juggernaut_anim_controller_group_assets_all"
+    },
+    {
+     "family": "weapon_negatron_assets_all"
+    },
+    {
+     "family": "weapon_lilannmeleegadget_assets_all"
+    },
+    {
+     "family": "weapon_sabre_assets_all"
+    },
+    {
+     "family": "ultimate_lump_assets_all"
+    },
+    {
+     "family": "weapon_bigboom_assets_all"
+    },
+    {
+     "family": "ultimate_sprocket_assets_all"
+    },
+    {
+     "family": "ultimate_grimshot_assets_all"
+    },
+    {
+     "family": "weapon_ratchetryno_assets_all"
+    },
+    {
+     "family": "weapon_wrenchthrow_assets_all"
+    },
+    {
+     "family": "weapon_markusmelee_assets_all"
+    },
+    {
+     "family": "weapon_mopzmelee_assets_all"
+    },
+    {
+     "family": "weapon_zedonemelee_assets_all"
+    },
+    {
+     "family": "weapon_terrymelee_assets_all"
+    },
+    {
+     "family": "weapon_sprocketmelee_assets_all"
+    },
+    {
+     "family": "weapon_steeljawmelee_assets_all"
+    },
+    {
+     "family": "weapon_celestemelee_assets_all"
+    },
+    {
+     "family": "weapon_mollymelee_assets_all"
+    },
+    {
+     "family": "weapon_nakarimelee_assets_all"
+    },
+    {
+     "family": "weapon_chancemelee_assets_all"
+    },
+    {
+     "family": "weapon_lumpmelee_assets_all"
+    },
+    {
+     "family": "weapon_grimshotmelee_assets_all"
+    },
+    {
+     "family": "weapon_fusemelee_assets_all"
+    },
+    {
+     "family": "weapon_widgetmelee_assets_all"
+    },
+    {
+     "family": "weapon_flaremelee_assets_all"
+    },
+    {
+     "family": "weapon_chipmelee_assets_all"
+    },
+    {
+     "family": "biome_sargasso_common_assets_all"
+    },
+    {
+     "family": "medal_run_assets_all"
+    }
+   ]
+  }
+ },
+ "bundles": [
+  [
+   "Chance",
+   "assets/aa/Android/skins_character_chance_assets_all_ea1ae1112a40301e645b11ad648e496e.bundle"
+  ],
+  [
+   "Molly",
+   "assets/aa/Android/skins_character_molly_assets_all_80f842b062ace3fefa745878c83a6881.bundle"
+  ],
+  [
+   "Helen",
+   "assets/aa/Android/skins_character_helen_assets_all_4ef63d6105788453fb4e18743712bea3.bundle"
+  ],
+  [
+   "Flare",
+   "assets/aa/Android/skins_character_flare_assets_all_8159a571a17f52f74c15b2204f78c986.bundle"
+  ],
+  [
+   "Nakari",
+   "assets/aa/Android/skins_character_nakari_assets_all_a4eb9425bfd989f6ee7fb28826b49a60.bundle"
+  ],
+  [
+   "Terry",
+   "assets/aa/Android/skins_character_terry_assets_all_de70656b1216b2c5250c779049a63de3.bundle"
+  ],
+  [
+   "Crumby",
+   "assets/aa/Android/skins_character_crumby_assets_all_93cb392aad4df1691bf261475d287895.bundle"
+  ],
+  [
+   "Juycee",
+   "assets/aa/Android/skins_character_juycee_assets_all_1d96e189b229e7e92336777b74abc38f.bundle"
+  ]
+ ]
+}

@@ -1,6 +1,7 @@
 import os
 import sys
 import msgpack
+from langues import tr
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', 'serveur_local'))
 import preparer
@@ -30,7 +31,7 @@ def convert(path, out_dir):
     folder = server_folder(path)
     lacking = missing_files(folder)
     if lacking:
-        raise SystemExit('Données du serveur incomplètes : ' + ', '.join(lacking))
+        raise SystemExit(tr('Données du serveur incomplètes : ') + ', '.join(lacking))
 
     def read(name):
         return open(os.path.join(folder, name), 'rb').read()

@@ -1,0 +1,2396 @@
+{
+ "Ranger Rumble hors ligne": {
+  "en": "Ranger Rumble Offline",
+  "es": "Ranger Rumble sin conexión",
+  "de": "Ranger Rumble offline",
+  "it": "Ranger Rumble offline",
+  "pt": "Ranger Rumble offline"
+ },
+ "Choisis en haut où est ton jeu.": {
+  "en": "Choose at the top where your game is.",
+  "es": "Elige arriba dónde está tu juego.",
+  "de": "Wähle oben, wo dein Spiel ist.",
+  "it": "Scegli in alto dov'è il tuo gioco.",
+  "pt": "Escolha no alto onde está o seu jogo."
+ },
+ "Démarrer": {
+  "en": "Start",
+  "es": "Iniciar",
+  "de": "Starten",
+  "it": "Avvia",
+  "pt": "Iniciar"
+ },
+ "Choisis le jeu officiel 1.10.4 et ta sauvegarde (ou « Nouvelle partie »), puis clique sur « Fabriquer l'APK ». Il faut 5 Go libres.": {
+  "en": "Choose the official game 1.10.4 and your save (or “New game”), then click “Build the APK”. You need 5 GB free.",
+  "es": "Elige el juego oficial 1.10.4 y tu partida (o «Partida nueva»), y haz clic en «Crear el APK». Necesitas 5 GB libres.",
+  "de": "Wähle das offizielle Spiel 1.10.4 und deinen Spielstand (oder „Neues Spiel“), dann klicke auf „APK erstellen“. Du brauchst 5 GB frei.",
+  "it": "Scegli il gioco ufficiale 1.10.4 e il tuo salvataggio (o «Nuova partita»), poi clicca su «Crea l'APK». Servono 5 GB liberi.",
+  "pt": "Escolha o jogo oficial 1.10.4 e o seu jogo salvo (ou “Novo jogo”), depois clique em “Criar o APK”. São necessários 5 GB livres."
+ },
+ "iPhone ou iPad": {
+  "en": "iPhone or iPad",
+  "es": "iPhone o iPad",
+  "de": "iPhone oder iPad",
+  "it": "iPhone o iPad",
+  "pt": "iPhone ou iPad"
+ },
+ "Le jeu est installé sur {model}.": {
+  "en": "The game is installed on {model}.",
+  "es": "El juego está instalado en {model}.",
+  "de": "Das Spiel ist auf {model} installiert.",
+  "it": "Il gioco è installato su {model}.",
+  "pt": "O jogo está instalado em {model}."
+ },
+ "Fabrication": {
+  "en": "Building",
+  "es": "Creación",
+  "de": "Erstellung",
+  "it": "Creazione",
+  "pt": "Criação"
+ },
+ "L'APK est prêt.": {
+  "en": "The APK is ready.",
+  "es": "El APK está listo.",
+  "de": "Die APK ist fertig.",
+  "it": "L'APK è pronto.",
+  "pt": "O APK está pronto."
+ },
+ "L'APK est prêt. L'installer sur le téléphone branché ?": {
+  "en": "The APK is ready. Install it on the plugged-in phone?",
+  "es": "El APK está listo. ¿Instalarlo en el teléfono conectado?",
+  "de": "Die APK ist fertig. Auf dem angeschlossenen Handy installieren?",
+  "it": "L'APK è pronto. Installarlo sul telefono collegato?",
+  "pt": "O APK está pronto. Instalar no celular conectado?"
+ },
+ "Installation": {
+  "en": "Installing",
+  "es": "Instalación",
+  "de": "Installation",
+  "it": "Installazione",
+  "pt": "Instalação"
+ },
+ "le téléphone": {
+  "en": "the phone",
+  "es": "el teléfono",
+  "de": "das Handy",
+  "it": "il telefono",
+  "pt": "o celular"
+ },
+ "Ancienne sauvegarde copiée :\n{name}": {
+  "en": "Old save copied:\n{name}",
+  "es": "Partida guardada anterior copiada:\n{name}",
+  "de": "Alter Spielstand kopiert:\n{name}",
+  "it": "Vecchio salvataggio copiato:\n{name}",
+  "pt": "Jogo salvo anterior copiado:\n{name}"
+ },
+ "Version {version}. Recherche de mise à jour...": {
+  "en": "Version {version}. Looking for updates...",
+  "es": "Versión {version}. Buscando actualizaciones...",
+  "de": "Version {version}. Suche nach Updates...",
+  "it": "Versione {version}. Ricerca aggiornamenti...",
+  "pt": "Versão {version}. Procurando atualizações..."
+ },
+ "Version {game}. Branche le téléphone (débogage USB activé) et clique ci-dessous. Ta progression est gardée.": {
+  "en": "Version {game}. Plug in the phone (USB debugging on) and click below. Your progress is kept.",
+  "es": "Versión {game}. Conecta el teléfono (depuración USB activada) y haz clic abajo. Tu progreso se conserva.",
+  "de": "Version {game}. Schließe das Handy an (USB-Debugging an) und klicke unten. Dein Fortschritt bleibt erhalten.",
+  "it": "Versione {game}. Collega il telefono (debug USB attivo) e clicca qui sotto. I tuoi progressi restano.",
+  "pt": "Versão {game}. Conecte o celular (depuração USB ativada) e clique abaixo. Seu progresso é mantido."
+ },
+ "L'outil est à jour. Relance-le.": {
+  "en": "The tool is up to date. Start it again.",
+  "es": "La herramienta está al día. Vuelve a abrirla.",
+  "de": "Das Tool ist aktuell. Starte es neu.",
+  "it": "Lo strumento è aggiornato. Riavvialo.",
+  "pt": "A ferramenta está atualizada. Abra-a de novo."
+ },
+ "Le jeu du téléphone est à jour.": {
+  "en": "The phone's game is up to date.",
+  "es": "El juego del teléfono está al día.",
+  "de": "Das Spiel auf dem Handy ist aktuell.",
+  "it": "Il gioco del telefono è aggiornato.",
+  "pt": "O jogo do celular está atualizado."
+ },
+ "Le jeu du téléphone est à jour. Ta progression est gardée.": {
+  "en": "The phone's game is up to date. Your progress is kept.",
+  "es": "El juego del teléfono está al día. Tu progreso se conserva.",
+  "de": "Das Spiel auf dem Handy ist aktuell. Dein Fortschritt bleibt erhalten.",
+  "it": "Il gioco del telefono è aggiornato. I tuoi progressi restano.",
+  "pt": "O jogo do celular está atualizado. Seu progresso é mantido."
+ },
+ "1. Copier la sauvegarde": {
+  "en": "1. Copy the save",
+  "es": "1. Copiar la partida",
+  "de": "1. Spielstand kopieren",
+  "it": "1. Copia il salvataggio",
+  "pt": "1. Copiar o jogo salvo"
+ },
+ "2. Fabriquer l'APK": {
+  "en": "2. Build the APK",
+  "es": "2. Crear el APK",
+  "de": "2. APK erstellen",
+  "it": "2. Crea l'APK",
+  "pt": "2. Criar o APK"
+ },
+ "3. Éditer une sauvegarde": {
+  "en": "3. Edit a save",
+  "es": "3. Editar una partida",
+  "de": "3. Spielstand bearbeiten",
+  "it": "3. Modifica un salvataggio",
+  "pt": "3. Editar um jogo salvo"
+ },
+ "4. Mises à jour": {
+  "en": "4. Updates",
+  "es": "4. Actualizaciones",
+  "de": "4. Updates",
+  "it": "4. Aggiornamenti",
+  "pt": "4. Atualizações"
+ },
+ "Scanne avec l'iPhone\n{url}": {
+  "en": "Scan with the iPhone\n{url}",
+  "es": "Escanea con el iPhone\n{url}",
+  "de": "Mit dem iPhone scannen\n{url}",
+  "it": "Scansiona con l'iPhone\n{url}",
+  "pt": "Escaneie com o iPhone\n{url}"
+ },
+ "Attends la fin de la fabrication de l'APK.": {
+  "en": "Wait until the APK is built.",
+  "es": "Espera a que termine la creación del APK.",
+  "de": "Warte, bis die APK fertig ist.",
+  "it": "Aspetta la fine della creazione dell'APK.",
+  "pt": "Espere o APK ficar pronto."
+ },
+ "Arrêter": {
+  "en": "Stop",
+  "es": "Detener",
+  "de": "Stoppen",
+  "it": "Ferma",
+  "pt": "Parar"
+ },
+ "Choisir...": {
+  "en": "Choose...",
+  "es": "Elegir...",
+  "de": "Wählen...",
+  "it": "Scegli...",
+  "pt": "Escolher..."
+ },
+ "Jeu officiel 1.10.4": {
+  "en": "Official game 1.10.4",
+  "es": "Juego oficial 1.10.4",
+  "de": "Offizielles Spiel 1.10.4",
+  "it": "Gioco ufficiale 1.10.4",
+  "pt": "Jogo oficial 1.10.4"
+ },
+ "Dossier d'images pour la galerie du jeu": {
+  "en": "Image folder for the game's gallery",
+  "es": "Carpeta de imágenes para la galería del juego",
+  "de": "Bilderordner für die Galerie des Spiels",
+  "it": "Cartella di immagini per la galleria del gioco",
+  "pt": "Pasta de imagens para a galeria do jogo"
+ },
+ "APK à créer": {
+  "en": "APK to create",
+  "es": "APK a crear",
+  "de": "Zu erstellende APK",
+  "it": "APK da creare",
+  "pt": "APK a criar"
+ },
+ "Choisis le fichier du jeu officiel 1.10.4 (.xapk, .apkm ou .apk).": {
+  "en": "Choose the official game file 1.10.4 (.xapk, .apkm or .apk).",
+  "es": "Elige el archivo del juego oficial 1.10.4 (.xapk, .apkm o .apk).",
+  "de": "Wähle die Datei des offiziellen Spiels 1.10.4 (.xapk, .apkm oder .apk).",
+  "it": "Scegli il file del gioco ufficiale 1.10.4 (.xapk, .apkm o .apk).",
+  "pt": "Escolha o arquivo do jogo oficial 1.10.4 (.xapk, .apkm ou .apk)."
+ },
+ "Le dossier d'images de la galerie n'existe pas.": {
+  "en": "The gallery's image folder does not exist.",
+  "es": "La carpeta de imágenes de la galería no existe.",
+  "de": "Der Bilderordner der Galerie existiert nicht.",
+  "it": "La cartella di immagini della galleria non esiste.",
+  "pt": "A pasta de imagens da galeria não existe."
+ },
+ "Ce fichier n'est pas une sauvegarde Ranger Rumble.": {
+  "en": "This file is not a Ranger Rumble save.",
+  "es": "Este archivo no es una partida de Ranger Rumble.",
+  "de": "Diese Datei ist kein Ranger-Rumble-Spielstand.",
+  "it": "Questo file non è un salvataggio di Ranger Rumble.",
+  "pt": "Este arquivo não é um jogo salvo do Ranger Rumble."
+ },
+ "Choisis une sauvegarde exportée ou « Nouvelle partie », pas les deux.": {
+  "en": "Choose an exported save or “New game”, not both.",
+  "es": "Elige una partida exportada o «Partida nueva», no las dos.",
+  "de": "Wähle einen exportierten Spielstand oder „Neues Spiel“, nicht beides.",
+  "it": "Scegli un salvataggio esportato o «Nuova partita», non entrambi.",
+  "pt": "Escolha um jogo salvo exportado ou “Novo jogo”, não os dois."
+ },
+ "Choisis une sauvegarde exportée, ou coche « Nouvelle partie ».": {
+  "en": "Choose an exported save, or tick “New game”.",
+  "es": "Elige una partida exportada o marca «Partida nueva».",
+  "de": "Wähle einen exportierten Spielstand oder setze ein Häkchen bei „Neues Spiel“.",
+  "it": "Scegli un salvataggio esportato, o spunta «Nuova partita».",
+  "pt": "Escolha um jogo salvo exportado, ou marque “Novo jogo”."
+ },
+ "Choisis où créer l'APK.": {
+  "en": "Choose where to create the APK.",
+  "es": "Elige dónde crear el APK.",
+  "de": "Wähle, wo die APK erstellt wird.",
+  "it": "Scegli dove creare l'APK.",
+  "pt": "Escolha onde criar o APK."
+ },
+ "Échec : {error}": {
+  "en": "Failed: {error}",
+  "es": "Error: {error}",
+  "de": "Fehlgeschlagen: {error}",
+  "it": "Errore: {error}",
+  "pt": "Falha: {error}"
+ },
+ "L'APK n'a pas pu être fabriqué :\n\n{error}": {
+  "en": "The APK could not be built:\n\n{error}",
+  "es": "No se pudo crear el APK:\n\n{error}",
+  "de": "Die APK konnte nicht erstellt werden:\n\n{error}",
+  "it": "Impossibile creare l'APK:\n\n{error}",
+  "pt": "Não foi possível criar o APK:\n\n{error}"
+ },
+ "L'APK est ici :\n{out}\n\nOuvrir son dossier ?": {
+  "en": "The APK is here:\n{out}\n\nOpen its folder?",
+  "es": "El APK está aquí:\n{out}\n\n¿Abrir su carpeta?",
+  "de": "Die APK ist hier:\n{out}\n\nIhren Ordner öffnen?",
+  "it": "L'APK è qui:\n{out}\n\nAprire la sua cartella?",
+  "pt": "O APK está aqui:\n{out}\n\nAbrir a pasta dele?"
+ },
+ "Attends la fin de la fabrication en cours.": {
+  "en": "Wait until the current build is done.",
+  "es": "Espera a que termine la creación en curso.",
+  "de": "Warte, bis die laufende Erstellung fertig ist.",
+  "it": "Aspetta la fine della creazione in corso.",
+  "pt": "Espere a criação em andamento terminar."
+ },
+ "Un autre Ranger Rumble est sur le téléphone. Le désinstaller et installer celui-ci ?\n\nSa progression sur le téléphone sera effacée.": {
+  "en": "Another Ranger Rumble is on the phone. Uninstall it and install this one?\n\nIts progress on the phone will be erased.",
+  "es": "Hay otro Ranger Rumble en el teléfono. ¿Desinstalarlo e instalar este?\n\nSu progreso en el teléfono se borrará.",
+  "de": "Ein anderes Ranger Rumble ist auf dem Handy. Deinstallieren und dieses installieren?\n\nSein Fortschritt auf dem Handy wird gelöscht.",
+  "it": "Sul telefono c'è un altro Ranger Rumble. Disinstallarlo e installare questo?\n\nI suoi progressi sul telefono verranno cancellati.",
+  "pt": "Há outro Ranger Rumble no celular. Desinstalá-lo e instalar este?\n\nO progresso dele no celular será apagado."
+ },
+ "Installation impossible :\n\n{error}": {
+  "en": "Installation failed:\n\n{error}",
+  "es": "No se pudo instalar:\n\n{error}",
+  "de": "Installation fehlgeschlagen:\n\n{error}",
+  "it": "Installazione non riuscita:\n\n{error}",
+  "pt": "Não foi possível instalar:\n\n{error}"
+ },
+ "Mettre à jour l'outil": {
+  "en": "Update the tool",
+  "es": "Actualizar la herramienta",
+  "de": "Tool aktualisieren",
+  "it": "Aggiorna lo strumento",
+  "pt": "Atualizar a ferramenta"
+ },
+ "Mettre à jour le jeu du téléphone": {
+  "en": "Update the phone's game",
+  "es": "Actualizar el juego del teléfono",
+  "de": "Spiel auf dem Handy aktualisieren",
+  "it": "Aggiorna il gioco del telefono",
+  "pt": "Atualizar o jogo do celular"
+ },
+ "L'outil est déjà à jour.": {
+  "en": "The tool is already up to date.",
+  "es": "La herramienta ya está al día.",
+  "de": "Das Tool ist schon aktuell.",
+  "it": "Lo strumento è già aggiornato.",
+  "pt": "A ferramenta já está atualizada."
+ },
+ "Installer la version {version} ? L'outil se fermera, relance-le ensuite.": {
+  "en": "Install version {version}? The tool will close, start it again afterwards.",
+  "es": "¿Instalar la versión {version}? La herramienta se cerrará, vuelve a abrirla después.",
+  "de": "Version {version} installieren? Das Tool schließt sich, starte es danach neu.",
+  "it": "Installare la versione {version}? Lo strumento si chiuderà, riavvialo dopo.",
+  "pt": "Instalar a versão {version}? A ferramenta vai fechar, abra-a de novo depois."
+ },
+ "La mise à jour de l'outil a échoué :\n\n{error}": {
+  "en": "The tool update failed:\n\n{error}",
+  "es": "La actualización de la herramienta falló:\n\n{error}",
+  "de": "Das Update des Tools ist fehlgeschlagen:\n\n{error}",
+  "it": "L'aggiornamento dello strumento non è riuscito:\n\n{error}",
+  "pt": "A atualização da ferramenta falhou:\n\n{error}"
+ },
+ "La mise à jour du téléphone n'a pas abouti :\n\n{error}": {
+  "en": "The phone update did not work:\n\n{error}",
+  "es": "La actualización del teléfono no funcionó:\n\n{error}",
+  "de": "Das Update des Handys hat nicht geklappt:\n\n{error}",
+  "it": "L'aggiornamento del telefono non è riuscito:\n\n{error}",
+  "pt": "A atualização do celular não funcionou:\n\n{error}"
+ },
+ "Arrêt...": {
+  "en": "Stopping...",
+  "es": "Deteniendo...",
+  "de": "Wird gestoppt...",
+  "it": "Arresto...",
+  "pt": "Parando..."
+ },
+ "APK à installer": {
+  "en": "APK to install",
+  "es": "APK a instalar",
+  "de": "Zu installierende APK",
+  "it": "APK da installare",
+  "pt": "APK a instalar"
+ },
+ "Installation sur le téléphone...": {
+  "en": "Installing on the phone...",
+  "es": "Instalando en el teléfono...",
+  "de": "Installation auf dem Handy...",
+  "it": "Installazione sul telefono...",
+  "pt": "Instalando no celular..."
+ },
+ "Version {version}. Aucune mise à jour trouvée.": {
+  "en": "Version {version}. No update found.",
+  "es": "Versión {version}. No hay actualizaciones.",
+  "de": "Version {version}. Kein Update gefunden.",
+  "it": "Versione {version}. Nessun aggiornamento trovato.",
+  "pt": "Versão {version}. Nenhuma atualização encontrada."
+ },
+ "Nouveautés :\n{v}": {
+  "en": "What's new:\n{v}",
+  "es": "Novedades:\n{v}",
+  "de": "Neuigkeiten:\n{v}",
+  "it": "Novità:\n{v}",
+  "pt": "Novidades:\n{v}"
+ },
+ "Mets ensuite à jour le jeu du téléphone.": {
+  "en": "Then update the phone's game.",
+  "es": "Después actualiza el juego del teléfono.",
+  "de": "Aktualisiere danach das Spiel auf dem Handy.",
+  "it": "Poi aggiorna il gioco del telefono.",
+  "pt": "Depois atualize o jogo do celular."
+ },
+ "Le jeu du téléphone est déjà à jour ({phone_game}). Le réinstaller quand même ?": {
+  "en": "The phone's game is already up to date ({phone_game}). Reinstall it anyway?",
+  "es": "El juego del teléfono ya está al día ({phone_game}). ¿Reinstalarlo de todos modos?",
+  "de": "Das Spiel auf dem Handy ist schon aktuell ({phone_game}). Trotzdem neu installieren?",
+  "it": "Il gioco del telefono è già aggiornato ({phone_game}). Reinstallarlo comunque?",
+  "pt": "O jogo do celular já está atualizado ({phone_game}). Reinstalar mesmo assim?"
+ },
+ "Mon jeu Ranger Rumble est sur :": {
+  "en": "My Ranger Rumble game is on:",
+  "es": "Mi juego Ranger Rumble está en:",
+  "de": "Mein Ranger-Rumble-Spiel ist auf:",
+  "it": "Il mio gioco Ranger Rumble è su:",
+  "pt": "Meu jogo Ranger Rumble está no:"
+ },
+ "Langue :": {
+  "en": "Language:",
+  "es": "Idioma:",
+  "de": "Sprache:",
+  "it": "Lingua:",
+  "pt": "Idioma:"
+ },
+ "Ouvrir le dossier des copies": {
+  "en": "Open the copies folder",
+  "es": "Abrir la carpeta de copias",
+  "de": "Ordner der Kopien öffnen",
+  "it": "Apri la cartella delle copie",
+  "pt": "Abrir a pasta das cópias"
+ },
+ "Erreur : {error}": {
+  "en": "Error: {error}",
+  "es": "Error: {error}",
+  "de": "Fehler: {error}",
+  "it": "Errore: {error}",
+  "pt": "Erro: {error}"
+ },
+ "Il faut les outils Android de Google (10 Mo). Les télécharger ?\n\nConditions :": {
+  "en": "Google's Android tools are needed (10 MB). Download them?\n\nTerms:",
+  "es": "Se necesitan las herramientas Android de Google (10 MB). ¿Descargarlas?\n\nCondiciones:",
+  "de": "Die Android-Tools von Google werden gebraucht (10 MB). Herunterladen?\n\nBedingungen:",
+  "it": "Servono gli strumenti Android di Google (10 MB). Scaricarli?\n\nCondizioni:",
+  "pt": "São necessárias as ferramentas Android do Google (10 MB). Baixá-las?\n\nTermos:"
+ },
+ "Jeu officiel 1.10.4 :": {
+  "en": "Official game 1.10.4:",
+  "es": "Juego oficial 1.10.4:",
+  "de": "Offizielles Spiel 1.10.4:",
+  "it": "Gioco ufficiale 1.10.4:",
+  "pt": "Jogo oficial 1.10.4:"
+ },
+ "Sauvegarde exportée :": {
+  "en": "Exported save:",
+  "es": "Partida exportada:",
+  "de": "Exportierter Spielstand:",
+  "it": "Salvataggio esportato:",
+  "pt": "Jogo salvo exportado:"
+ },
+ "Nouvelle partie": {
+  "en": "New game",
+  "es": "Partida nueva",
+  "de": "Neues Spiel",
+  "it": "Nuova partita",
+  "pt": "Novo jogo"
+ },
+ "Images de la galerie\n(facultatif) :": {
+  "en": "Gallery images\n(optional):",
+  "es": "Imágenes de la galería\n(opcional):",
+  "de": "Galeriebilder\n(optional):",
+  "it": "Immagini della galleria\n(facoltativo):",
+  "pt": "Imagens da galeria\n(opcional):"
+ },
+ "APK à créer :": {
+  "en": "APK to create:",
+  "es": "APK a crear:",
+  "de": "Zu erstellende APK:",
+  "it": "APK da creare:",
+  "pt": "APK a criar:"
+ },
+ "Jeu Android": {
+  "en": "Android game",
+  "es": "Juego Android",
+  "de": "Android-Spiel",
+  "it": "Gioco Android",
+  "pt": "Jogo Android"
+ },
+ "Tous les fichiers": {
+  "en": "All files",
+  "es": "Todos los archivos",
+  "de": "Alle Dateien",
+  "it": "Tutti i file",
+  "pt": "Todos os arquivos"
+ },
+ "Sauvegarde": {
+  "en": "Save",
+  "es": "Partida",
+  "de": "Spielstand",
+  "it": "Salvataggio",
+  "pt": "Jogo salvo"
+ },
+ "APK Android": {
+  "en": "Android APK",
+  "es": "APK Android",
+  "de": "Android-APK",
+  "it": "APK Android",
+  "pt": "APK Android"
+ },
+ "Désinstallation, puis installation...": {
+  "en": "Uninstalling, then installing...",
+  "es": "Desinstalando y luego instalando...",
+  "de": "Deinstallation, dann Installation...",
+  "it": "Disinstallazione, poi installazione...",
+  "pt": "Desinstalando e depois instalando..."
+ },
+ "L'outil": {
+  "en": "The tool",
+  "es": "La herramienta",
+  "de": "Das Tool",
+  "it": "Lo strumento",
+  "pt": "A ferramenta"
+ },
+ "Vérifier maintenant": {
+  "en": "Check now",
+  "es": "Comprobar ahora",
+  "de": "Jetzt prüfen",
+  "it": "Controlla ora",
+  "pt": "Verificar agora"
+ },
+ "Le jeu du téléphone": {
+  "en": "The phone's game",
+  "es": "El juego del teléfono",
+  "de": "Das Spiel auf dem Handy",
+  "it": "Il gioco del telefono",
+  "pt": "O jogo do celular"
+ },
+ "Version {version}. La version {version2} est disponible !{after}{notes}": {
+  "en": "Version {version}. Version {version2} is available!{after}{notes}",
+  "es": "Versión {version}. ¡La versión {version2} está disponible!{after}{notes}",
+  "de": "Version {version}. Version {version2} ist verfügbar!{after}{notes}",
+  "it": "Versione {version}. La versione {version2} è disponibile!{after}{notes}",
+  "pt": "Versão {version}. A versão {version2} está disponível!{after}{notes}"
+ },
+ "Version {version}, à jour.": {
+  "en": "Version {version}, up to date.",
+  "es": "Versión {version}, al día.",
+  "de": "Version {version}, aktuell.",
+  "it": "Versione {version}, aggiornata.",
+  "pt": "Versão {version}, atualizada."
+ },
+ "Sauvegarde du téléphone lue.": {
+  "en": "Phone save read.",
+  "es": "Partida del teléfono leída.",
+  "de": "Spielstand des Handys gelesen.",
+  "it": "Salvataggio del telefono letto.",
+  "pt": "Jogo salvo do celular lido."
+ },
+ "Fabrication en cours. Continuer quand même ?": {
+  "en": "Build in progress. Continue anyway?",
+  "es": "Creación en curso. ¿Continuar de todos modos?",
+  "de": "Erstellung läuft. Trotzdem weiter?",
+  "it": "Creazione in corso. Continuare comunque?",
+  "pt": "Criação em andamento. Continuar mesmo assim?"
+ },
+ "Fabrication en cours. Quitter quand même ?": {
+  "en": "Build in progress. Quit anyway?",
+  "es": "Creación en curso. ¿Salir de todos modos?",
+  "de": "Erstellung läuft. Trotzdem beenden?",
+  "it": "Creazione in corso. Uscire comunque?",
+  "pt": "Criação em andamento. Sair mesmo assim?"
+ },
+ "Touche « Autoriser » sur le téléphone, puis recommence.": {
+  "en": "Tap “Allow” on the phone, then try again.",
+  "es": "Toca «Permitir» en el teléfono y vuelve a intentarlo.",
+  "de": "Tippe auf dem Handy auf „Zulassen“ und versuche es erneut.",
+  "it": "Tocca «Consenti» sul telefono, poi riprova.",
+  "pt": "Toque em “Permitir” no celular e tente de novo."
+ },
+ "Sauvegarde du téléphone copiée : {copy}": {
+  "en": "Phone save copied: {copy}",
+  "es": "Partida del teléfono copiada: {copy}",
+  "de": "Spielstand des Handys kopiert: {copy}",
+  "it": "Salvataggio del telefono copiato: {copy}",
+  "pt": "Jogo salvo do celular copiado: {copy}"
+ },
+ "La sauvegarde du téléphone n'a pas pu être lue.": {
+  "en": "The phone's save could not be read.",
+  "es": "No se pudo leer la partida del teléfono.",
+  "de": "Der Spielstand des Handys konnte nicht gelesen werden.",
+  "it": "Impossibile leggere il salvataggio del telefono.",
+  "pt": "Não foi possível ler o jogo salvo do celular."
+ },
+ "partie vierge": {
+  "en": "blank game",
+  "es": "partida en blanco",
+  "de": "leeres Spiel",
+  "it": "partita vuota",
+  "pt": "jogo em branco"
+ },
+ "Le jeu n'est pas sur ce téléphone.": {
+  "en": "The game is not on this phone.",
+  "es": "El juego no está en este teléfono.",
+  "de": "Das Spiel ist nicht auf diesem Handy.",
+  "it": "Il gioco non è su questo telefono.",
+  "pt": "O jogo não está neste celular."
+ },
+ "téléphone (copie gardée dans {name})": {
+  "en": "phone (copy kept in {name})",
+  "es": "teléfono (copia guardada en {name})",
+  "de": "Handy (Kopie behalten in {name})",
+  "it": "telefono (copia tenuta in {name})",
+  "pt": "celular (cópia guardada em {name})"
+ },
+ "Pseudo": {
+  "en": "Nickname",
+  "es": "Apodo",
+  "de": "Spielername",
+  "it": "Nickname",
+  "pt": "Apelido"
+ },
+ "Parties jouées": {
+  "en": "Games played",
+  "es": "Partidas jugadas",
+  "de": "Gespielte Spiele",
+  "it": "Partite giocate",
+  "pt": "Partidas jogadas"
+ },
+ "Parties gagnées": {
+  "en": "Games won",
+  "es": "Partidas ganadas",
+  "de": "Gewonnene Spiele",
+  "it": "Partite vinte",
+  "pt": "Partidas ganhas"
+ },
+ "Victoires aujourd'hui": {
+  "en": "Wins today",
+  "es": "Victorias hoy",
+  "de": "Siege heute",
+  "it": "Vittorie oggi",
+  "pt": "Vitórias hoje"
+ },
+ "Défaites aujourd'hui": {
+  "en": "Losses today",
+  "es": "Derrotas hoy",
+  "de": "Niederlagen heute",
+  "it": "Sconfitte oggi",
+  "pt": "Derrotas hoje"
+ },
+ "Série de victoires en cours": {
+  "en": "Current win streak",
+  "es": "Racha de victorias actual",
+  "de": "Aktuelle Siegesserie",
+  "it": "Serie di vittorie in corso",
+  "pt": "Sequência de vitórias atual"
+ },
+ "Meilleure série de victoires": {
+  "en": "Best win streak",
+  "es": "Mejor racha de victorias",
+  "de": "Beste Siegesserie",
+  "it": "Migliore serie di vittorie",
+  "pt": "Melhor sequência de vitórias"
+ },
+ "Difficulté des bots (0 à 100)": {
+  "en": "Bot difficulty (0 to 100)",
+  "es": "Dificultad de los bots (0 a 100)",
+  "de": "Schwierigkeit der Bots (0 bis 100)",
+  "it": "Difficoltà dei bot (da 0 a 100)",
+  "pt": "Dificuldade dos bots (0 a 100)"
+ },
+ "Médailles (record)": {
+  "en": "Medals (record)",
+  "es": "Medallas (récord)",
+  "de": "Medaillen (Rekord)",
+  "it": "Medaglie (record)",
+  "pt": "Medalhas (recorde)"
+ },
+ "Ranger Road : récompenses prises": {
+  "en": "Ranger Road: rewards taken",
+  "es": "Ranger Road: recompensas recogidas",
+  "de": "Ranger Road: abgeholte Belohnungen",
+  "it": "Ranger Road: ricompense prese",
+  "pt": "Ranger Road: recompensas pegas"
+ },
+ "Médailles bonus": {
+  "en": "Bonus medals",
+  "es": "Medallas extra",
+  "de": "Bonusmedaillen",
+  "it": "Medaglie bonus",
+  "pt": "Medalhas bônus"
+ },
+ "Invasion : niveau atteint": {
+  "en": "Invasion: level reached",
+  "es": "Invasión: nivel alcanzado",
+  "de": "Invasion: erreichte Stufe",
+  "it": "Invasione: livello raggiunto",
+  "pt": "Invasão: nível alcançado"
+ },
+ "{label} ({low} à {high}) :": {
+  "en": "{label} ({low} to {high}):",
+  "es": "{label} ({low} a {high}):",
+  "de": "{label} ({low} bis {high}):",
+  "it": "{label} (da {low} a {high}):",
+  "pt": "{label} ({low} a {high}):"
+ },
+ "Nouvelle clé": {
+  "en": "New key",
+  "es": "Nueva clave",
+  "de": "Neuer Schlüssel",
+  "it": "Nuova chiave",
+  "pt": "Nova chave"
+ },
+ "Ouvre une sauvegarde, en haut.": {
+  "en": "Open a save, at the top.",
+  "es": "Abre una partida, arriba.",
+  "de": "Öffne oben einen Spielstand.",
+  "it": "Apri un salvataggio, in alto.",
+  "pt": "Abra um jogo salvo, no alto."
+ },
+ "Sauvegarde à ouvrir": {
+  "en": "Save to open",
+  "es": "Partida a abrir",
+  "de": "Zu öffnender Spielstand",
+  "it": "Salvataggio da aprire",
+  "pt": "Jogo salvo a abrir"
+ },
+ "Dossier d'une copie de sauvegarde": {
+  "en": "Folder of a save copy",
+  "es": "Carpeta de una copia de partida",
+  "de": "Ordner einer Spielstand-Kopie",
+  "it": "Cartella di una copia del salvataggio",
+  "pt": "Pasta de uma cópia do jogo salvo"
+ },
+ "Cette copie n'a pas de sauvegarde (save.msgpack).": {
+  "en": "This copy has no save (save.msgpack).",
+  "es": "Esta copia no tiene partida (save.msgpack).",
+  "de": "Diese Kopie hat keinen Spielstand (save.msgpack).",
+  "it": "Questa copia non ha salvataggio (save.msgpack).",
+  "pt": "Esta cópia não tem jogo salvo (save.msgpack)."
+ },
+ "Enregistrer la sauvegarde": {
+  "en": "Save the file",
+  "es": "Guardar la partida",
+  "de": "Spielstand speichern",
+  "it": "Salva il file",
+  "pt": "Salvar o arquivo"
+ },
+ "C'est fait : l'APK partira de cette sauvegarde.": {
+  "en": "Done: the APK will start from this save.",
+  "es": "Listo: el APK partirá de esta partida.",
+  "de": "Fertig: Die APK startet mit diesem Spielstand.",
+  "it": "Fatto: l'APK partirà da questo salvataggio.",
+  "pt": "Pronto: o APK vai partir deste jogo salvo."
+ },
+ "Envoyer cette sauvegarde au téléphone ? Le jeu se ferme s'il est ouvert.": {
+  "en": "Send this save to the phone? The game closes if it is open.",
+  "es": "¿Enviar esta partida al teléfono? El juego se cierra si está abierto.",
+  "de": "Diesen Spielstand an das Handy senden? Das Spiel schließt sich, wenn es offen ist.",
+  "it": "Inviare questo salvataggio al telefono? Il gioco si chiude se è aperto.",
+  "pt": "Enviar este jogo salvo para o celular? O jogo fecha se estiver aberto."
+ },
+ "Sauvegarde envoyée.": {
+  "en": "Save sent.",
+  "es": "Partida enviada.",
+  "de": "Spielstand gesendet.",
+  "it": "Salvataggio inviato.",
+  "pt": "Jogo salvo enviado."
+ },
+ "Oublier tous les changements depuis l'ouverture ?": {
+  "en": "Forget all changes since opening?",
+  "es": "¿Olvidar todos los cambios desde que se abrió?",
+  "de": "Alle Änderungen seit dem Öffnen verwerfen?",
+  "it": "Dimenticare tutte le modifiche dall'apertura?",
+  "pt": "Esquecer todas as mudanças desde a abertura?"
+ },
+ "Costumes": {
+  "en": "Skins",
+  "es": "Aspectos",
+  "de": "Skins",
+  "it": "Costumi",
+  "pt": "Visuais"
+ },
+ "Armes": {
+  "en": "Weapons",
+  "es": "Armas",
+  "de": "Waffen",
+  "it": "Armi",
+  "pt": "Armas"
+ },
+ "Héros": {
+  "en": "Heroes",
+  "es": "Héroes",
+  "de": "Helden",
+  "it": "Eroi",
+  "pt": "Heróis"
+ },
+ "Profil et statistiques": {
+  "en": "Profile and stats",
+  "es": "Perfil y estadísticas",
+  "de": "Profil und Statistiken",
+  "it": "Profilo e statistiche",
+  "pt": "Perfil e estatísticas"
+ },
+ "Débloqué": {
+  "en": "Unlocked",
+  "es": "Desbloqueado",
+  "de": "Freigeschaltet",
+  "it": "Sbloccato",
+  "pt": "Desbloqueado"
+ },
+ "Niveau": {
+  "en": "Level",
+  "es": "Nivel",
+  "de": "Stufe",
+  "it": "Livello",
+  "pt": "Nível"
+ },
+ "Talents": {
+  "en": "Talents",
+  "es": "Talentos",
+  "de": "Talente",
+  "it": "Talenti",
+  "pt": "Talentos"
+ },
+ "Lorbes": {
+  "en": "Lorbs",
+  "es": "Lorbs",
+  "de": "Lorbs",
+  "it": "Lorbs",
+  "pt": "Lorbs"
+ },
+ "Médailles": {
+  "en": "Medals",
+  "es": "Medallas",
+  "de": "Medaillen",
+  "it": "Medaglie",
+  "pt": "Medalhas"
+ },
+ "Série de victoires": {
+  "en": "Win streak",
+  "es": "Racha de victorias",
+  "de": "Siegesserie",
+  "it": "Serie di vittorie",
+  "pt": "Sequência de vitórias"
+ },
+ "Sélectionne d'abord des héros dans la liste (clic, Maj+clic ou Cmd/Ctrl+clic).": {
+  "en": "Select heroes in the list first (click, Shift+click or Cmd/Ctrl+click).",
+  "es": "Primero selecciona héroes en la lista (clic, Mayús+clic o Cmd/Ctrl+clic).",
+  "de": "Wähle zuerst Helden in der Liste (Klick, Umschalt+Klick oder Cmd/Strg+Klick).",
+  "it": "Prima seleziona degli eroi nella lista (clic, Maiusc+clic o Cmd/Ctrl+clic).",
+  "pt": "Selecione heróis na lista primeiro (clique, Shift+clique ou Cmd/Ctrl+clique)."
+ },
+ "Armes et gadgets": {
+  "en": "Weapons and gadgets",
+  "es": "Armas y artilugios",
+  "de": "Waffen und Gadgets",
+  "it": "Armi e gadget",
+  "pt": "Armas e engenhocas"
+ },
+ "Arme": {
+  "en": "Weapon",
+  "es": "Arma",
+  "de": "Waffe",
+  "it": "Arma",
+  "pt": "Arma"
+ },
+ "Débloquée": {
+  "en": "Unlocked",
+  "es": "Desbloqueada",
+  "de": "Freigeschaltet",
+  "it": "Sbloccata",
+  "pt": "Desbloqueada"
+ },
+ "Améliorations": {
+  "en": "Upgrades",
+  "es": "Mejoras",
+  "de": "Verbesserungen",
+  "it": "Potenziamenti",
+  "pt": "Melhorias"
+ },
+ "Plans": {
+  "en": "Blueprints",
+  "es": "Planos",
+  "de": "Baupläne",
+  "it": "Progetti",
+  "pt": "Projetos"
+ },
+ "Équipée": {
+  "en": "Equipped",
+  "es": "Equipada",
+  "de": "Ausgerüstet",
+  "it": "Equipaggiata",
+  "pt": "Equipada"
+ },
+ "Sélectionne d'abord des armes dans la liste (clic, Maj+clic ou Cmd/Ctrl+clic).": {
+  "en": "Select weapons in the list first (click, Shift+click or Cmd/Ctrl+click).",
+  "es": "Primero selecciona armas en la lista (clic, Mayús+clic o Cmd/Ctrl+clic).",
+  "de": "Wähle zuerst Waffen in der Liste (Klick, Umschalt+Klick oder Cmd/Strg+Klick).",
+  "it": "Prima seleziona delle armi nella lista (clic, Maiusc+clic o Cmd/Ctrl+clic).",
+  "pt": "Selecione armas na lista primeiro (clique, Shift+clique ou Cmd/Ctrl+clique)."
+ },
+ "Modes de jeu": {
+  "en": "Game modes",
+  "es": "Modos de juego",
+  "de": "Spielmodi",
+  "it": "Modalità di gioco",
+  "pt": "Modos de jogo"
+ },
+ "Tout (avancé)": {
+  "en": "Everything (advanced)",
+  "es": "Todo (avanzado)",
+  "de": "Alles (fortgeschritten)",
+  "it": "Tutto (avanzato)",
+  "pt": "Tudo (avançado)"
+ },
+ "Champ": {
+  "en": "Field",
+  "es": "Campo",
+  "de": "Feld",
+  "it": "Campo",
+  "pt": "Campo"
+ },
+ "Valeur": {
+  "en": "Value",
+  "es": "Valor",
+  "de": "Wert",
+  "it": "Valore",
+  "pt": "Valor"
+ },
+ "Type": {
+  "en": "Type",
+  "es": "Tipo",
+  "de": "Typ",
+  "it": "Tipo",
+  "pt": "Tipo"
+ },
+ "{label} : un nombre parmi\n{hint}": {
+  "en": "{label}: a number among\n{hint}",
+  "es": "{label}: un número entre\n{hint}",
+  "de": "{label}: eine Zahl aus\n{hint}",
+  "it": "{label}: un numero tra\n{hint}",
+  "pt": "{label}: um número entre\n{hint}"
+ },
+ "{label} (en hexadécimal) :": {
+  "en": "{label} (in hexadecimal):",
+  "es": "{label} (en hexadecimal):",
+  "de": "{label} (hexadezimal):",
+  "it": "{label} (in esadecimale):",
+  "pt": "{label} (em hexadecimal):"
+ },
+ "Cette clé existe déjà.": {
+  "en": "This key already exists.",
+  "es": "Esta clave ya existe.",
+  "de": "Dieser Schlüssel existiert schon.",
+  "it": "Questa chiave esiste già.",
+  "pt": "Esta chave já existe."
+ },
+ "{title} — {v} ({low} à {high}) :": {
+  "en": "{title} — {v} ({low} to {high}):",
+  "es": "{title} — {v} ({low} a {high}):",
+  "de": "{title} — {v} ({low} bis {high}):",
+  "it": "{title} — {v} (da {low} a {high}):",
+  "pt": "{title} — {v} ({low} a {high}):"
+ },
+ "Envoyer au téléphone": {
+  "en": "Send to the phone",
+  "es": "Enviar al teléfono",
+  "de": "An das Handy senden",
+  "it": "Invia al telefono",
+  "pt": "Enviar para o celular"
+ },
+ "Enregistrer sous...": {
+  "en": "Save as...",
+  "es": "Guardar como...",
+  "de": "Speichern unter...",
+  "it": "Salva con nome...",
+  "pt": "Salvar como..."
+ },
+ "Utiliser pour fabriquer l'APK": {
+  "en": "Use to build the APK",
+  "es": "Usar para crear el APK",
+  "de": "Für die APK benutzen",
+  "it": "Usa per creare l'APK",
+  "pt": "Usar para criar o APK"
+ },
+ "Annuler mes changements": {
+  "en": "Undo my changes",
+  "es": "Deshacer mis cambios",
+  "de": "Meine Änderungen verwerfen",
+  "it": "Annulla le mie modifiche",
+  "pt": "Desfazer minhas mudanças"
+ },
+ "Ce fichier n'est pas une sauvegarde lisible de Ranger Rumble :\n\n{error}": {
+  "en": "This file is not a readable Ranger Rumble save:\n\n{error}",
+  "es": "Este archivo no es una partida legible de Ranger Rumble:\n\n{error}",
+  "de": "Diese Datei ist kein lesbarer Ranger-Rumble-Spielstand:\n\n{error}",
+  "it": "Questo file non è un salvataggio leggibile di Ranger Rumble:\n\n{error}",
+  "pt": "Este arquivo não é um jogo salvo legível do Ranger Rumble:\n\n{error}"
+ },
+ "Tes changements dans la sauvegarde ouverte ne sont pas enregistrés. L'oublier ?": {
+  "en": "Your changes to the open save are not saved. Forget them?",
+  "es": "Tus cambios en la partida abierta no están guardados. ¿Olvidarlos?",
+  "de": "Deine Änderungen am offenen Spielstand sind nicht gespeichert. Verwerfen?",
+  "it": "Le tue modifiche al salvataggio aperto non sono salvate. Dimenticarle?",
+  "pt": "Suas mudanças no jogo salvo aberto não foram salvas. Esquecê-las?"
+ },
+ "Enregistrement impossible :\n\n{error}": {
+  "en": "Could not save:\n\n{error}",
+  "es": "No se pudo guardar:\n\n{error}",
+  "de": "Speichern fehlgeschlagen:\n\n{error}",
+  "it": "Impossibile salvare:\n\n{error}",
+  "pt": "Não foi possível salvar:\n\n{error}"
+ },
+ "La sauvegarde n'a pas pu être posée sur le téléphone.": {
+  "en": "The save could not be put on the phone.",
+  "es": "No se pudo poner la partida en el teléfono.",
+  "de": "Der Spielstand konnte nicht auf das Handy gelegt werden.",
+  "it": "Impossibile mettere il salvataggio sul telefono.",
+  "pt": "Não foi possível colocar o jogo salvo no celular."
+ },
+ "Sauvegarde : {source}  —  {v}  —": {
+  "en": "Save: {source}  —  {v}  —",
+  "es": "Partida: {source}  —  {v}  —",
+  "de": "Spielstand: {source}  —  {v}  —",
+  "it": "Salvataggio: {source}  —  {v}  —",
+  "pt": "Jogo salvo: {source}  —  {v}  —"
+ },
+ "Parties perdues": {
+  "en": "Games lost",
+  "es": "Partidas perdidas",
+  "de": "Verlorene Spiele",
+  "it": "Partite perse",
+  "pt": "Partidas perdidas"
+ },
+ "Médailles (actuelles)": {
+  "en": "Medals (current)",
+  "es": "Medallas (actuales)",
+  "de": "Medaillen (aktuell)",
+  "it": "Medaglie (attuali)",
+  "pt": "Medalhas (atuais)"
+ },
+ "Costume": {
+  "en": "Skin",
+  "es": "Aspecto",
+  "de": "Skin",
+  "it": "Costume",
+  "pt": "Visual"
+ },
+ "Possédé": {
+  "en": "Owned",
+  "es": "Tenido",
+  "de": "Besessen",
+  "it": "Posseduto",
+  "pt": "Obtido"
+ },
+ "Porté": {
+  "en": "Worn",
+  "es": "Puesto",
+  "de": "Getragen",
+  "it": "Indossato",
+  "pt": "Usado"
+ },
+ "Mode": {
+  "en": "Mode",
+  "es": "Modo",
+  "de": "Modus",
+  "it": "Modalità",
+  "pt": "Modo"
+ },
+ "Jouées": {
+  "en": "Played",
+  "es": "Jugadas",
+  "de": "Gespielt",
+  "it": "Giocate",
+  "pt": "Jogadas"
+ },
+ "Gagnées": {
+  "en": "Won",
+  "es": "Ganadas",
+  "de": "Gewonnen",
+  "it": "Vinte",
+  "pt": "Ganhas"
+ },
+ "Perdues": {
+  "en": "Lost",
+  "es": "Perdidas",
+  "de": "Verloren",
+  "it": "Perse",
+  "pt": "Perdidas"
+ },
+ "Égalités": {
+  "en": "Draws",
+  "es": "Empates",
+  "de": "Unentschieden",
+  "it": "Pareggi",
+  "pt": "Empates"
+ },
+ "Ajouter un élément": {
+  "en": "Add an item",
+  "es": "Añadir un elemento",
+  "de": "Element hinzufügen",
+  "it": "Aggiungi un elemento",
+  "pt": "Adicionar um item"
+ },
+ "Ajouter une clé": {
+  "en": "Add a key",
+  "es": "Añadir una clave",
+  "de": "Schlüssel hinzufügen",
+  "it": "Aggiungi una chiave",
+  "pt": "Adicionar uma chave"
+ },
+ "Ouvrir :": {
+  "en": "Open:",
+  "es": "Abrir:",
+  "de": "Öffnen:",
+  "it": "Apri:",
+  "pt": "Abrir:"
+ },
+ "Le téléphone (câble)": {
+  "en": "The phone (cable)",
+  "es": "El teléfono (cable)",
+  "de": "Das Handy (Kabel)",
+  "it": "Il telefono (cavo)",
+  "pt": "O celular (cabo)"
+ },
+ "Un fichier...": {
+  "en": "A file...",
+  "es": "Un archivo...",
+  "de": "Eine Datei...",
+  "it": "Un file...",
+  "pt": "Um arquivo..."
+ },
+ "Une copie...": {
+  "en": "A copy...",
+  "es": "Una copia...",
+  "de": "Eine Kopie...",
+  "it": "Una copia...",
+  "pt": "Uma cópia..."
+ },
+ "Partie vierge": {
+  "en": "Blank game",
+  "es": "Partida en blanco",
+  "de": "Leeres Spiel",
+  "it": "Partita vuota",
+  "pt": "Jogo em branco"
+ },
+ "{n_changes} partie(s) modifiée(s), pas encore enregistrée(s)": {
+  "en": "{n_changes} part(s) changed, not saved yet",
+  "es": "{n_changes} parte(s) cambiada(s), sin guardar todavía",
+  "de": "{n_changes} Teil(e) geändert, noch nicht gespeichert",
+  "it": "{n_changes} parte/i modificata/e, non ancora salvata/e",
+  "pt": "{n_changes} parte(s) alterada(s), ainda não salva(s)"
+ },
+ "aucun changement": {
+  "en": "no changes",
+  "es": "ningún cambio",
+  "de": "keine Änderung",
+  "it": "nessuna modifica",
+  "pt": "nenhuma mudança"
+ },
+ "Double-clique sur une valeur pour la changer.": {
+  "en": "Double-click a value to change it.",
+  "es": "Haz doble clic en un valor para cambiarlo.",
+  "de": "Doppelklicke auf einen Wert, um ihn zu ändern.",
+  "it": "Fai doppio clic su un valore per cambiarlo.",
+  "pt": "Clique duas vezes num valor para mudá-lo."
+ },
+ "Double-clique pour changer une valeur.": {
+  "en": "Double-click to change a value.",
+  "es": "Haz doble clic para cambiar un valor.",
+  "de": "Doppelklicke, um einen Wert zu ändern.",
+  "it": "Fai doppio clic per cambiare un valore.",
+  "pt": "Clique duas vezes para mudar um valor."
+ },
+ "Débloquer tous les héros": {
+  "en": "Unlock all heroes",
+  "es": "Desbloquear todos los héroes",
+  "de": "Alle Helden freischalten",
+  "it": "Sblocca tutti gli eroi",
+  "pt": "Desbloquear todos os heróis"
+ },
+ "Niveau max pour la sélection": {
+  "en": "Max level for the selection",
+  "es": "Nivel máximo para la selección",
+  "de": "Max. Stufe für die Auswahl",
+  "it": "Livello massimo per la selezione",
+  "pt": "Nível máximo para a seleção"
+ },
+ "Débloquer toutes les armes": {
+  "en": "Unlock all weapons",
+  "es": "Desbloquear todas las armas",
+  "de": "Alle Waffen freischalten",
+  "it": "Sblocca tutte le armi",
+  "pt": "Desbloquear todas as armas"
+ },
+ "Double-clique pour donner ou retirer un costume.": {
+  "en": "Double-click to give or remove a skin.",
+  "es": "Haz doble clic para dar o quitar un aspecto.",
+  "de": "Doppelklicke, um einen Skin zu geben oder zu entfernen.",
+  "it": "Fai doppio clic per dare o togliere un costume.",
+  "pt": "Clique duas vezes para dar ou tirar um visual."
+ },
+ "Donner tous les costumes": {
+  "en": "Give all skins",
+  "es": "Dar todos los aspectos",
+  "de": "Alle Skins geben",
+  "it": "Dai tutti i costumi",
+  "pt": "Dar todos os visuais"
+ },
+ "Ce costume est porté : change de costume dans le jeu avant de le retirer.": {
+  "en": "This skin is worn: change skins in the game before removing it.",
+  "es": "Este aspecto está puesto: cambia de aspecto en el juego antes de quitarlo.",
+  "de": "Dieser Skin wird getragen: Wechsle den Skin im Spiel, bevor du ihn entfernst.",
+  "it": "Questo costume è indossato: cambia costume nel gioco prima di toglierlo.",
+  "pt": "Este visual está em uso: troque de visual no jogo antes de tirá-lo."
+ },
+ "Modes proposés dans le jeu, et les parties de chacun.": {
+  "en": "Modes offered in the game, and the games of each.",
+  "es": "Modos que ofrece el juego, y las partidas de cada uno.",
+  "de": "Die Modi im Spiel und die Spiele in jedem.",
+  "it": "Le modalità del gioco, e le partite di ognuna.",
+  "pt": "Os modos do jogo, e as partidas de cada um."
+ },
+ "Toute la sauvegarde. Double-clique pour changer, clic droit pour ajouter ou retirer. Avec précaution.": {
+  "en": "The whole save. Double-click to change, right-click to add or remove. Be careful.",
+  "es": "Toda la partida. Doble clic para cambiar, clic derecho para añadir o quitar. Con cuidado.",
+  "de": "Der ganze Spielstand. Doppelklick zum Ändern, Rechtsklick zum Hinzufügen oder Entfernen. Vorsichtig.",
+  "it": "Tutto il salvataggio. Doppio clic per cambiare, clic destro per aggiungere o togliere. Con cautela.",
+  "pt": "O jogo salvo inteiro. Clique duas vezes para mudar, clique direito para adicionar ou tirar. Com cuidado."
+ },
+ "Ce n'est pas de l'hexadécimal.": {
+  "en": "This is not hexadecimal.",
+  "es": "Esto no es hexadecimal.",
+  "de": "Das ist nicht hexadezimal.",
+  "it": "Questo non è esadecimale.",
+  "pt": "Isto não é hexadecimal."
+ },
+ "Créer la liste": {
+  "en": "Create the list",
+  "es": "Crear la lista",
+  "de": "Liste erstellen",
+  "it": "Crea la lista",
+  "pt": "Criar a lista"
+ },
+ "Retirer cet élément": {
+  "en": "Remove this item",
+  "es": "Quitar este elemento",
+  "de": "Dieses Element entfernen",
+  "it": "Togli questo elemento",
+  "pt": "Tirar este item"
+ },
+ "Retirer cette clé": {
+  "en": "Remove this key",
+  "es": "Quitar esta clave",
+  "de": "Diesen Schlüssel entfernen",
+  "it": "Togli questa chiave",
+  "pt": "Tirar esta chave"
+ },
+ "Sans nom": {
+  "en": "No name",
+  "es": "Sin nombre",
+  "de": "Ohne Namen",
+  "it": "Senza nome",
+  "pt": "Sem nome"
+ },
+ "C'est le héros choisi dans le jeu : choisis-en un autre dans le jeu avant de le retirer.": {
+  "en": "This is the hero chosen in the game: choose another one in the game before removing it.",
+  "es": "Es el héroe elegido en el juego: elige otro en el juego antes de quitarlo.",
+  "de": "Das ist der im Spiel gewählte Held: Wähle im Spiel einen anderen, bevor du ihn entfernst.",
+  "it": "È l'eroe scelto nel gioco: scegline un altro nel gioco prima di toglierlo.",
+  "pt": "É o herói escolhido no jogo: escolha outro no jogo antes de tirá-lo."
+ },
+ "Il faut garder au moins un héros.": {
+  "en": "You must keep at least one hero.",
+  "es": "Hay que conservar al menos un héroe.",
+  "de": "Du musst mindestens einen Helden behalten.",
+  "it": "Devi tenere almeno un eroe.",
+  "pt": "É preciso manter pelo menos um herói."
+ },
+ "Cette arme est équipée : équipe-en une autre dans le jeu avant de la retirer.": {
+  "en": "This weapon is equipped: equip another one in the game before removing it.",
+  "es": "Esta arma está equipada: equipa otra en el juego antes de quitarla.",
+  "de": "Diese Waffe ist ausgerüstet: Rüste im Spiel eine andere aus, bevor du sie entfernst.",
+  "it": "Quest'arma è equipaggiata: equipaggiane un'altra nel gioco prima di toglierla.",
+  "pt": "Esta arma está equipada: equipe outra no jogo antes de tirá-la."
+ },
+ "sans nom": {
+  "en": "no name",
+  "es": "sin nombre",
+  "de": "ohne Namen",
+  "it": "senza nome",
+  "pt": "sem nome"
+ },
+ "Téléchargement des outils Android...": {
+  "en": "Downloading the Android tools...",
+  "es": "Descargando las herramientas Android...",
+  "de": "Android-Tools werden heruntergeladen...",
+  "it": "Download degli strumenti Android...",
+  "pt": "Baixando as ferramentas Android..."
+ },
+ "Installation impossible : {v}": {
+  "en": "Installation failed: {v}",
+  "es": "No se pudo instalar: {v}",
+  "de": "Installation fehlgeschlagen: {v}",
+  "it": "Installazione non riuscita: {v}",
+  "pt": "Não foi possível instalar: {v}"
+ },
+ "Les outils Android n'ont pas pu être installés.": {
+  "en": "The Android tools could not be installed.",
+  "es": "No se pudieron instalar las herramientas Android.",
+  "de": "Die Android-Tools konnten nicht installiert werden.",
+  "it": "Impossibile installare gli strumenti Android.",
+  "pt": "Não foi possível instalar as ferramentas Android."
+ },
+ "Ranger Rumble est déjà sur le téléphone, signé par quelqu'un d'autre : désinstalle-le, puis recommence.": {
+  "en": "Ranger Rumble is already on the phone, signed by someone else: uninstall it, then try again.",
+  "es": "Ranger Rumble ya está en el teléfono, firmado por otra persona: desinstálalo y vuelve a intentarlo.",
+  "de": "Ranger Rumble ist schon auf dem Handy, von jemand anderem signiert: Deinstalliere es und versuche es erneut.",
+  "it": "Ranger Rumble è già sul telefono, firmato da qualcun altro: disinstallalo, poi riprova.",
+  "pt": "O Ranger Rumble já está no celular, assinado por outra pessoa: desinstale-o e tente de novo."
+ },
+ "Pas assez de place sur le téléphone (3 Go).": {
+  "en": "Not enough space on the phone (3 GB).",
+  "es": "No hay espacio suficiente en el teléfono (3 GB).",
+  "de": "Nicht genug Platz auf dem Handy (3 GB).",
+  "it": "Spazio insufficiente sul telefono (3 GB).",
+  "pt": "Espaço insuficiente no celular (3 GB)."
+ },
+ "Les modèles des 7 héros jamais sortis manquent dans l'outil (moteur/appli_patch/ressources/heros) : retélécharge l'outil.": {
+  "en": "The models of the 7 never-released heroes are missing from the tool (moteur/appli_patch/ressources/heros): download the tool again.",
+  "es": "Faltan en la herramienta los modelos de los 7 héroes nunca publicados (moteur/appli_patch/ressources/heros): vuelve a descargar la herramienta.",
+  "de": "Die Modelle der 7 nie erschienenen Helden fehlen im Tool (moteur/appli_patch/ressources/heros): Lade das Tool neu herunter.",
+  "it": "Mancano nello strumento i modelli dei 7 eroi mai usciti (moteur/appli_patch/ressources/heros): riscarica lo strumento.",
+  "pt": "Faltam na ferramenta os modelos dos 7 heróis nunca lançados (moteur/appli_patch/ressources/heros): baixe a ferramenta de novo."
+ },
+ "1/6 Lecture du jeu officiel...": {
+  "en": "1/6 Reading the official game...",
+  "es": "1/6 Leyendo el juego oficial...",
+  "de": "1/6 Offizielles Spiel wird gelesen...",
+  "it": "1/6 Lettura del gioco ufficiale...",
+  "pt": "1/6 Lendo o jogo oficial..."
+ },
+ "2/6 Modifications du jeu (quelques minutes)...": {
+  "en": "2/6 Changing the game (a few minutes)...",
+  "es": "2/6 Modificando el juego (unos minutos)...",
+  "de": "2/6 Spiel wird geändert (einige Minuten)...",
+  "it": "2/6 Modifiche al gioco (qualche minuto)...",
+  "pt": "2/6 Modificando o jogo (alguns minutos)..."
+ },
+ "3/6 Préparation...": {
+  "en": "3/6 Preparing...",
+  "es": "3/6 Preparando...",
+  "de": "3/6 Vorbereitung...",
+  "it": "3/6 Preparazione...",
+  "pt": "3/6 Preparando..."
+ },
+ "4/6 Sauvegarde...": {
+  "en": "4/6 Save...",
+  "es": "4/6 Partida guardada...",
+  "de": "4/6 Spielstand...",
+  "it": "4/6 Salvataggio...",
+  "pt": "4/6 Jogo salvo..."
+ },
+ "5/6 Signature...": {
+  "en": "5/6 Signing...",
+  "es": "5/6 Firmando...",
+  "de": "5/6 Signatur...",
+  "it": "5/6 Firma...",
+  "pt": "5/6 Assinando..."
+ },
+ "6/6 Fini : {out}": {
+  "en": "6/6 Done: {out}",
+  "es": "6/6 Terminado: {out}",
+  "de": "6/6 Fertig: {out}",
+  "it": "6/6 Finito: {out}",
+  "pt": "6/6 Pronto: {out}"
+ },
+ "Ce fichier n'est pas le jeu (.xapk, .apkm ou .apk).": {
+  "en": "This file is not the game (.xapk, .apkm or .apk).",
+  "es": "Este archivo no es el juego (.xapk, .apkm o .apk).",
+  "de": "Diese Datei ist nicht das Spiel (.xapk, .apkm oder .apk).",
+  "it": "Questo file non è il gioco (.xapk, .apkm o .apk).",
+  "pt": "Este arquivo não é o jogo (.xapk, .apkm ou .apk)."
+ },
+ "Cette APK n'a pas tout le jeu : prends le .xapk (APKPure) ou le .apkm (APKMirror).": {
+  "en": "This APK does not have the whole game: take the .xapk (APKPure) or the .apkm (APKMirror).",
+  "es": "Este APK no tiene todo el juego: usa el .xapk (APKPure) o el .apkm (APKMirror).",
+  "de": "Diese APK hat nicht das ganze Spiel: Nimm die .xapk (APKPure) oder die .apkm (APKMirror).",
+  "it": "Questo APK non ha tutto il gioco: prendi il .xapk (APKPure) o il .apkm (APKMirror).",
+  "pt": "Este APK não tem o jogo inteiro: use o .xapk (APKPure) ou o .apkm (APKMirror)."
+ },
+ "Choisis une sauvegarde, ou une nouvelle partie.": {
+  "en": "Choose a save, or a new game.",
+  "es": "Elige una partida guardada o una partida nueva.",
+  "de": "Wähle einen Spielstand oder ein neues Spiel.",
+  "it": "Scegli un salvataggio, o una nuova partita.",
+  "pt": "Escolha um jogo salvo, ou um novo jogo."
+ },
+ "Choisis une copie de sauvegarde.": {
+  "en": "Choose a save copy.",
+  "es": "Elige una copia de partida.",
+  "de": "Wähle eine Spielstand-Kopie.",
+  "it": "Scegli una copia del salvataggio.",
+  "pt": "Escolha uma cópia do jogo salvo."
+ },
+ "Ce fichier n'est pas la version 1.10.4 attendue du jeu.": {
+  "en": "This file is not the expected 1.10.4 version of the game.",
+  "es": "Este archivo no es la versión 1.10.4 esperada del juego.",
+  "de": "Diese Datei ist nicht die erwartete Version 1.10.4 des Spiels.",
+  "it": "Questo file non è la versione 1.10.4 attesa del gioco.",
+  "pt": "Este arquivo não é a versão 1.10.4 esperada do jogo."
+ },
+ "Cette version n'a pas le fichier de l'outil attendu : télécharge-la à la main sur sa page.": {
+  "en": "This version does not have the expected tool file: download it by hand from its page.",
+  "es": "Esta versión no tiene el archivo esperado de la herramienta: descárgala a mano desde su página.",
+  "de": "Diese Version hat nicht die erwartete Datei des Tools: Lade sie von Hand auf ihrer Seite herunter.",
+  "it": "Questa versione non ha il file atteso dello strumento: scaricala a mano dalla sua pagina.",
+  "pt": "Esta versão não tem o arquivo esperado da ferramenta: baixe-a à mão na página dela."
+ },
+ "Téléchargement de la version {version}...": {
+  "en": "Downloading version {version}...",
+  "es": "Descargando la versión {version}...",
+  "de": "Version {version} wird heruntergeladen...",
+  "it": "Download della versione {version}...",
+  "pt": "Baixando a versão {version}..."
+ },
+ "Installation...": {
+  "en": "Installing...",
+  "es": "Instalando...",
+  "de": "Installation...",
+  "it": "Installazione...",
+  "pt": "Instalando..."
+ },
+ "L'outil est maintenant en version {version}.": {
+  "en": "The tool is now version {version}.",
+  "es": "La herramienta ya está en la versión {version}.",
+  "de": "Das Tool hat jetzt Version {version}.",
+  "it": "Lo strumento ora è nella versione {version}.",
+  "pt": "A ferramenta agora está na versão {version}."
+ },
+ "Le fichier téléchargé est abîmé (empreinte différente). Réessaie plus tard.": {
+  "en": "The downloaded file is damaged (different fingerprint). Try again later.",
+  "es": "El archivo descargado está dañado (huella distinta). Vuelve a intentarlo más tarde.",
+  "de": "Die heruntergeladene Datei ist beschädigt (anderer Fingerabdruck). Versuche es später erneut.",
+  "it": "Il file scaricato è danneggiato (impronta diversa). Riprova più tardi.",
+  "pt": "O arquivo baixado está danificado (impressão digital diferente). Tente de novo mais tarde."
+ },
+ "Le fichier téléchargé n'est pas l'outil attendu.": {
+  "en": "The downloaded file is not the expected tool.",
+  "es": "El archivo descargado no es la herramienta esperada.",
+  "de": "Die heruntergeladene Datei ist nicht das erwartete Tool.",
+  "it": "Il file scaricato non è lo strumento atteso.",
+  "pt": "O arquivo baixado não é a ferramenta esperada."
+ },
+ "Le fichier téléchargé n'est pas la version annoncée.": {
+  "en": "The downloaded file is not the announced version.",
+  "es": "El archivo descargado no es la versión anunciada.",
+  "de": "Die heruntergeladene Datei ist nicht die angekündigte Version.",
+  "it": "Il file scaricato non è la versione annunciata.",
+  "pt": "O arquivo baixado não é a versão anunciada."
+ },
+ "Le fichier téléchargé contient des chemins inattendus.": {
+  "en": "The downloaded file has unexpected paths.",
+  "es": "El archivo descargado contiene rutas inesperadas.",
+  "de": "Die heruntergeladene Datei enthält unerwartete Pfade.",
+  "it": "Il file scaricato contiene percorsi inattesi.",
+  "pt": "O arquivo baixado contém caminhos inesperados."
+ },
+ "octet msgpack inconnu {b:#x}": {
+  "en": "unknown msgpack byte {b:#x}",
+  "es": "byte msgpack desconocido {b:#x}",
+  "de": "unbekanntes msgpack-Byte {b:#x}",
+  "it": "byte msgpack sconosciuto {b:#x}",
+  "pt": "byte msgpack desconhecido {b:#x}"
+ },
+ "données en trop après la sauvegarde": {
+  "en": "extra data after the save",
+  "es": "datos de más después de la partida",
+  "de": "zu viele Daten nach dem Spielstand",
+  "it": "dati in più dopo il salvataggio",
+  "pt": "dados a mais depois do jogo salvo"
+ },
+ "sauvegarde tronquée": {
+  "en": "truncated save",
+  "es": "partida truncada",
+  "de": "abgeschnittener Spielstand",
+  "it": "salvataggio troncato",
+  "pt": "jogo salvo truncado"
+ },
+ "ce fichier n'est pas une sauvegarde de Ranger Rumble": {
+  "en": "this file is not a Ranger Rumble save",
+  "es": "este archivo no es una partida de Ranger Rumble",
+  "de": "diese Datei ist kein Ranger-Rumble-Spielstand",
+  "it": "questo file non è un salvataggio di Ranger Rumble",
+  "pt": "este arquivo não é um jogo salvo do Ranger Rumble"
+ },
+ "valeur impossible à écrire : {value!r}": {
+  "en": "value that cannot be written: {value!r}",
+  "es": "valor imposible de escribir: {value!r}",
+  "de": "Wert kann nicht geschrieben werden: {value!r}",
+  "it": "valore impossibile da scrivere: {value!r}",
+  "pt": "valor impossível de escrever: {value!r}"
+ },
+ "Données du serveur incomplètes :": {
+  "en": "Incomplete server data:",
+  "es": "Datos del servidor incompletos:",
+  "de": "Serverdaten unvollständig:",
+  "it": "Dati del server incompleti:",
+  "pt": "Dados do servidor incompletos:"
+ },
+ "Si la copie ne démarre pas, règle le proxy à la main : Réglages &gt; Wi-Fi &gt; (i) &gt; Configurer le proxy &gt; Manuel, serveur <code>{address}</code>, port <code>{port}</code> (et remets-le sur Désactivé après).": {
+  "en": "If the copy does not start, set the proxy by hand: Settings &gt; Wi-Fi &gt; (i) &gt; Configure Proxy &gt; Manual, server <code>{address}</code>, port <code>{port}</code> (and set it back to Off afterwards).",
+  "es": "Si la copia no empieza, configura el proxy a mano: Ajustes &gt; Wi-Fi &gt; (i) &gt; Configurar proxy &gt; Manual, servidor <code>{address}</code>, puerto <code>{port}</code> (y vuelve a ponerlo en Desactivado después).",
+  "de": "Wenn die Kopie nicht startet, stelle den Proxy von Hand ein: Einstellungen &gt; WLAN &gt; (i) &gt; Proxy konfigurieren &gt; Manuell, Server <code>{address}</code>, Port <code>{port}</code> (und stelle ihn danach wieder auf Aus).",
+  "it": "Se la copia non parte, imposta il proxy a mano: Impostazioni &gt; Wi-Fi &gt; (i) &gt; Configura proxy &gt; Manuale, server <code>{address}</code>, porta <code>{port}</code> (e rimettilo su Disattivato dopo).",
+  "pt": "Se a cópia não começar, configure o proxy à mão: Ajustes &gt; Wi-Fi &gt; (i) &gt; Configurar Proxy &gt; Manual, servidor <code>{address}</code>, porta <code>{port}</code> (e volte para Desativado depois)."
+ },
+ "Copie de sauvegarde": {
+  "en": "Save copy",
+  "es": "Copia de partida",
+  "de": "Spielstand-Kopie",
+  "it": "Copia del salvataggio",
+  "pt": "Cópia do jogo salvo"
+ },
+ "Aucun port libre entre {start} et {v}.": {
+  "en": "No free port between {start} and {v}.",
+  "es": "Ningún puerto libre entre {start} y {v}.",
+  "de": "Kein freier Port zwischen {start} und {v}.",
+  "it": "Nessuna porta libera tra {start} e {v}.",
+  "pt": "Nenhuma porta livre entre {start} e {v}."
+ },
+ "<b>1.</b> Touche le bouton, puis <b>Autoriser</b>.": {
+  "en": "<b>1.</b> Tap the button, then <b>Allow</b>.",
+  "es": "<b>1.</b> Toca el botón y luego <b>Permitir</b>.",
+  "de": "<b>1.</b> Tippe auf den Knopf, dann auf <b>Zulassen</b>.",
+  "it": "<b>1.</b> Tocca il pulsante, poi <b>Consenti</b>.",
+  "pt": "<b>1.</b> Toque no botão, depois em <b>Permitir</b>."
+ },
+ "<b>3.</b> Réglages &gt; Général &gt; <b>Informations</b> (pas VPN). Tout en bas de cette page : <b>Réglages des certificats</b> (la ligne n'apparaît qu'après l'étape 2). Active <b>RatchetRR</b>, puis <b>Continuer</b>.": {
+  "en": "<b>3.</b> Settings &gt; General &gt; <b>About</b> (not VPN). At the very bottom of this page: <b>Certificate Trust Settings</b> (the line only appears after step 2). Turn on <b>RatchetRR</b>, then <b>Continue</b>.",
+  "es": "<b>3.</b> Ajustes &gt; General &gt; <b>Información</b> (no VPN). Abajo del todo: <b>Ajustes de confianza de certificados</b> (la línea solo aparece después del paso 2). Activa <b>RatchetRR</b> y luego <b>Continuar</b>.",
+  "de": "<b>3.</b> Einstellungen &gt; Allgemein &gt; <b>Info</b> (nicht VPN). Ganz unten auf dieser Seite: <b>Zertifikatsvertrauenseinstellungen</b> (die Zeile erscheint erst nach Schritt 2). Schalte <b>RatchetRR</b> ein, dann <b>Fortfahren</b>.",
+  "it": "<b>3.</b> Impostazioni &gt; Generali &gt; <b>Info</b> (non VPN). In fondo a questa pagina: <b>Impostazioni certificati attendibili</b> (la riga appare solo dopo il passo 2). Attiva <b>RatchetRR</b>, poi <b>Continua</b>.",
+  "pt": "<b>3.</b> Ajustes &gt; Geral &gt; <b>Sobre</b> (não VPN). Bem no fim desta página: <b>Ajustes de Confiança de Certificados</b> (a linha só aparece depois do passo 2). Ative <b>RatchetRR</b>, depois <b>Continuar</b>."
+ },
+ "<b>4.</b> Ouvre Ranger Rumble et attends l'écran d'accueil. C'est tout : la fenêtre de l'ordinateur dira quand c'est fini.": {
+  "en": "<b>4.</b> Open Ranger Rumble and wait for the home screen. That's all: the computer's window will say when it is done.",
+  "es": "<b>4.</b> Abre Ranger Rumble y espera la pantalla de inicio. Eso es todo: la ventana del ordenador dirá cuándo termina.",
+  "de": "<b>4.</b> Öffne Ranger Rumble und warte auf den Startbildschirm. Das ist alles: Das Fenster des Computers sagt, wann es fertig ist.",
+  "it": "<b>4.</b> Apri Ranger Rumble e aspetta la schermata iniziale. È tutto: la finestra del computer dirà quando è finito.",
+  "pt": "<b>4.</b> Abra o Ranger Rumble e espere a tela inicial. É só isso: a janela do computador vai dizer quando terminar."
+ },
+ "=== Copie de sauvegarde - Ratchet & Clank: Ranger Rumble ===": {
+  "en": "=== Save copy - Ratchet & Clank: Ranger Rumble ===",
+  "es": "=== Copia de partida - Ratchet & Clank: Ranger Rumble ===",
+  "de": "=== Spielstand-Kopie - Ratchet & Clank: Ranger Rumble ===",
+  "it": "=== Copia del salvataggio - Ratchet & Clank: Ranger Rumble ===",
+  "pt": "=== Cópia do jogo salvo - Ratchet & Clank: Ranger Rumble ==="
+ },
+ "L'iPhone et cet ordinateur doivent être sur le même Wi-Fi.": {
+  "en": "The iPhone and this computer must be on the same Wi-Fi.",
+  "es": "El iPhone y este ordenador deben estar en el mismo Wi-Fi.",
+  "de": "Das iPhone und dieser Computer müssen im selben WLAN sein.",
+  "it": "L'iPhone e questo computer devono essere sulla stessa Wi-Fi.",
+  "pt": "O iPhone e este computador precisam estar no mesmo Wi-Fi."
+ },
+ "ÉTAPE 1 - sur l'iPhone, vise le QR code de la fenêtre avec l'appareil photo": {
+  "en": "STEP 1 - on the iPhone, point the camera at the QR code in the window",
+  "es": "PASO 1 - en el iPhone, apunta la cámara al código QR de la ventana",
+  "de": "SCHRITT 1 - Richte auf dem iPhone die Kamera auf den QR-Code im Fenster",
+  "it": "PASSO 1 - sull'iPhone, inquadra con la fotocamera il codice QR della finestra",
+  "pt": "PASSO 1 - no iPhone, aponte a câmera para o código QR da janela"
+ },
+ "(ou ouvre Safari à l'adresse http://{address}:{page_port} ).": {
+  "en": "(or open Safari at http://{address}:{page_port} ).",
+  "es": "(o abre Safari en http://{address}:{page_port} ).",
+  "de": "(oder öffne Safari unter http://{address}:{page_port} ).",
+  "it": "(oppure apri Safari all'indirizzo http://{address}:{page_port} ).",
+  "pt": "(ou abra o Safari no endereço http://{address}:{page_port} )."
+ },
+ "Touche « Télécharger le profil RatchetRR », puis « Autoriser ».": {
+  "en": "Tap “Download the RatchetRR profile”, then “Allow”.",
+  "es": "Toca «Descargar el perfil RatchetRR» y luego «Permitir».",
+  "de": "Tippe auf „Profil RatchetRR laden“, dann auf „Zulassen“.",
+  "it": "Tocca «Scarica il profilo RatchetRR», poi «Consenti».",
+  "pt": "Toque em “Baixar o perfil RatchetRR”, depois em “Permitir”."
+ },
+ "ÉTAPE 2 - installe le profil : Réglages > « Profil téléchargé » (en haut)": {
+  "en": "STEP 2 - install the profile: Settings > “Profile Downloaded” (at the top)",
+  "es": "PASO 2 - instala el perfil: Ajustes > «Perfil descargado» (arriba)",
+  "de": "SCHRITT 2 - installiere das Profil: Einstellungen > „Profil geladen“ (oben)",
+  "it": "PASSO 2 - installa il profilo: Impostazioni > «Profilo scaricato» (in alto)",
+  "pt": "PASSO 2 - instale o perfil: Ajustes > “Perfil Transferido” (no alto)"
+ },
+ "> Installer > code de l'iPhone > Installer.": {
+  "en": "> Install > iPhone passcode > Install.",
+  "es": "> Instalar > código del iPhone > Instalar.",
+  "de": "> Installieren > iPhone-Code > Installieren.",
+  "it": "> Installa > codice dell'iPhone > Installa.",
+  "pt": "> Instalar > código do iPhone > Instalar."
+ },
+ "ÉTAPE 3 - accepte le profil (sinon le jeu le refuse) :": {
+  "en": "STEP 3 - trust the profile (otherwise the game refuses it):",
+  "es": "PASO 3 - acepta el perfil (si no, el juego lo rechaza):",
+  "de": "SCHRITT 3 - vertraue dem Profil (sonst lehnt das Spiel es ab):",
+  "it": "PASSO 3 - accetta il profilo (altrimenti il gioco lo rifiuta):",
+  "pt": "PASSO 3 - confie no perfil (senão o jogo o recusa):"
+ },
+ "Réglages > Général > Informations > tout en bas « Réglages des certificats »": {
+  "en": "Settings > General > About > at the very bottom “Certificate Trust Settings”",
+  "es": "Ajustes > General > Información > abajo del todo «Ajustes de confianza de certificados»",
+  "de": "Einstellungen > Allgemein > Info > ganz unten „Zertifikatsvertrauenseinstellungen“",
+  "it": "Impostazioni > Generali > Info > in fondo «Impostazioni certificati attendibili»",
+  "pt": "Ajustes > Geral > Sobre > bem no fim “Ajustes de Confiança de Certificados”"
+ },
+ "> active « RatchetRR » > Continuer.": {
+  "en": "> turn on “RatchetRR” > Continue.",
+  "es": "> activa «RatchetRR» > Continuar.",
+  "de": "> „RatchetRR“ einschalten > Fortfahren.",
+  "it": "> attiva «RatchetRR» > Continua.",
+  "pt": "> ative “RatchetRR” > Continuar."
+ },
+ "ÉTAPE 4 - ouvre Ranger Rumble et attends l'écran d'accueil. C'est tout.": {
+  "en": "STEP 4 - open Ranger Rumble and wait for the home screen. That's all.",
+  "es": "PASO 4 - abre Ranger Rumble y espera la pantalla de inicio. Eso es todo.",
+  "de": "SCHRITT 4 - öffne Ranger Rumble und warte auf den Startbildschirm. Das ist alles.",
+  "it": "PASSO 4 - apri Ranger Rumble e aspetta la schermata iniziale. È tutto.",
+  "pt": "PASSO 4 - abra o Ranger Rumble e espere a tela inicial. É só isso."
+ },
+ "Laisse cette fenêtre ouverte : elle dira quand la sauvegarde est copiée.": {
+  "en": "Leave this window open: it will say when the save is copied.",
+  "es": "Deja esta ventana abierta: dirá cuándo está copiada la partida.",
+  "de": "Lass dieses Fenster offen: Es sagt, wann der Spielstand kopiert ist.",
+  "it": "Lascia aperta questa finestra: dirà quando il salvataggio è copiato.",
+  "pt": "Deixe esta janela aberta: ela vai dizer quando o jogo salvo for copiado."
+ },
+ "Les copies vont dans : {OUT}": {
+  "en": "Copies go to: {OUT}",
+  "es": "Las copias van a: {OUT}",
+  "de": "Die Kopien kommen in: {OUT}",
+  "it": "Le copie vanno in: {OUT}",
+  "pt": "As cópias vão para: {OUT}"
+ },
+ "C'EST FAIT : SAUVEGARDE ET DONNÉES COPIÉES !": {
+  "en": "DONE: SAVE AND DATA COPIED!",
+  "es": "¡LISTO: PARTIDA Y DATOS COPIADOS!",
+  "de": "FERTIG: SPIELSTAND UND DATEN KOPIERT!",
+  "it": "FATTO: SALVATAGGIO E DATI COPIATI!",
+  "pt": "PRONTO: JOGO SALVO E DADOS COPIADOS!"
+ },
+ "Dossier : {folder}": {
+  "en": "Folder: {folder}",
+  "es": "Carpeta: {folder}",
+  "de": "Ordner: {folder}",
+  "it": "Cartella: {folder}",
+  "pt": "Pasta: {folder}"
+ },
+ "Maintenant, sur l'iPhone, supprime le profil RatchetRR :": {
+  "en": "Now, on the iPhone, remove the RatchetRR profile:",
+  "es": "Ahora, en el iPhone, elimina el perfil RatchetRR:",
+  "de": "Entferne jetzt auf dem iPhone das Profil RatchetRR:",
+  "it": "Ora, sull'iPhone, rimuovi il profilo RatchetRR:",
+  "pt": "Agora, no iPhone, remova o perfil RatchetRR:"
+ },
+ "Réglages > Général > VPN et gestion de l'appareil > RatchetRR > Supprimer le profil.": {
+  "en": "Settings > General > VPN & Device Management > RatchetRR > Remove Profile.",
+  "es": "Ajustes > General > VPN y gestión de dispositivos > RatchetRR > Eliminar perfil.",
+  "de": "Einstellungen > Allgemein > VPN und Geräteverwaltung > RatchetRR > Profil entfernen.",
+  "it": "Impostazioni > Generali > VPN e gestione dispositivi > RatchetRR > Rimuovi profilo.",
+  "pt": "Ajustes > Geral > VPN e Gerenciamento de Dispositivos > RatchetRR > Remover Perfil."
+ },
+ "(Si tu avais réglé le proxy à la main, remets-le sur Désactivé.)": {
+  "en": "(If you had set the proxy by hand, set it back to Off.)",
+  "es": "(Si configuraste el proxy a mano, vuelve a ponerlo en Desactivado.)",
+  "de": "(Wenn du den Proxy von Hand eingestellt hattest, stelle ihn wieder auf Aus.)",
+  "it": "(Se avevi impostato il proxy a mano, rimettilo su Disattivato.)",
+  "pt": "(Se você configurou o proxy à mão, volte para Desativado.)"
+ },
+ "Sauvegarde copiée : compte {user}, {n_parts} parties.": {
+  "en": "Save copied: account {user}, {n_parts} parts.",
+  "es": "Partida copiada: cuenta {user}, {n_parts} partes.",
+  "de": "Spielstand kopiert: Konto {user}, {n_parts} Teile.",
+  "it": "Salvataggio copiato: account {user}, {n_parts} parti.",
+  "pt": "Jogo salvo copiado: conta {user}, {n_parts} partes."
+ },
+ "Reste sur l'écran d'accueil du jeu : il reste les données du serveur (environ 30 secondes).": {
+  "en": "Stay on the game's home screen: the server data is still coming (about 30 seconds).",
+  "es": "Quédate en la pantalla de inicio del juego: faltan los datos del servidor (unos 30 segundos).",
+  "de": "Bleib auf dem Startbildschirm des Spiels: Die Serverdaten fehlen noch (etwa 30 Sekunden).",
+  "it": "Resta sulla schermata iniziale del gioco: mancano i dati del server (circa 30 secondi).",
+  "pt": "Fique na tela inicial do jogo: faltam os dados do servidor (uns 30 segundos)."
+ },
+ "Le jeu refuse le certificat de l'ordinateur ({host}).": {
+  "en": "The game refuses the computer's certificate ({host}).",
+  "es": "El juego rechaza el certificado del ordenador ({host}).",
+  "de": "Das Spiel lehnt das Zertifikat des Computers ab ({host}).",
+  "it": "Il gioco rifiuta il certificato del computer ({host}).",
+  "pt": "O jogo recusa o certificado do computador ({host})."
+ },
+ "Sur l'iPhone, le profil doit être installé ET accepté :": {
+  "en": "On the iPhone, the profile must be installed AND trusted:",
+  "es": "En el iPhone, el perfil debe estar instalado Y aceptado:",
+  "de": "Auf dem iPhone muss das Profil installiert UND vertraut sein:",
+  "it": "Sull'iPhone, il profilo deve essere installato E accettato:",
+  "pt": "No iPhone, o perfil precisa estar instalado E confiável:"
+ },
+ "1. Réglages > Général > VPN et gestion de l'appareil > RatchetRR > Installer.": {
+  "en": "1. Settings > General > VPN & Device Management > RatchetRR > Install.",
+  "es": "1. Ajustes > General > VPN y gestión de dispositivos > RatchetRR > Instalar.",
+  "de": "1. Einstellungen > Allgemein > VPN und Geräteverwaltung > RatchetRR > Installieren.",
+  "it": "1. Impostazioni > Generali > VPN e gestione dispositivi > RatchetRR > Installa.",
+  "pt": "1. Ajustes > Geral > VPN e Gerenciamento de Dispositivos > RatchetRR > Instalar."
+ },
+ "2. Réglages > Général > Informations, tout en bas « Réglages des certificats » :": {
+  "en": "2. Settings > General > About, at the very bottom “Certificate Trust Settings”:",
+  "es": "2. Ajustes > General > Información, abajo del todo «Ajustes de confianza de certificados»:",
+  "de": "2. Einstellungen > Allgemein > Info, ganz unten „Zertifikatsvertrauenseinstellungen“:",
+  "it": "2. Impostazioni > Generali > Info, in fondo «Impostazioni certificati attendibili»:",
+  "pt": "2. Ajustes > Geral > Sobre, bem no fim “Ajustes de Confiança de Certificados”:"
+ },
+ "active RatchetRR > Continuer.": {
+  "en": "turn on RatchetRR > Continue.",
+  "es": "activa RatchetRR > Continuar.",
+  "de": "RatchetRR einschalten > Fortfahren.",
+  "it": "attiva RatchetRR > Continua.",
+  "pt": "ative RatchetRR > Continuar."
+ },
+ "Puis ferme complètement le jeu et rouvre-le.": {
+  "en": "Then fully close the game and open it again.",
+  "es": "Luego cierra el juego por completo y vuelve a abrirlo.",
+  "de": "Schließe dann das Spiel ganz und öffne es neu.",
+  "it": "Poi chiudi del tutto il gioco e riaprilo.",
+  "pt": "Depois feche o jogo por completo e abra de novo."
+ },
+ "(détail : {error})": {
+  "en": "(detail: {error})",
+  "es": "(detalle: {error})",
+  "de": "(Detail: {error})",
+  "it": "(dettaglio: {error})",
+  "pt": "(detalhe: {error})"
+ },
+ "MODE ESSAI : le jeu parle au serveur local {TEST_SERVER}, pas aux serveurs officiels.": {
+  "en": "TEST MODE: the game talks to the local server {TEST_SERVER}, not to the official servers.",
+  "es": "MODO PRUEBA: el juego habla con el servidor local {TEST_SERVER}, no con los servidores oficiales.",
+  "de": "TESTMODUS: Das Spiel spricht mit dem lokalen Server {TEST_SERVER}, nicht mit den offiziellen Servern.",
+  "it": "MODALITÀ PROVA: il gioco parla con il server locale {TEST_SERVER}, non con i server ufficiali.",
+  "pt": "MODO TESTE: o jogo fala com o servidor local {TEST_SERVER}, não com os servidores oficiais."
+ },
+ "Réglages > Wi-Fi > (i) > Configurer le proxy > Manuel": {
+  "en": "Settings > Wi-Fi > (i) > Configure Proxy > Manual",
+  "es": "Ajustes > Wi-Fi > (i) > Configurar proxy > Manual",
+  "de": "Einstellungen > WLAN > (i) > Proxy konfigurieren > Manuell",
+  "it": "Impostazioni > Wi-Fi > (i) > Configura proxy > Manuale",
+  "pt": "Ajustes > Wi-Fi > (i) > Configurar Proxy > Manual"
+ },
+ "Serveur : {address}      Port : {proxy_port}": {
+  "en": "Server: {address}      Port: {proxy_port}",
+  "es": "Servidor: {address}      Puerto: {proxy_port}",
+  "de": "Server: {address}      Port: {proxy_port}",
+  "it": "Server: {address}      Porta: {proxy_port}",
+  "pt": "Servidor: {address}      Porta: {proxy_port}"
+ },
+ "Un appareil passe par l'ordinateur ({address}).": {
+  "en": "A device goes through the computer ({address}).",
+  "es": "Un dispositivo pasa por el ordenador ({address}).",
+  "de": "Ein Gerät geht über den Computer ({address}).",
+  "it": "Un dispositivo passa dal computer ({address}).",
+  "pt": "Um aparelho passa pelo computador ({address})."
+ },
+ "Le jeu se connecte au compte {publicId}.": {
+  "en": "The game connects to account {publicId}.",
+  "es": "El juego se conecta a la cuenta {publicId}.",
+  "de": "Das Spiel verbindet sich mit dem Konto {publicId}.",
+  "it": "Il gioco si collega all'account {publicId}.",
+  "pt": "O jogo se conecta à conta {publicId}."
+ },
+ "Ferme complètement le jeu, rouvre-le et attends l'écran d'accueil.": {
+  "en": "Fully close the game, open it again and wait for the home screen.",
+  "es": "Cierra el juego por completo, vuelve a abrirlo y espera la pantalla de inicio.",
+  "de": "Schließe das Spiel ganz, öffne es neu und warte auf den Startbildschirm.",
+  "it": "Chiudi del tutto il gioco, riaprilo e aspetta la schermata iniziale.",
+  "pt": "Feche o jogo por completo, abra de novo e espere a tela inicial."
+ },
+ "{name} ignoré : il contenait une donnée de connexion.": {
+  "en": "{name} skipped: it had login data.",
+  "es": "{name} ignorado: contenía un dato de conexión.",
+  "de": "{name} übersprungen: Es enthielt Anmeldedaten.",
+  "it": "{name} ignorato: conteneva un dato di accesso.",
+  "pt": "{name} ignorado: tinha um dado de login."
+ },
+ "La sauvegarde reçue est vide ou illisible. Ferme le jeu et relance-le.": {
+  "en": "The save received is empty or unreadable. Close the game and start it again.",
+  "es": "La partida recibida está vacía o es ilegible. Cierra el juego y vuelve a abrirlo.",
+  "de": "Der empfangene Spielstand ist leer oder unlesbar. Schließe das Spiel und starte es neu.",
+  "it": "Il salvataggio ricevuto è vuoto o illeggibile. Chiudi il gioco e riavvialo.",
+  "pt": "O jogo salvo recebido está vazio ou ilegível. Feche o jogo e abra de novo."
+ },
+ "Le jeu a renvoyé la même sauvegarde : elle est déjà copiée.": {
+  "en": "The game sent the same save again: it is already copied.",
+  "es": "El juego envió la misma partida: ya está copiada.",
+  "de": "Das Spiel hat denselben Spielstand geschickt: Er ist schon kopiert.",
+  "it": "Il gioco ha rimandato lo stesso salvataggio: è già copiato.",
+  "pt": "O jogo enviou o mesmo jogo salvo: ele já foi copiado."
+ },
+ "Copie de sauvegarde - Ratchet & Clank: Ranger Rumble": {
+  "en": "Save copy - Ratchet & Clank: Ranger Rumble",
+  "es": "Copia de partida - Ratchet & Clank: Ranger Rumble",
+  "de": "Spielstand-Kopie - Ratchet & Clank: Ranger Rumble",
+  "it": "Copia del salvataggio - Ratchet & Clank: Ranger Rumble",
+  "pt": "Cópia do jogo salvo - Ratchet & Clank: Ranger Rumble"
+ },
+ "Compte : {user}": {
+  "en": "Account: {user}",
+  "es": "Cuenta: {user}",
+  "de": "Konto: {user}",
+  "it": "Account: {user}",
+  "pt": "Conta: {user}"
+ },
+ "Copiée le : {v}": {
+  "en": "Copied on: {v}",
+  "es": "Copiada el: {v}",
+  "de": "Kopiert am: {v}",
+  "it": "Copiato il: {v}",
+  "pt": "Copiado em: {v}"
+ },
+ "Plateforme : {v}  |  version du jeu : {v2}": {
+  "en": "Platform: {v}  |  game version: {v2}",
+  "es": "Plataforma: {v}  |  versión del juego: {v2}",
+  "de": "Plattform: {v}  |  Spielversion: {v2}",
+  "it": "Piattaforma: {v}  |  versione del gioco: {v2}",
+  "pt": "Plataforma: {v}  |  versão do jogo: {v2}"
+ },
+ "Parties de sauvegarde : {n_parts}": {
+  "en": "Save parts: {n_parts}",
+  "es": "Partes de la partida: {n_parts}",
+  "de": "Teile des Spielstands: {n_parts}",
+  "it": "Parti del salvataggio: {n_parts}",
+  "pt": "Partes do jogo salvo: {n_parts}"
+ },
+ "Empreinte de save.msgpack (sha256) : {digest}": {
+  "en": "save.msgpack fingerprint (sha256): {digest}",
+  "es": "Huella de save.msgpack (sha256): {digest}",
+  "de": "Fingerabdruck von save.msgpack (sha256): {digest}",
+  "it": "Impronta di save.msgpack (sha256): {digest}",
+  "pt": "Impressão digital do save.msgpack (sha256): {digest}"
+ },
+ "save.msgpack est la sauvegarde exacte envoyée par les serveurs officiels.": {
+  "en": "save.msgpack is the exact save sent by the official servers.",
+  "es": "save.msgpack es la partida exacta enviada por los servidores oficiales.",
+  "de": "save.msgpack ist genau der Spielstand, den die offiziellen Server geschickt haben.",
+  "it": "save.msgpack è il salvataggio esatto inviato dai server ufficiali.",
+  "pt": "save.msgpack é o jogo salvo exato enviado pelos servidores oficiais."
+ },
+ "sauvegarde_lisible.json est la même chose en texte lisible.": {
+  "en": "sauvegarde_lisible.json is the same thing as readable text.",
+  "es": "sauvegarde_lisible.json es lo mismo en texto legible.",
+  "de": "sauvegarde_lisible.json ist dasselbe als lesbarer Text.",
+  "it": "sauvegarde_lisible.json è la stessa cosa in testo leggibile.",
+  "pt": "sauvegarde_lisible.json é a mesma coisa em texto legível."
+ },
+ "Ce dossier ne contient ni mot de passe ni jeton de connexion.": {
+  "en": "This folder has no password and no login token.",
+  "es": "Esta carpeta no contiene contraseñas ni tokens de conexión.",
+  "de": "Dieser Ordner enthält weder Passwort noch Anmeldetoken.",
+  "it": "Questa cartella non contiene password né token di accesso.",
+  "pt": "Esta pasta não tem senha nem token de login."
+ },
+ "Le jeu accepte le certificat : la copie peut se faire.": {
+  "en": "The game accepts the certificate: the copy can be made.",
+  "es": "El juego acepta el certificado: la copia puede hacerse.",
+  "de": "Das Spiel akzeptiert das Zertifikat: Die Kopie kann starten.",
+  "it": "Il gioco accetta il certificato: la copia può partire.",
+  "pt": "O jogo aceita o certificado: a cópia pode começar."
+ },
+ "Télécharger le profil RatchetRR": {
+  "en": "Download the RatchetRR profile",
+  "es": "Descargar el perfil RatchetRR",
+  "de": "Profil RatchetRR laden",
+  "it": "Scarica il profilo RatchetRR",
+  "pt": "Baixar o perfil RatchetRR"
+ },
+ "Fichier de configuration {name} non téléchargé : {error}": {
+  "en": "Configuration file {name} not downloaded: {error}",
+  "es": "Archivo de configuración {name} no descargado: {error}",
+  "de": "Konfigurationsdatei {name} nicht heruntergeladen: {error}",
+  "it": "File di configurazione {name} non scaricato: {error}",
+  "pt": "Arquivo de configuração {name} não baixado: {error}"
+ },
+ "Données du serveur incomplètes (il manque :": {
+  "en": "Incomplete server data (missing:",
+  "es": "Datos del servidor incompletos (falta:",
+  "de": "Serverdaten unvollständig (es fehlt:",
+  "it": "Dati del server incompleti (manca:",
+  "pt": "Dados do servidor incompletos (falta:"
+ },
+ "Le téléphone télécharge le certificat.": {
+  "en": "The phone is downloading the certificate.",
+  "es": "El teléfono descarga el certificado.",
+  "de": "Das Handy lädt das Zertifikat.",
+  "it": "Il telefono scarica il certificato.",
+  "pt": "O celular está baixando o certificado."
+ },
+ "Le téléphone a ouvert la page d'aide.": {
+  "en": "The phone opened the help page.",
+  "es": "El teléfono abrió la página de ayuda.",
+  "de": "Das Handy hat die Hilfeseite geöffnet.",
+  "it": "Il telefono ha aperto la pagina di aiuto.",
+  "pt": "O celular abriu a página de ajuda."
+ },
+ "1. Fabriquer l'APK": {
+  "en": "1. Build the APK",
+  "es": "1. Crear el APK",
+  "de": "1. APK erstellen",
+  "it": "1. Crea l'APK",
+  "pt": "1. Criar o APK"
+ },
+ "2. Installer sur le téléphone": {
+  "en": "2. Install on the phone",
+  "es": "2. Instalar en el teléfono",
+  "de": "2. Auf dem Handy installieren",
+  "it": "2. Installa sul telefono",
+  "pt": "2. Instalar no celular"
+ },
+ "iPhone {account}, copiée le {date}": {
+  "en": "iPhone {account}, copied on {date}",
+  "es": "iPhone {account}, copiada el {date}",
+  "de": "iPhone {account}, kopiert am {date}",
+  "it": "iPhone {account}, copiato il {date}",
+  "pt": "iPhone {account}, copiado em {date}"
+ },
+ "Téléphone, gardée le {date}": {
+  "en": "Phone, kept on {date}",
+  "es": "Teléfono, guardada el {date}",
+  "de": "Handy, gesichert am {date}",
+  "it": "Telefono, conservato il {date}",
+  "pt": "Celular, guardado em {date}"
+ },
+ "Envoyée au téléphone le {date}": {
+  "en": "Sent to the phone on {date}",
+  "es": "Enviada al teléfono el {date}",
+  "de": "Ans Handy gesendet am {date}",
+  "it": "Inviato al telefono il {date}",
+  "pt": "Enviado ao celular em {date}"
+ },
+ "La sauvegarde de l'APK remplace celle du téléphone.": {
+  "en": "The APK's save replaces the phone's.",
+  "es": "La partida del APK reemplaza la del teléfono.",
+  "de": "Der Spielstand der APK ersetzt den des Handys.",
+  "it": "Il salvataggio dell'APK sostituisce quello del telefono.",
+  "pt": "O jogo salvo do APK substitui o do celular."
+ },
+ "En attente de l'iPhone...": {
+  "en": "Waiting for the iPhone...",
+  "es": "Esperando al iPhone...",
+  "de": "Warte auf das iPhone...",
+  "it": "In attesa dell'iPhone...",
+  "pt": "Aguardando o iPhone..."
+ },
+ "L'iPhone parle à l'outil. Ouvre le jeu.": {
+  "en": "The iPhone talks to the tool. Open the game.",
+  "es": "El iPhone habla con la herramienta. Abre el juego.",
+  "de": "Das iPhone spricht mit dem Tool. Öffne das Spiel.",
+  "it": "L'iPhone parla con lo strumento. Apri il gioco.",
+  "pt": "O iPhone fala com a ferramenta. Abra o jogo."
+ },
+ "Le jeu passe par l'outil : copie en cours...": {
+  "en": "The game goes through the tool: copying...",
+  "es": "El juego pasa por la herramienta: copiando...",
+  "de": "Das Spiel läuft über das Tool: Kopie läuft...",
+  "it": "Il gioco passa dallo strumento: copia in corso...",
+  "pt": "O jogo passa pela ferramenta: copiando..."
+ },
+ "Le jeu refuse le certificat : refais l'étape 3.": {
+  "en": "The game refuses the certificate: do step 3 again.",
+  "es": "El juego rechaza el certificado: repite el paso 3.",
+  "de": "Das Spiel lehnt das Zertifikat ab: Wiederhole Schritt 3.",
+  "it": "Il gioco rifiuta il certificato: rifai il passo 3.",
+  "pt": "O jogo recusa o certificado: refaça o passo 3."
+ },
+ "Sauvegarde reçue : reste sur l'écran d'accueil du jeu...": {
+  "en": "Save received: stay on the game's home screen...",
+  "es": "Partida recibida: quédate en la pantalla de inicio del juego...",
+  "de": "Spielstand erhalten: Bleib auf dem Startbildschirm des Spiels...",
+  "it": "Salvataggio ricevuto: resta sulla schermata iniziale del gioco...",
+  "pt": "Jogo salvo recebido: fique na tela inicial do jogo..."
+ },
+ "Sauvegarde copiée !": {
+  "en": "Save copied!",
+  "es": "¡Partida copiada!",
+  "de": "Spielstand kopiert!",
+  "it": "Salvataggio copiato!",
+  "pt": "Jogo salvo copiado!"
+ },
+ "Copie arrêtée, rien de copié.": {
+  "en": "Copy stopped, nothing copied.",
+  "es": "Copia detenida, no se copió nada.",
+  "de": "Kopie gestoppt, nichts kopiert.",
+  "it": "Copia fermata, niente copiato.",
+  "pt": "Cópia parada, nada copiado."
+ },
+ "SI RIEN NE SE PASSE - règle le proxy à la main sur l'iPhone :": {
+  "en": "IF NOTHING HAPPENS - set the proxy by hand on the iPhone:",
+  "es": "SI NO PASA NADA - configura el proxy a mano en el iPhone:",
+  "de": "WENN NICHTS PASSIERT - stell den Proxy auf dem iPhone von Hand ein:",
+  "it": "SE NON SUCCEDE NULLA - imposta il proxy a mano sull'iPhone:",
+  "pt": "SE NADA ACONTECER - configure o proxy à mão no iPhone:"
+ },
+ "À LA FIN - supprime le profil RatchetRR de l'iPhone et remets le proxy sur Désactivé.": {
+  "en": "AT THE END - remove the RatchetRR profile from the iPhone and set the proxy back to Off.",
+  "es": "AL FINAL - elimina el perfil RatchetRR del iPhone y vuelve a poner el proxy en Desactivado.",
+  "de": "AM ENDE - lösche das Profil RatchetRR vom iPhone und stell den Proxy wieder auf Aus.",
+  "it": "ALLA FINE - rimuovi il profilo RatchetRR dall'iPhone e rimetti il proxy su Disattivato.",
+  "pt": "NO FIM - remova o perfil RatchetRR do iPhone e volte o proxy para Desligado."
+ },
+ "iPhone sur le même Wi-Fi que cet ordinateur. Clique sur Démarrer, puis scanne le QR code avec l'iPhone. Avant le 1er mai 2027.": {
+  "en": "iPhone on the same Wi-Fi as this computer. Click Start, then scan the QR code with the iPhone. Before May 1, 2027.",
+  "es": "iPhone en el mismo Wi-Fi que este ordenador. Haz clic en Iniciar y escanea el código QR con el iPhone. Antes del 1 de mayo de 2027.",
+  "de": "iPhone im selben WLAN wie dieser Computer. Klicke auf Starten und scanne dann den QR-Code mit dem iPhone. Vor dem 1. Mai 2027.",
+  "it": "iPhone sulla stessa Wi-Fi di questo computer. Clicca su Avvia, poi scansiona il codice QR con l'iPhone. Entro il 1° maggio 2027.",
+  "pt": "iPhone no mesmo Wi-Fi deste computador. Clique em Iniciar e escaneie o código QR com o iPhone. Antes de 1º de maio de 2027."
+ },
+ "Copie arrêtée. Supprime le profil RatchetRR de l'iPhone (Réglages > Général > VPN et gestion de l'appareil).": {
+  "en": "Copy stopped. Remove the RatchetRR profile from the iPhone (Settings > General > VPN & Device Management).",
+  "es": "Copia detenida. Elimina el perfil RatchetRR del iPhone (Ajustes > General > VPN y gestión de dispositivos).",
+  "de": "Kopie gestoppt. Entferne das Profil RatchetRR vom iPhone (Einstellungen > Allgemein > VPN und Geräteverwaltung).",
+  "it": "Copia fermata. Rimuovi il profilo RatchetRR dall'iPhone (Impostazioni > Generali > VPN e gestione dispositivi).",
+  "pt": "Cópia parada. Remova o perfil RatchetRR do iPhone (Ajustes > Geral > VPN e Gerenciamento de Dispositivos)."
+ },
+ "<b>2.</b> Ouvre <b>Réglages</b> : en haut, touche <b>Profil téléchargé</b> (ou Général &gt; <b>VPN et gestion de l'appareil</b> &gt; RatchetRR). Touche <b>Installer</b>, le code de l'iPhone, et encore <b>Installer</b>.": {
+  "en": "<b>2.</b> Open <b>Settings</b>: at the top, tap <b>Profile Downloaded</b> (or General &gt; <b>VPN &amp; Device Management</b> &gt; RatchetRR). Tap <b>Install</b>, the iPhone's passcode, and <b>Install</b> again.",
+  "es": "<b>2.</b> Abre <b>Ajustes</b>: arriba, toca <b>Perfil descargado</b> (o General &gt; <b>VPN y gestión de dispositivos</b> &gt; RatchetRR). Toca <b>Instalar</b>, el código del iPhone y otra vez <b>Instalar</b>.",
+  "de": "<b>2.</b> Öffne <b>Einstellungen</b>: Tippe oben auf <b>Profil geladen</b> (oder Allgemein &gt; <b>VPN und Geräteverwaltung</b> &gt; RatchetRR). Tippe auf <b>Installieren</b>, gib den iPhone-Code ein und tippe noch einmal auf <b>Installieren</b>.",
+  "it": "<b>2.</b> Apri <b>Impostazioni</b>: in alto, tocca <b>Profilo scaricato</b> (oppure Generali &gt; <b>VPN e gestione dispositivi</b> &gt; RatchetRR). Tocca <b>Installa</b>, il codice dell'iPhone, e ancora <b>Installa</b>.",
+  "pt": "<b>2.</b> Abra <b>Ajustes</b>: no alto, toque em <b>Perfil Transferido</b> (ou Geral &gt; <b>VPN e Gerenciamento de Dispositivos</b> &gt; RatchetRR). Toque em <b>Instalar</b>, digite o código do iPhone e toque de novo em <b>Instalar</b>."
+ },
+ "<b>À la fin :</b> supprime le profil (Réglages &gt; Général &gt; VPN et gestion de l'appareil &gt; RatchetRR). Sinon le jeu ne se connecte plus.": {
+  "en": "<b>At the end:</b> remove the profile (Settings &gt; General &gt; VPN &amp; Device Management &gt; RatchetRR). Otherwise the game no longer connects.",
+  "es": "<b>Al final:</b> elimina el perfil (Ajustes &gt; General &gt; VPN y gestión de dispositivos &gt; RatchetRR). Si no, el juego ya no se conecta.",
+  "de": "<b>Am Ende:</b> Entferne das Profil (Einstellungen &gt; Allgemein &gt; VPN und Geräteverwaltung &gt; RatchetRR). Sonst verbindet sich das Spiel nicht mehr.",
+  "it": "<b>Alla fine:</b> rimuovi il profilo (Impostazioni &gt; Generali &gt; VPN e gestione dispositivi &gt; RatchetRR). Altrimenti il gioco non si connette più.",
+  "pt": "<b>No fim:</b> remova o perfil (Ajustes &gt; Geral &gt; VPN e Gerenciamento de Dispositivos &gt; RatchetRR). Senão o jogo não se conecta mais."
+ },
+ "Copie de sauvegarde Ranger Rumble : le certificat de l'ordinateur et un DNS pour les serveurs du jeu seulement. À supprimer quand la copie est faite.": {
+  "en": "Ranger Rumble save copy: the computer's certificate and a DNS for the game's servers only. Remove it once the copy is done.",
+  "es": "Copia de la partida de Ranger Rumble: el certificado del ordenador y un DNS solo para los servidores del juego. Elimínalo cuando la copia esté hecha.",
+  "de": "Spielstand-Kopie Ranger Rumble: das Zertifikat des Computers und ein DNS nur für die Server des Spiels. Entfernen, wenn die Kopie fertig ist.",
+  "it": "Copia del salvataggio di Ranger Rumble: il certificato del computer e un DNS solo per i server del gioco. Da rimuovere a copia fatta.",
+  "pt": "Cópia do salvamento de Ranger Rumble: o certificado do computador e um DNS só para os servidores do jogo. Remova quando a cópia estiver feita."
+ },
+ "Ports {a} et {b} pris sur cet ordinateur : règle le proxy à la main.": {
+  "en": "Ports {a} and {b} are taken on this computer: set the proxy by hand.",
+  "es": "Los puertos {a} y {b} están ocupados en este ordenador: configura el proxy a mano.",
+  "de": "Die Ports {a} und {b} sind auf diesem Computer belegt: Stelle den Proxy von Hand ein.",
+  "it": "Le porte {a} e {b} sono occupate su questo computer: imposta il proxy a mano.",
+  "pt": "As portas {a} e {b} estão ocupadas neste computador: configure o proxy à mão."
+ },
+ "L'iPhone utilise le profil RatchetRR : ouvre le jeu.": {
+  "en": "The iPhone is using the RatchetRR profile: open the game.",
+  "es": "El iPhone usa el perfil RatchetRR: abre el juego.",
+  "de": "Das iPhone nutzt das Profil RatchetRR: Öffne das Spiel.",
+  "it": "L'iPhone usa il profilo RatchetRR: apri il gioco.",
+  "pt": "O iPhone está usando o perfil RatchetRR: abra o jogo."
+ },
+ "L'iPhone télécharge le profil RatchetRR.": {
+  "en": "The iPhone is downloading the RatchetRR profile.",
+  "es": "El iPhone descarga el perfil RatchetRR.",
+  "de": "Das iPhone lädt das Profil RatchetRR.",
+  "it": "L'iPhone scarica il profilo RatchetRR.",
+  "pt": "O iPhone está baixando o perfil RatchetRR."
+ },
+ "L'iPhone refuse le certificat de l'ordinateur.": {
+  "en": "The iPhone refuses the computer's certificate.",
+  "es": "El iPhone rechaza el certificado del ordenador.",
+  "de": "Das iPhone lehnt das Zertifikat des Computers ab.",
+  "it": "L'iPhone rifiuta il certificato del computer.",
+  "pt": "O iPhone recusa o certificado do computador."
+ },
+ "Réglages > Général > Informations > Réglages des certificats > active RatchetRR.": {
+  "en": "Settings > General > About > Certificate Trust Settings > turn on RatchetRR.",
+  "es": "Ajustes > General > Información > Ajustes de confianza de certificados > activa RatchetRR.",
+  "de": "Einstellungen > Allgemein > Info > Zertifikatsvertrauenseinstellungen > schalte RatchetRR ein.",
+  "it": "Impostazioni > Generali > Info > Impostazioni certificati attendibili > attiva RatchetRR.",
+  "pt": "Ajustes > Geral > Sobre > Ajustes de Confiança de Certificados > ative RatchetRR."
+ },
+ "Configuration du jeu non reçue : {error}": {
+  "en": "Game configuration not received: {error}",
+  "es": "Configuración del juego no recibida: {error}",
+  "de": "Spielkonfiguration nicht erhalten: {error}",
+  "it": "Configurazione del gioco non ricevuta: {error}",
+  "pt": "Configuração do jogo não recebida: {error}"
+ },
+ "Autre installation des composants (sans compilateur)...": {
+  "en": "Installing the components another way (no compiler)...",
+  "es": "Otra instalación de los componentes (sin compilador)...",
+  "de": "Andere Installation der Komponenten (ohne Compiler)...",
+  "it": "Altra installazione dei componenti (senza compilatore)...",
+  "pt": "Outra instalação dos componentes (sem compilador)..."
+ },
+ "Hors ligne": {
+  "en": "Offline",
+  "es": "Sin conexión",
+  "de": "Offline",
+  "it": "Offline",
+  "pt": "Offline"
+ },
+ "Choisis d'abord où est ton jeu.": {
+  "en": "First choose where your game is.",
+  "es": "Primero elige dónde está tu juego.",
+  "de": "Wähle zuerst, wo dein Spiel ist.",
+  "it": "Prima scegli dov'è il tuo gioco.",
+  "pt": "Primeiro escolhe onde está o teu jogo."
+ },
+ "Copier ma sauvegarde": {
+  "en": "Copy my save",
+  "es": "Copiar mi partida",
+  "de": "Spielstand kopieren",
+  "it": "Copia il salvataggio",
+  "pt": "Copiar o meu progresso"
+ },
+ "Installer le jeu": {
+  "en": "Install the game",
+  "es": "Instalar el juego",
+  "de": "Spiel installieren",
+  "it": "Installa il gioco",
+  "pt": "Instalar o jogo"
+ },
+ "Éditer une sauvegarde": {
+  "en": "Edit a save",
+  "es": "Editar una partida",
+  "de": "Spielstand bearbeiten",
+  "it": "Modifica un salvataggio",
+  "pt": "Editar um progresso"
+ },
+ "Mises à jour": {
+  "en": "Updates",
+  "es": "Actualizaciones",
+  "de": "Updates",
+  "it": "Aggiornamenti",
+  "pt": "Atualizações"
+ },
+ "Outil {version}  ·  Jeu {game}": {
+  "en": "Tool {version}  ·  Game {game}",
+  "es": "Herramienta {version}  ·  Juego {game}",
+  "de": "Tool {version}  ·  Spiel {game}",
+  "it": "Strumento {version}  ·  Gioco {game}",
+  "pt": "Ferramenta {version}  ·  Jogo {game}"
+ },
+ "Version {version} disponible": {
+  "en": "Version {version} available",
+  "es": "Versión {version} disponible",
+  "de": "Version {version} verfügbar",
+  "it": "Versione {version} disponibile",
+  "pt": "Versão {version} disponível"
+ },
+ "Rien à copier sur Android : passe à l'étape 2.": {
+  "en": "Nothing to copy on Android: go to step 2.",
+  "es": "Nada que copiar en Android: pasa al paso 2.",
+  "de": "Auf Android nichts zu kopieren: weiter zu Schritt 2.",
+  "it": "Niente da copiare su Android: passa al passo 2.",
+  "pt": "Nada a copiar no Android: passa ao passo 2."
+ },
+ "Depuis l'iPhone, par le Wi-Fi.": {
+  "en": "From the iPhone, over Wi-Fi.",
+  "es": "Desde el iPhone, por Wi-Fi.",
+  "de": "Vom iPhone, über WLAN.",
+  "it": "Dall'iPhone, tramite Wi-Fi.",
+  "pt": "Do iPhone, por Wi-Fi."
+ },
+ "Depuis l'iPhone ou l'iPad.": {
+  "en": "From the iPhone or iPad.",
+  "es": "Desde el iPhone o el iPad.",
+  "de": "Vom iPhone oder iPad.",
+  "it": "Dall'iPhone o dall'iPad.",
+  "pt": "Do iPhone ou do iPad."
+ },
+ "Fabriquer l'APK et l'installer sur Android.": {
+  "en": "Build the APK and install it on Android.",
+  "es": "Crear el APK e instalarlo en Android.",
+  "de": "APK bauen und auf Android installieren.",
+  "it": "Crea l'APK e installalo su Android.",
+  "pt": "Criar o APK e instalá-lo no Android."
+ },
+ "Accueil": {
+  "en": "Home",
+  "es": "Inicio",
+  "de": "Start",
+  "it": "Home",
+  "pt": "Início"
+ },
+ "Journal": {
+  "en": "Log",
+  "es": "Registro",
+  "de": "Protokoll",
+  "it": "Registro",
+  "pt": "Registo"
+ },
+ "Copier": {
+  "en": "Copy",
+  "es": "Copiar",
+  "de": "Kopieren",
+  "it": "Copia",
+  "pt": "Copiar"
+ },
+ "Installer": {
+  "en": "Install",
+  "es": "Instalar",
+  "de": "Installieren",
+  "it": "Installa",
+  "pt": "Instalar"
+ },
+ "Éditer": {
+  "en": "Edit",
+  "es": "Editar",
+  "de": "Bearbeiten",
+  "it": "Modifica",
+  "pt": "Editar"
+ },
+ "Arrête d'abord la copie (étape 1).": {
+  "en": "Stop the copy first (step 1).",
+  "es": "Detén primero la copia (paso 1).",
+  "de": "Stoppe zuerst die Kopie (Schritt 1).",
+  "it": "Prima ferma la copia (passo 1).",
+  "pt": "Pare a cópia primeiro (passo 1)."
+ },
+ "Remplis d'abord l'étape 2 (jeu officiel).": {
+  "en": "Fill in step 2 first (official game).",
+  "es": "Rellena primero el paso 2 (juego oficial).",
+  "de": "Fülle zuerst Schritt 2 aus (offizielles Spiel).",
+  "it": "Compila prima il passo 2 (gioco ufficiale).",
+  "pt": "Preencha o passo 2 primeiro (jogo oficial)."
+ },
+ "Le téléphone a le jeu officiel : fabrique d'abord l'APK (étape 2).": {
+  "en": "The phone has the official game: build the APK first (step 2).",
+  "es": "El teléfono tiene el juego oficial: crea primero el APK (paso 2).",
+  "de": "Das Handy hat das offizielle Spiel: Erstelle zuerst die APK (Schritt 2).",
+  "it": "Il telefono ha il gioco ufficiale: crea prima l'APK (passo 2).",
+  "pt": "O celular tem o jogo oficial: crie o APK primeiro (passo 2)."
+ },
+ "{TITLE}  —  nouvelle version {version} disponible (Mises à jour)": {
+  "en": "{TITLE}  —  new version {version} available (Updates)",
+  "es": "{TITLE}  —  nueva versión {version} disponible (Actualizaciones)",
+  "de": "{TITLE}  —  neue Version {version} verfügbar (Updates)",
+  "it": "{TITLE}  —  nuova versione {version} disponibile (Aggiornamenti)",
+  "pt": "{TITLE}  —  nova versão {version} disponível (Atualizações)"
+ },
+ "Changements non enregistrés dans « Éditer ». Continuer quand même ?": {
+  "en": "Unsaved changes in \"Edit\". Continue anyway?",
+  "es": "Cambios sin guardar en «Editar». ¿Continuar de todos modos?",
+  "de": "Ungespeicherte Änderungen in „Bearbeiten“. Trotzdem weiter?",
+  "it": "Modifiche non salvate in «Modifica». Continuare comunque?",
+  "pt": "Mudanças não salvas em «Editar». Continuar mesmo assim?"
+ },
+ "Changements non enregistrés dans « Éditer ». Quitter quand même ?": {
+  "en": "Unsaved changes in \"Edit\". Quit anyway?",
+  "es": "Cambios sin guardar en «Editar». ¿Salir de todos modos?",
+  "de": "Ungespeicherte Änderungen in „Bearbeiten“. Trotzdem beenden?",
+  "it": "Modifiche non salvate in «Modifica». Uscire comunque?",
+  "pt": "Mudanças não salvas em «Editar». Sair mesmo assim?"
+ },
+ "Sauvegarde du téléphone illisible : la sauvegarde exportée (étape 2) sera utilisée.": {
+  "en": "Phone save unreadable: the exported save (step 2) will be used.",
+  "es": "Partida del teléfono ilegible: se usará la partida exportada (paso 2).",
+  "de": "Spielstand des Handys unlesbar: Der exportierte Spielstand (Schritt 2) wird benutzt.",
+  "it": "Salvataggio del telefono illeggibile: verrà usato il salvataggio esportato (passo 2).",
+  "pt": "Jogo salvo do celular ilegível: o jogo salvo exportado (passo 2) será usado."
+ },
+ "Sur Android, rien à copier : va à l'étape 2 et choisis ta sauvegarde exportée ou « Nouvelle partie ».": {
+  "en": "On Android, nothing to copy: go to step 2 and choose your exported save or “New game”.",
+  "es": "En Android no hay nada que copiar: ve al paso 2 y elige tu partida exportada o «Partida nueva».",
+  "de": "Auf Android gibt es nichts zu kopieren: Geh zu Schritt 2 und wähle deinen exportierten Spielstand oder „Neues Spiel“.",
+  "it": "Su Android non c'è niente da copiare: vai al passo 2 e scegli il tuo salvataggio esportato o «Nuova partita».",
+  "pt": "No Android, não há nada para copiar: vá para o passo 2 e escolha seu jogo salvo exportado ou “Novo jogo”."
+ },
+ "oui": {
+  "en": "yes",
+  "es": "sí",
+  "de": "ja",
+  "it": "sì",
+  "pt": "sim"
+ },
+ "non": {
+  "en": "no",
+  "es": "no",
+  "de": "nein",
+  "it": "no",
+  "pt": "não"
+ },
+ "Cet ordinateur n'a pas d'adresse sur un réseau local ({address}) : mets-le sur le même Wi-Fi que l'iPhone.": {
+  "en": "This computer has no address on a local network ({address}): put it on the same Wi-Fi as the iPhone.",
+  "es": "Este ordenador no tiene dirección en una red local ({address}): ponlo en el mismo Wi-Fi que el iPhone.",
+  "de": "Dieser Computer hat keine Adresse in einem lokalen Netz ({address}): Verbinde ihn mit demselben WLAN wie das iPhone.",
+  "it": "Questo computer non ha un indirizzo su una rete locale ({address}): collegalo allo stesso Wi-Fi dell'iPhone.",
+  "pt": "Este computador não tem endereço numa rede local ({address}): coloque-o no mesmo Wi-Fi que o iPhone."
+ },
+ "Le pare-feu de Windows empêche l'iPhone d'arriver jusqu'à l'outil.": {
+  "en": "The Windows firewall keeps the iPhone from reaching the tool.",
+  "es": "El firewall de Windows impide que el iPhone llegue a la herramienta.",
+  "de": "Die Windows-Firewall lässt das iPhone nicht zum Tool durch.",
+  "it": "Il firewall di Windows impedisce all'iPhone di raggiungere lo strumento.",
+  "pt": "O firewall do Windows impede o iPhone de chegar à ferramenta."
+ },
+ "Le pare-feu de Windows bloque l'iPhone.\n\nL'autoriser sur ton réseau local ? Windows va demander ton accord.": {
+  "en": "The Windows firewall blocks the iPhone.\n\nAllow it on your local network? Windows will ask for your approval.",
+  "es": "El firewall de Windows bloquea el iPhone.\n\n¿Permitirlo en tu red local? Windows te pedirá permiso.",
+  "de": "Die Windows-Firewall blockiert das iPhone.\n\nIm lokalen Netz erlauben? Windows fragt nach deiner Zustimmung.",
+  "it": "Il firewall di Windows blocca l'iPhone.\n\nConsentirlo sulla tua rete locale? Windows chiederà il tuo consenso.",
+  "pt": "O firewall do Windows bloqueia o iPhone.\n\nPermiti-lo na sua rede local? O Windows vai pedir a sua autorização."
+ },
+ "Pare-feu réglé : l'iPhone peut arriver jusqu'à l'outil.": {
+  "en": "Firewall set: the iPhone can reach the tool.",
+  "es": "Firewall ajustado: el iPhone puede llegar a la herramienta.",
+  "de": "Firewall eingestellt: Das iPhone erreicht das Tool.",
+  "it": "Firewall sistemato: l'iPhone può raggiungere lo strumento.",
+  "pt": "Firewall ajustado: o iPhone pode chegar à ferramenta."
+ },
+ "C'est réglé. Rescanne le QR code avec l'iPhone.": {
+  "en": "Done. Scan the QR code again with the iPhone.",
+  "es": "Listo. Vuelve a escanear el código QR con el iPhone.",
+  "de": "Erledigt. Scanne den QR-Code erneut mit dem iPhone.",
+  "it": "Fatto. Scansiona di nuovo il codice QR con l'iPhone.",
+  "pt": "Pronto. Leia o código QR de novo com o iPhone."
+ },
+ "Pas réglé. Sécurité Windows > Pare-feu > Autoriser une application : coche Python (Privé et Public).": {
+  "en": "Not set. Windows Security > Firewall > Allow an app: tick Python (Private and Public).",
+  "es": "No ajustado. Seguridad de Windows > Firewall > Permitir una aplicación: marca Python (Privada y Pública).",
+  "de": "Nicht eingestellt. Windows-Sicherheit > Firewall > App durch Firewall zulassen: Python ankreuzen (Privat und Öffentlich).",
+  "it": "Non sistemato. Sicurezza di Windows > Firewall > Consenti app: spunta Python (Privata e Pubblica).",
+  "pt": "Não ajustado. Segurança do Windows > Firewall > Permitir uma aplicação: marque Python (Privada e Pública)."
+ },
+ "Dossier...": {
+  "en": "Folder...",
+  "es": "Carpeta...",
+  "de": "Ordner...",
+  "it": "Cartella...",
+  "pt": "Pasta..."
+ },
+ "Dossier des sauvegardes": {
+  "en": "Saves folder",
+  "es": "Carpeta de partidas",
+  "de": "Ordner mit Spielständen",
+  "it": "Cartella dei salvataggi",
+  "pt": "Pasta dos jogos salvos"
+ },
+ "Aucune sauvegarde dans ce dossier.": {
+  "en": "No save in this folder.",
+  "es": "No hay ninguna partida en esta carpeta.",
+  "de": "Kein Spielstand in diesem Ordner.",
+  "it": "Nessun salvataggio in questa cartella.",
+  "pt": "Nenhum jogo salvo nesta pasta."
+ },
+ "La copie s'arrête toute seule.": {
+  "en": "The copy stops by itself.",
+  "es": "La copia se detiene sola.",
+  "de": "Die Kopie stoppt von selbst.",
+  "it": "La copia si ferma da sola.",
+  "pt": "A cópia para sozinha."
+ },
+ "(vide)": {
+  "en": "(empty)",
+  "es": "(vacío)",
+  "de": "(leer)",
+  "it": "(vuoto)",
+  "pt": "(vazio)"
+ },
+ "{n} élément(s)": {
+  "en": "{n} item(s)",
+  "es": "{n} elemento(s)",
+  "de": "{n} Element(e)",
+  "it": "{n} elemento/i",
+  "pt": "{n} item(ns)"
+ },
+ "{n} octets": {
+  "en": "{n} bytes",
+  "es": "{n} bytes",
+  "de": "{n} Bytes",
+  "it": "{n} byte",
+  "pt": "{n} bytes"
+ },
+ "Ouvre le jeu une fois sur le téléphone, puis recommence.": {
+  "en": "Open the game once on the phone, then try again.",
+  "es": "Abre el juego una vez en el teléfono y vuelve a intentarlo.",
+  "de": "Öffne das Spiel einmal auf dem Handy und versuche es dann erneut.",
+  "it": "Apri il gioco una volta sul telefono, poi riprova.",
+  "pt": "Abre o jogo uma vez no telefone e tenta de novo."
+ },
+ "Version {version}. Vérification impossible.": {
+  "en": "Version {version}. Could not check.",
+  "es": "Versión {version}. No se pudo comprobar.",
+  "de": "Version {version}. Prüfung nicht möglich.",
+  "it": "Versione {version}. Verifica impossibile.",
+  "pt": "Versão {version}. Não foi possível verificar."
+ },
+ "Le jeu hors ligne se joue sur Android uniquement.": {
+  "en": "The offline game runs on Android only.",
+  "es": "El juego sin conexión solo funciona en Android.",
+  "de": "Das Offline-Spiel läuft nur auf Android.",
+  "it": "Il gioco offline funziona solo su Android.",
+  "pt": "O jogo offline só funciona no Android."
+ },
+ "Désinstalle le jeu officiel du téléphone avant d'installer l'APK.": {
+  "en": "Uninstall the official game from the phone before installing the APK.",
+  "es": "Desinstala el juego oficial del teléfono antes de instalar el APK.",
+  "de": "Deinstalliere das offizielle Spiel vom Handy, bevor du die APK installierst.",
+  "it": "Disinstalla il gioco ufficiale dal telefono prima di installare l'APK.",
+  "pt": "Desinstale o jogo oficial do celular antes de instalar o APK."
+ },
+ "Sauvegarde copiée ! Elle est choisie à l'étape 2.\n\nSur l'iPhone, supprime le profil RatchetRR (Réglages > Général > VPN et gestion de l'appareil).": {
+  "en": "Save copied! It is chosen in step 2.\n\nOn the iPhone, remove the RatchetRR profile (Settings > General > VPN & Device Management).",
+  "es": "¡Partida copiada! Está elegida en el paso 2.\n\nEn el iPhone, elimina el perfil RatchetRR (Ajustes > General > VPN y gestión de dispositivos).",
+  "de": "Spielstand kopiert! Er ist in Schritt 2 ausgewählt.\n\nEntferne auf dem iPhone das Profil RatchetRR (Einstellungen > Allgemein > VPN und Geräteverwaltung).",
+  "it": "Salvataggio copiato! È scelto al passo 2.\n\nSull'iPhone, rimuovi il profilo RatchetRR (Impostazioni > Generali > VPN e gestione dispositivi).",
+  "pt": "Jogo salvo copiado! Ele está escolhido na etapa 2.\n\nNo iPhone, remova o perfil RatchetRR (Ajustes > Geral > VPN e Gerenciamento de Dispositivos)."
+ },
+ "Le jeu hors ligne est déjà sur le téléphone.\n\nRemplacer sa progression par la sauvegarde de cet APK ? (L'ancienne est gardée dans Sauvegardes.)": {
+  "en": "The offline game is already on the phone.\n\nReplace its progress with this APK's save? (The old one is kept in Sauvegardes.)",
+  "es": "El juego sin conexión ya está en el teléfono.\n\n¿Reemplazar su progreso por la partida de este APK? (La anterior se guarda en Sauvegardes.)",
+  "de": "Das Offline-Spiel ist schon auf dem Handy.\n\nSeinen Fortschritt durch den Spielstand dieser APK ersetzen? (Der alte bleibt in Sauvegardes.)",
+  "it": "Il gioco offline è già sul telefono.\n\nSostituire i suoi progressi con il salvataggio di questo APK? (Il vecchio resta in Sauvegardes.)",
+  "pt": "O jogo offline já está no celular.\n\nSubstituir o progresso pelo jogo salvo deste APK? (O antigo fica guardado em Sauvegardes.)"
+ },
+ "Ce jeu vient d'un autre ordinateur : il faut d'abord le désinstaller. Ta progression est gardée, pas les réglages du jeu.\n\nDésinstaller et réinstaller ?": {
+  "en": "This game comes from another computer: it must be uninstalled first. Your progress is kept, not the game's settings.\n\nUninstall and reinstall?",
+  "es": "Este juego viene de otro ordenador: primero hay que desinstalarlo. Tu progreso se conserva, los ajustes del juego no.\n\n¿Desinstalar y reinstalar?",
+  "de": "Dieses Spiel stammt von einem anderen Computer: Es muss zuerst deinstalliert werden. Dein Fortschritt bleibt, die Spieleinstellungen nicht.\n\nDeinstallieren und neu installieren?",
+  "it": "Questo gioco viene da un altro computer: va prima disinstallato. I tuoi progressi restano, le impostazioni del gioco no.\n\nDisinstallare e reinstallare?",
+  "pt": "Este jogo vem de outro computador: é preciso desinstalá-lo primeiro. O seu progresso fica, as configurações do jogo não.\n\nDesinstalar e reinstalar?"
+ },
+ "Aucun téléphone trouvé. Active le débogage USB et mets l'USB en « Transfert de fichiers », puis recommence.": {
+  "en": "No phone found. Turn on USB debugging and set USB to “File transfer”, then try again.",
+  "es": "No se encontró ningún teléfono. Activa la depuración USB y pon el USB en «Transferencia de archivos», y vuelve a intentarlo.",
+  "de": "Kein Handy gefunden. Aktiviere USB-Debugging und stelle USB auf „Dateiübertragung“, dann versuche es erneut.",
+  "it": "Nessun telefono trovato. Attiva il debug USB e imposta l'USB su «Trasferimento file», poi riprova.",
+  "pt": "Nenhum celular encontrado. Ative a depuração USB e coloque o USB em “Transferência de arquivos”, depois tente de novo."
+ }
+}

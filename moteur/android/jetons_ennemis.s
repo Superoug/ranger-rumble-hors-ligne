@@ -24,7 +24,7 @@ _tk_no_bolt:
     ldr  x8, [x23, #0x38]
     cbnz x8, 3f
     mov  x0, x23
-    bl   ext_class_init
+    bl   ext_init_rgctx
     ldr  x8, [x23, #0x38]
     cbz  x8, 9f
 3:  ldr  x3, [x8, #8]

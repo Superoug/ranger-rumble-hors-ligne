@@ -32,6 +32,17 @@ def artbook_menu(scene_bytes, log=print):
 
     def children(go):
         return [tree(c['m_PathID'])['m_GameObject']['m_PathID'] for c in tree(transform(go))['m_Children']]
+
+    def all_gos(go):
+        out, stack = ([], [go])
+        while stack:
+            g = stack.pop()
+            out.append(g)
+            stack += children(g)
+        return out
+
+    def visible_icons(go):
+        return [c for g in all_gos(go) for c in components(g) if objects[c].type == ClassIDType.MonoBehaviour and 'm_Sprite' in tree(c) and (tree(g)['m_Name'] == 'Icon') and tree(g)['m_IsActive']]
     social = go_named('Button_SocialMedia')
     if any((o.type == ClassIDType.GameObject and o.peek_name() == NAME for o in objects.values())):
         raise SystemExit('menu : bouton artbook deja la')
@@ -49,13 +60,8 @@ def artbook_menu(scene_bytes, log=print):
     def skipped(pid):
         t = tree(pid)
         return 'stateID' in t or '_key' in t
-    gos, stack = ([], [social])
-    while stack:
-        go = stack.pop()
-        gos.append(go)
-        stack += children(go)
     kept = []
-    for go in gos:
+    for go in all_gos(social):
         kept.append(go)
         kept += [c for c in components(go) if not skipped(c)]
     next_id = max(objects) + 1
@@ -74,17 +80,8 @@ def artbook_menu(scene_bytes, log=print):
         if isinstance(value, list):
             return [relink(v) for v in value]
         return value
-    mailbox = go_named('Button_Mailbox')
-
-    def all_gos(go):
-        out, stack = ([], [go])
-        while stack:
-            g = stack.pop()
-            out.append(g)
-            stack += children(g)
-        return out
-    letter_icons = [tree(c)['m_Sprite'] for g in all_gos(mailbox) for c in components(g) if objects[c].type == ClassIDType.MonoBehaviour and 'm_Sprite' in tree(c) and (tree(g)['m_Name'] == 'Icon') and tree(g)['m_IsActive']]
-    social_icons = [c for g in all_gos(social) for c in components(g) if objects[c].type == ClassIDType.MonoBehaviour and 'm_Sprite' in tree(c) and (tree(g)['m_Name'] == 'Icon') and tree(g)['m_IsActive']]
+    letter_icons = [tree(c)['m_Sprite'] for c in visible_icons(go_named('Button_Mailbox'))]
+    social_icons = visible_icons(social)
     if len(letter_icons) != 1 or len(social_icons) != 1:
         raise SystemExit('menu : icones inattendues')
     changed = {'label': 0, 'button': 0}

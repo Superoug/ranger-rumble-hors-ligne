@@ -1,0 +1,51 @@
+#!/bin/sh
+BASE="$HOME/.sauvegarde-rr"
+VENV="$BASE/venv"
+APP="$(cd "$(dirname "$0")/../.." && pwd -P)"
+HERE="$(dirname "$APP")"
+FR=""
+grep -q '"langue": "fr"' "$BASE/reglages.json" 2>/dev/null && FR=1
+t() {
+  if [ -n "$FR" ]; then echo "$1"; else echo "$2"; fi
+}
+found() {
+  [ -f "$1/moteur/appli_patch/appli.py" ]
+}
+
+# The tool's folder from the mounts: macOS may open a copy of the app alone (downloaded, never moved),
+# mounted from where the app really is. (A function: the Mac's sh misreads a case inside $(...).)
+from_mount() {
+  mount | while IFS= read -r LINE; do
+    SOURCE="${LINE%% on *}"
+    REST="${LINE#* on }"
+    POINT="${REST% (*}"
+    case "$APP/" in
+      "$POINT"/*)
+        case "$SOURCE" in
+          *.app) CANDIDATE="$(dirname "$SOURCE")" ;;
+          *) CANDIDATE="$(dirname "$SOURCE${APP#"$POINT"}")" ;;
+        esac
+        if found "$CANDIDATE"; then
+          printf '%s' "$CANDIDATE"
+          break
+        fi ;;
+    esac
+  done
+}
+
+if ! found "$HERE"; then
+  ORIGINAL="$(from_mount)"
+  [ -n "$ORIGINAL" ] && HERE="$ORIGINAL"
+fi
+# else where the launcher last ran
+if ! found "$HERE" && [ -f "$BASE/outil.txt" ] && found "$(cat "$BASE/outil.txt")"; then
+  HERE="$(cat "$BASE/outil.txt")"
+fi
+if ! found "$HERE"; then
+  osascript -e "display dialog \"$(t "Ouvre une première fois « Lancer (Mac).command » dans le dossier de l'outil." "Open « Lancer (Mac).command » in the tool's folder once.")\" buttons {\"OK\"} default button 1 with title \"Ranger Rumble hors ligne\"" >/dev/null 2>&1
+  exit 1
+fi
+if [ "$(cat "$VENV/rr-pret" 2>/dev/null)" = "821fed449874" ] && [ -x "$VENV/bin/python" ]; then
+  exec "$VENV/bin/python" -I "$HERE/moteur/appli_patch/appli.py"
+fi
+open -a Terminal "$HERE/Lancer (Mac).command"

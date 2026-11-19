@@ -16,7 +16,7 @@ _flail_enh:
     ldr  x9, enh_delay
     cmp  x22, x9
     b.lt done
-    .macro get_pointer slotname, entity
+.macro get_pointer slotname, entity
     adrp x0, \slotname@PAGE
     ldr  x0, [x0, \slotname@PAGEOFF]
     bl   ext_init_metadata
@@ -26,7 +26,7 @@ _flail_enh:
     ldr  x8, [x23, #0x38]
     cbnz x8, 1f
     mov  x0, x23
-    bl   ext_class_init
+    bl   ext_init_rgctx
 1:  ldr  x8, [x23, #0x38]
     ldr  x3, [x8, #8]
     ldr  x0, [x19, #0xa0]
@@ -34,7 +34,7 @@ _flail_enh:
     add  x2, sp, #0x50
     str  xzr, [x2]
     bl   ext_try_get_pointer
-    .endm
+.endm
     get_pointer slot_loadout, x20
     tbz  w0, #0, done
     ldr  x8, [sp, #0x50]

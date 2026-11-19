@@ -370,6 +370,5 @@ s_mopz:         .asciz "HUD_Event"
 s_canvas_group: .asciz "CanvasGroup"
 s_updater:      .asciz "EventScreenUpdater"
 s_seen:         .asciz "rr_zurkon_vu"
-.p2align 2
     .p2align 2
 journal:        .word 0

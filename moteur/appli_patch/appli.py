@@ -1,31 +1,37 @@
 import asyncio
 import importlib.util
 import io
+import math
 import os
 import queue
+import re
 import subprocess
 import sys
 import threading
+import time
 import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import accueil
 import copie_android
-import donnees_capture
 import editeur
+import langues
 import mises_a_jour
+import pare_feu
 import patcher
+import theme
+from langues import tr
 ROOT = HERE.parent.parent if HERE.parent.name == 'moteur' else HERE.parent
 COPIES = Path(os.environ.get('RR_COPIES') or ROOT / 'Sauvegardes')
 TOOL = next((path for path in (HERE.parent / 'outil' / 'sauvegarde_rr.py', HERE.parent / 'outil_sauvegarde_source' / 'sauvegarde_rr.py') if path.exists()))
-TITLE = 'Ranger Rumble hors ligne'
-PLATFORMS = (('ios', 'iPhone ou iPad'), ('android', 'Android'))
-COPY_TEXTS = {'': "Choisis d'abord, en haut de la fenêtre, où est ton jeu Ranger Rumble.", 'ios': "Garde une copie de ta sauvegarde officielle, et les données du jeu qu'il faut pour fabriquer l'APK hors ligne, tant que les serveurs sont ouverts (jusqu'au 1er mai 2027). L'iPhone ou l'iPad doit être sur le même Wi-Fi que cet ordinateur : choisis ce Wi-Fi ci-dessous et clique sur Démarrer. Vise ensuite le QR code avec l'appareil photo de l'iPhone et suis les étapes : le profil RatchetRR règle tout seul l'iPhone, il n'y a plus de proxy à taper.", 'android': "Ta sauvegarde n'est pas sur ton téléphone : seuls les serveurs officiels la gardent, et Android ne laisse aucune autre appli la lire (sans root). Ce que l'outil peut copier par le câble, ce sont les données du jeu, qui servent à fabriquer l'APK hors ligne avec une nouvelle partie ou une sauvegarde exportée.\nBranche le téléphone (débogage USB activé, voir LIS_MOI.txt) et clique sur « Copier par le câble ». Ne désinstalle pas le jeu officiel pour cela."}
-COPY_BUTTONS = {'': 'Démarrer', 'ios': 'Démarrer', 'android': 'Copier par le câble'}
-BUILD_TEXTS = {'': "Fabrique l'APK hors ligne à partir du jeu officiel en versions 1.10.4 et 1.10.3 (fichiers .xapk ou .apkm que tu te procures toi-même ; la 1.10.3 donne les 7 héros jamais sortis) et d'une copie faite dans l'onglet 1, dont la sauvegarde est mise dans l'APK. Il faut environ 5 Go libres.", 'ios': "Fabrique l'APK hors ligne à partir du jeu officiel en versions 1.10.4 et 1.10.3 (fichiers .xapk ou .apkm que tu te procures toi-même ; la 1.10.3 donne les 7 héros jamais sortis) et de ta copie faite dans l'onglet 1. Il faut environ 5 Go libres. La version hors ligne se joue sur un téléphone ou une tablette Android : il n'y en a pas pour iPhone ou iPad.", 'android': "Fabrique l'APK hors ligne à partir du jeu officiel en versions 1.10.4 et 1.10.3 (fichiers .xapk ou .apkm que tu te procures toi-même ; la 1.10.3 donne les 7 héros jamais sortis) et de la copie faite par le câble (onglet 1), avec une sauvegarde exportée ou une nouvelle partie. Il faut environ 5 Go libres. Sur ton téléphone, désinstalle le jeu officiel avant d'installer l'APK (même nom d'appli) : fais-le seulement quand tu n'en as plus besoin."}
-STATUS = {'ready': 'prête', 'partial': 'données du serveur incomplètes', 'old': 'ancienne copie, sans les données du serveur : refais-en une'}
-NO_SAVE = 'sans sauvegarde'
+TITLE = tr('Ranger Rumble hors ligne')
+PLATFORMS = (('ios', tr('iPhone ou iPad')), ('android', 'Android'))
+COPY_TEXTS = {'': tr('Choisis en haut où est ton jeu.'), 'ios': tr("iPhone sur le même Wi-Fi que cet ordinateur. Clique sur Démarrer, puis scanne le QR code avec l'iPhone. Avant le 1er mai 2027."), 'android': tr("Sur Android, rien à copier : va à l'étape 2 et choisis ta sauvegarde exportée ou « Nouvelle partie ».")}
+COPY_BUTTON = tr('Démarrer')
+BUILD_TEXT = tr("Choisis le jeu officiel 1.10.4 et ta sauvegarde (ou « Nouvelle partie »), puis clique sur « Fabriquer l'APK ». Il faut 5 Go libres.")
+BUILD_TEXTS = {'': BUILD_TEXT, 'ios': BUILD_TEXT + ' ' + tr('Le jeu hors ligne se joue sur Android uniquement.'), 'android': BUILD_TEXT + ' ' + tr("Désinstalle le jeu officiel du téléphone avant d'installer l'APK.")}
 
 def load_tool():
     spec = importlib.util.spec_from_file_location('sauvegarde_rr', TOOL)
@@ -47,15 +53,89 @@ class Output(io.TextIOBase):
     def write(self, text):
         self.queue.put(text)
         return len(text)
+STEP = re.compile('(\\d)/6 ')
+BUILD_STEPS = {1: (0, 20, 8), 2: (20, 78, 20), 3: (78, 82, 2), 4: (82, 93, 4), 5: (93, 99, 2)}
+
+class Bar:
+
+    def __init__(self, root, parent):
+        self.root = root
+        self.frame = ttk.Frame(parent)
+        self.bar = ttk.Progressbar(self.frame, mode='determinate', length=240, maximum=100)
+        self.bar.pack(side='left')
+        self.text = ttk.Label(self.frame, width=18)
+        self.text.pack(side='left', padx=8)
+        self.what = ''
+        self.start = self.goal = 0.0
+        self.seconds = 0
+        self.since = 0.0
+        self.ticking = False
+
+    def begin(self, what):
+        self.what = what
+        self.set(0)
+
+    def set(self, value, goal=None, seconds=0):
+        self.start, self.goal, self.seconds = (value, value if goal is None else goal, seconds)
+        self.since = time.monotonic()
+        self.show(value)
+        if not self.ticking:
+            self.ticking = True
+            self.tick()
+
+    def step(self, number):
+        if number in BUILD_STEPS:
+            start, goal, seconds = BUILD_STEPS[number]
+            self.set(start, goal, seconds / 2)
+        elif number == 6:
+            self.set(100)
+
+    def sending(self, fraction):
+        if fraction >= 0.8:
+            self.set(80, 99, 8)
+        else:
+            self.set(fraction * 100)
+
+    def tick(self):
+        if not self.ticking:
+            return
+        if self.seconds and self.goal > self.start:
+            spent = time.monotonic() - self.since
+            self.show(self.start + (self.goal - self.start) * (1 - math.exp(-spent / self.seconds)))
+        self.root.after(250, self.tick)
+
+    def show(self, value):
+        self.bar['value'] = max(value, 6) if value > 0 else 0
+        self.text['text'] = f'{self.what} {int(value)} %'
+
+    def done(self, ok):
+        self.ticking = False
+        if ok:
+            self.show(100)
+        else:
+            self.bar['value'] = 0
+            self.text['text'] = ''
+MAX_WIDTH = 1080
+
+def centre(outer, inner):
+
+    def placed(event):
+        width = min(event.width, MAX_WIDTH)
+        inner.place(x=(event.width - width) // 2, y=0, width=width, height=event.height)
+    outer.bind('<Configure>', placed)
+
+def centred(parent, padding=(22, 14, 22, 18), height=None):
+    outer = ttk.Frame(parent, height=height or 1)
+    inner = ttk.Frame(outer, padding=padding)
+    centre(outer, inner)
+    return (outer, inner)
 
 def open_folder(path):
     path = str(path)
     if sys.platform == 'win32':
         os.startfile(path)
-    elif sys.platform == 'darwin':
-        subprocess.Popen(['open', path])
     else:
-        subprocess.Popen(['xdg-open', path])
+        subprocess.Popen(['open', path])
 
 def paragraph(parent, text):
     label = ttk.Label(parent, text=text, justify='left')
@@ -64,6 +144,16 @@ def paragraph(parent, text):
     return label
 
 def is_save(path):
+    try:
+        key = (str(path), os.stat(path).st_mtime_ns)
+    except OSError:
+        return False
+    if key not in SAVE_CHECKS:
+        SAVE_CHECKS[key] = read_is_save(path)
+    return SAVE_CHECKS[key]
+SAVE_CHECKS = {}
+
+def read_is_save(path):
     import msgpack
     try:
         with open(path, 'rb') as handle:
@@ -73,25 +163,46 @@ def is_save(path):
     parts = value.get('save') if isinstance(value, dict) else None
     return isinstance(parts, dict) and 'UnlockedHeroes' in parts
 
-def status(folder):
-    if not (Path(folder) / 'donnees_serveur').is_dir():
-        return 'old'
-    return 'partial' if donnees_capture.missing_files(str(folder)) else 'ready'
-
 def has_save(folder):
     return (Path(folder) / 'save.msgpack').is_file()
 
-def label_of(folder):
-    state = STATUS[status(folder)]
-    return f"{Path(folder).name}  ({state}{('' if has_save(folder) else ', ' + NO_SAVE)})"
+def copies(folder=None):
+    folder = Path(folder or COPIES)
+    found = [copy for copy in folder.iterdir() if copy.is_dir() and has_save(copy)] if folder.is_dir() else []
+    return sorted(found, key=lambda copy: copy.stat().st_mtime, reverse=True)
+NAME_DATE = re.compile('_(\\d{4})-(\\d{2})-(\\d{2})_(\\d{2})(\\d{2})\\d{2}$')
 
-def copies():
-    found = []
-    if COPIES.is_dir():
-        for folder in COPIES.iterdir():
-            if has_save(folder) or (folder / 'donnees_serveur').is_dir():
-                found.append((folder.stat().st_mtime, label_of(folder), folder))
-    return [(label, folder) for _, label, folder in sorted(found, reverse=True)]
+def save_label(path):
+    path = Path(path)
+    named = NAME_DATE.search(path.parent.name if path.name == 'save.msgpack' else path.stem)
+    if named:
+        _, month, day, hour, minute = named.groups()
+        date = f'{day}/{month} {hour}:{minute}'
+    else:
+        try:
+            date = time.strftime('%d/%m %H:%M', time.localtime(path.stat().st_mtime))
+        except OSError:
+            date = ''
+    if path.name == 'save.msgpack':
+        label = tr('iPhone {account}, copiée le {date}', account=path.parent.name.split('_')[0], date=date)
+        folder = path.parent.parent
+    else:
+        folder = path.parent
+        if path.name.startswith('TELEPHONE_'):
+            label = tr('Téléphone, gardée le {date}', date=date)
+        elif path.name.startswith('ENVOYEE_'):
+            label = tr('Envoyée au téléphone le {date}', date=date)
+        else:
+            label = path.name
+    return label if folder == COPIES else f'{label}  ·  {folder.name}'
+
+def saves(folder=None):
+    folder = Path(folder or COPIES)
+    if not folder.is_dir():
+        return []
+    own = [folder / 'save.msgpack'] if has_save(folder) else []
+    files = sorted((file for file in folder.glob('*.msgpack') if file.name != 'save.msgpack' and is_save(file)), key=lambda file: file.stat().st_mtime, reverse=True)
+    return own + [copy / 'save.msgpack' for copy in copies(folder)] + files
 
 class Application:
 
@@ -99,36 +210,76 @@ class Application:
         self.root = root
         self.output = Output()
         self.target = None
+        self.bar = None
         self.copy_state = None
-        self.tool = None
-        self.wifi_loaded = False
         self.building = False
+        self.restart = False
+        self.light_dot, self.light_state, self.copy_started = (None, None, time.time())
         root.title(TITLE)
-        root.geometry('980x700')
-        root.minsize(760, 520)
-        top = ttk.Frame(root, padding=(14, 12, 14, 0))
-        top.pack(fill='x')
-        ttk.Label(top, text='Mon jeu Ranger Rumble est sur :').pack(side='left')
+        screen_width, screen_height = (root.winfo_screenwidth(), root.winfo_screenheight())
+        width, height = (min(980, screen_width - 40), min(700, screen_height - 110))
+        root.geometry(f'{width}x{height}+{max(0, (screen_width - width) // 2)}+{max(0, (screen_height - height) // 2 - 30)}')
+        root.minsize(min(800, width), min(590, height))
+        theme.apply(root)
+        root.configure(background=theme.NAVY)
+        try:
+            self.icon = tk.PhotoImage(file=str(HERE / 'ressources' / 'lanceur' / 'icone.png'))
+            root.iconphoto(True, self.icon)
+        except tk.TclError:
+            pass
+        self.work = ttk.Frame(root)
+        self.PLATFORMS = PLATFORMS
+        top_line, top = centred(self.work, (22, 12, 22, 0), height=60)
+        top_line.pack(fill='x')
+        ttk.Label(top, text=tr('Mon jeu Ranger Rumble est sur :'), style='Soft.TLabel').pack(side='left')
         self.platform = tk.StringVar(value='')
         self.platform_buttons = []
         for value, label in PLATFORMS:
             button = ttk.Radiobutton(top, text=label, value=value, variable=self.platform, command=self.platform_changed)
             button.pack(side='left', padx=10)
             self.platform_buttons.append(button)
-        notebook = ttk.Notebook(root)
-        notebook.pack(fill='both', expand=True, padx=10, pady=10)
-        notebook.add(self.copy_tab(notebook), text='  1. Copier la sauvegarde  ')
-        notebook.add(self.build_tab(notebook), text="  2. Fabriquer l'APK  ")
-        self.editor = editeur.Editor(notebook, self)
-        notebook.add(self.editor, text='  3. Éditer une sauvegarde  ')
-        notebook.add(self.updates_tab(notebook), text='  4. Mises à jour  ')
+        names = dict(langues.LANGUAGES)
+        self.language = tk.StringVar(value=names[langues.CURRENT])
+        chooser = ttk.Combobox(top, textvariable=self.language, values=list(names.values()), state='readonly', width=11)
+        chooser.pack(side='right')
+        chooser.bind('<<ComboboxSelected>>', self.language_changed)
+        ttk.Label(top, text=tr('Langue :'), style='Soft.TLabel').pack(side='right', padx=(0, 6))
+        notebook = ttk.Notebook(self.work, style='Pages.TNotebook')
+        notebook.pack(fill='both', expand=True)
+        notebook.add(self.copy_tab(notebook), text=tr('  1. Copier la sauvegarde  '))
+        notebook.add(self.build_tab(notebook), text=tr("  2. Fabriquer l'APK  "))
+        editor_page = ttk.Frame(notebook)
+        self.editor = editeur.Editor(editor_page, self)
+        centre(editor_page, self.editor)
+        notebook.add(editor_page, text=tr('  3. Éditer une sauvegarde  '))
+        notebook.add(self.updates_tab(notebook), text=tr('  4. Mises à jour  '))
         self.notebook = notebook
+        self.home = accueil.Home(root, self)
+        self.header = accueil.Header(self.work, self, self.home)
+        self.header.canvas.pack(fill='x', before=top_line)
+        notebook.bind('<<NotebookTabChanged>>', lambda _event: self.header.select(notebook.index(notebook.select())))
+        self.platform.trace_add('write', lambda *_: self.home.refresh())
+        root.bind('<Activate>', lambda event: event.widget is root and self.home.pause(False))
+        root.bind('<Deactivate>', lambda event: event.widget is root and self.home.pause(True))
         self.restore_settings()
+        self.show_home()
         threading.Thread(target=self.check_release, daemon=True).start()
         sys.stdout = self.output
         sys.stderr = self.output
         root.protocol('WM_DELETE_WINDOW', self.close)
         root.after(100, self.pump)
+
+    def show_home(self):
+        self.work.pack_forget()
+        self.home.canvas.pack(fill='both', expand=True)
+        self.home.start()
+
+    def show_page(self, index):
+        self.home.stop()
+        self.home.canvas.pack_forget()
+        self.notebook.select(index)
+        self.header.select(index)
+        self.work.pack(fill='both', expand=True)
 
     @staticmethod
     def copies_folder():
@@ -137,15 +288,24 @@ class Application:
 
     @staticmethod
     def log_box(parent):
-        box = tk.Text(parent, height=18, wrap='word', state='disabled', font=('Courier', 11))
-        scroll = ttk.Scrollbar(parent, command=box.yview)
+        ttk.Label(parent, text=tr('Journal').upper(), style='Small.TLabel').pack(side='top', anchor='w', pady=(0, 4))
+        card = ttk.Frame(parent, style='Card.TFrame', padding=6)
+        card.pack(fill='both', expand=True)
+        box = tk.Text(card, height=18, wrap='word', state='disabled')
+        theme.log_colours(box)
+        scroll = ttk.Scrollbar(card, command=box.yview)
         box.configure(yscrollcommand=scroll.set)
-        return (box, scroll)
+        scroll.pack(side='right', fill='y')
+        box.pack(fill='both', expand=True)
+        return (box, card)
 
     def pump(self):
         try:
             while True:
                 text = self.output.queue.get_nowait()
+                step = STEP.match(text)
+                if step and self.bar is not None:
+                    self.bar.step(int(step.group(1)))
                 if self.target is not None:
                     self.target.configure(state='normal')
                     self.target.insert('end', text)
@@ -156,53 +316,27 @@ class Application:
         self.root.after(100, self.pump)
 
     def copy_tab(self, notebook):
-        tab = ttk.Frame(notebook, padding=12)
+        page, tab = centred(notebook)
+        ttk.Label(tab, text=tr('Copier ma sauvegarde'), style='Big.TLabel').pack(anchor='w', pady=(0, 6))
         self.copy_intro = paragraph(tab, COPY_TEXTS[''])
-        self.wifi_row = ttk.Frame(tab)
-        ttk.Label(self.wifi_row, text="Wi-Fi de l'iPhone :").pack(side='left')
-        self.wifi = tk.StringVar(value='')
-        self.wifi_box = ttk.Combobox(self.wifi_row, textvariable=self.wifi, width=34)
-        self.wifi_box.pack(side='left', padx=8)
-        ttk.Label(self.wifi_row, text="(son nom dans Réglages > Wi-Fi de l'iPhone)").pack(side='left')
-        self.wifi.trace_add('write', self.wifi_changed)
         buttons = ttk.Frame(tab)
-        buttons.pack(anchor='w', pady=10)
+        buttons.pack(anchor='w', pady=(12, 16))
         self.copy_buttons = buttons
-        self.copy_button = ttk.Button(buttons, text='Démarrer', command=self.toggle_copy, state='disabled')
+        self.copy_button = ttk.Button(buttons, text=tr('Démarrer'), command=self.toggle_copy, state='disabled', style='Primary.TButton')
         self.copy_button.pack(side='left')
-        ttk.Button(buttons, text='Ouvrir le dossier des copies', command=lambda: (COPIES.mkdir(exist_ok=True), open_folder(COPIES))).pack(side='left', padx=8)
+        ttk.Button(buttons, text=tr('Ouvrir le dossier des copies'), command=lambda: (COPIES.mkdir(exist_ok=True), open_folder(COPIES))).pack(side='left', padx=8)
+        self.light = tk.Canvas(buttons, width=18, height=18, highlightthickness=0, background=ttk.Style(self.root).lookup('TFrame', 'background') or None)
+        self.light_dot = self.light.create_oval(2, 2, 16, 16, fill='#8a8a8a', outline='')
+        self.light_text = ttk.Label(buttons, text='')
         frame = ttk.Frame(tab)
         frame.pack(fill='both', expand=True)
-        self.copy_log, scroll = self.log_box(frame)
+        self.copy_log, self.copy_card = self.log_box(frame)
         self.qr_panel = ttk.Frame(frame)
         self.qr_label = ttk.Label(self.qr_panel)
         self.qr_label.pack()
-        self.qr_text = ttk.Label(self.qr_panel, justify='center', wraplength=230)
+        self.qr_text = ttk.Label(self.qr_panel, justify='center', wraplength=230, style='Soft.TLabel')
         self.qr_text.pack(pady=6)
-        self.copy_scroll = scroll
-        scroll.pack(side='right', fill='y')
-        self.copy_log.pack(fill='both', expand=True)
-        return tab
-
-    def load_wifi(self):
-        self.wifi_loaded = True
-
-        def work():
-            try:
-                current, known = load_tool().wifi_networks()
-            except Exception:
-                current, known = ('', [])
-            self.root.after(0, lambda: self.wifi_found(current, known))
-        threading.Thread(target=work, daemon=True).start()
-
-    def wifi_found(self, current, known):
-        self.wifi_box.configure(values=known)
-        if current and (not self.wifi.get()):
-            self.wifi.set(current)
-
-    def wifi_changed(self, *_):
-        if self.tool is not None:
-            self.tool.WIFI = self.wifi.get().strip()
+        return page
 
     def show_qr(self, url):
         try:
@@ -212,275 +346,259 @@ class Application:
             self.qr_label.configure(image=self.qr_image)
         except Exception:
             self.qr_label.configure(image='')
-        self.qr_text.configure(text=f"Vise ce code avec l'appareil photo de l'iPhone\n{url}")
-        self.qr_panel.pack(side='right', anchor='n', padx=(10, 0), before=self.copy_scroll)
+        self.qr_text.configure(text=tr("Scanne avec l'iPhone\n{url}", url=url))
+        self.qr_panel.pack(side='right', anchor='n', padx=(10, 0), before=self.copy_card)
 
     def hide_qr(self):
         self.qr_panel.pack_forget()
 
     def platform_changed(self):
         platform = self.platform.get()
+        if platform:
+            mises_a_jour.remember(plateforme=platform)
         self.copy_intro.configure(text=COPY_TEXTS[platform])
         self.build_intro.configure(text=BUILD_TEXTS[platform])
-        if not self.copy_state and (not getattr(self, 'android_copying', False)):
-            self.copy_button.configure(text=COPY_BUTTONS[platform], state='normal' if platform else 'disabled')
-        if platform == 'ios':
-            self.wifi_row.pack(fill='x', pady=(10, 0), before=self.copy_buttons)
-            if not self.wifi_loaded:
-                self.load_wifi()
-        else:
-            self.wifi_row.pack_forget()
+        if not self.copy_state:
+            self.copy_button.configure(text=COPY_BUTTON, state='normal' if platform == 'ios' else 'disabled')
 
     def toggle_copy(self):
-        if self.platform.get() == 'android':
-            self.copy_android()
+        if self.copy_state == 'depart':
             return
         if self.copy_state:
             loop, master = self.copy_state
             loop.call_soon_threadsafe(master.shutdown)
-            self.copy_button.configure(text='Arrêt...', state='disabled')
+            self.copy_button.configure(text=tr('Arrêt...'), state='disabled')
             return
         if self.building:
-            messagebox.showinfo(TITLE, "Attends la fin de la fabrication de l'APK.")
-            return
-        if not self.wifi.get().strip() and (not messagebox.askyesno(TITLE, "Aucun Wi-Fi choisi : le profil ne pourra pas régler l'iPhone tout seul, il faudra régler son proxy à la main. Continuer quand même ?")):
+            messagebox.showinfo(TITLE, tr("Attends la fin de la fabrication de l'APK."))
             return
         self.target = self.copy_log
-        self.copy_button.configure(text='Arrêter')
+        self.copy_state = 'depart'
+        self.copy_button.configure(text=tr('Arrêter'), state='disabled')
         for button in self.platform_buttons:
             button.configure(state='disabled')
+        started = self.copy_started = time.time()
+        self.copy_light('attente')
 
         def ready(master, _page):
             self.copy_state = (asyncio.get_running_loop(), master)
+            self.root.after(0, lambda: self.copy_button.configure(state='normal'))
+            if os.name == 'nt':
+                threading.Thread(target=self.check_firewall, daemon=True).start()
 
         def work():
             try:
                 tool = load_tool()
-                tool.WIFI = self.wifi.get().strip()
-                self.tool = tool
+                tool.ON_STATE = lambda name: self.root.after(0, lambda: self.copy_light(name))
                 address, proxy_port, page_port = tool.prepare()
+                if not address.startswith(('192.168.', '10.', '172.')):
+                    print(tr("Cet ordinateur n'a pas d'adresse sur un réseau local ({address}) : mets-le sur le même Wi-Fi que l'iPhone.", address=address))
                 self.root.after(0, lambda: self.show_qr(f'http://{address}:{page_port}'))
                 asyncio.run(tool.run(address, proxy_port, page_port, ready))
             except Exception as error:
-                print(f'\nErreur : {error}')
+                print(tr('\nErreur : {error}', error=error))
             finally:
                 self.copy_state = None
-                self.tool = None
-                print("\nCopie arrêtée. Quand tu as fini, supprime le profil RatchetRR de l'iPhone (Réglages > Général > VPN et gestion de l'appareil) : il oublie alors ce Wi-Fi, reconnecte-toi avec ton mot de passe.\n")
+                print(tr("\nCopie arrêtée. Supprime le profil RatchetRR de l'iPhone (Réglages > Général > VPN et gestion de l'appareil).\n"))
                 self.root.after(0, self.hide_qr)
                 self.root.after(0, self.copy_stopped)
-                self.root.after(0, self.refresh_copies)
+                self.root.after(0, lambda: self.take_copy_save(started))
+                self.root.after(0, lambda: self.copy_light('arret'))
         threading.Thread(target=work, daemon=True).start()
 
-    def copy_android(self):
-        if self.building:
-            messagebox.showinfo(TITLE, "Attends la fin de la fabrication de l'APK.")
+    def check_firewall(self):
+        time.sleep(6)
+        if pare_feu.check():
+            self.root.after(0, self.firewall_blocked)
+
+    def firewall_blocked(self):
+        print(tr("Le pare-feu de Windows empêche l'iPhone d'arriver jusqu'à l'outil."))
+        if not messagebox.askyesno(TITLE, tr("Le pare-feu de Windows bloque l'iPhone.\n\nL'autoriser sur ton réseau local ? Windows va demander ton accord.")):
             return
-        adb = copie_android.find_adb()
-        if not adb and (not messagebox.askyesno(TITLE, "Pour lire le téléphone par le câble, l'outil a besoin des outils Android de Google (« platform-tools », environ 10 Mo). Les télécharger maintenant depuis le site de Google ?\n\nEn les téléchargeant, tu acceptes leurs conditions d'utilisation : " + copie_android.ADB_PAGE)):
-            return
-        self.target = self.copy_log
-        self.android_copying = True
-        self.copy_button.configure(text='Copie...', state='disabled')
-        for button in self.platform_buttons:
-            button.configure(state='disabled')
 
         def work():
-            folder = None
-            try:
-                tool = adb or copie_android.download_adb()
-                ready = [p for p in copie_android.phones(tool) if p[1] == 'device']
-                waiting = [p for p in copie_android.phones(tool) if p[1] == 'unauthorized']
-                if not ready:
-                    if waiting:
-                        raise copie_android.Problem('Le téléphone est branché, mais il attend ton accord : touche « Autoriser » dans la fenêtre « Autoriser le débogage USB ? » sur son écran, puis recommence.')
-                    raise copie_android.Problem('Aucun téléphone trouvé. Vérifie que le débogage USB est activé (voir LIS_MOI.txt), que le câble transmet les données, puis recommence.')
-                COPIES.mkdir(exist_ok=True)
-                refusals = []
-                for serial, _, model in ready:
-                    print(f'Téléphone : {model or serial}.')
-                    try:
-                        folder = copie_android.copy_phone(tool, serial, str(COPIES))
-                        break
-                    except copie_android.Problem as problem:
-                        refusals.append(str(problem))
-                        if len(ready) > 1:
-                            print(f'  {problem}')
-                if folder is None:
-                    raise copie_android.Problem(refusals[0] if len(refusals) == 1 else "Aucun des téléphones branchés n'a pu être copié.")
-                if has_save(folder):
-                    print("\nTu peux passer à l'onglet 2 : cette copie a une sauvegarde.\n")
-                else:
-                    print("\nTu peux passer à l'onglet 2 : choisis cette copie, puis une sauvegarde exportée ou « Nouvelle partie ».\n")
-            except copie_android.Problem as problem:
-                print(f'\n{problem}\n')
-            except Exception as error:
-                print(f'\nErreur : {error}\n')
-            finally:
-                self.android_copying = False
-                self.root.after(0, self.copy_stopped)
-                self.root.after(0, lambda: self.refresh_copies(select=Path(folder) if folder else None))
+            done = pare_feu.fix()
+            self.root.after(0, lambda: self.firewall_fixed(done))
         threading.Thread(target=work, daemon=True).start()
 
+    def firewall_fixed(self, done):
+        if done:
+            print(tr("Pare-feu réglé : l'iPhone peut arriver jusqu'à l'outil."))
+            messagebox.showinfo(TITLE, tr("C'est réglé. Rescanne le QR code avec l'iPhone."))
+        else:
+            messagebox.showwarning(TITLE, tr('Pas réglé. Sécurité Windows > Pare-feu > Autoriser une application : coche Python (Privé et Public).'))
+
     def copy_stopped(self):
-        self.copy_button.configure(text=COPY_BUTTONS[self.platform.get()])
+        self.copy_button.configure(text=COPY_BUTTON)
         for button in self.platform_buttons:
             button.configure(state='normal')
         self.platform_changed()
 
     def build_tab(self, notebook):
-        tab = ttk.Frame(notebook, padding=12)
+        page, tab = centred(notebook)
+        ttk.Label(tab, text=tr('Installer le jeu'), style='Big.TLabel').pack(anchor='w', pady=(0, 6))
         self.build_intro = paragraph(tab, BUILD_TEXTS[''])
         form = ttk.Frame(tab)
-        form.pack(fill='x', pady=10)
+        form.pack(fill='x', pady=(14, 8))
         form.columnconfigure(1, weight=1)
         self.official = tk.StringVar()
-        self.old_version = tk.StringVar()
-        self.copy_choice = tk.StringVar()
         self.output_path = tk.StringVar(value=str(Path.home() / 'RangerRumble_hors_ligne.apk'))
-        ttk.Label(form, text='Jeu officiel 1.10.4 :').grid(row=0, column=0, sticky='w', pady=3)
+        ttk.Label(form, text=tr('Jeu officiel 1.10.4 :'), style='Soft.TLabel').grid(row=0, column=0, sticky='w', pady=3)
         ttk.Entry(form, textvariable=self.official).grid(row=0, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Choisir...', command=self.pick_official).grid(row=0, column=2)
-        ttk.Label(form, text='Jeu officiel 1.10.3 :').grid(row=1, column=0, sticky='w', pady=3)
-        ttk.Entry(form, textvariable=self.old_version).grid(row=1, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Choisir...', command=self.pick_old_version).grid(row=1, column=2)
-        ttk.Label(form, text='Copie de sauvegarde :').grid(row=2, column=0, sticky='w', pady=3)
-        self.copy_box = ttk.Combobox(form, textvariable=self.copy_choice, state='readonly')
-        self.copy_box.grid(row=2, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Autre dossier...', command=self.pick_copy).grid(row=2, column=2)
+        ttk.Button(form, text=tr('Choisir...'), command=self.pick_official).grid(row=0, column=2)
         self.phone_save = tk.StringVar()
-        ttk.Label(form, text='Sauvegarde exportée\n(facultatif) :').grid(row=3, column=0, sticky='w', pady=3)
-        ttk.Entry(form, textvariable=self.phone_save).grid(row=3, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Choisir...', command=self.pick_phone_save).grid(row=3, column=2)
+        self.save_choice = tk.StringVar()
+        self.save_paths = {}
+        ttk.Label(form, text=tr('Sauvegarde exportée :'), style='Soft.TLabel').grid(row=3, column=0, sticky='w', pady=3)
+        save_entry = ttk.Combobox(form, textvariable=self.save_choice, state='readonly')
+        save_entry.grid(row=3, column=1, sticky='ew', padx=6)
+        save_entry.bind('<<ComboboxSelected>>', lambda _event: self.phone_save.set(str(self.save_paths.get(self.save_choice.get(), ''))))
+        self.save_box = save_entry
+        self.phone_save.trace_add('write', lambda *_: self.show_save())
+        save_button = ttk.Button(form, text=tr('Dossier...'), command=self.pick_saves_folder)
+        save_button.grid(row=3, column=2)
         self.new_game = tk.BooleanVar(value=False)
-        ttk.Checkbutton(form, text='Nouvelle partie (sans sauvegarde : un nouveau compte, tutoriel passé, avec le héros de départ)', variable=self.new_game).grid(row=4, column=1, sticky='w', padx=6, pady=3)
+        self.save_widgets = [(save_entry, 'readonly'), (save_button, 'normal')]
+        ttk.Checkbutton(form, text=tr('Nouvelle partie'), variable=self.new_game, command=self.new_game_changed).grid(row=4, column=1, sticky='w', padx=6, pady=3)
         self.artworks = tk.StringVar()
-        ttk.Label(form, text='Images de la galerie\n(facultatif) :').grid(row=5, column=0, sticky='w', pady=3)
+        ttk.Label(form, text=tr('Images de la galerie\n(facultatif) :'), style='Soft.TLabel').grid(row=5, column=0, sticky='w', pady=3)
         ttk.Entry(form, textvariable=self.artworks).grid(row=5, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Choisir...', command=self.pick_artworks).grid(row=5, column=2)
-        self.old_110 = tk.StringVar()
-        ttk.Label(form, text='APK à créer :').grid(row=6, column=0, sticky='w', pady=3)
+        ttk.Button(form, text=tr('Choisir...'), command=self.pick_artworks).grid(row=5, column=2)
+        ttk.Label(form, text=tr('APK à créer :'), style='Soft.TLabel').grid(row=6, column=0, sticky='w', pady=3)
         ttk.Entry(form, textvariable=self.output_path).grid(row=6, column=1, sticky='ew', padx=6)
-        ttk.Button(form, text='Choisir...', command=self.pick_output).grid(row=6, column=2)
-        paragraph(tab, "Sauvegarde exportée : un fichier exporté depuis RR Options (le jeu hors ligne sur Android), ou le save.msgpack d'une copie. S'il est choisi, l'APK part de cette progression au lieu de la sauvegarde de la copie. Une copie faite par le câble (Android) n'a pas de sauvegarde : choisis alors une sauvegarde exportée, ou « Nouvelle partie ». Images de la galerie : tes images (png, jpg), à voir dans le jeu par le menu (les 3 traits) > ARTBOOK, au chapitre « Mes images », à côté de l'artbook.")
+        ttk.Button(form, text=tr('Choisir...'), command=self.pick_output).grid(row=6, column=2)
         actions = ttk.Frame(tab)
-        actions.pack(anchor='w', pady=4)
-        self.build_button = ttk.Button(actions, text="Fabriquer l'APK", command=self.build)
+        actions.pack(anchor='w', pady=(6, 16))
+        self.build_button = ttk.Button(actions, text=tr("1. Fabriquer l'APK"), command=self.build, style='Primary.TButton')
         self.build_button.pack(side='left')
-        self.progress = ttk.Progressbar(actions, mode='indeterminate', length=240)
-        self.progress.pack(side='left', padx=10)
+        self.install_button = ttk.Button(actions, text=tr('2. Installer sur le téléphone'), command=self.install_apk, style='Primary.TButton')
+        self.install_button.pack(side='left', padx=8)
+        self.build_bar = Bar(self.root, actions)
+        self.build_bar.frame.pack(side='left', padx=10)
         frame = ttk.Frame(tab)
-        frame.pack(fill='both', expand=True, pady=(8, 0))
-        self.build_log, scroll = self.log_box(frame)
-        scroll.pack(side='right', fill='y')
-        self.build_log.pack(fill='both', expand=True)
-        self.copy_folders = {}
-        self.refresh_copies()
-        return tab
+        frame.pack(fill='both', expand=True)
+        self.build_log, _ = self.log_box(frame)
+        stored = mises_a_jour.settings().get('dossier_sauvegardes')
+        self.saves_folder = Path(stored) if stored and os.path.isdir(stored) else None
+        self.list_saves()
+        newest_iphone = next(iter(copies(self.saves_folder) or copies()), None)
+        if newest_iphone:
+            self.phone_save.set(str(newest_iphone / 'save.msgpack'))
+        return page
 
-    def refresh_copies(self, select=None):
-        listed = copies()
-        if select and all((folder != select for _, folder in listed)):
-            listed.insert(0, (label_of(select), select))
-        self.copy_folders = dict(listed)
-        self.copy_box['values'] = [label for label, _ in listed]
-        if listed and (select or not self.copy_choice.get()):
-            self.copy_choice.set(next((label for label, folder in listed if folder == (select or listed[0][1]))))
+    def list_saves(self):
+        chosen = self.phone_save.get().strip()
+        listed = saves(self.saves_folder) if self.saves_folder else []
+        listed += [path for path in saves() if path not in listed]
+        if chosen and Path(chosen) not in listed:
+            listed.insert(0, Path(chosen))
+        self.save_paths = {}
+        for path in listed:
+            label, number = (save_label(path), 2)
+            while label in self.save_paths:
+                label, number = (f'{save_label(path)} ({number})', number + 1)
+            self.save_paths[label] = path
+        self.save_box['values'] = list(self.save_paths)
+
+    def show_save(self):
+        self.list_saves()
+        chosen = self.phone_save.get().strip()
+        self.save_choice.set(next((label for label, path in self.save_paths.items() if str(path) == chosen), ''))
+
+    def new_game_changed(self):
+        for widget, normal in self.save_widgets:
+            widget.configure(state='disabled' if self.new_game.get() else normal)
+    LIGHTS = {'attente': ('#8a8a8a', "En attente de l'iPhone..."), 'iphone': ('#e0a020', "L'iPhone parle à l'outil. Ouvre le jeu."), 'jeu': ('#e0a020', "Le jeu passe par l'outil : copie en cours..."), 'certificat': ('#d04040', "Le jeu refuse le certificat : refais l'étape 3."), 'sauvegarde': ('#e0a020', "Sauvegarde reçue : reste sur l'écran d'accueil du jeu..."), 'fini': ('#30b050', 'Sauvegarde copiée !'), 'arret': ('#8a8a8a', 'Copie arrêtée, rien de copié.')}
+
+    def copy_light(self, name):
+        if self.light_dot is None:
+            return
+        if self.light_state == 'fini':
+            return
+        color, text = self.LIGHTS[name]
+        self.light_state = name
+        self.light.itemconfigure(self.light_dot, fill=color)
+        self.light_text.configure(text=tr(text))
+        self.light.pack(side='left', padx=(12, 4))
+        self.light_text.pack(side='left')
+        if name == 'fini':
+            self.take_copy_save(self.copy_started)
+            messagebox.showinfo(TITLE, tr("Sauvegarde copiée ! Elle est choisie à l'étape 2.\n\nSur l'iPhone, supprime le profil RatchetRR (Réglages > Général > VPN et gestion de l'appareil)."))
+
+    def take_copy_save(self, since):
+        made = [folder for folder in copies() if folder.stat().st_mtime >= since]
+        if made:
+            self.phone_save.set(str(made[0] / 'save.msgpack'))
+            self.new_game.set(False)
+            self.new_game_changed()
 
     def pick_official(self):
-        path = filedialog.askopenfilename(title='Jeu officiel 1.10.4', filetypes=[('Jeu Android', '*.xapk *.apkm'), ('Tous les fichiers', '*')])
+        path = filedialog.askopenfilename(title=tr('Jeu officiel 1.10.4'), filetypes=[(tr('Jeu Android'), '*.xapk *.apkm *.apk'), (tr('Tous les fichiers'), '*')])
         if path:
             self.official.set(path)
 
-    def pick_old_version(self):
-        path = filedialog.askopenfilename(title='Jeu officiel 1.10.3', filetypes=[('Jeu Android', '*.apkm *.xapk'), ('Tous les fichiers', '*')])
-        if path:
-            self.old_version.set(path)
-
-    def pick_copy(self):
-        path = filedialog.askdirectory(title="Dossier d'une copie de sauvegarde", initialdir=str(COPIES))
-        if not path:
+    def pick_saves_folder(self):
+        start = self.saves_folder or (COPIES if COPIES.is_dir() else None)
+        folder = filedialog.askdirectory(title=tr('Dossier des sauvegardes'), initialdir=str(start) if start else None)
+        if not folder:
             return
-        if not has_save(path) and (not (Path(path) / 'donnees_serveur').is_dir()):
-            messagebox.showerror(TITLE, 'Ce dossier ne contient pas de copie (save.msgpack ou donnees_serveur).')
+        found = saves(folder)
+        if not found:
+            messagebox.showinfo(TITLE, tr('Aucune sauvegarde dans ce dossier.'))
             return
-        self.refresh_copies(select=Path(path))
-
-    def pick_phone_save(self):
-        path = filedialog.askopenfilename(title='Sauvegarde exportée depuis RR Options', filetypes=[('Sauvegarde', '*.msgpack'), ('Tous les fichiers', '*')])
-        if path:
-            self.phone_save.set(path)
-
-    def pick_old_110(self):
-        path = filedialog.askopenfilename(title='Jeu officiel 1.1.0 (facultatif)', filetypes=[('Jeu Android', '*.xapk'), ('Tous les fichiers', '*')])
-        if path:
-            self.old_110.set(path)
+        self.saves_folder = Path(folder)
+        mises_a_jour.remember(dossier_sauvegardes=folder)
+        self.new_game.set(False)
+        self.new_game_changed()
+        self.phone_save.set(str(found[0]))
 
     def pick_artworks(self):
-        path = filedialog.askdirectory(title="Dossier d'images pour la galerie du jeu")
+        path = filedialog.askdirectory(title=tr("Dossier d'images pour la galerie du jeu"))
         if path:
             self.artworks.set(path)
 
     def pick_output(self):
-        path = filedialog.asksaveasfilename(title='APK à créer', defaultextension='.apk', initialfile='RangerRumble_hors_ligne.apk', filetypes=[('APK Android', '*.apk')])
+        path = filedialog.asksaveasfilename(title=tr('APK à créer'), defaultextension='.apk', initialfile='RangerRumble_hors_ligne.apk', filetypes=[(tr('APK Android'), '*.apk')])
         if path:
             self.output_path.set(path)
 
     def build(self):
         official, out = (self.official.get().strip(), self.output_path.get().strip())
-        folder = self.copy_folders.get(self.copy_choice.get())
-        old = self.old_version.get().strip()
         if not official or not os.path.isfile(official):
-            messagebox.showerror(TITLE, 'Choisis le fichier du jeu officiel 1.10.4 (.xapk ou .apkm).')
-            return
-        if not old or not os.path.isfile(old):
-            messagebox.showerror(TITLE, 'Choisis aussi le fichier du jeu officiel 1.10.3 (.apkm ou .xapk) : il contient les 7 héros jamais sortis.')
-            return
-        if folder is None:
-            messagebox.showerror(TITLE, 'Choisis une copie de sauvegarde (onglet 1, ou Autre dossier).')
-            return
-        if status(folder) == 'old':
-            messagebox.showerror(TITLE, "Cette copie a été faite avec l'ancienne version de l'outil, qui ne gardait pas les données du serveur. Refais une copie (onglet 1).")
-            return
-        lacking = donnees_capture.missing_files(str(folder))
-        if lacking:
-            messagebox.showerror(TITLE, "Cette copie n'a pas toutes les données du serveur. Refais une copie (onglet 1) : ouvre le jeu et attends l'écran d'accueil.\n\nManque : " + ', '.join(lacking[:6]))
+            messagebox.showerror(TITLE, tr('Choisis le fichier du jeu officiel 1.10.4 (.xapk, .apkm ou .apk).'))
             return
         phone_save = self.phone_save.get().strip() or None
         new_game = self.new_game.get()
         artworks = self.artworks.get().strip() or None
         if artworks and (not os.path.isdir(artworks)):
-            messagebox.showerror(TITLE, "Le dossier d'images de la galerie n'existe pas.")
-            return
-        old_110 = self.old_110.get().strip() or None
-        if old_110 and (not os.path.isfile(old_110)):
-            messagebox.showerror(TITLE, "Le fichier du jeu officiel 1.1.0 n'existe pas (ce champ est facultatif : tu peux le vider).")
+            messagebox.showerror(TITLE, tr("Le dossier d'images de la galerie n'existe pas."))
             return
         if phone_save and (not is_save(phone_save)):
-            messagebox.showerror(TITLE, "La sauvegarde exportée choisie n'est pas une sauvegarde de Ranger Rumble.")
+            messagebox.showerror(TITLE, tr("Ce fichier n'est pas une sauvegarde Ranger Rumble."))
             return
         if phone_save and new_game:
-            messagebox.showerror(TITLE, 'Choisis soit une sauvegarde exportée, soit « Nouvelle partie », pas les deux.')
+            messagebox.showerror(TITLE, tr('Choisis une sauvegarde exportée ou « Nouvelle partie », pas les deux.'))
             return
-        if not phone_save and (not new_game) and (not has_save(folder)):
-            messagebox.showerror(TITLE, "Cette copie n'a pas de sauvegarde (copie faite par le câble) : choisis une sauvegarde exportée, ou coche « Nouvelle partie ».")
+        if not phone_save and (not new_game):
+            messagebox.showerror(TITLE, tr('Choisis une sauvegarde exportée, ou coche « Nouvelle partie ».'))
             return
         if not out:
-            messagebox.showerror(TITLE, "Choisis où créer l'APK.")
+            messagebox.showerror(TITLE, tr("Choisis où créer l'APK."))
             return
         if self.copy_state:
-            messagebox.showinfo(TITLE, "Arrête d'abord la copie (onglet 1).")
+            messagebox.showinfo(TITLE, tr("Arrête d'abord la copie (étape 1)."))
             return
         self.building = True
         self.target = self.build_log
-        self.build_button.configure(state='disabled')
-        self.progress.start(12)
-        mises_a_jour.remember(official=official, old=old, copy=str(folder), output=out, artworks=artworks or '', old_110=old_110 or '')
+        self.bar = self.build_bar
+        self.build_bar.begin(tr('Fabrication'))
+        self.busy(True)
+        mises_a_jour.remember(official=official, output=out, artworks=artworks or '')
 
         def work():
             error = None
             try:
-                patcher.build(official, old, out, save=phone_save, copy=str(folder), new_game=new_game, artworks=artworks, old_110=old_110)
+                patcher.build(official, out, save=phone_save, new_game=new_game, artworks=artworks)
             except SystemExit as stop:
                 error = str(stop)
             except Exception as failure:
@@ -490,90 +608,174 @@ class Application:
 
     def built(self, out, error):
         self.building = False
-        self.progress.stop()
-        self.build_button.configure(state='normal')
+        self.busy(False)
+        self.build_bar.done(error is None)
         if error:
-            print(f'\nÉchec : {error}\n')
-            messagebox.showerror(TITLE, f"L'APK n'a pas pu être fabriqué :\n\n{error}")
+            print(tr('\nÉchec : {error}\n', error=error))
+            messagebox.showerror(TITLE, tr("L'APK n'a pas pu être fabriqué :\n\n{error}", error=error))
             return
-        print("\nL'APK est prêt. Copie-le sur le téléphone Android et ouvre-le pour l'installer.\n")
-        if messagebox.askyesno(TITLE, f"L'APK est prêt :\n{out}\n\nOuvrir son dossier ?"):
+        print(tr("\nL'APK est prêt.\n"))
+        if messagebox.askyesno(TITLE, tr("L'APK est prêt. L'installer sur le téléphone branché ?")):
+            self.install_apk(out)
+        elif messagebox.askyesno(TITLE, tr("L'APK est ici :\n{out}\n\nOuvrir son dossier ?", out=out)):
             open_folder(Path(out).parent)
 
+    def sending(self, bar):
+        return lambda fraction: self.root.after(0, lambda: bar.sending(fraction))
+
+    def busy(self, on):
+        for button in (self.build_button, self.install_button):
+            button.configure(state='disabled' if on else 'normal')
+
+    def install_apk(self, out=None):
+        if self.building:
+            messagebox.showinfo(TITLE, tr('Attends la fin de la fabrication en cours.'))
+            return
+        out = out or self.output_path.get().strip()
+        if not (out and os.path.isfile(out)):
+            out = filedialog.askopenfilename(title=tr('APK à installer'), filetypes=[('APK', '*.apk')])
+            if not out:
+                return
+        found = self.editor.phone(need_game=False)
+        if not found:
+            return
+        adb, serial = found
+        replace = False
+        signature = mises_a_jour.phone_signature(adb, serial)
+        if signature and signature != copie_android.OFFICIAL_SIGNATURE:
+            replace = messagebox.askyesnocancel(TITLE, tr("Le jeu hors ligne est déjà sur le téléphone.\n\nRemplacer sa progression par la sauvegarde de cet APK ? (L'ancienne est gardée dans Sauvegardes.)"))
+            if replace is None:
+                return
+        self.building = True
+        self.target = self.build_log
+        self.busy(True)
+        self.build_bar.begin(tr('Installation'))
+
+        def work():
+            error, other, kept = (None, False, None)
+            try:
+                print(tr('Installation sur le téléphone...'))
+                copie_android.install(adb, serial, out, self.sending(self.build_bar))
+                if replace:
+                    kept = mises_a_jour.phone_save(adb, serial, str(self.copies_folder()))
+                    mises_a_jour.apply_apk_save(adb, serial, out)
+                    print(tr("La sauvegarde de l'APK remplace celle du téléphone."))
+            except copie_android.Problem as problem:
+                error = str(problem)
+                other = isinstance(problem, copie_android.OtherSignature)
+            except Exception as failure:
+                error = f'{type(failure).__name__} : {failure}'
+            self.root.after(0, lambda: self.installed(adb, serial, out, error, other, kept))
+        threading.Thread(target=work, daemon=True).start()
+
+    def installed(self, adb, serial, out, error, other, kept=None):
+        if other and messagebox.askyesno(TITLE, tr('Un autre Ranger Rumble est sur le téléphone. Le désinstaller et installer celui-ci ?\n\nSa progression sur le téléphone sera effacée.')):
+            self.build_bar.begin(tr('Installation'))
+
+            def work():
+                problem, copy = (None, None)
+                try:
+                    copy = mises_a_jour.phone_save(adb, serial, str(self.copies_folder()))
+                    if copy:
+                        print(tr('Sauvegarde du téléphone copiée : {copy}', copy=copy))
+                    print(tr('Désinstallation, puis installation...'))
+                    mises_a_jour.reinstall(adb, serial, out, self.sending(self.build_bar))
+                except Exception as failure:
+                    problem = str(failure)
+                self.root.after(0, lambda: self.installed(adb, serial, out, problem, False, copy))
+            threading.Thread(target=work, daemon=True).start()
+            return
+        self.building = False
+        self.busy(False)
+        self.build_bar.done(error is None)
+        if error:
+            print(tr('\nÉchec : {error}\n', error=error))
+            messagebox.showerror(TITLE, tr('Installation impossible :\n\n{error}', error=error))
+            return
+        model = next((m for p, _, m in copie_android.phones(adb) if p == serial and m), tr('le téléphone'))
+        print(tr('\nLe jeu est installé sur {model}.\n', model=model))
+        text = tr('Le jeu est installé sur {model}.', model=model)
+        if kept:
+            text += tr('\n\nAncienne sauvegarde copiée :\n{name}', name=Path(kept).name)
+        messagebox.showinfo(TITLE, text)
+
     def updates_tab(self, notebook):
-        tab = ttk.Frame(notebook, padding=12)
+        page, tab = centred(notebook)
         info = mises_a_jour.current()
         self.version = info['version']
         self.game = info.get('jeu') or info['version']
-        ttk.Label(tab, text="L'outil (ce logiciel)", font=('TkDefaultFont', 13, 'bold')).pack(anchor='w')
-        self.release_text = paragraph(tab, f"Version de l'outil : {self.version}. Recherche d'une nouvelle version...")
+        ttk.Label(tab, text=tr('Mises à jour'), style='Big.TLabel').pack(anchor='w', pady=(0, 12))
+        ttk.Label(tab, text=tr("L'outil"), style='Heading.TLabel').pack(anchor='w', pady=(0, 4))
+        self.release_text = paragraph(tab, tr('Version {version}. Recherche de mise à jour...', version=self.version))
         row = ttk.Frame(tab)
-        row.pack(anchor='w', pady=6)
-        ttk.Button(row, text='Vérifier maintenant', command=lambda: threading.Thread(target=self.check_release, args=(True,), daemon=True).start()).pack(side='left')
-        self.tool_button = ttk.Button(row, text="Mettre à jour l'outil", command=self.update_tool, state='disabled')
+        row.pack(anchor='w', pady=(10, 4))
+        ttk.Button(row, text=tr('Vérifier maintenant'), command=lambda: threading.Thread(target=self.check_release, args=(True,), daemon=True).start()).pack(side='left')
+        self.tool_button = ttk.Button(row, text=tr("Mettre à jour l'outil"), command=self.update_tool, state='disabled', style='Primary.TButton')
         self.tool_button.pack(side='left', padx=8)
-        ttk.Separator(tab).pack(fill='x', pady=10)
-        ttk.Label(tab, text="Le jeu (l'APK du téléphone Android)", font=('TkDefaultFont', 13, 'bold')).pack(anchor='w')
-        paragraph(tab, f"Cet outil fabrique la version {self.game} du jeu. Le jeu a son propre numéro : il ne change que quand le jeu lui-même change, pas à chaque mise à jour de l'outil. Le jeu hors ligne prévient tout seul, dans sa boîte de réception (Inbox), quand une nouvelle version du jeu est sortie.\nPour l'installer : mets d'abord l'outil à jour (ci-dessus), branche le téléphone (débogage USB activé), puis clique ci-dessous. L'outil refabrique l'APK avec les fichiers de l'onglet 2 et la sauvegarde actuelle du téléphone, puis l'installe par-dessus l'ancien : ta progression est gardée. Le jeu se ferme pendant l'installation.")
+        ttk.Separator(tab).pack(fill='x', pady=16)
+        ttk.Label(tab, text=tr('Le jeu du téléphone'), style='Heading.TLabel').pack(anchor='w', pady=(0, 4))
+        paragraph(tab, tr('Version {game}. Branche le téléphone (débogage USB activé) et clique ci-dessous. Ta progression est gardée.', game=self.game))
         row = ttk.Frame(tab)
-        row.pack(anchor='w', pady=6)
-        self.phone_button = ttk.Button(row, text='Mettre à jour le jeu du téléphone', command=self.update_phone)
+        row.pack(anchor='w', pady=(10, 16))
+        self.phone_button = ttk.Button(row, text=tr('Mettre à jour le jeu du téléphone'), command=self.update_phone, style='Primary.TButton')
         self.phone_button.pack(side='left')
-        self.update_progress = ttk.Progressbar(row, mode='indeterminate', length=240)
-        self.update_progress.pack(side='left', padx=10)
+        self.update_bar = Bar(self.root, row)
+        self.update_bar.frame.pack(side='left', padx=10)
         frame = ttk.Frame(tab)
-        frame.pack(fill='both', expand=True, pady=(8, 0))
-        self.update_log, scroll = self.log_box(frame)
-        scroll.pack(side='right', fill='y')
-        self.update_log.pack(fill='both', expand=True)
+        frame.pack(fill='both', expand=True)
+        self.update_log, _ = self.log_box(frame)
         self.release = None
-        return tab
+        return page
 
     def restore_settings(self):
         stored = mises_a_jour.settings()
-        for key, variable in (('official', self.official), ('old', self.old_version), ('artworks', self.artworks), ('output', self.output_path)):
+        for key, variable in (('official', self.official), ('artworks', self.artworks), ('output', self.output_path)):
             value = stored.get(key)
             if value and (key == 'output' or os.path.exists(value)) and (not variable.get().strip()):
                 variable.set(value)
-        if stored.get('copy') and os.path.isdir(stored['copy']):
-            self.refresh_copies(select=Path(stored['copy']))
+        if stored.get('plateforme') in dict(PLATFORMS):
+            self.platform.set(stored['plateforme'])
+            self.platform_changed()
 
     def check_release(self, asked=False):
-        release = mises_a_jour.latest_release()
+        try:
+            release = mises_a_jour.latest_release()
+        except Exception:
+            release = False
         self.root.after(0, lambda: self.release_found(release, asked))
 
     def release_found(self, release, asked):
         self.release = release
-        if release is None:
-            self.release_text.configure(text=f"Version de l'outil : {self.version}. Aucune version publiée n'a été trouvée (pas d'Internet, ou les mises à jour ne sont pas encore en ligne).")
+        if release is False:
+            self.release_text.configure(text=tr('Version {version}. Vérification impossible.', version=self.version))
+            self.tool_button.configure(state='disabled')
+        elif release is None:
+            self.release_text.configure(text=tr('Version {version}. Aucune mise à jour trouvée.', version=self.version))
             self.tool_button.configure(state='disabled')
         elif mises_a_jour.newer(release['version'], self.version):
-            notes = f"\n\nNouveautés :\n{release['notes'][:600]}" if release['notes'] else ''
+            notes = tr('\n\nNouveautés :\n{v}', v=release['notes'][:600]) if release['notes'] else ''
             game = release.get('jeu')
-            if game and mises_a_jour.newer(game, self.game):
-                after = f" Elle apporte aussi une nouvelle version du jeu ({game}) : après la mise à jour de l'outil, mets à jour le jeu du téléphone ci-dessous."
-            else:
-                after = ' Le jeu ne change pas : rien à refaire sur le téléphone.'
-            self.release_text.configure(text=f"Version de l'outil : {self.version}. La version {release['version']} de l'outil est sortie !{after}{notes}")
+            after = tr(' Mets ensuite à jour le jeu du téléphone.') if game and mises_a_jour.newer(game, self.game) else ''
+            self.release_text.configure(text=tr('Version {version}. La version {version2} est disponible !{after}{notes}', version=self.version, version2=release['version'], after=after, notes=notes))
             self.tool_button.configure(state='normal')
-            self.root.title(f"{TITLE}  —  nouvelle version {release['version']} disponible (onglet 4)")
+            self.root.title(tr('{TITLE}  —  nouvelle version {version} disponible (Mises à jour)', TITLE=TITLE, version=release['version']))
+            self.home.set_release(release['version'])
             if not asked:
                 return
         else:
-            self.release_text.configure(text=f"Version de l'outil : {self.version}. C'est la plus récente.")
+            self.release_text.configure(text=tr('Version {version}, à jour.', version=self.version))
             self.tool_button.configure(state='disabled')
-        if asked and release is not None and (not mises_a_jour.newer(release['version'], self.version)):
-            messagebox.showinfo(TITLE, "L'outil est déjà à jour.")
+        if asked and release and (not mises_a_jour.newer(release['version'], self.version)):
+            messagebox.showinfo(TITLE, tr("L'outil est déjà à jour."))
 
     def update_tool(self):
         release = self.release
         if not release or self.building:
             return
-        if not messagebox.askyesno(TITLE, f"Installer la version {release['version']} de l'outil ?\n\nTes copies (dossier Sauvegardes) ne bougent pas. L'outil se fermera : relance-le ensuite."):
+        if not messagebox.askyesno(TITLE, tr("Installer la version {version} ? L'outil se fermera, relance-le ensuite.", version=release['version'])):
             return
         self.target = self.update_log
         self.tool_button.configure(state='disabled')
-        self.update_progress.start(12)
 
         def work():
             error = None
@@ -585,55 +787,61 @@ class Application:
         threading.Thread(target=work, daemon=True).start()
 
     def tool_updated(self, error):
-        self.update_progress.stop()
         if error:
-            print(f'\nÉchec : {error}\n')
-            messagebox.showerror(TITLE, f"La mise à jour de l'outil a échoué :\n\n{error}")
+            print(tr('\nÉchec : {error}\n', error=error))
+            messagebox.showerror(TITLE, tr("La mise à jour de l'outil a échoué :\n\n{error}", error=error))
             self.tool_button.configure(state='normal')
             return
-        messagebox.showinfo(TITLE, "L'outil est à jour. Il se ferme maintenant : relance-le (Lancer (Mac) ou Lancer (Windows)), puis mets à jour le jeu du téléphone dans l'onglet 4.")
-        self.root.destroy()
+        messagebox.showinfo(TITLE, tr("L'outil est à jour. Relance-le."))
+        self.close()
 
     def update_phone(self):
         if self.building:
-            messagebox.showinfo(TITLE, 'Attends la fin de la fabrication en cours.')
+            messagebox.showinfo(TITLE, tr('Attends la fin de la fabrication en cours.'))
             return
-        official, old = (self.official.get().strip(), self.old_version.get().strip())
-        folder = self.copy_folders.get(self.copy_choice.get())
-        if not (official and os.path.isfile(official) and old and os.path.isfile(old)) or folder is None or status(folder) != 'ready':
-            messagebox.showinfo(TITLE, "Pour refabriquer le jeu, l'outil a besoin des fichiers de l'onglet 2 : le jeu officiel 1.10.4, le 1.10.3 et une copie complète. Remplis-les, puis reviens ici.")
+        official = self.official.get().strip()
+        if not (official and os.path.isfile(official)):
+            messagebox.showinfo(TITLE, tr("Remplis d'abord l'étape 2 (jeu officiel)."))
             return
+        exported = self.phone_save.get().strip() or None
+        exported = exported if exported and is_save(exported) else None
         found = self.editor.phone()
         if not found:
             return
         adb, serial = found
         signature = mises_a_jour.phone_signature(adb, serial)
         if signature == copie_android.OFFICIAL_SIGNATURE:
-            messagebox.showinfo(TITLE, "Le téléphone a le jeu officiel, pas la version hors ligne : il n'y a rien à mettre à jour. Pour installer la version hors ligne, fabrique l'APK dans l'onglet 2.")
+            messagebox.showinfo(TITLE, tr("Le téléphone a le jeu officiel : fabrique d'abord l'APK (étape 2)."))
             return
         phone_game = mises_a_jour.phone_game_version(adb, serial)
-        if phone_game and (not mises_a_jour.newer(self.game, phone_game)) and (not messagebox.askyesno(TITLE, f"Le téléphone a déjà la version {phone_game} du jeu : c'est la plus récente que cet outil fabrique. Le refabriquer et le réinstaller quand même ?")):
+        if phone_game and (not mises_a_jour.newer(self.game, phone_game)) and (not messagebox.askyesno(TITLE, tr('Le jeu du téléphone est déjà à jour ({phone_game}). Le réinstaller quand même ?', phone_game=phone_game))):
             return
         out = self.output_path.get().strip() or str(Path.home() / 'RangerRumble_hors_ligne.apk')
         artworks = self.artworks.get().strip() or None
-        old_110 = self.old_110.get().strip()
-        old_110 = old_110 if old_110 and os.path.isfile(old_110) else None
         self.building = True
         self.target = self.update_log
+        self.bar = self.update_bar
+        self.update_bar.begin(tr('Fabrication'))
         self.phone_button.configure(state='disabled')
-        self.update_progress.start(12)
 
         def work():
             error, retry, save = (None, False, None)
             try:
                 save = mises_a_jour.phone_save(adb, serial, str(self.copies_folder()))
-                print('Sauvegarde du téléphone lue.' if save else "La version du jeu sur le téléphone ne donne pas sa sauvegarde par le câble : l'APK partira de celle de la copie (seulement s'il fallait le réinstaller).")
-                patcher.build(official, old, out, save=save, copy=str(folder), artworks=artworks, old_110=old_110)
-                print('Installation sur le téléphone (le jeu se ferme)...')
-                copie_android.install(adb, serial, out)
+                if save:
+                    print(tr('Sauvegarde du téléphone lue.'))
+                elif exported:
+                    print(tr('Sauvegarde du téléphone illisible : la sauvegarde exportée (étape 2) sera utilisée.'))
+                    save = exported
+                else:
+                    raise SystemExit(tr("La sauvegarde du téléphone n'a pas pu être lue."))
+                patcher.build(official, out, save=save, artworks=artworks)
+                print(tr('Installation sur le téléphone...'))
+                self.root.after(0, lambda: self.update_bar.begin(tr('Installation')))
+                copie_android.install(adb, serial, out, self.sending(self.update_bar))
             except copie_android.Problem as problem:
                 error = str(problem)
-                retry = "signé par quelqu'un d'autre" in error and save is not None
+                retry = isinstance(problem, copie_android.OtherSignature) and save is not None
             except SystemExit as stop:
                 error = str(stop)
             except Exception as failure:
@@ -642,41 +850,84 @@ class Application:
         threading.Thread(target=work, daemon=True).start()
 
     def phone_updated(self, adb, serial, out, error, retry):
-        if retry and messagebox.askyesno(TITLE, "Le jeu du téléphone a été fabriqué sur un autre ordinateur (autre signature) : l'outil ne peut pas l'installer par-dessus.\n\nIl peut le désinstaller, puis installer la nouvelle version, qui repart de ta sauvegarde actuelle (elle vient d'être lue et est gardée dans le dossier Sauvegardes). Les réglages du jeu (son, graphismes, RR Options) reviennent à leurs valeurs de départ.\n\nDésinstaller et réinstaller ?"):
+        if retry and messagebox.askyesno(TITLE, tr("Ce jeu vient d'un autre ordinateur : il faut d'abord le désinstaller. Ta progression est gardée, pas les réglages du jeu.\n\nDésinstaller et réinstaller ?")):
 
             def work():
                 problem = None
                 try:
-                    print("Désinstallation de l'ancienne version, puis installation...")
-                    mises_a_jour.reinstall(adb, serial, out)
+                    self.root.after(0, lambda: self.update_bar.begin(tr('Installation')))
+                    print(tr('Désinstallation, puis installation...'))
+                    mises_a_jour.reinstall(adb, serial, out, self.sending(self.update_bar))
                 except Exception as failure:
                     problem = str(failure)
                 self.root.after(0, lambda: self.phone_updated(adb, serial, out, problem, False))
             threading.Thread(target=work, daemon=True).start()
             return
         self.building = False
-        self.update_progress.stop()
         self.phone_button.configure(state='normal')
+        self.update_bar.done(error is None)
         if error:
-            print(f'\nÉchec : {error}\n')
-            messagebox.showerror(TITLE, f"La mise à jour du téléphone n'a pas abouti :\n\n{error}")
+            print(tr('\nÉchec : {error}\n', error=error))
+            messagebox.showerror(TITLE, tr("La mise à jour du téléphone n'a pas abouti :\n\n{error}", error=error))
             return
-        print('\nLe jeu du téléphone est à jour.\n')
-        messagebox.showinfo(TITLE, 'Le jeu du téléphone est à jour. Ta progression est gardée.')
+        print(tr('\nLe jeu du téléphone est à jour.\n'))
+        messagebox.showinfo(TITLE, tr('Le jeu du téléphone est à jour. Ta progression est gardée.'))
 
-    def close(self):
-        if self.editor.save is not None and self.editor.save.changed() and (not messagebox.askyesno(TITLE, "La sauvegarde ouverte dans l'onglet 3 a des changements pas encore enregistrés. Quitter quand même ?")):
+    def language_changed(self, _event=None):
+        code = next((code for code, name in langues.LANGUAGES if name == self.language.get()))
+        if code == langues.CURRENT:
             return
-        if self.building and (not messagebox.askyesno(TITLE, "L'APK est en cours de fabrication. Quitter quand même ?")):
+        if not self.close(restart=True):
+            self.language.set(dict(langues.LANGUAGES)[langues.CURRENT])
             return
-        if self.copy_state:
+        mises_a_jour.remember(langue=code)
+        self.restart = True
+
+    def close(self, restart=False):
+        if self.editor.save is not None and self.editor.save.changed() and (not messagebox.askyesno(TITLE, tr('Changements non enregistrés dans « Éditer ». Continuer quand même ?') if restart else tr('Changements non enregistrés dans « Éditer ». Quitter quand même ?'))):
+            return False
+        if self.building and (not messagebox.askyesno(TITLE, tr('Fabrication en cours. Continuer quand même ?') if restart else tr('Fabrication en cours. Quitter quand même ?'))):
+            return False
+        if isinstance(self.copy_state, tuple):
             loop, master = self.copy_state
             loop.call_soon_threadsafe(master.shutdown)
         self.root.destroy()
+        return True
 
 def main():
+    if os.name == 'nt':
+        import ctypes
+        try:
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID('RangerRumble.HorsLigne')
+        except Exception:
+            pass
+        try:
+            ctypes.windll.user32.SetProcessDpiAwarenessContext(ctypes.c_void_p(-5))
+        except Exception:
+            pass
     root = tk.Tk()
-    Application(root)
+    try:
+        application = Application(root)
+    except Exception:
+        import traceback
+        details = traceback.format_exc()
+        log = Path.home() / '.sauvegarde-rr' / 'erreur.log'
+        try:
+            log.parent.mkdir(exist_ok=True)
+            log.write_text(details, encoding='utf-8')
+        except OSError:
+            pass
+        sys.stdout, sys.stderr = (sys.__stdout__, sys.__stderr__)
+        messagebox.showerror(TITLE, details[-1500:])
+        raise
+    root.report_callback_exception = lambda kind, error, trace: messagebox.showerror(TITLE, tr('Erreur : {error}', error=error))
     root.mainloop()
+    if application.restart:
+        sys.stdout, sys.stderr = (sys.__stdout__, sys.__stderr__)
+        command = [sys.executable, '-I', os.path.abspath(__file__)]
+        if os.name == 'nt':
+            subprocess.Popen(command)
+        else:
+            os.execv(sys.executable, command)
 if __name__ == '__main__':
     main()

@@ -1,0 +1,928 @@
+{
+ "degats": {
+  "Q_Blaster_Projectile_DamageSpec": {
+   "valeurs": [
+    10,
+    14,
+    17,
+    20,
+    23,
+    26,
+    29,
+    32,
+    36,
+    39
+   ],
+   "mode": 2
+  },
+  "Q_GrenadeLauncher_AoE_DamageSpec": {
+   "valeurs": [
+    73,
+    95,
+    117,
+    139,
+    160,
+    182,
+    204,
+    226,
+    248,
+    270
+   ],
+   "mode": 2
+  },
+  "Q_MineLauncher_AoE_DamageSpec": {
+   "valeurs": [
+    150,
+    195,
+    240,
+    285,
+    330,
+    375,
+    420,
+    465,
+    510,
+    555
+   ],
+   "mode": 2
+  },
+  "Q_Gatling_Projectile_DamageSpec": {
+   "valeurs": [
+    15,
+    19,
+    23,
+    28,
+    32,
+    37,
+    41,
+    45,
+    50,
+    54
+   ],
+   "mode": 2
+  },
+  "Q_Shotgun_AoE_DamageSpec": {
+   "valeurs": [
+    90,
+    117,
+    144,
+    171,
+    198,
+    224,
+    251,
+    278,
+    305,
+    332
+   ],
+   "mode": 2
+  },
+  "Q_VoidRepulser_Shield_DamageSpec": {
+   "valeurs": [
+    40,
+    52,
+    64,
+    76,
+    88,
+    100,
+    112,
+    124,
+    136,
+    148
+   ],
+   "mode": 2
+  },
+  "Q_AgentOfDoom_AoE_DamageSpec": {
+   "valeurs": [
+    75,
+    98,
+    120,
+    142,
+    165,
+    188,
+    210,
+    232,
+    255,
+    278
+   ],
+   "mode": 2
+  },
+  "Q_Headhunter_Projectile_DamageSpec": {
+   "valeurs": [
+    84,
+    110,
+    135,
+    160,
+    185,
+    211,
+    236,
+    261,
+    286,
+    312
+   ],
+   "mode": 2
+  },
+  "Q_Sucker_AoE_DamageSpec": {
+   "valeurs": [
+    37,
+    48,
+    59,
+    70,
+    82,
+    93,
+    104,
+    115,
+    126,
+    137
+   ],
+   "mode": 2
+  },
+  "Q_ColdSnap_AoE_DamageSpec": {
+   "valeurs": [
+    67,
+    87,
+    107,
+    127,
+    147,
+    167,
+    187,
+    208,
+    228,
+    248
+   ],
+   "mode": 2
+  },
+  "Q_Warmonger_AoE_DamageSpec": {
+   "valeurs": [
+    85,
+    111,
+    136,
+    162,
+    188,
+    213,
+    239,
+    264,
+    290,
+    316
+   ],
+   "mode": 2
+  },
+  "Q_HoverBoots_AoE_DamageSpec": {
+   "valeurs": [
+    40,
+    52,
+    64,
+    76,
+    88,
+    100,
+    112,
+    124,
+    136,
+    148
+   ],
+   "mode": 2
+  },
+  "Q_Enforcer_AoE_DamageSpec": {
+   "valeurs": [
+    47,
+    61,
+    75,
+    89,
+    103,
+    117,
+    132,
+    146,
+    160,
+    174
+   ],
+   "mode": 2
+  },
+  "Q_Buzzblades_Ricochet_DamageSpec": {
+   "valeurs": [
+    8,
+    11,
+    13,
+    16,
+    18,
+    21,
+    23,
+    26,
+    28,
+    31
+   ],
+   "mode": 2
+  },
+  "Q_PlasmaStriker_Projectile_DamageSpec": {
+   "valeurs": [
+    38,
+    49,
+    60,
+    72,
+    83,
+    94,
+    106,
+    117,
+    129,
+    140
+   ],
+   "mode": 2
+  },
+  "Q_Bombardier_Bomb_AoE_DamageSpec": {
+   "valeurs": [
+    150,
+    195,
+    240,
+    285,
+    330,
+    375,
+    420,
+    465,
+    510,
+    555
+   ],
+   "mode": 2
+  },
+  "Q_HoloshieldGlove_Shield_DamageSpec": {
+   "valeurs": [
+    40,
+    52,
+    64,
+    76,
+    88,
+    100,
+    112,
+    124,
+    136,
+    148
+   ],
+   "mode": 2
+  },
+  "Q_TeslaClaw_Effect_DamageSpec": {
+   "valeurs": [
+    31,
+    41,
+    50,
+    59,
+    69,
+    78,
+    88,
+    97,
+    106,
+    116
+   ],
+   "mode": 2
+  },
+  "Q_AmoeboidLauncher_AcidZone_DamageSpec": {
+   "valeurs": [
+    10,
+    13,
+    16,
+    19,
+    22,
+    25,
+    28,
+    31,
+    34,
+    37
+   ],
+   "mode": 2
+  },
+  "Q_Pyrocitor_AoE_DamageSpec": {
+   "valeurs": [
+    31,
+    41,
+    50,
+    59,
+    69,
+    78,
+    88,
+    97,
+    106,
+    116
+   ],
+   "mode": 2
+  },
+  "Q_LavaGun_StreamEffect_DamageSpec": {
+   "valeurs": [
+    32,
+    42,
+    51,
+    61,
+    70,
+    80,
+    89,
+    99,
+    109,
+    118
+   ],
+   "mode": 2
+  },
+  "Q_Cryoslider_Slider_DamageSpec": {
+   "valeurs": [
+    75,
+    98,
+    120,
+    142,
+    165,
+    188,
+    210,
+    232,
+    255,
+    278
+   ],
+   "mode": 2
+  },
+  "Q_DrillDash_Aoe_DamageSpec": {
+   "valeurs": [
+    15,
+    20,
+    24,
+    28,
+    33,
+    38,
+    42,
+    46,
+    51,
+    56
+   ],
+   "mode": 2
+  },
+  "Q_DrillDash_LastHitAoe_DamageSpec": {
+   "valeurs": [
+    90,
+    117,
+    144,
+    171,
+    198,
+    225,
+    252,
+    279,
+    306,
+    333
+   ],
+   "mode": 2
+  },
+  "Q_ElectricGrenade_Explosion_DamageSpec": {
+   "valeurs": [
+    90,
+    117,
+    144,
+    171,
+    198,
+    225,
+    252,
+    279,
+    306,
+    333
+   ],
+   "mode": 2
+  },
+  "Q_ElectricGrenade_ElectricZone_DamageSpec": {
+   "valeurs": [
+    8,
+    10,
+    12,
+    14,
+    16,
+    19,
+    21,
+    23,
+    26,
+    28
+   ],
+   "mode": 2
+  },
+  "Q_LittleSpin_AoeA_DamageSpec": {
+   "valeurs": [
+    40,
+    52,
+    64,
+    76,
+    88,
+    100,
+    112,
+    124,
+    136,
+    148
+   ],
+   "mode": 2
+  },
+  "Q_LittleSpin_AoeB_DamageSpec": {
+   "valeurs": [
+    80,
+    104,
+    128,
+    152,
+    176,
+    200,
+    224,
+    248,
+    272,
+    296
+   ],
+   "mode": 2
+  },
+  "Q_BlasterRatchet_Projectile_DamageSpec": {
+   "valeurs": [
+    5,
+    7,
+    8,
+    10,
+    12,
+    13,
+    15,
+    16,
+    18,
+    19
+   ],
+   "mode": 2
+  },
+  "Q_Wrench_WrenchThrow_AoE_DamageSpec": {
+   "valeurs": [
+    90,
+    117,
+    144,
+    171,
+    198,
+    225,
+    252,
+    279,
+    306,
+    333
+   ],
+   "mode": 2
+  }
+ },
+ "puissance": {
+  "Q_Blaster_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_GrenadeLauncher_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Gatling_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Shotgun_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_VoidRepulser_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Headhunter_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Sucker_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_ColdSnap_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Warmonger_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_HoverBoots_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Enforcer_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Buzzblades_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_PlasmaStriker_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_TeslaClaw_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Pyrocitor_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_LavaGun_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_BlasterRatchet_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ]
+ },
+ "puissance_gadget": {
+  "Q_MineLauncher_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_VoidRepulser_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_GloveOfDoom_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_HoverBoots_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Bombardier_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_HoloshieldGlove_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_AmoeboidLauncher_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Cryoslider_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_DrillDash_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_ElectricGrenade_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_LittleSpin_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_WrenchThrow_GadgetSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ]
+ },
+ "puissance_ajout": {
+  "Q_MineLauncher_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_GloveOfDoom_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Bombardier_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_HoloshieldGlove_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_AmoeboidLauncher_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_Cryoslider_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_DrillDash_MeleeWeapon_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_ElectricGrenade_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_LittleSpin_MeleeWeapon": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ],
+  "Q_WrenchThrow_WeaponSpec": [
+   1000,
+   1300,
+   1600,
+   1900,
+   2200,
+   2500,
+   2800,
+   3100,
+   3400,
+   3700
+  ]
+ }
+}

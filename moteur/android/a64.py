@@ -14,9 +14,6 @@ def b(source, target):
 def b_cond(condition, source, target):
     return word(1409286144 | (target - source >> 2 & 524287) << 5 | CONDITIONS[condition])
 
-def cbz_x(register, source, target):
-    return word(3019898880 | (target - source >> 2 & 524287) << 5 | register)
-
 def mov_w(destination, source):
     return word(704644064 | source << 16 | destination)
 
@@ -46,9 +43,6 @@ def ldp_x_post(first, second, base, offset):
 
 def ldp_x(first, second, base, offset):
     return word(2839543808 | (offset // 8 & 127) << 15 | second << 10 | base << 5 | first)
-
-def ldp_x_signed(first, second, base, offset):
-    return ldp_x(first, second, base, offset)
 
 def cmp_w(first, second):
     return word(1795162143 | second << 16 | first << 5)

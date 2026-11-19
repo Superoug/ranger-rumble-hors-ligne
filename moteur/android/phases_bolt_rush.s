@@ -3,7 +3,7 @@
 .globl _phase_spawner
 .globl _phase_spawned
 .globl _phase_kill
-.p2align 2
+    .p2align 2
 _phase_tick:
     stp  x29, x30, [sp, #-0x70]!
     stp  x0, x1, [sp, #0x10]

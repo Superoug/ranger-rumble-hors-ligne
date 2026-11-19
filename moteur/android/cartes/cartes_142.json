@@ -1,0 +1,410 @@
+{
+ "bundles": [
+  {
+   "file": "biomes_local_common142_assets_all_59a83555f099e5e196e9e63261f0e70b.bundle",
+   "internal": "44e4055777df37ba3763491df27a2207",
+   "hash": "59a83555f099e5e196e9e63261f0e70b",
+   "size": 37470380,
+   "cabs": [
+    "CAB-adec70663b16111aef20f153761857da"
+   ]
+  },
+  {
+   "file": "quantum_map_assets_q_bk_megalopolis_02_assets_all_f759fa7697790243324369bee27ee3d0.bundle",
+   "internal": "b126e9897439178a8ed63fc208f3382e",
+   "hash": "f759fa7697790243324369bee27ee3d0",
+   "size": 194164,
+   "cabs": [
+    "CAB-ed32fdb82e692ec9cc9ccb6ce993b6dc"
+   ]
+  },
+  {
+   "file": "scene_data_q_bk_megalopolis_02_assets_all_bc63045c7602cc4474bd5311e3956727.bundle",
+   "internal": "e68a88a06ff79201d4317aee52c6f3ad",
+   "hash": "bc63045c7602cc4474bd5311e3956727",
+   "size": 102590,
+   "cabs": [
+    "CAB-1e833fd733c38e723e9287a1c339dba9"
+   ]
+  },
+  {
+   "file": "scene_metadata_q_bk_megalopolis_02_assets_all_9dda3d29c749ffe0428d8d9f4b2f8243.bundle",
+   "internal": "c1c2a264533ef2a2e816e5cb28a3a2a0",
+   "hash": "9dda3d29c749ffe0428d8d9f4b2f8243",
+   "size": 25477,
+   "cabs": [
+    "CAB-0540f47b44215721c080675eece92b9c"
+   ]
+  },
+  {
+   "file": "scene_q_bk_megalopolis_02_scenes_all_7c3fe65063a869ae5f6976a98684d735.bundle",
+   "internal": "1b40bf97be5583945f074c9cc46e8104",
+   "hash": "7c3fe65063a869ae5f6976a98684d735",
+   "size": 20119482,
+   "cabs": [
+    "CAB-370836dc759a0e9d561e889788ad7d50"
+   ]
+  }
+ ],
+ "maps": {
+  "q_BK_Megalopolis_02": {
+   "locations": [
+    {
+     "kind": "scene",
+     "internal": "q_BK_Megalopolis_02",
+     "keys": [
+      "q_BK_Megalopolis_02",
+      "7ab79f6c10aa4164faea725928047924"
+     ],
+     "own": [
+      "quantum_map_assets_q_bk_megalopolis_02_assets_all_f759fa7697790243324369bee27ee3d0.bundle",
+      "scene_data_q_bk_megalopolis_02_assets_all_bc63045c7602cc4474bd5311e3956727.bundle",
+      "scene_metadata_q_bk_megalopolis_02_assets_all_9dda3d29c749ffe0428d8d9f4b2f8243.bundle",
+      "scene_q_bk_megalopolis_02_scenes_all_7c3fe65063a869ae5f6976a98684d735.bundle",
+      "biomes_local_common142_assets_all_59a83555f099e5e196e9e63261f0e70b.bundle"
+     ],
+     "families": [
+      "69b923348c4df9ad548573d6b86b9c62_unitybuiltinassets",
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts",
+      "ameboids_anim_controller_group_assets_all",
+      "biome_main_menu_bg_ardolis_assets_all",
+      "biome_main_menu_bg_megalopolis_assets_all",
+      "biome_main_menu_bg_sargasso_assets_all",
+      "biome_main_menu_bg_simulation_assets_all",
+      "biome_main_menu_bg_torren_iv_assets_all",
+      "biome_megalopolis_common_assets_all",
+      "biome_sargasso_common_assets_all",
+      "biomes_local_common_assets_all",
+      "bury_blossom_anim_controller_group_assets_all",
+      "clankbag_anim_controller_group_assets_all",
+      "default_common_group_assets_all",
+      "defaultlocalgroup_assets_all",
+      "duchesse_anim_controller_group_assets_all",
+      "enemies_visuals_assets_all",
+      "fonts_assets_all",
+      "fxmanager_assets_all",
+      "gadgets_anim_controllers_group_assets_all",
+      "gameplay_common_scriptables_assets_all",
+      "glove_anim_controllers_group_assets_all",
+      "hero_celeste_assets_all",
+      "hero_fuse_assets_all",
+      "hero_lil_ann_assets_all",
+      "hero_lump_assets_all",
+      "hero_markus_assets_all",
+      "hero_raiden_assets_all",
+      "hero_ratchet_assets_all",
+      "hero_sandy_assets_all",
+      "hero_sprocket_assets_all",
+      "hero_zedone_assets_all",
+      "heroes_anim_controllers_group_assets_all",
+      "horny_toad_anim_controller_group_assets_all",
+      "juggernaut_anim_controller_group_assets_all",
+      "legacy_character_clank_assets_all",
+      "legacy_character_qwark_assets_all",
+      "legacy_character_ratchet_assets_all",
+      "legacy_character_rivet_assets_all",
+      "local_data_managers_assets_all",
+      "material_assets_all",
+      "medal_run_assets_all",
+      "megacorp_bot_shooter_anim_controller_group_assets_all",
+      "megacorp_bot_slammer_anim_controller_group_assets_all",
+      "megacorp_bot_spinner_anim_controller_group_assets_all",
+      "non_gameplay_scenes_data_assets_all",
+      "popcorn_mob_anim_controller_group_assets_all",
+      "powerup_prefabs_assets_all",
+      "quantum_common_assets_all",
+      "quantum_db_enemies_assets_all",
+      "quantum_db_gagdet_assets_all",
+      "quantum_db_game_modes_assets_all",
+      "quantum_db_heroes_assets_all",
+      "quantum_db_level_design_assets_all",
+      "quantum_db_meleeweapons_assets_all",
+      "quantum_db_player_assets_all",
+      "quantum_db_ultimates_assets_all",
+      "quantum_db_weapons_assets_all",
+      "quantum_map_assets_q_bk_megalopolis_02b_assets_all",
+      "robotank_anim_controller_group_assets_all",
+      "sandshark_anim_controller_group_assets_all",
+      "scene_data_q_pve_megalopolis_01_assets_all",
+      "scene_data_q_tuto_no_pve_assets_all",
+      "scene_loadscenebetweenlevels_assets_all",
+      "scene_metadata_q_bk_megalopolis_01_assets_all",
+      "scene_q_bk_megalopolis_02b_scenes_all",
+      "shaders_assets_all",
+      "shaders_default_textures_assets_all",
+      "shared_textures_assets_all",
+      "shop_offer_widgets_assets_all",
+      "skins_character_celeste_assets_all",
+      "skins_character_fuse_assets_all",
+      "skins_character_lilann_assets_all",
+      "skins_character_lump_assets_all",
+      "skins_character_markus_assets_all",
+      "skins_character_raiden_assets_all",
+      "skins_character_ratchet_00_playable_assets_all",
+      "skins_character_sandy_assets_all",
+      "skins_character_sproket_assets_all",
+      "skins_character_zedone_assets_all",
+      "skins_common_assets_all",
+      "ui_addressables_assets_all",
+      "ui_animations_assets_all",
+      "ui_assets_all",
+      "ui_atlases_assets_all",
+      "ui_bgs_assets_all",
+      "ui_hero_logos_assets_all",
+      "ui_main_menu_adventure_track_assets_all",
+      "ui_main_menu_assets_all",
+      "ui_main_menu_endgame_assets_all",
+      "ui_main_menu_maps_previsualisation_assets_all",
+      "ui_main_menu_masks_assets_all",
+      "ui_main_menu_medalrun_assets_all",
+      "ui_main_menu_scrolling_assets_all",
+      "ui_main_menu_shop_assets_all",
+      "ui_materials_assets_all",
+      "ui_portraits_assets_all",
+      "ui_textures_root_assets_all",
+      "ultimate_grimshot_assets_all",
+      "ultimate_lump_assets_all",
+      "ultimate_sprocket_assets_all",
+      "weapon_amoeboidlauncher_assets_all",
+      "weapon_bigboom_assets_all",
+      "weapon_blaster_assets_all",
+      "weapon_bombardier_assets_all",
+      "weapon_buzzblades_assets_all",
+      "weapon_celestemelee_assets_all",
+      "weapon_chancemelee_assets_all",
+      "weapon_chipmelee_assets_all",
+      "weapon_coldsnap_assets_all",
+      "weapon_cryoslider_assets_all",
+      "weapon_electricgrenade_assets_all",
+      "weapon_enforcer_assets_all",
+      "weapon_flaremelee_assets_all",
+      "weapon_fusemelee_assets_all",
+      "weapon_gatling_assets_all",
+      "weapon_gloveofdoom_assets_all",
+      "weapon_grenadelauncher_assets_all",
+      "weapon_grimshotmelee_assets_all",
+      "weapon_headhunter_assets_all",
+      "weapon_holoshieldglove_assets_all",
+      "weapon_hoverboard_assets_all",
+      "weapon_lavagun_assets_all",
+      "weapon_lilannmeleegadget_assets_all",
+      "weapon_lumpmelee_assets_all",
+      "weapon_markusmelee_assets_all",
+      "weapon_minelauncher_assets_all",
+      "weapon_mollymelee_assets_all",
+      "weapon_mopzmelee_assets_all",
+      "weapon_nakarimelee_assets_all",
+      "weapon_negatron_assets_all",
+      "weapon_plasmastriker_assets_all",
+      "weapon_pyrocitor_assets_all",
+      "weapon_ratchetblaster_assets_all",
+      "weapon_ratchetryno_assets_all",
+      "weapon_sabre_assets_all",
+      "weapon_shotgun_assets_all",
+      "weapon_sprocketmelee_assets_all",
+      "weapon_steeljawmelee_assets_all",
+      "weapon_tankcannon_assets_all",
+      "weapon_terrymelee_assets_all",
+      "weapon_teslaclaw_assets_all",
+      "weapon_voidrepulser_assets_all",
+      "weapon_warmonger_assets_all",
+      "weapon_widgetmelee_assets_all",
+      "weapon_widgetmeleegadget_assets_all",
+      "weapon_wrenchthrow_assets_all",
+      "weapon_zedonemelee_assets_all"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BK_Megalopolis_02.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BK_Megalopolis_02.asset|Resources/DB/Maps|Assets",
+      "398aeae289775bb479208a7a74bf544d"
+     ],
+     "own": [
+      "quantum_map_assets_q_bk_megalopolis_02_assets_all_f759fa7697790243324369bee27ee3d0.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BK_Megalopolis_02_customData.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BK_Megalopolis_02_customData.asset|Resources/DB/Maps|Assets",
+      "72b96b57d90f0ab44800fe53e04cc85f"
+     ],
+     "own": [
+      "quantum_map_assets_q_bk_megalopolis_02_assets_all_f759fa7697790243324369bee27ee3d0.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BK_Megalopolis_02_GameModeLevelConfig.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BK_Megalopolis_02_GameModeLevelConfig.asset|Resources/DB/Maps|Assets",
+      "0e88ececd5601c7498746e130b26a180"
+     ],
+     "own": [
+      "quantum_map_assets_q_bk_megalopolis_02_assets_all_f759fa7697790243324369bee27ee3d0.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BK_Megalopolis_02_mesh.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BK_Megalopolis_02_mesh.asset|Resources/DB/Maps|Assets",
+      "91cd066169bea3f449351dd6751441ce"
+     ],
+     "own": [
+      "quantum_map_assets_q_bk_megalopolis_02_assets_all_f759fa7697790243324369bee27ee3d0.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BK_Megalopolis_02_QuantumNavMesh.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BK_Megalopolis_02_QuantumNavMesh.asset|Resources/DB/Maps|Assets",
+      "0208d7cefec3fbb40a21b8d38d367742"
+     ],
+     "own": [
+      "quantum_map_assets_q_bk_megalopolis_02_assets_all_f759fa7697790243324369bee27ee3d0.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "asset",
+     "internal": "q_BK_Megalopolis_02_QuantumNavMesh_data.asset|Resources/DB/Maps|Assets",
+     "keys": [
+      "q_BK_Megalopolis_02_QuantumNavMesh_data.asset|Resources/DB/Maps|Assets",
+      "6a865df34f5411e44b34dc928db8b469"
+     ],
+     "own": [
+      "quantum_map_assets_q_bk_megalopolis_02_assets_all_f759fa7697790243324369bee27ee3d0.bundle"
+     ],
+     "families": [
+      "913fdc02988c9f04b9d53c5645e34846_monoscripts"
+     ]
+    },
+    {
+     "kind": "minimap",
+     "internal": "q_BK_Megalopolis_02_minimap.png|UI/Minimap|Textures|Assets",
+     "keys": [
+      "q_BK_Megalopolis_02_minimap.png|UI/Minimap|Textures|Assets",
+      "70f2d8886f97e8b4d802d36c6fc9c6cf"
+     ],
+     "own": [
+      "scene_metadata_q_bk_megalopolis_02_assets_all_9dda3d29c749ffe0428d8d9f4b2f8243.bundle"
+     ],
+     "families": []
+    }
+   ],
+   "level": {
+    "status": 2,
+    "sceneName": "q_BK_Megalopolis_02",
+    "biome": {
+     "_proxy": "MEGALOPOLIS",
+     "_index": 0,
+     "_value": 0
+    },
+    "levelDisplayNameKey": {
+     "_value": "LEVEL.BK_MEGALOPOLIS_02.NAME",
+     "_mode": 0
+    },
+    "levelDisplayVisual": {
+     "m_FileID": 0,
+     "m_PathID": -4020895115223130668
+    },
+    "introDialogue": {
+     "m_FileID": 0,
+     "m_PathID": 3709138016882737831
+    },
+    "music": 0,
+    "introMusic": 0,
+    "gameMode": 3,
+    "meshCombineParameters": {
+     "m_FileID": 0,
+     "m_PathID": 0
+    },
+    "minimapLevelData": {
+     "m_FileID": 0,
+     "m_PathID": 6472599700499801594
+    }
+   },
+   "minimap": {
+    "name": "MinimapLevelData_q_BK_Megalopolis_02",
+    "guid": "70f2d8886f97e8b4d802d36c6fc9c6cf",
+    "extent": 112.0,
+    "path_id": 6472599700499801594
+   },
+   "asset_resources": [
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BK_Megalopolis_02_customData",
+     "AssetRef": {
+      "Id": {
+       "Value": 135237403410361521
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BK_Megalopolis_02_customData.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BK_Megalopolis_02_QuantumNavMesh",
+     "AssetRef": {
+      "Id": {
+       "Value": 533931792089103563
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BK_Megalopolis_02_QuantumNavMesh.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BK_Megalopolis_02",
+     "AssetRef": {
+      "Id": {
+       "Value": 949204951128117957
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BK_Megalopolis_02.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BK_Megalopolis_02_QuantumNavMesh_data",
+     "AssetRef": {
+      "Id": {
+       "Value": 2495164531480703678
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BK_Megalopolis_02_QuantumNavMesh_data.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BK_Megalopolis_02_mesh",
+     "AssetRef": {
+      "Id": {
+       "Value": 3865553337058607396
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BK_Megalopolis_02_mesh.asset"
+    },
+    {
+     "Path": "AddressablesAssets/QuantumDB/Maps/q_BK_Megalopolis_02_GameModeLevelConfig",
+     "AssetRef": {
+      "Id": {
+       "Value": 4126986628006758189
+      }
+     },
+     "Address": "Assets/Resources/DB/Maps/q_BK_Megalopolis_02_GameModeLevelConfig.asset"
+    }
+   ]
+  }
+ }
+}

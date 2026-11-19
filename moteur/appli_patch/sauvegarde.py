@@ -3,6 +3,8 @@ import json
 import os
 import re
 import struct
+import langues
+from langues import tr
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCHEMA = json.load(open(os.path.join(HERE, 'ressources', 'schema.json'), encoding='utf-8'))
 NAMES = json.load(open(os.path.join(HERE, 'ressources', 'noms.json'), encoding='utf-8'))
@@ -25,7 +27,7 @@ class Reader:
 
     def take(self, n):
         if self.at + n > len(self.data):
-            raise ValueError('sauvegarde tronquée')
+            raise ValueError(tr('sauvegarde tronquée'))
         chunk = self.data[self.at:self.at + n]
         self.at += n
         return chunk
@@ -70,7 +72,7 @@ class Reader:
             return [self.value() for _ in range(self.unpack('HI'[b - 220]))]
         if b in (222, 223):
             return self.map(self.unpack('HI'[b - 222]))
-        raise ValueError(f'octet msgpack inconnu {b:#x}')
+        raise ValueError(tr('octet msgpack inconnu {b:#x}', b=b))
 
     def map(self, n):
         out = {}
@@ -83,7 +85,7 @@ def loads(data):
     reader = Reader(bytes(data))
     value = reader.value()
     if reader.at != len(reader.data):
-        raise ValueError('données en trop après la sauvegarde')
+        raise ValueError(tr('données en trop après la sauvegarde'))
     return value
 
 def dumps(value):
@@ -147,7 +149,7 @@ def write(value, out):
             out += b'\xc9' + struct.pack('>I', n)
         out += struct.pack('>b', value.code) + value.data
     else:
-        raise TypeError(f'valeur impossible à écrire : {value!r}')
+        raise TypeError(tr('valeur impossible à écrire : {value!r}', value=value))
 
 def header(n, fix, wide, out):
     if n < 16:
@@ -265,10 +267,11 @@ def enum_label(enum, value):
 def enum_values(enum):
     return [(int(v), label) for v, label in SCHEMA['enums'].get(enum, {}).items()]
 
-def name_of(enum, value, lang='fr'):
+def name_of(enum, value, lang=None):
     table = NAMES.get(enum, {})
     entry = table.get(str(value))
     if entry:
+        lang = lang or langues.names_language()
         return entry.get(lang) or entry.get('en') or next(iter(entry.values()))
     label = enum_label(enum, value)
     return label if label is not None else str(value)
@@ -278,17 +281,12 @@ class Save:
     def __init__(self, raw):
         self.root = loads(raw)
         if not isinstance(self.root, dict) or not isinstance(self.root.get('save'), dict):
-            raise ValueError("ce fichier n'est pas une sauvegarde de Ranger Rumble")
+            raise ValueError(tr("ce fichier n'est pas une sauvegarde de Ranger Rumble"))
         self.values = {}
         for name, part in self.root['save'].items():
             if isinstance(part, dict) and isinstance(part.get('bytes'), (bytes, bytearray)):
                 self.values[name] = loads(part['bytes'])
         self.original = {name: dumps(value) for name, value in self.values.items()}
-
-    @classmethod
-    def open(cls, path):
-        with open(path, 'rb') as handle:
-            return cls(handle.read())
 
     def part_type(self, name):
         versions = SCHEMA['parts'].get(name, {})
@@ -337,10 +335,6 @@ class Save:
         if value[0] is None:
             value[0] = []
         return value[0]
-
-    @staticmethod
-    def element_id(element):
-        return element[0] if isinstance(element, list) else element
 CHARACTERS = {int(v): k for v, k in SCHEMA['enums']['CHARACTER_ID'].items() if k not in ('NONE',)}
 
 def hero_unlockable(character):
