@@ -5,6 +5,10 @@
 A tool to keep playing *Ratchet & Clank: Ranger Rumble* after its servers close on May 1, 2027.
 For Windows and macOS, in 6 languages: English, French, Spanish, German, Italian and Portuguese.
 
+
+**Installing Python 3.15 beforehand is recommended.**
+
+
 ## iPhone and Android
 
 - **The save copy is made on iPhone or iPad only.**
