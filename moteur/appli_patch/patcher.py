@@ -22,6 +22,10 @@ BASE_ASSETS = {'assets/bin/Data/Managed/Metadata/global-metadata.dat', 'assets/b
 KEY_FOLDER = os.path.join(os.path.expanduser('~'), '.sauvegarde-rr')
 ARTBOOK = os.path.join(HERE, '..', 'artbook')
 OLD_110_SUBSET = os.path.join(HERE, '..', 'ressources_110', 'jeu_110_ecran_collecte.xapk')
+if not os.path.isdir(ARTBOOK):
+    ARTBOOK = os.path.join(HERE, '..', '..', 'Images', 'Artbook du jeu')
+if not os.path.isfile(OLD_110_SUBSET):
+    OLD_110_SUBSET = os.path.join(HERE, '..', '..', 'Jeux officiels', 'ratchet-and-clank-ranger-rumble-1-1-0.xapk')
 HERO_BUNDLES = [f'assets/aa/Android/skins_character_{name}_assets_all_{digest}.bundle' for name, digest in (('chance', 'ea1ae1112a40301e645b11ad648e496e'), ('molly', '80f842b062ace3fefa745878c83a6881'), ('helen', '4ef63d6105788453fb4e18743712bea3'), ('flare', '8159a571a17f52f74c15b2204f78c986'), ('nakari', 'a4eb9425bfd989f6ee7fb28826b49a60'), ('terry', 'de70656b1216b2c5250c779049a63de3'), ('crumby', '93cb392aad4df1691bf261475d287895'))]
 
 def bundles_without_lz4():
@@ -148,7 +152,7 @@ def run_script(path, argv, env):
         os.environ.update(saved_env)
         sys.path.remove(os.path.dirname(path))
 
-def build(official, out, data=None, save=None, copy=None, key_store=None, password=None, work=None, new_game=False, artworks=None):
+def build(official, out, data=None, save=None, copy=None, key_store=None, password=None, work=None, new_game=False, artworks=None, mac=False):
     work = work or tempfile.mkdtemp(prefix='rr_patch_', dir=os.path.dirname(os.path.abspath(out)))
     try:
         parts = os.path.join(work, 'xapk')
@@ -173,7 +177,7 @@ def build(official, out, data=None, save=None, copy=None, key_store=None, passwo
         if not save:
             raise SystemExit(tr('Choisis une sauvegarde, ou une nouvelle partie.'))
         say(tr('2/6 Modifications du jeu (quelques minutes)...'))
-        run_script(os.path.join(ANDROID, 'construire_apk.py'), [parts, os.path.join(work, 'patched')], {'RR_SANS_CLANG': '1', 'RR_VERSION': '1.10.4', 'RR_HEROS_DOSSIER': HEROES, 'RR_JEU_110': os.path.abspath(old_110) if old_110 else ''})
+        run_script(os.path.join(ANDROID, 'construire_apk.py'), [parts, os.path.join(work, 'patched')], {'RR_SANS_CLANG': '1', 'RR_VERSION': '1.10.4', 'RR_HEROS_DOSSIER': HEROES, 'RR_JEU_110': os.path.abspath(old_110) if old_110 else '', 'RR_MAC': '1' if mac else ''})
         say(tr('3/6 Préparation...'))
         rebuilt_base(os.path.join(parts, 'com.playstation.rattlesnake.apk'), os.path.join(work, 'base.apk'))
         say(tr('4/6 Sauvegarde...'))

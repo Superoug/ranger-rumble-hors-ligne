@@ -1,10 +1,8 @@
 import asyncio
-import importlib.util
 import io
 import math
 import os
 import queue
-import re
 import subprocess
 import sys
 import threading
@@ -15,6 +13,7 @@ from tkinter import filedialog, messagebox, ttk
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import accueil
+from commun import BUILD_STEPS, COPIES, ROOT, STEP, copies, is_save, load_tool, open_folder, save_label, saves
 import copie_android
 import editeur
 import langues
@@ -23,22 +22,12 @@ import pare_feu
 import patcher
 import theme
 from langues import tr
-ROOT = HERE.parent.parent if HERE.parent.name == 'moteur' else HERE.parent
-COPIES = Path(os.environ.get('RR_COPIES') or ROOT / 'Sauvegardes')
-TOOL = next((path for path in (HERE.parent / 'outil' / 'sauvegarde_rr.py', HERE.parent / 'outil_sauvegarde_source' / 'sauvegarde_rr.py') if path.exists()))
 TITLE = tr('Ranger Rumble hors ligne')
 PLATFORMS = (('ios', tr('iPhone ou iPad')), ('android', 'Android'))
 COPY_TEXTS = {'': tr('Choisis en haut où est ton jeu.'), 'ios': tr("iPhone sur le même Wi-Fi que cet ordinateur. Clique sur Démarrer, puis scanne le QR code avec l'iPhone. Avant le 1er mai 2027."), 'android': tr("Sur Android, rien à copier : va à l'étape 2 et choisis ta sauvegarde exportée ou « Nouvelle partie ».")}
 COPY_BUTTON = tr('Démarrer')
 BUILD_TEXT = tr("Choisis le jeu officiel 1.10.4 et ta sauvegarde (ou « Nouvelle partie »), puis clique sur « Fabriquer l'APK ». Il faut 5 Go libres.")
 BUILD_TEXTS = {'': BUILD_TEXT, 'ios': BUILD_TEXT + ' ' + tr('Le jeu hors ligne se joue sur Android uniquement.'), 'android': BUILD_TEXT + ' ' + tr("Désinstalle le jeu officiel du téléphone avant d'installer l'APK.")}
-
-def load_tool():
-    spec = importlib.util.spec_from_file_location('sauvegarde_rr', TOOL)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    module.OUT = COPIES
-    return module
 
 class Output(io.TextIOBase):
     encoding = 'utf-8'
@@ -53,8 +42,6 @@ class Output(io.TextIOBase):
     def write(self, text):
         self.queue.put(text)
         return len(text)
-STEP = re.compile('(\\d)/6 ')
-BUILD_STEPS = {1: (0, 20, 8), 2: (20, 78, 20), 3: (78, 82, 2), 4: (82, 93, 4), 5: (93, 99, 2)}
 
 class Bar:
 
@@ -130,79 +117,11 @@ def centred(parent, padding=(22, 14, 22, 18), height=None):
     centre(outer, inner)
     return (outer, inner)
 
-def open_folder(path):
-    path = str(path)
-    if sys.platform == 'win32':
-        os.startfile(path)
-    else:
-        subprocess.Popen(['open', path])
-
 def paragraph(parent, text):
     label = ttk.Label(parent, text=text, justify='left')
     label.bind('<Configure>', lambda event: label.configure(wraplength=event.width))
     label.pack(fill='x', anchor='w')
     return label
-
-def is_save(path):
-    try:
-        key = (str(path), os.stat(path).st_mtime_ns)
-    except OSError:
-        return False
-    if key not in SAVE_CHECKS:
-        SAVE_CHECKS[key] = read_is_save(path)
-    return SAVE_CHECKS[key]
-SAVE_CHECKS = {}
-
-def read_is_save(path):
-    import msgpack
-    try:
-        with open(path, 'rb') as handle:
-            value = msgpack.unpackb(handle.read(8 << 20), raw=False, strict_map_key=False, timestamp=0)
-    except (OSError, ValueError, msgpack.UnpackException):
-        return False
-    parts = value.get('save') if isinstance(value, dict) else None
-    return isinstance(parts, dict) and 'UnlockedHeroes' in parts
-
-def has_save(folder):
-    return (Path(folder) / 'save.msgpack').is_file()
-
-def copies(folder=None):
-    folder = Path(folder or COPIES)
-    found = [copy for copy in folder.iterdir() if copy.is_dir() and has_save(copy)] if folder.is_dir() else []
-    return sorted(found, key=lambda copy: copy.stat().st_mtime, reverse=True)
-NAME_DATE = re.compile('_(\\d{4})-(\\d{2})-(\\d{2})_(\\d{2})(\\d{2})\\d{2}$')
-
-def save_label(path):
-    path = Path(path)
-    named = NAME_DATE.search(path.parent.name if path.name == 'save.msgpack' else path.stem)
-    if named:
-        _, month, day, hour, minute = named.groups()
-        date = f'{day}/{month} {hour}:{minute}'
-    else:
-        try:
-            date = time.strftime('%d/%m %H:%M', time.localtime(path.stat().st_mtime))
-        except OSError:
-            date = ''
-    if path.name == 'save.msgpack':
-        label = tr('iPhone {account}, copiée le {date}', account=path.parent.name.split('_')[0], date=date)
-        folder = path.parent.parent
-    else:
-        folder = path.parent
-        if path.name.startswith('TELEPHONE_'):
-            label = tr('Téléphone, gardée le {date}', date=date)
-        elif path.name.startswith('ENVOYEE_'):
-            label = tr('Envoyée au téléphone le {date}', date=date)
-        else:
-            label = path.name
-    return label if folder == COPIES else f'{label}  ·  {folder.name}'
-
-def saves(folder=None):
-    folder = Path(folder or COPIES)
-    if not folder.is_dir():
-        return []
-    own = [folder / 'save.msgpack'] if has_save(folder) else []
-    files = sorted((file for file in folder.glob('*.msgpack') if file.name != 'save.msgpack' and is_save(file)), key=lambda file: file.stat().st_mtime, reverse=True)
-    return own + [copy / 'save.msgpack' for copy in copies(folder)] + files
 
 class Application:
 
@@ -893,8 +812,22 @@ class Application:
             loop.call_soon_threadsafe(master.shutdown)
         self.root.destroy()
         return True
+NEW_APP = 'Launcher Ratchet Ranger Rumble.app'
+
+def open_new_launcher():
+    here = Path(__file__).resolve().parent
+    if sys.platform == 'darwin' and (ROOT / NEW_APP).is_dir() and (here / 'service.py').is_file():
+        subprocess.Popen(['open', str(ROOT / NEW_APP)])
+        return True
+    if os.name == 'nt' and (here / 'lanceur_web.py').is_file() and (here / 'web' / 'index.html').is_file():
+        import lanceur_web
+        lanceur_web.main()
+        return True
+    return False
 
 def main():
+    if open_new_launcher():
+        return
     if os.name == 'nt':
         import ctypes
         try:

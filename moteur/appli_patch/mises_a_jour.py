@@ -9,7 +9,8 @@ from langues import tr
 HERE = os.path.dirname(os.path.abspath(__file__))
 VERSION_FILE = os.path.join(HERE, 'version.json')
 SETTINGS = os.path.join(os.path.expanduser('~'), '.sauvegarde-rr', 'reglages.json')
-PACKAGE_NAME = 'OutilSauvegardeRR'
+PACKAGE_NAME = 'Ratchet_Ranger_Rumble'
+OLD_PACKAGE_NAME = 'OutilSauvegardeRR'
 OBSOLETE = ('lancer.sh', 'LIS_MOI.txt')
 ASSET = PACKAGE_NAME + '.zip'
 
@@ -47,7 +48,7 @@ def latest_release(depot=None):
                 game = json.load(answer).get('jeu')
         except Exception:
             game = None
-    return {'version': tag, 'jeu': game, 'notes': (release.get('body') or '').strip(), 'page': release.get('html_url'), 'zip': assets.get(ASSET), 'sha256': assets.get(ASSET + '.sha256')}
+    return {'version': tag, 'jeu': game, 'notes': (release.get('body') or '').strip(), 'page': release.get('html_url'), 'zip': assets.get(ASSET) or assets.get(OLD_PACKAGE_NAME + '.zip'), 'sha256': assets.get(ASSET + '.sha256') or assets.get(OLD_PACKAGE_NAME + '.zip.sha256')}
 
 def download(url, path):
     with copie_android.url_open(url, timeout=300) as answer, open(path, 'wb') as out:
@@ -80,6 +81,8 @@ def update_tool(release, root, say=print):
                 if mode and os.name != 'nt':
                     os.chmod(os.path.join(unpacked, info.filename), mode)
         new = os.path.join(unpacked, PACKAGE_NAME)
+        if not os.path.isdir(new):
+            new = os.path.join(unpacked, OLD_PACKAGE_NAME)
         new_version = os.path.join(new, 'moteur', 'appli_patch', 'version.json')
         if not os.path.isfile(new_version) or not os.path.isfile(os.path.join(new, 'moteur', 'appli_patch', 'appli.py')):
             raise Problem(tr("Le fichier téléchargé n'est pas l'outil attendu."))

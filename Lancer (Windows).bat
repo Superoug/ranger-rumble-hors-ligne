@@ -11,7 +11,7 @@ if defined FR (
   set "M_NOPY2=ou installe Python : https://www.python.org/downloads/"
   set "M_NOPY3=(coche Add python.exe to PATH pendant son installation)."
   set "M_FIRST=Premiere utilisation : installation des composants, quelques minutes..."
-  set "M_RUN=La fenetre de l'outil s'ouvre. Raccourci sur le Bureau : Ranger Rumble hors ligne."
+  set "M_RUN=La fenetre de l'outil s'ouvre. Raccourci sur le Bureau : Launcher Ratchet Ranger Rumble."
   set "M_FAIL=L'installation a echoue. Verifie la connexion Internet et reessaie."
 ) else (
   set "M_DOWNLOAD=Python is missing on this computer: downloading Python for the tool (about 45 MB)..."
@@ -19,7 +19,7 @@ if defined FR (
   set "M_NOPY2=or install Python: https://www.python.org/downloads/"
   set "M_NOPY3=(tick Add python.exe to PATH while installing it)."
   set "M_FIRST=First use: installing the components, a few minutes..."
-  set "M_RUN=The tool's window opens. Shortcut on the Desktop: Ranger Rumble hors ligne."
+  set "M_RUN=The tool's window opens. Shortcut on the Desktop: Launcher Ratchet Ranger Rumble."
   set "M_FAIL=The installation failed. Check the Internet connection and try again."
 )
 
@@ -71,14 +71,14 @@ echo 821fed449874>"%BASE%\venv\rr-pret"
 
 :run
 set "RR_HERE=%~dp0"
-set "RR_APPLI=%~dp0moteur\appli_patch\appli.py"
+set "RR_APPLI=%~dp0moteur\appli_patch\lanceur_web.py"
 set "RR_ENTRY=%~dp0moteur\appli_patch\raccourci.py"
 set "RR_ICON=%~dp0moteur\appli_patch\ressources\lanceur\icone.ico"
 set "RR_TARGET=%BASE%\venv\Scripts\pythonw.exe"
 if not exist "%RR_TARGET%" goto console
 rem The shortcut (Desktop and this folder): the window without this black one, with the game's icon
 rem (raccourci.py comes back here when the components are missing).
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$w=New-Object -ComObject WScript.Shell; $q=[char]34; foreach($d in @([Environment]::GetFolderPath('Desktop'), $env:RR_HERE)){ $l=$w.CreateShortcut((Join-Path $d 'Ranger Rumble hors ligne.lnk')); $l.TargetPath=$env:RR_TARGET; $l.Arguments='-I '+$q+$env:RR_ENTRY+$q; $l.WorkingDirectory=$env:RR_HERE; $l.IconLocation=$env:RR_ICON+',0'; $l.Description='Ranger Rumble hors ligne'; $l.Save() }" >nul 2>&1
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$w=New-Object -ComObject WScript.Shell; $q=[char]34; foreach($d in @([Environment]::GetFolderPath('Desktop'), $env:RR_HERE)){ $l=$w.CreateShortcut((Join-Path $d 'Launcher Ratchet Ranger Rumble.lnk')); $l.TargetPath=$env:RR_TARGET; $l.Arguments='-I '+$q+$env:RR_ENTRY+$q; $l.WorkingDirectory=$env:RR_HERE; $l.IconLocation=$env:RR_ICON+',0'; $l.Description='Launcher Ratchet Ranger Rumble'; $l.Save() }" >nul 2>&1
 echo %M_RUN%
 start "" "%RR_TARGET%" -I "%RR_APPLI%"
 exit /b 0

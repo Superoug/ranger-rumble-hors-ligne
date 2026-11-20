@@ -83,12 +83,12 @@ Tout le jeu marche sans serveur : boutique, missions, événements, Voie du Rang
 
 ## Installer
 
-Télécharger `OutilSauvegardeRR.zip` dans la dernière version (onglet **Releases**), puis le
+Télécharger `Ratchet_Ranger_Rumble.zip` dans la dernière version (onglet **Releases**), puis le
 décompresser.
 
 - **Windows** : la première fois, double-cliquer sur `Lancer (Windows).bat`. Il installe ce qu'il
-  faut, puis crée le raccourci « Ranger Rumble hors ligne » sur le Bureau.
-- **Mac** : ouvrir « Ranger Rumble hors ligne ». Si le Mac refuse : Réglages Système >
+  faut, puis crée le raccourci « Launcher Ratchet Ranger Rumble » sur le Bureau.
+- **Mac** : ouvrir « Launcher Ratchet Ranger Rumble ». Si le Mac refuse : Réglages Système >
   Confidentialité et sécurité > Ouvrir quand même.
 
 **Il est recommandé d'installer Python 3.15 avant.**

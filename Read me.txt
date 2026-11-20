@@ -53,20 +53,18 @@ CE QU'IL FAUT
 LANCER L'OUTIL
 --------------
 - Windows : la 1re fois, double-cliquer sur « Lancer (Windows).bat ». Il met le raccourci
-  « Ranger Rumble hors ligne » sur le Bureau : ensuite, l'outil se lance avec lui.
+  « Launcher Ratchet Ranger Rumble » sur le Bureau : ensuite, l'outil se lance avec lui.
   Si Windows demande l'autorisation du pare-feu pour Python : Autoriser. Si l'iPhone
   reste sur une page blanche, l'outil propose de régler le pare-feu : accepter.
-- Mac : double-cliquer sur « Ranger Rumble hors ligne ».
+- Mac : double-cliquer sur « Launcher Ratchet Ranger Rumble ».
   Si le Mac refuse de l'ouvrir : Réglages Système > Confidentialité et sécurité >
   Ouvrir quand même.
   Si le Mac demande d'accepter les connexions entrantes pour Python : Autoriser.
 
-La première fois, l'installation prend quelques minutes dans une fenêtre de texte : la
-laisser ouverte. Ensuite l'outil s'ouvre.
+La première fois, l'outil installe ses composants (quelques minutes). Ensuite il s'ouvre.
 
-Sur l'accueil, choisir où est le jeu : « iPhone ou iPad » ou « Android », puis suivre les
-étapes 1 et 2. Dans ce guide, seule la partie qui correspond à ce choix est utile, puis
-« Installer le jeu sur Android ».
+Sur le côté, choisir « Android », puis suivre les étapes. Dans ce guide, lire la partie
+de l'appareil du jeu officiel (iPhone ou Android), puis « Installer le jeu sur Android ».
 
 
 =====================================================================

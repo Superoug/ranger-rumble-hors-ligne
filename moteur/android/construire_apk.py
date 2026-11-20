@@ -35,6 +35,7 @@ assert len(OLD_HOST) == len(NEW_HOST)
 BOLT_RUSH = os.environ.get('RR_BOLT_RUSH', '1') == '1' and 'hero_models' in BUILD
 EVENTS = BOLT_RUSH and os.environ.get('RR_EVENEMENTS', '1') == '1'
 JOURNAL = bool(os.environ.get('RR_JOURNAL'))
+MAC = os.environ.get('RR_MAC') == '1'
 
 def data_file(*parts):
     return os.path.join(HERE, *parts)
@@ -662,6 +663,8 @@ def patch_main_menu(data):
         at(stream, *edit)
     start, size = BUILD['difficulty_row']['scene']
     scene = difficulty_row(bytearray(stream[start:start + size]))
+    if MAC:
+        scene = controls_tab(scene)
     if collect_screen_build():
         graft = collect_graft()
         scene = bytearray(graft.graft(scene))
@@ -685,11 +688,226 @@ PROTOTYPES_ROW_TITLE = 'RR.SETTINGS.PROTOTYPES'
 PROTOTYPES_ROW_KEYS = ('RR.PROTOTYPES.NO', 'RR.PROTOTYPES.YES')
 PROTOTYPES_TEXTS = {'EN': ('Prototype maps and modes', 'Off', 'On'), 'FR': ('Cartes et modes prototypes', 'Non', 'Oui'), 'DE': ('Prototyp-Karten und -Modi', 'Aus', 'An'), 'ES': ('Mapas y modos prototipo', 'No', 'Sí'), 'IT': ('Mappe e modalità prototipo', 'No', 'Sì'), 'BR': ('Mapas e modos protótipo', 'Não', 'Sim'), 'NL': ('Mapy i tryby prototypowe', 'Nie', 'Tak'), 'RU': ('Прототипы карт и режимов', 'Выкл.', 'Вкл.'), 'TR': ('Prototip haritalar ve modlar', 'Kapalı', 'Açık'), 'JP': ('試作マップとモード', 'オフ', 'オン'), 'KR': ('프로토타입 맵과 모드', '끔', '켬'), 'CN': ('原型地图和模式', '关', '开'), 'TW': ('原型地圖和模式', '關', '開')}
 SETTINGS_ROWS = ((DIFFICULTY_ROW_TITLE, DIFFICULTY_ROW_KEYS, DIFFICULTY_TEXTS['EN'][0], 1, ('DifficultyGrid', 'DifficultySelection')), (PROTOTYPES_ROW_TITLE, PROTOTYPES_ROW_KEYS, PROTOTYPES_TEXTS['EN'][0], 0, ('PrototypesGrid', 'PrototypesSelection')))
+KEY_ROW_TITLES = ('RR.KEYS.UP', 'RR.KEYS.DOWN', 'RR.KEYS.LEFT', 'RR.KEYS.RIGHT', 'UI.SETTINGS.CONTROLLER_MAPPING.JUMP', 'UI.SETTINGS.CONTROLLER_MAPPING.GADGET', 'UI.MELEE_WEAPON', 'UI.TOOLTIPS.DASH.TITLE', 'UI.ULTIMATE_WEAPON')
+KEY_ROW_ENGLISH = ('Keyboard: forward', 'Keyboard: back', 'Keyboard: left', 'Keyboard: right', 'Jump', 'Gadget', 'Melee', 'Dash', 'Ultimate')
+KEYS_TEXTS = {'EN': ('Keyboard: forward', 'Keyboard: back', 'Keyboard: left', 'Keyboard: right'), 'FR': ('Clavier : avancer', 'Clavier : reculer', 'Clavier : gauche', 'Clavier : droite'), 'DE': ('Tastatur: vorwärts', 'Tastatur: rückwärts', 'Tastatur: links', 'Tastatur: rechts'), 'ES': ('Teclado: avanzar', 'Teclado: retroceder', 'Teclado: izquierda', 'Teclado: derecha'), 'IT': ('Tastiera: avanti', 'Tastiera: indietro', 'Tastiera: sinistra', 'Tastiera: destra'), 'BR': ('Teclado: avançar', 'Teclado: recuar', 'Teclado: esquerda', 'Teclado: direita'), 'NL': ('Klawiatura: do przodu', 'Klawiatura: do tyłu', 'Klawiatura: w lewo', 'Klawiatura: w prawo'), 'RU': ('Клавиатура: вперёд', 'Клавиатура: назад', 'Клавиатура: влево', 'Клавиатура: вправо'), 'TR': ('Klavye: ileri', 'Klavye: geri', 'Klavye: sol', 'Klavye: sağ'), 'JP': ('キーボード：前進', 'キーボード：後退', 'キーボード：左', 'キーボード：右'), 'KR': ('키보드: 앞으로', '키보드: 뒤로', '키보드: 왼쪽', '키보드: 오른쪽'), 'CN': ('键盘：前进', '键盘：后退', '键盘：向左', '键盘：向右'), 'TW': ('鍵盤：前進', '鍵盤：後退', '鍵盤：向左', '鍵盤：向右')}
+CONTROLS_TAB_TITLE = 'RR.SETTINGS.CONTROLS'
+CONTROLS_TAB_TEXTS = {'EN': 'Controls', 'FR': 'Commandes', 'DE': 'Steuerung', 'ES': 'Controles', 'IT': 'Comandi', 'BR': 'Controles', 'NL': 'Sterowanie', 'RU': 'Управление', 'TR': 'Kontroller', 'JP': '操作', 'KR': '조작', 'CN': '操作', 'TW': '操作'}
+CONTROLS_TAB = [{'content': 50699, 'debug_tab': 22406, 'label_reactive': 76794, 'label_tmp': 76297, 'container_debug': 51281, 'debug_children': (14668, 20389, 23000, 17869), 'scroll': 62377, 'hud_grid': 61772, 'rows': (58059, 51526, 62625)}, {'content': 48763, 'debug_tab': 23333, 'label_reactive': 76861, 'label_tmp': 76066, 'container_debug': 48987, 'debug_children': (12645, 19842, 23558, 15750), 'scroll': 60332, 'hud_grid': 60828, 'rows': (58593, 53889, 60578)}]
+GRAPHICS_TAB_TITLE = 'RR.SETTINGS.GRAPHICS'
+GRAPHICS_TAB_TEXTS = {'EN': 'Graphics', 'FR': 'Graphismes', 'DE': 'Grafik', 'ES': 'Gráficos', 'IT': 'Grafica', 'BR': 'Gráficos', 'NL': 'Grafika', 'RU': 'Графика', 'TR': 'Grafik', 'JP': 'グラフィック', 'KR': '그래픽', 'CN': '画面', 'TW': '畫面'}
+GRAPHICS_TAB = [{'mask': 62270, 'tab': 51862, 'label_reactive': 76869, 'label_tmp': 75906, 'button': 90849, 'widgets': (92858, 86865, 88424), 'container': 59045, 'containers': (3905, 18304, 10782), 'container_advanced': 52598, 'rows': (57028, 57575, 70831)}, {'mask': 60242, 'tab': 54184, 'label_reactive': 76936, 'label_tmp': 75618, 'button': 88509, 'widgets': (92275, 87430, 90751), 'container': 58484, 'containers': (6095, 15799, 11365), 'container_advanced': 53498, 'rows': (55056, 59945, 68819)}]
+
+def persistent_call(target, type_name, method, mode, flag=0):
+    return struct.pack('<iq', 0, target) + unity_string(type_name) + unity_string(method) + struct.pack('<i', mode) + struct.pack('<iq', 0, 0) + unity_string('UnityEngine.Object, UnityEngine') + struct.pack('<if', 0, 0.0) + unity_string('') + bytes([flag, 0, 0, 0]) + struct.pack('<i', 2)
+
+def scene_objects(scene):
+    table, _, padding = BUILD['difficulty_row']['table']
+    count, = struct.unpack_from('<i', scene, table - 4 - padding)
+    data_offset = struct.unpack('>QQ', scene[24:40])[1]
+    objects = {}
+    for i in range(count):
+        object_id, start, size, _ = struct.unpack_from('<qqIi', scene, table + i * 24)
+        objects[object_id] = (start, size)
+    return (objects, table, count, data_offset)
+
+def rect_father(raw):
+    return struct.unpack_from('<iq', raw, 56 + 12 * struct.unpack_from('<i', raw, 52)[0])[1]
+
+def tab_replace(data, old, new):
+    if data.count(old) != 1:
+        raise SystemExit('onglet Graphismes : objet inattendu')
+    return data.replace(old, new)
+
+def rect_children(raw):
+    count, = struct.unpack_from('<i', raw, 52)
+    return [struct.unpack_from('<iq', raw, 56 + i * 12)[1] for i in range(count)]
+
+def controls_tab(scene):
+    objects, table, count, data_offset = scene_objects(scene)
+    if max(objects) != count:
+        raise SystemExit('scene du menu inattendue (onglet Commandes)')
+
+    def raw(object_id):
+        start, size = objects[object_id]
+        return bytes(scene[data_offset + start:data_offset + start + size])
+
+    def game_object(rect):
+        return struct.unpack_from('<iq', raw(rect), 0)[1]
+
+    def components(go):
+        data = raw(go)
+        n, = struct.unpack_from('<i', data, 0)
+        return [struct.unpack_from('<iq', data, 4 + i * 12)[1] for i in range(n)]
+
+    def go_name(go):
+        data = raw(go)
+        at_name = 8 + 12 * struct.unpack_from('<i', data, 0)[0]
+        length, = struct.unpack_from('<i', data, at_name)
+        return data[at_name + 4:at_name + 4 + length].decode()
+
+    def subtree(rect):
+        found, stack = ([], [rect])
+        while stack:
+            current = stack.pop()
+            go = game_object(current)
+            found += [go] + components(go)
+            stack += rect_children(raw(current))
+        return found
+    key_copies = [index for index, row in enumerate(SETTINGS_ROWS) if row[1][0].startswith('RR.K.')]
+    next_id = count + 1
+    copies, changes = ({}, {})
+    for screen, row in zip(CONTROLS_TAB, BUILD['difficulty_row']['rows']):
+        if screen['content'] != row['content'][0]:
+            raise SystemExit('onglet Commandes : ecran inattendu')
+        grid_go = next((old for old, names in row['names'].items() if names[0] == 'FOVGrid'))
+        key_rects = [SETTINGS_COPIES[index][row['grid']] for index in key_copies]
+        key_games = [SETTINGS_COPIES[index][grid_go] for index in key_copies]
+        wanted = key_rects + list(screen['rows'])
+        listed = rect_children(raw(screen['content']))
+        if any((rect not in listed for rect in wanted)):
+            raise SystemExit('onglet Commandes : lignes introuvables')
+        left_out = {o for rect in listed if rect not in wanted for o in subtree(rect)}
+        copied = [o for o in subtree(screen['scroll']) if o not in left_out] + subtree(screen['hud_grid'])
+        ids = {old: next_id + index for index, old in enumerate(sorted(set(copied)))}
+        next_id += len(ids)
+        leave = [game_object(rect) for rect in rect_children(raw(screen['hud_grid'])) if go_name(game_object(rect)) == 'LeaveGame']
+
+        def copy(old, ids=ids, screen=screen, wanted=wanted, leave=leave):
+
+            def change(data):
+                data = bytearray(data)
+                for offset in range(0, len(data) - 11, 4):
+                    file_id, path_id = struct.unpack_from('<iq', data, offset)
+                    if file_id == 0 and path_id in ids:
+                        struct.pack_into('<iq', data, offset, 0, ids[path_id])
+                if old in (screen['scroll'], screen['hud_grid']):
+                    father = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
+                    struct.pack_into('<iq', data, father, 0, screen['container_debug'])
+                if old == screen['content']:
+                    end = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
+                    data = data[:52] + struct.pack('<i', len(wanted)) + b''.join((struct.pack('<iq', 0, ids[rect]) for rect in wanted)) + data[end:]
+                if old in leave:
+                    if data[-1] != 1:
+                        raise SystemExit('onglet Commandes : bouton inattendu')
+                    data[-1] = 0
+                return bytes(data)
+            return change
+        for old, new in ids.items():
+            copies[new] = (old, copy(old))
+
+        def add_children(data, added=(ids[screen['scroll']], ids[screen['hud_grid']])):
+            n = struct.unpack_from('<i', data, 52)[0]
+            end = 56 + n * 12
+            return data[:52] + struct.pack('<i', n + len(added)) + data[56:end] + b''.join((struct.pack('<iq', 0, a) for a in added)) + data[end:]
+
+        def off(data):
+            if data[-1] not in (0, 1):
+                raise SystemExit('onglet Commandes : objet inattendu')
+            return data[:-1] + b'\x00'
+
+        def replace(old_bytes, new_bytes):
+
+            def change(data):
+                if data.count(old_bytes) != 1:
+                    raise SystemExit('onglet Commandes : texte inattendu')
+                return data.replace(old_bytes, new_bytes)
+            return change
+        changes[screen['container_debug']] = add_children
+        for go in screen['debug_children']:
+            changes[go] = off
+        graphics = next((g for g in GRAPHICS_TAB if g['container'] == rect_father(raw(screen['container_debug']))))
+        tab_set = subtree(graphics['tab'])
+        container_set = [game_object(graphics['container_advanced'])] + components(game_object(graphics['container_advanced']))
+        full_copy = next((index for index, row in enumerate(SETTINGS_ROWS) if row[1] == FULLSCREEN_ROW_KEYS))
+        full_rect = SETTINGS_COPIES[full_copy][row['grid']]
+        wanted_g = [full_rect] + list(graphics['rows'])
+        changes[SETTINGS_COPIES[full_copy][grid_go]] = off
+        left_out_g = {o for rect in listed if rect not in wanted_g for o in subtree(rect)}
+        list_set = [o for o in subtree(screen['scroll']) if o not in left_out_g]
+        g_ids = {old: next_id + index for index, old in enumerate(sorted(set(tab_set + container_set + list_set)))}
+        next_id += len(g_ids)
+        tab_widget = graphics['widgets'][1]
+        calls = [persistent_call(go, 'UnityEngine.GameObject, UnityEngine', 'SetActive', 6, 0) for go in graphics['containers']] + [persistent_call(g_ids[game_object(graphics['container_advanced'])], 'UnityEngine.GameObject, UnityEngine', 'SetActive', 6, 1)] + [persistent_call(w, 'TabUIWidget, Assembly-CSharp', 'UnselectTab', 1) for w in graphics['widgets']] + [persistent_call(g_ids[tab_widget], 'TabUIWidget, Assembly-CSharp', 'SelectTab', 1)]
+
+        def g_copy(old, ids=g_ids, graphics=graphics, screen=screen, wanted=wanted_g, calls=calls):
+
+            def change(data):
+                data = bytearray(data)
+                for offset in range(0, len(data) - 11, 4):
+                    file_id, path_id = struct.unpack_from('<iq', data, offset)
+                    if file_id == 0 and path_id in ids:
+                        struct.pack_into('<iq', data, offset, 0, ids[path_id])
+                data = bytes(data)
+                if old == graphics['container_advanced']:
+                    end = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
+                    data = data[:52] + struct.pack('<i', 1) + struct.pack('<iq', 0, ids[screen['scroll']]) + data[end:]
+                if old == screen['scroll']:
+                    father = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
+                    data = data[:father] + struct.pack('<iq', 0, ids[graphics['container_advanced']]) + data[father + 12:]
+                if old == screen['content']:
+                    end = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
+                    data = data[:52] + struct.pack('<i', len(wanted)) + b''.join((struct.pack('<iq', 0, ids[r]) for r in wanted)) + data[end:]
+                if old == game_object(graphics['tab']):
+                    data = tab_replace(data, unity_string('AdvancedTab'), unity_string('RRGraphicsTab'))
+                if old == game_object(graphics['container_advanced']):
+                    data = tab_replace(data, unity_string('ContainerAdvanced'), unity_string('RRGraphicsContainer'))
+                    data = data[:-1] + b'\x00'
+                if old == graphics['label_reactive']:
+                    data = tab_replace(data, raw_text('Common.Advanced'), raw_text(GRAPHICS_TAB_TITLE))
+                if old == graphics['label_tmp']:
+                    data = tab_replace(data, unity_string('Advanced'), unity_string(GRAPHICS_TAB_TEXTS['EN']))
+                if old == graphics['button']:
+                    data = tab_replace(data, struct.pack('<i', 0) + unity_string('ALL'), struct.pack('<i', len(calls)) + b''.join(calls) + unity_string('ALL'))
+                return data
+            return change
+        for old, new in g_ids.items():
+            copies[new] = (old, g_copy(old))
+
+        def append_child(added):
+
+            def change(data):
+                n = struct.unpack_from('<i', data, 52)[0]
+                end = 56 + n * 12
+                return data[:52] + struct.pack('<i', n + 1) + data[56:end] + struct.pack('<iq', 0, added) + data[end:]
+            return change
+        changes[graphics['mask']] = append_child(g_ids[graphics['tab']])
+        changes[graphics['container']] = append_child(g_ids[graphics['container_advanced']])
+        for go in key_games:
+            changes[go] = off
+        changes[screen['debug_tab']] = replace(unity_string('DebugTab'), unity_string('RRControlsTab'))
+        changes[screen['label_reactive']] = replace(unity_string('Debug Mode') + struct.pack('<i', 1), raw_text(CONTROLS_TAB_TITLE))
+        changes[screen['label_tmp']] = replace(unity_string('Debug Mode'), unity_string(CONTROLS_TAB_TEXTS['EN']))
+    scene, _ = add_object_copies(scene, table, count, copies, BUILD['difficulty_row']['table'][2])
+    objects, table, count, data_offset = scene_objects(scene)
+    grow_objects(scene, table, count, {object_id: (*objects[object_id], change) for object_id, change in changes.items()}, shrink=True)
+    print(f'onglet Commandes : {len(copies)} objets copies')
+    return scene
+
+def key_row_options(action):
+    return tuple((f'RR.K.{action}.{index}' for index in range(3)))
+FULLSCREEN_ROW_TITLE = 'RR.SETTINGS.FULLSCREEN'
+FULLSCREEN_ROW_KEYS = ('RR.FULLSCREEN.NO', 'RR.FULLSCREEN.YES')
+FULLSCREEN_KEY = b'rr_plein_ecran'
+FULLSCREEN_TEXTS = {'EN': ('Full screen', 'Off', 'On'), 'FR': ('Plein écran', 'Non', 'Oui'), 'DE': ('Vollbild', 'Aus', 'An'), 'ES': ('Pantalla completa', 'No', 'Sí'), 'IT': ('Schermo intero', 'No', 'Sì'), 'BR': ('Tela cheia', 'Não', 'Sim'), 'NL': ('Pełny ekran', 'Nie', 'Tak'), 'RU': ('Полный экран', 'Выкл.', 'Вкл.'), 'TR': ('Tam ekran', 'Kapalı', 'Açık'), 'JP': ('フルスクリーン', 'オフ', 'オン'), 'KR': ('전체 화면', '끔', '켬'), 'CN': ('全屏', '关', '开'), 'TW': ('全螢幕', '關', '開')}
+if MAC:
+    SETTINGS_ROWS += ((FULLSCREEN_ROW_TITLE, FULLSCREEN_ROW_KEYS, FULLSCREEN_TEXTS['EN'][0], 0, ('RRFullscreenGrid', 'RRPleinEcranSel')),)
+    SETTINGS_ROWS += tuple(((title, key_row_options(action), english, 1, (f'RRKeyGrid{action}', f'RRToucheSel{action}')) for action, (title, english) in enumerate(zip(KEY_ROW_TITLES, KEY_ROW_ENGLISH))))
 
 def difficulty_texts(language):
     title, *levels = DIFFICULTY_TEXTS.get(language) or DIFFICULTY_TEXTS['EN']
     proto_title, *choices = PROTOTYPES_TEXTS.get(language) or PROTOTYPES_TEXTS['EN']
-    return {DIFFICULTY_ROW_TITLE: title, **dict(zip(DIFFICULTY_ROW_KEYS, levels)), PROTOTYPES_ROW_TITLE: proto_title, **dict(zip(PROTOTYPES_ROW_KEYS, choices))}
+    texts = {DIFFICULTY_ROW_TITLE: title, **dict(zip(DIFFICULTY_ROW_KEYS, levels)), PROTOTYPES_ROW_TITLE: proto_title, **dict(zip(PROTOTYPES_ROW_KEYS, choices))}
+    if MAC:
+        texts[CONTROLS_TAB_TITLE] = CONTROLS_TAB_TEXTS.get(language) or CONTROLS_TAB_TEXTS['EN']
+        texts[GRAPHICS_TAB_TITLE] = GRAPHICS_TAB_TEXTS.get(language) or GRAPHICS_TAB_TEXTS['EN']
+        full_title, *full_choices = FULLSCREEN_TEXTS.get(language) or FULLSCREEN_TEXTS['EN']
+        texts[FULLSCREEN_ROW_TITLE] = full_title
+        texts.update(zip(FULLSCREEN_ROW_KEYS, full_choices))
+        texts.update(zip(KEY_ROW_TITLES, KEYS_TEXTS.get(language) or KEYS_TEXTS['EN']))
+        texts.update({key: '' for action in range(len(KEY_ROW_TITLES)) for key in key_row_options(action)})
+    return texts
+SETTINGS_COPIES = []
 
 def difficulty_row(scene):
     table, count, padding = BUILD['difficulty_row']['table']
@@ -700,7 +918,9 @@ def difficulty_row(scene):
     if len(set(olds)) != len(olds):
         raise SystemExit('reglages de difficulte en double')
     new_ids = [{old: count + 1 + copy_index * len(olds) + index for index, old in enumerate(olds)} for copy_index in range(len(SETTINGS_ROWS))]
+    SETTINGS_COPIES[:] = new_ids
     grows, edits = ({}, [{} for _ in SETTINGS_ROWS])
+    key_values = {row['value'] for row in rows}
     for row in rows:
         content, content_start, content_size, children = row['content']
 
@@ -724,6 +944,10 @@ def difficulty_row(scene):
                 file_id, path_id = struct.unpack_from('<iq', raw, offset)
                 if file_id == 0 and path_id in ids:
                     struct.pack_into('<iq', raw, offset, 0, ids[path_id])
+            if old_id in key_values and SETTINGS_ROWS[copy_index][1][0].startswith('RR.K.'):
+                if raw[12] != 1:
+                    raise SystemExit('texte du reglage inattendu')
+                raw[12] = 0
             raw = bytes(raw)
             for old, new in edits[copy_index].get(old_id, ()):
                 if raw.count(old) != 1:
@@ -3324,6 +3548,21 @@ def crown_code(at_address):
 DIFFICULTY_MEDALS = {'0': 0, '1': 100, '2': 400, '3': 1100}
 ULTRA_BOT_POWER = 15000
 ULTRA_TALENT_LEVEL = 10
+KEYS_CODE = 67912436
+KEYS_CODE_END = KEYS_CODE + 1372
+UPDATE_TEXT = 66621524
+ENSURE_HIDDEN = 67507484
+SELECT_TAB = 68196808
+
+def keys_code():
+    code, uses, labels = assemble_source('touches_clavier.s')
+    if KEYS_CODE + len(code) > KEYS_CODE_END:
+        raise SystemExit('plus de place pour les touches du clavier')
+    return (code, uses, {name: KEYS_CODE + labels[name] - labels['_tk_start'] for name in ('_tk_get', '_tk_set', '_tk_text', '_tk_hide', '_tk_tab')})
+
+def keys_targets():
+    row = BUILD['difficulty_row_code']
+    return {'ext_string_new': BUILD['string_new'], 'ext_prefs_get_string': BUILD['prefs_get_string'], 'ext_set_string': row['set_string'], 'ext_save': row['save'], 'ext_done': row['done'], 'ext_set_text': 140936612, 'ext_update_text_next': UPDATE_TEXT + 4, 'ext_get_game_object': 142923916, 'ext_get_name': 142970344, 'ext_set_active': 142943076, 'ext_go_get_transform': 142941904, 'ext_get_transform': 142923708, 'ext_get_parent': 143014208, 'ext_transform_find': 143030524, 'ext_get_component_by_name': 142935700, 'ext_unselect_tab': 67560748, 'ext_select_tab_next': SELECT_TAB + 4}
 
 def difficulty_code(at_address):
     c = Code(at_address)
@@ -3395,16 +3634,34 @@ def difficulty_code(at_address):
             c.emit(w32(2034251050))
             c.emit(a64.cmp_w_imm(10, ord('P')))
             c.jump('b.eq', label)
+        keys = keys_code()[2] if MAC else {}
+
+        def is_keys(entry, other):
+            c.emit(w32(2034251050))
+            c.emit(a64.cmp_w_imm(10, ord('K')))
+            c.jump('b.ne', other)
+            c.emit(a64.b(c.here(), keys[entry]))
+            c.label(other)
         c.label('row_get')
         is_row('fov_get')
+        if MAC:
+            is_keys('_tk_get', 'not_keys_get')
+            c.emit(w32(2034251050))
+            c.emit(a64.cmp_w_imm(10, ord('F')))
+            c.jump('b.eq', 'full_get')
         is_prototypes('proto_get')
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
         c.jump('bl', 'level')
         c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
         c.emit(a64.RET)
+        c.label('full_get')
+        c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
+        c.jump('adr', 'full_key', 0)
+        c.jump('b', 'flag_get')
         c.label('proto_get')
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
         c.jump('adr', 'proto_key', 0)
+        c.label('flag_get')
         c.call(BUILD['string_new'])
         c.emit(a64.mov_x_zero(1))
         c.call(BUILD['prefs_get_string'])
@@ -3425,6 +3682,8 @@ def difficulty_code(at_address):
         c.emit(a64.b(c.here(), row['get']))
         c.label('row_set')
         is_row('fov_set')
+        if MAC:
+            is_keys('_tk_set', 'not_keys_set')
         c.emit(w32(2034251050))
         c.emit(w32(2852783092))
         c.jump('adr', 'digits', 8)
@@ -3433,8 +3692,12 @@ def difficulty_code(at_address):
         c.emit(w32(2852127733))
         c.jump('adr', 'key', 0)
         c.emit(a64.cmp_w_imm(20, ord('P')))
-        c.jump('b.ne', 'set_key')
+        c.jump('b.ne', 'not_proto_set')
         c.jump('adr', 'proto_key', 0)
+        c.label('not_proto_set')
+        c.emit(a64.cmp_w_imm(20, ord('F')))
+        c.jump('b.ne', 'set_key')
+        c.jump('adr', 'full_key', 0)
         c.label('set_key')
         c.call(BUILD['string_new'])
         c.emit(w32(2853503969))
@@ -3463,6 +3726,8 @@ def difficulty_code(at_address):
     c.emit(b'rr_difficulte\x00\x00\x00')
     c.label('proto_key')
     c.emit(PROTOTYPES_KEY + b'\x00\x00\x00')
+    c.label('full_key')
+    c.emit(FULLSCREEN_KEY + b'\x00\x00')
     c.label('medals')
     c.emit(struct.pack(f'<{len(DIFFICULTY_MEDALS)}I', *DIFFICULTY_MEDALS.values()))
     names = ('pve', 'power') + (('row_get', 'row_set', 'bot_talent') if 'difficulty_row_code' in BUILD else ())
@@ -3656,6 +3921,15 @@ def patch_bolt_rush_code(data):
             at(data, row['done'], bytes.fromhex('e00313aa'), bytes.fromhex('e00313aa'))
             talent = BUILD['ultra_bots']['talent_store']
             at(data, talent, bytes.fromhex('ff2300b9'), a64.bl(talent, entries['bot_talent']))
+            if MAC:
+                if VERSION != '1.10.4':
+                    raise SystemExit('touches du clavier : 1.10.4 seulement')
+                keys, keys_uses, keys_entries = keys_code()
+                place_assembled(data, KEYS_CODE, keys, keys_uses, keys_targets(), None)
+                at(data, UPDATE_TEXT, bytes.fromhex('fe0f1df8'), a64.b(UPDATE_TEXT, keys_entries['_tk_text']))
+                at(data, ENSURE_HIDDEN, bytes.fromhex('fe0f1ff8'), a64.b(ENSURE_HIDDEN, keys_entries['_tk_hide']))
+                at(data, SELECT_TAB, bytes.fromhex('fe0f1df8'), a64.b(SELECT_TAB, keys_entries['_tk_tab']))
+                print(f'touches du clavier (Mac) : {len(keys)} octets')
     patch_bolt_rush_phases(data)
     at(data, KCC_SURFACE_RESET, bytes.fromhex('480440f9'), a64.b(KCC_SURFACE_RESET, king_entries['tick']))
     at(data, BOLT_COUNT_FINISH, bytes.fromhex('01ed40f9'), a64.bl(BOLT_COUNT_FINISH, king_entries['skip']))
@@ -4486,7 +4760,7 @@ def patch_events_code(data):
         patch_collect_screen(data)
         patch_enemy_tokens(data)
         patch_podium_credits(data)
-OLD_110_XAPK = os.environ.get('RR_JEU_110', data_file('..', '..', 'ratchet-and-clank-ranger-rumble-1-1-0.xapk'))
+OLD_110_XAPK = os.environ.get('RR_JEU_110', data_file('..', '..', 'Jeux officiels', 'ratchet-and-clank-ranger-rumble-1-1-0.xapk'))
 COLLECT_SCREEN_FAMILIES = ('ui_atlases_', 'ui_bgs_', 'ui_animations_', 'fonts_', 'ui_materials_', 'fxmanager_', 'shared_textures_', 'default_common_group_', 'material_assets', 'ui_addressables_')
 MONOSCRIPTS_BUNDLE = 'assets/aa/Android/913fdc02988c9f04b9d53c5645e34846_monoscripts_b5e55861ec07d2dfb6815884c7e4041c.bundle'
 COLLECT_SCREEN_CODE = 72375620

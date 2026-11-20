@@ -77,11 +77,11 @@ The whole game works without a server: shop, missions, events, Ranger Road, frie
 
 ## Install
 
-Download `OutilSauvegardeRR.zip` from the latest version (**Releases** tab), then unzip it.
+Download `Ratchet_Ranger_Rumble.zip` from the latest version (**Releases** tab), then unzip it.
 
 - **Windows**: the first time, double-click `Lancer (Windows).bat`. It installs what is needed,
-  then creates the "Ranger Rumble hors ligne" shortcut on the Desktop.
-- **Mac**: open "Ranger Rumble hors ligne". If the Mac refuses: System Settings > Privacy &
+  then creates the "Launcher Ratchet Ranger Rumble" shortcut on the Desktop.
+- **Mac**: open "Launcher Ratchet Ranger Rumble". If the Mac refuses: System Settings > Privacy &
   Security > Open Anyway.
 
 **Installing Python 3.15 beforehand is recommended.**

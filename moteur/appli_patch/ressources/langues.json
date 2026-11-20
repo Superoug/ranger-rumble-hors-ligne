@@ -2392,5 +2392,2455 @@
   "de": "Kein Handy gefunden. Aktiviere USB-Debugging und stelle USB auf „Dateiübertragung“, dann versuche es erneut.",
   "it": "Nessun telefono trovato. Attiva il debug USB e imposta l'USB su «Trasferimento file», poi riprova.",
   "pt": "Nenhum celular encontrado. Ative a depuração USB e coloque o USB em “Transferência de arquivos”, depois tente de novo."
+ },
+ "5 Go libres pendant la fabrication": {
+  "en": "5 GB free during the build",
+  "es": "5 GB libres durante la creación",
+  "de": "5 GB frei während der Erstellung",
+  "it": "5 GB liberi durante la creazione",
+  "pt": "5 GB livres durante a criação"
+ },
+ "Action inconnue.": {
+  "en": "Unknown action.",
+  "es": "Acción desconocida.",
+  "de": "Unbekannte Aktion.",
+  "it": "Azione sconosciuta.",
+  "pt": "Ação desconhecida."
+ },
+ "Actualiser": {
+  "en": "Refresh",
+  "es": "Actualizar",
+  "de": "Aktualisieren",
+  "it": "Aggiorna",
+  "pt": "Atualizar"
+ },
+ "Ancienne sauvegarde gardée : {name}": {
+  "en": "Old save kept: {name}",
+  "es": "Partida anterior conservada: {name}",
+  "de": "Alter Spielstand behalten: {name}",
+  "it": "Vecchio salvataggio conservato: {name}",
+  "pt": "Jogo salvo anterior guardado: {name}"
+ },
+ "Android": {
+  "en": "Android",
+  "es": "Android",
+  "de": "Android",
+  "it": "Android",
+  "pt": "Android"
+ },
+ "Animations": {
+  "en": "Animations",
+  "es": "Animaciones",
+  "de": "Animationen",
+  "it": "Animazioni",
+  "pt": "Animações"
+ },
+ "Annuler": {
+  "en": "Cancel",
+  "es": "Cancelar",
+  "de": "Abbrechen",
+  "it": "Annulla",
+  "pt": "Cancelar"
+ },
+ "Annuler les changements": {
+  "en": "Undo changes",
+  "es": "Deshacer los cambios",
+  "de": "Änderungen verwerfen",
+  "it": "Annulla le modifiche",
+  "pt": "Desfazer as mudanças"
+ },
+ "Apparence": {
+  "en": "Appearance",
+  "es": "Apariencia",
+  "de": "Darstellung",
+  "it": "Aspetto",
+  "pt": "Aparência"
+ },
+ "Aucun réglage trouvé.": {
+  "en": "No setting found.",
+  "es": "No se encontró ningún ajuste.",
+  "de": "Keine Einstellung gefunden.",
+  "it": "Nessuna impostazione trovata.",
+  "pt": "Nenhum ajuste encontrado."
+ },
+ "Aucun téléphone branché": {
+  "en": "No phone plugged in",
+  "es": "Ningún teléfono conectado",
+  "de": "Kein Handy angeschlossen",
+  "it": "Nessun telefono collegato",
+  "pt": "Nenhum celular conectado"
+ },
+ "Aucun téléphone branché.": {
+  "en": "No phone plugged in.",
+  "es": "Ningún teléfono conectado.",
+  "de": "Kein Handy angeschlossen.",
+  "it": "Nessun telefono collegato.",
+  "pt": "Nenhum celular conectado."
+ },
+ "Aucune": {
+  "en": "None",
+  "es": "Ninguna",
+  "de": "Keine",
+  "it": "Nessuna",
+  "pt": "Nenhuma"
+ },
+ "Aucune (facultatif)": {
+  "en": "None (optional)",
+  "es": "Ninguna (opcional)",
+  "de": "Keine (optional)",
+  "it": "Nessuna (facoltativo)",
+  "pt": "Nenhuma (opcional)"
+ },
+ "Aucune clé sur cet ordinateur pour l'instant.": {
+  "en": "No key on this computer yet.",
+  "es": "Todavía no hay ninguna clave en este ordenador.",
+  "de": "Noch kein Schlüssel auf diesem Computer.",
+  "it": "Ancora nessuna chiave su questo computer.",
+  "pt": "Ainda não há chave neste computador."
+ },
+ "Aucune mise à jour à installer.": {
+  "en": "No update to install.",
+  "es": "No hay ninguna actualización que instalar.",
+  "de": "Kein Update zu installieren.",
+  "it": "Nessun aggiornamento da installare.",
+  "pt": "Nenhuma atualização para instalar."
+ },
+ "Aucune sauvegarde ouverte": {
+  "en": "No save open",
+  "es": "Ninguna partida abierta",
+  "de": "Kein Spielstand geöffnet",
+  "it": "Nessun salvataggio aperto",
+  "pt": "Nenhum jogo salvo aberto"
+ },
+ "Aucune sauvegarde ouverte.": {
+  "en": "No save open.",
+  "es": "Ninguna partida abierta.",
+  "de": "Kein Spielstand geöffnet.",
+  "it": "Nessun salvataggio aperto.",
+  "pt": "Nenhum jogo salvo aberto."
+ },
+ "Automatique": {
+  "en": "Automatic",
+  "es": "Automático",
+  "de": "Automatisch",
+  "it": "Automatico",
+  "pt": "Automático"
+ },
+ "Automatique : {p}": {
+  "en": "Automatic: {p}",
+  "es": "Automático: {p}",
+  "de": "Automatisch: {p}",
+  "it": "Automatico: {p}",
+  "pt": "Automático: {p}"
+ },
+ "Autoriser": {
+  "en": "Allow",
+  "es": "Permitir",
+  "de": "Zulassen",
+  "it": "Consenti",
+  "pt": "Permitir"
+ },
+ "Autre fichier…": {
+  "en": "Other file…",
+  "es": "Otro archivo…",
+  "de": "Andere Datei…",
+  "it": "Altro file…",
+  "pt": "Outro arquivo…"
+ },
+ "Avancé": {
+  "en": "Advanced",
+  "es": "Avanzado",
+  "de": "Erweitert",
+  "it": "Avanzate",
+  "pt": "Avançado"
+ },
+ "C'est fait": {
+  "en": "Done",
+  "es": "Listo",
+  "de": "Fertig",
+  "it": "Fatto",
+  "pt": "Pronto"
+ },
+ "C'est fait : réessayer": {
+  "en": "Done: try again",
+  "es": "Listo: reintentar",
+  "de": "Erledigt: erneut versuchen",
+  "it": "Fatto: riprova",
+  "pt": "Pronto: tentar de novo"
+ },
+ "Ce fichier n'est pas une clé de l'outil (cle_apk.p12).": {
+  "en": "This file is not a tool key (cle_apk.p12).",
+  "es": "Este archivo no es una clave de la herramienta (cle_apk.p12).",
+  "de": "Diese Datei ist kein Schlüssel des Tools (cle_apk.p12).",
+  "it": "Questo file non è una chiave dello strumento (cle_apk.p12).",
+  "pt": "Este arquivo não é uma chave da ferramenta (cle_apk.p12)."
+ },
+ "Ce jeu vient d'un autre ordinateur : il faut d'abord le désinstaller. La progression est gardée, pas les réglages du jeu.": {
+  "en": "This game comes from another computer: it must be uninstalled first. Progress is kept, not the game's settings.",
+  "es": "Este juego viene de otro ordenador: primero hay que desinstalarlo. El progreso se conserva, los ajustes del juego no.",
+  "de": "Dieses Spiel stammt von einem anderen Computer: Es muss zuerst deinstalliert werden. Der Fortschritt bleibt, die Spieleinstellungen nicht.",
+  "it": "Questo gioco viene da un altro computer: va prima disinstallato. I progressi restano, le impostazioni del gioco no.",
+  "pt": "Este jogo vem de outro computador: é preciso desinstalá-lo primeiro. O progresso fica, as configurações do jogo não."
+ },
+ "Certificat RatchetRR": {
+  "en": "RatchetRR certificate",
+  "es": "Certificado RatchetRR",
+  "de": "Zertifikat RatchetRR",
+  "it": "Certificato RatchetRR",
+  "pt": "Certificado RatchetRR"
+ },
+ "Cet ordinateur n'a pas d'adresse sur un réseau local ({address}) : il faut le mettre sur le même Wi-Fi que l'iPhone.": {
+  "en": "This computer has no address on a local network ({address}): put it on the same Wi-Fi as the iPhone.",
+  "es": "Este ordenador no tiene dirección en una red local ({address}): hay que ponerlo en el mismo Wi-Fi que el iPhone.",
+  "de": "Dieser Computer hat keine Adresse in einem lokalen Netz ({address}): Er muss im selben Wi-Fi wie das iPhone sein.",
+  "it": "Questo computer non ha un indirizzo su una rete locale ({address}): va collegato alla stessa Wi-Fi dell'iPhone.",
+  "pt": "Este computador não tem endereço numa rede local ({address}): é preciso colocá-lo no mesmo Wi-Fi que o iPhone."
+ },
+ "Cette valeur ne peut pas changer.": {
+  "en": "This value cannot change.",
+  "es": "Este valor no puede cambiar.",
+  "de": "Dieser Wert ist nicht änderbar.",
+  "it": "Questo valore non può cambiare.",
+  "pt": "Este valor não pode mudar."
+ },
+ "Changements non enregistrés": {
+  "en": "Unsaved changes",
+  "es": "Cambios sin guardar",
+  "de": "Ungespeicherte Änderungen",
+  "it": "Modifiche non salvate",
+  "pt": "Mudanças não salvas"
+ },
+ "Chercher les mises à jour au démarrage": {
+  "en": "Check for updates at startup",
+  "es": "Buscar actualizaciones al iniciar",
+  "de": "Beim Start nach Updates suchen",
+  "it": "Cerca aggiornamenti all'avvio",
+  "pt": "Procurar atualizações ao iniciar"
+ },
+ "Choisir une sauvegarde": {
+  "en": "Choose a save",
+  "es": "Elegir una partida",
+  "de": "Spielstand wählen",
+  "it": "Scegli un salvataggio",
+  "pt": "Escolher um jogo salvo"
+ },
+ "Choisir…": {
+  "en": "Choose…",
+  "es": "Elegir…",
+  "de": "Wählen…",
+  "it": "Scegli…",
+  "pt": "Escolher…"
+ },
+ "Clair": {
+  "en": "Light",
+  "es": "Claro",
+  "de": "Hell",
+  "it": "Chiaro",
+  "pt": "Claro"
+ },
+ "Clé de cet ordinateur": {
+  "en": "This computer's key",
+  "es": "Clave de este ordenador",
+  "de": "Schlüssel dieses Computers",
+  "it": "Chiave di questo computer",
+  "pt": "Chave deste computador"
+ },
+ "Clé de signature": {
+  "en": "Signing key",
+  "es": "Clave de firma",
+  "de": "Signaturschlüssel",
+  "it": "Chiave di firma",
+  "pt": "Chave de assinatura"
+ },
+ "Clé exportée": {
+  "en": "Key exported",
+  "es": "Clave exportada",
+  "de": "Schlüssel exportiert",
+  "it": "Chiave esportata",
+  "pt": "Chave exportada"
+ },
+ "Clé importée": {
+  "en": "Key imported",
+  "es": "Clave importada",
+  "de": "Schlüssel importiert",
+  "it": "Chiave importata",
+  "pt": "Chave importada"
+ },
+ "Commande inconnue.": {
+  "en": "Unknown command.",
+  "es": "Comando desconocido.",
+  "de": "Unbekannter Befehl.",
+  "it": "Comando sconosciuto.",
+  "pt": "Comando desconhecido."
+ },
+ "Complètes": {
+  "en": "Full",
+  "es": "Completas",
+  "de": "Voll",
+  "it": "Complete",
+  "pt": "Completas"
+ },
+ "Composants": {
+  "en": "Components",
+  "es": "Componentes",
+  "de": "Komponenten",
+  "it": "Componenti",
+  "pt": "Componentes"
+ },
+ "Continuer": {
+  "en": "Continue",
+  "es": "Continuar",
+  "de": "Weiter",
+  "it": "Continua",
+  "pt": "Continuar"
+ },
+ "Copie arrêtée. Il faut supprimer le profil RatchetRR de l'iPhone (Réglages > Général > VPN et gestion de l'appareil).": {
+  "en": "Copy stopped. Remove the RatchetRR profile from the iPhone (Settings > General > VPN & Device Management).",
+  "es": "Copia detenida. Hay que eliminar el perfil RatchetRR del iPhone (Ajustes > General > VPN y gestión de dispositivos).",
+  "de": "Kopie gestoppt. Das Profil RatchetRR muss vom iPhone entfernt werden (Einstellungen > Allgemein > VPN und Geräteverwaltung).",
+  "it": "Copia fermata. Bisogna rimuovere il profilo RatchetRR dall'iPhone (Impostazioni > Generali > VPN e gestione dispositivi).",
+  "pt": "Cópia parada. É preciso remover o perfil RatchetRR do iPhone (Ajustes > Geral > VPN e Gerenciamento de Dispositivos)."
+ },
+ "Copie de la sauvegarde": {
+  "en": "Save copy",
+  "es": "Copia de la partida",
+  "de": "Spielstand-Kopie",
+  "it": "Copia del salvataggio",
+  "pt": "Cópia do jogo salvo"
+ },
+ "Copie iPhone": {
+  "en": "iPhone copy",
+  "es": "Copia de iPhone",
+  "de": "iPhone-Kopie",
+  "it": "Copia iPhone",
+  "pt": "Cópia do iPhone"
+ },
+ "Copier la sauvegarde iPhone": {
+  "en": "Copy the iPhone save",
+  "es": "Copiar la partida del iPhone",
+  "de": "iPhone-Spielstand kopieren",
+  "it": "Copia il salvataggio iPhone",
+  "pt": "Copiar o jogo salvo do iPhone"
+ },
+ "Copiée": {
+  "en": "Copied",
+  "es": "Copiada",
+  "de": "Kopiert",
+  "it": "Copiato",
+  "pt": "Copiado"
+ },
+ "Couleur": {
+  "en": "Color",
+  "es": "Color",
+  "de": "Farbe",
+  "it": "Colore",
+  "pt": "Cor"
+ },
+ "Créé le {d}": {
+  "en": "Created on {d}",
+  "es": "Creado el {d}",
+  "de": "Erstellt am {d}",
+  "it": "Creato il {d}",
+  "pt": "Criado em {d}"
+ },
+ "Créé à la première copie": {
+  "en": "Created at the first copy",
+  "es": "Creado en la primera copia",
+  "de": "Entsteht bei der ersten Kopie",
+  "it": "Creato alla prima copia",
+  "pt": "Criado na primeira cópia"
+ },
+ "Créée à la première fabrication": {
+  "en": "Created at the first build",
+  "es": "Generada en la primera creación",
+  "de": "Entsteht bei der ersten Erstellung",
+  "it": "Generata alla prima creazione",
+  "pt": "Gerada na primeira criação"
+ },
+ "Câble USB, débogage USB activé": {
+  "en": "USB cable, USB debugging on",
+  "es": "Cable USB, depuración USB activada",
+  "de": "USB-Kabel, USB-Debugging an",
+  "it": "Cavo USB, debug USB attivo",
+  "pt": "Cabo USB, depuração USB ativada"
+ },
+ "Demande illisible.": {
+  "en": "Unreadable request.",
+  "es": "Solicitud ilegible.",
+  "de": "Unlesbare Anfrage.",
+  "it": "Richiesta illeggibile.",
+  "pt": "Pedido ilegível."
+ },
+ "Dernière erreur au démarrage": {
+  "en": "Last startup error",
+  "es": "Último error al iniciar",
+  "de": "Letzter Fehler beim Start",
+  "it": "Ultimo errore all'avvio",
+  "pt": "Último erro ao iniciar"
+ },
+ "Des changements ne sont pas enregistrés.": {
+  "en": "Some changes are not saved.",
+  "es": "Hay cambios sin guardar.",
+  "de": "Einige Änderungen sind nicht gespeichert.",
+  "it": "Alcune modifiche non sono salvate.",
+  "pt": "Há mudanças não salvas."
+ },
+ "Disponible": {
+  "en": "Available",
+  "es": "Disponible",
+  "de": "Verfügbar",
+  "it": "Disponibile",
+  "pt": "Disponível"
+ },
+ "Dossier de l'outil": {
+  "en": "Tool folder",
+  "es": "Carpeta de la herramienta",
+  "de": "Ordner des Tools",
+  "it": "Cartella dello strumento",
+  "pt": "Pasta da ferramenta"
+ },
+ "Dossier de l'outil introuvable": {
+  "en": "Tool folder not found",
+  "es": "Carpeta de la herramienta no encontrada",
+  "de": "Ordner des Tools nicht gefunden",
+  "it": "Cartella dello strumento non trovata",
+  "pt": "Pasta da ferramenta não encontrada"
+ },
+ "Dossier de travail": {
+  "en": "Work folder",
+  "es": "Carpeta de trabajo",
+  "de": "Arbeitsordner",
+  "it": "Cartella di lavoro",
+  "pt": "Pasta de trabalho"
+ },
+ "Dossier des copies": {
+  "en": "Copies folder",
+  "es": "Carpeta de copias",
+  "de": "Ordner der Kopien",
+  "it": "Cartella delle copie",
+  "pt": "Pasta das cópias"
+ },
+ "Débogage USB activé, USB en « Transfert de fichiers ».": {
+  "en": "USB debugging on, USB set to “File transfer”.",
+  "es": "Depuración USB activada, USB en «Transferencia de archivos».",
+  "de": "USB-Debugging an, USB auf „Dateiübertragung“.",
+  "it": "Debug USB attivo, USB su «Trasferimento file».",
+  "pt": "Depuração USB ativada, USB em “Transferência de arquivos”."
+ },
+ "Déjà à jour": {
+  "en": "Already up to date",
+  "es": "Ya está al día",
+  "de": "Schon aktuell",
+  "it": "Già aggiornato",
+  "pt": "Já atualizado"
+ },
+ "Désinstaller et installer": {
+  "en": "Uninstall and install",
+  "es": "Desinstalar e instalar",
+  "de": "Deinstallieren und installieren",
+  "it": "Disinstalla e installa",
+  "pt": "Desinstalar e instalar"
+ },
+ "Désinstaller l'ancien jeu ?": {
+  "en": "Uninstall the old game?",
+  "es": "¿Desinstalar el juego anterior?",
+  "de": "Altes Spiel deinstallieren?",
+  "it": "Disinstallare il vecchio gioco?",
+  "pt": "Desinstalar o jogo antigo?"
+ },
+ "Elle est choisie pour fabriquer le jeu.": {
+  "en": "It is selected to build the game.",
+  "es": "Está elegida para crear el juego.",
+  "de": "Er ist für die Erstellung des Spiels ausgewählt.",
+  "it": "È scelto per creare il gioco.",
+  "pt": "Ele está escolhido para criar o jogo."
+ },
+ "Empêcher la veille pendant une tâche": {
+  "en": "Prevent sleep during a task",
+  "es": "Impedir la suspensión durante una tarea",
+  "de": "Ruhezustand während einer Aufgabe verhindern",
+  "it": "Impedisci lo stop durante un'attività",
+  "pt": "Impedir o repouso durante uma tarefa"
+ },
+ "En attendant : la version Android": {
+  "en": "Meanwhile: the Android version",
+  "es": "Mientras tanto: la versión Android",
+  "de": "Bis dahin: die Android-Version",
+  "it": "Nel frattempo: la versione Android",
+  "pt": "Enquanto isso: a versão Android"
+ },
+ "En attente": {
+  "en": "Waiting",
+  "es": "En espera",
+  "de": "Wartet",
+  "it": "In attesa",
+  "pt": "Aguardando"
+ },
+ "En cours": {
+  "en": "In progress",
+  "es": "En curso",
+  "de": "Läuft",
+  "it": "In corso",
+  "pt": "Em andamento"
+ },
+ "En cours : {t}": {
+  "en": "In progress: {t}",
+  "es": "En curso: {t}",
+  "de": "Läuft: {t}",
+  "it": "In corso: {t}",
+  "pt": "Em andamento: {t}"
+ },
+ "Enregistrer sous…": {
+  "en": "Save as…",
+  "es": "Guardar como…",
+  "de": "Speichern unter…",
+  "it": "Salva con nome…",
+  "pt": "Salvar como…"
+ },
+ "Enregistrer…": {
+  "en": "Save…",
+  "es": "Guardar…",
+  "de": "Speichern…",
+  "it": "Salva…",
+  "pt": "Salvar…"
+ },
+ "Espace libre : {n} Go (il faut 5 Go)": {
+  "en": "Free space: {n} GB (5 GB needed)",
+  "es": "Espacio libre: {n} GB (se necesitan 5 GB)",
+  "de": "Freier Platz: {n} GB (5 GB nötig)",
+  "it": "Spazio libero: {n} GB (servono 5 GB)",
+  "pt": "Espaço livre: {n} GB (são necessários 5 GB)"
+ },
+ "Exporter…": {
+  "en": "Export…",
+  "es": "Exportar…",
+  "de": "Exportieren…",
+  "it": "Esporta…",
+  "pt": "Exportar…"
+ },
+ "Fabrication, installation, mise à jour.": {
+  "en": "Build, install, update.",
+  "es": "Creación, instalación, actualización.",
+  "de": "Erstellung, Installation, Update.",
+  "it": "Creazione, installazione, aggiornamento.",
+  "pt": "Criação, instalação, atualização."
+ },
+ "Fabriquer et installer": {
+  "en": "Build and install",
+  "es": "Crear e instalar",
+  "de": "Erstellen und installieren",
+  "it": "Crea e installa",
+  "pt": "Criar e instalar"
+ },
+ "Fabriquer l'APK": {
+  "en": "Build the APK",
+  "es": "Crear el APK",
+  "de": "APK erstellen",
+  "it": "Crea l'APK",
+  "pt": "Criar o APK"
+ },
+ "Fabriquer le jeu": {
+  "en": "Build the game",
+  "es": "Crear el juego",
+  "de": "Spiel erstellen",
+  "it": "Crea il gioco",
+  "pt": "Criar o jogo"
+ },
+ "Fermer": {
+  "en": "Close",
+  "es": "Cerrar",
+  "de": "Schließen",
+  "it": "Chiudi",
+  "pt": "Fechar"
+ },
+ "Fichiers temporaires": {
+  "en": "Temporary files",
+  "es": "Archivos temporales",
+  "de": "Temporäre Dateien",
+  "it": "File temporanei",
+  "pt": "Arquivos temporários"
+ },
+ "Fini": {
+  "en": "Done",
+  "es": "Terminado",
+  "de": "Fertig",
+  "it": "Finito",
+  "pt": "Pronto"
+ },
+ "Garder la progression": {
+  "en": "Keep progress",
+  "es": "Conservar el progreso",
+  "de": "Fortschritt behalten",
+  "it": "Mantieni i progressi",
+  "pt": "Manter o progresso"
+ },
+ "Garder la progression de l'iPhone avant le 1er mai 2027.": {
+  "en": "Keep the iPhone progress before May 1, 2027.",
+  "es": "Conservar el progreso del iPhone antes del 1 de mayo de 2027.",
+  "de": "iPhone-Fortschritt vor dem 1. Mai 2027 behalten.",
+  "it": "Conservare i progressi dell'iPhone entro il 1° maggio 2027.",
+  "pt": "Manter o progresso do iPhone antes de 1º de maio de 2027."
+ },
+ "Garder sa progression, ou la remplacer par la sauvegarde de cet APK ? L'ancienne est gardée dans Sauvegardes.": {
+  "en": "Keep its progress, or replace it with this APK's save? The old one is kept in Sauvegardes.",
+  "es": "¿Conservar su progreso o reemplazarlo por la partida de este APK? La anterior se guarda en Sauvegardes.",
+  "de": "Seinen Fortschritt behalten oder durch den Spielstand dieser APK ersetzen? Der alte bleibt in Sauvegardes.",
+  "it": "Mantenere i suoi progressi o sostituirli con il salvataggio di questo APK? Il vecchio resta in Sauvegardes.",
+  "pt": "Manter o progresso ou substituí-lo pelo jogo salvo deste APK? O antigo fica guardado em Sauvegardes."
+ },
+ "Général": {
+  "en": "General",
+  "es": "General",
+  "de": "Allgemein",
+  "it": "Generali",
+  "pt": "Geral"
+ },
+ "Héros, armes, costumes, monnaies, statistiques...": {
+  "en": "Heroes, weapons, skins, currencies, stats...",
+  "es": "Héroes, armas, aspectos, monedas, estadísticas...",
+  "de": "Helden, Waffen, Skins, Währungen, Statistiken...",
+  "it": "Eroi, armi, costumi, valute, statistiche...",
+  "pt": "Heróis, armas, visuais, moedas, estatísticas..."
+ },
+ "Il faut attendre la fin de la tâche en cours.": {
+  "en": "Wait for the current task to finish.",
+  "es": "Hay que esperar a que termine la tarea en curso.",
+  "de": "Erst die laufende Aufgabe abwarten.",
+  "it": "Bisogna aspettare la fine dell'attività in corso.",
+  "pt": "É preciso esperar o fim da tarefa em andamento."
+ },
+ "Il faut choisir le fichier du jeu officiel 1.10.4 (.xapk, .apkm ou .apk).": {
+  "en": "Choose the official game file 1.10.4 (.xapk, .apkm or .apk).",
+  "es": "Hay que elegir el archivo del juego oficial 1.10.4 (.xapk, .apkm o .apk).",
+  "de": "Die Datei des offiziellen Spiels 1.10.4 wählen (.xapk, .apkm oder .apk).",
+  "it": "Bisogna scegliere il file del gioco ufficiale 1.10.4 (.xapk, .apkm o .apk).",
+  "pt": "É preciso escolher o arquivo do jogo oficial 1.10.4 (.xapk, .apkm ou .apk)."
+ },
+ "Il faut choisir où créer l'APK.": {
+  "en": "Choose where to create the APK.",
+  "es": "Hay que elegir dónde crear el APK.",
+  "de": "Wählen, wo die APK erstellt wird.",
+  "it": "Bisogna scegliere dove creare l'APK.",
+  "pt": "É preciso escolher onde criar o APK."
+ },
+ "Il faut choisir où enregistrer.": {
+  "en": "Choose where to save.",
+  "es": "Hay que elegir dónde guardar.",
+  "de": "Speicherort wählen.",
+  "it": "Bisogna scegliere dove salvare.",
+  "pt": "É preciso escolher onde salvar."
+ },
+ "Il faut choisir une sauvegarde, ou « Nouvelle partie ».": {
+  "en": "Choose a save, or “New game”.",
+  "es": "Hay que elegir una partida, o «Partida nueva».",
+  "de": "Einen Spielstand oder „Neues Spiel“ wählen.",
+  "it": "Bisogna scegliere un salvataggio, o «Nuova partita».",
+  "pt": "É preciso escolher um jogo salvo, ou “Novo jogo”."
+ },
+ "Il faut d'abord arrêter la copie.": {
+  "en": "Stop the copy first.",
+  "es": "Primero hay que detener la copia.",
+  "de": "Zuerst die Kopie stoppen.",
+  "it": "Prima bisogna fermare la copia.",
+  "pt": "É preciso parar a cópia primeiro."
+ },
+ "Il faut d'abord choisir le jeu officiel 1.10.4 (Réglages > Jeu et fichiers).": {
+  "en": "First choose the official game 1.10.4 (Settings > Game and files).",
+  "es": "Primero hay que elegir el juego oficial 1.10.4 (Ajustes > Juego y archivos).",
+  "de": "Zuerst das offizielle Spiel 1.10.4 wählen (Einstellungen > Spiel und Dateien).",
+  "it": "Prima bisogna scegliere il gioco ufficiale 1.10.4 (Impostazioni > Gioco e file).",
+  "pt": "Primeiro é preciso escolher o jogo oficial 1.10.4 (Ajustes > Jogo e arquivos)."
+ },
+ "Il faut en ouvrir une, en haut.": {
+  "en": "Open one at the top.",
+  "es": "Hay que abrir una, arriba.",
+  "de": "Oben einen öffnen.",
+  "it": "Bisogna aprirne uno, in alto.",
+  "pt": "É preciso abrir um, no alto."
+ },
+ "Il faut installer les composants de l'outil (quelques minutes).": {
+  "en": "The tool's components need to be installed (a few minutes).",
+  "es": "Hay que instalar los componentes de la herramienta (unos minutos).",
+  "de": "Die Komponenten des Tools müssen installiert werden (einige Minuten).",
+  "it": "Bisogna installare i componenti dello strumento (qualche minuto).",
+  "pt": "É preciso instalar os componentes da ferramenta (alguns minutos)."
+ },
+ "Il faut les outils Android de Google (10 Mo).": {
+  "en": "Google's Android tools are needed (10 MB).",
+  "es": "Se necesitan las herramientas Android de Google (10 MB).",
+  "de": "Die Android-Tools von Google werden gebraucht (10 MB).",
+  "it": "Servono gli strumenti Android di Google (10 MB).",
+  "pt": "São necessárias as ferramentas Android do Google (10 MB)."
+ },
+ "Il faut les outils Android de Google (10 Mo). Les télécharger ?": {
+  "en": "Google's Android tools are needed (10 MB). Download them?",
+  "es": "Se necesitan las herramientas Android de Google (10 MB). ¿Descargarlas?",
+  "de": "Die Android-Tools von Google werden gebraucht (10 MB). Herunterladen?",
+  "it": "Servono gli strumenti Android di Google (10 MB). Scaricarli?",
+  "pt": "São necessárias as ferramentas Android do Google (10 MB). Baixá-las?"
+ },
+ "Il faut relancer l'outil.": {
+  "en": "The tool needs a restart.",
+  "es": "Hay que reiniciar la herramienta.",
+  "de": "Das Tool muss neu gestartet werden.",
+  "it": "Bisogna riavviare lo strumento.",
+  "pt": "É preciso reiniciar a ferramenta."
+ },
+ "Il faut un nombre de {low} à {high}.": {
+  "en": "Enter a number from {low} to {high}.",
+  "es": "Hace falta un número de {low} a {high}.",
+  "de": "Eine Zahl von {low} bis {high} ist nötig.",
+  "it": "Serve un numero da {low} a {high}.",
+  "pt": "É preciso um número de {low} a {high}."
+ },
+ "Il faut un nombre.": {
+  "en": "Enter a number.",
+  "es": "Hace falta un número.",
+  "de": "Eine Zahl ist nötig.",
+  "it": "Serve un numero.",
+  "pt": "É preciso um número."
+ },
+ "Ils sont installés de nouveau au prochain démarrage.": {
+  "en": "They are installed again at the next startup.",
+  "es": "Se vuelven a instalar en el próximo inicio.",
+  "de": "Sie werden beim nächsten Start neu installiert.",
+  "it": "Vengono reinstallati al prossimo avvio.",
+  "pt": "Eles são reinstalados na próxima inicialização."
+ },
+ "Images de la galerie": {
+  "en": "Gallery images",
+  "es": "Imágenes de la galería",
+  "de": "Galeriebilder",
+  "it": "Immagini della galleria",
+  "pt": "Imagens da galeria"
+ },
+ "Images de la galerie (facultatif)": {
+  "en": "Gallery images (optional)",
+  "es": "Imágenes de la galería (opcional)",
+  "de": "Galeriebilder (optional)",
+  "it": "Immagini della galleria (facoltativo)",
+  "pt": "Imagens da galeria (opcional)"
+ },
+ "Importer": {
+  "en": "Import",
+  "es": "Importar",
+  "de": "Importieren",
+  "it": "Importa",
+  "pt": "Importar"
+ },
+ "Importer une clé": {
+  "en": "Import a key",
+  "es": "Importar una clave",
+  "de": "Schlüssel importieren",
+  "it": "Importa una chiave",
+  "pt": "Importar uma chave"
+ },
+ "Importer…": {
+  "en": "Import…",
+  "es": "Importar…",
+  "de": "Importieren…",
+  "it": "Importa…",
+  "pt": "Importar…"
+ },
+ "Impossible": {
+  "en": "Not possible",
+  "es": "Imposible",
+  "de": "Nicht möglich",
+  "it": "Impossibile",
+  "pt": "Impossível"
+ },
+ "Installer la version {v}": {
+  "en": "Install version {v}",
+  "es": "Instalar la versión {v}",
+  "de": "Version {v} installieren",
+  "it": "Installa la versione {v}",
+  "pt": "Instalar a versão {v}"
+ },
+ "Installer les composants": {
+  "en": "Install the components",
+  "es": "Instalar los componentes",
+  "de": "Komponenten installieren",
+  "it": "Installa i componenti",
+  "pt": "Instalar os componentes"
+ },
+ "Installer sur le téléphone": {
+  "en": "Install on the phone",
+  "es": "Instalar en el teléfono",
+  "de": "Auf dem Handy installieren",
+  "it": "Installa sul telefono",
+  "pt": "Instalar no celular"
+ },
+ "Introuvable : {path}": {
+  "en": "Not found: {path}",
+  "es": "No encontrado: {path}",
+  "de": "Nicht gefunden: {path}",
+  "it": "Non trovato: {path}",
+  "pt": "Não encontrado: {path}"
+ },
+ "Jeu": {
+  "en": "Game",
+  "es": "Juego",
+  "de": "Spiel",
+  "it": "Gioco",
+  "pt": "Jogo"
+ },
+ "Jeu et fichiers": {
+  "en": "Game and files",
+  "es": "Juego y archivos",
+  "de": "Spiel und Dateien",
+  "it": "Gioco e file",
+  "pt": "Jogo e arquivos"
+ },
+ "Jeu hors ligne {v}": {
+  "en": "Offline game {v}",
+  "es": "Juego sin conexión {v}",
+  "de": "Offline-Spiel {v}",
+  "it": "Gioco offline {v}",
+  "pt": "Jogo offline {v}"
+ },
+ "Jeu installé": {
+  "en": "Game installed",
+  "es": "Juego instalado",
+  "de": "Spiel installiert",
+  "it": "Gioco installato",
+  "pt": "Jogo instalado"
+ },
+ "Jeu officiel": {
+  "en": "Official game",
+  "es": "Juego oficial",
+  "de": "Offizielles Spiel",
+  "it": "Gioco ufficiale",
+  "pt": "Jogo oficial"
+ },
+ "Jeu officiel manquant": {
+  "en": "Official game missing",
+  "es": "Falta el juego oficial",
+  "de": "Offizielles Spiel fehlt",
+  "it": "Manca il gioco ufficiale",
+  "pt": "Falta o jogo oficial"
+ },
+ "Jeu {g}": {
+  "en": "Game {g}",
+  "es": "Juego {g}",
+  "de": "Spiel {g}",
+  "it": "Gioco {g}",
+  "pt": "Jogo {g}"
+ },
+ "Journal copié": {
+  "en": "Log copied",
+  "es": "Registro copiado",
+  "de": "Protokoll kopiert",
+  "it": "Registro copiato",
+  "pt": "Registro copiado"
+ },
+ "Journal d'installation": {
+  "en": "Install log",
+  "es": "Registro de instalación",
+  "de": "Installationsprotokoll",
+  "it": "Registro di installazione",
+  "pt": "Registro de instalação"
+ },
+ "Journal de la session": {
+  "en": "Session log",
+  "es": "Registro de la sesión",
+  "de": "Sitzungsprotokoll",
+  "it": "Registro della sessione",
+  "pt": "Registro da sessão"
+ },
+ "L'APK est prêt": {
+  "en": "The APK is ready",
+  "es": "El APK está listo",
+  "de": "Die APK ist fertig",
+  "it": "L'APK è pronto",
+  "pt": "O APK está pronto"
+ },
+ "L'APK partira de cette sauvegarde.": {
+  "en": "The APK will start from this save.",
+  "es": "El APK partirá de esta partida.",
+  "de": "Die APK startet mit diesem Spielstand.",
+  "it": "L'APK partirà da questo salvataggio.",
+  "pt": "O APK vai partir deste jogo salvo."
+ },
+ "L'ancien est gardé à côté. Il faudra réinstaller le profil sur l'iPhone.": {
+  "en": "The old one is kept alongside. The profile will need to be reinstalled on the iPhone.",
+  "es": "El anterior se conserva al lado. Habrá que reinstalar el perfil en el iPhone.",
+  "de": "Das alte bleibt daneben erhalten. Das Profil muss auf dem iPhone neu installiert werden.",
+  "it": "Il vecchio resta accanto. Bisognerà reinstallare il profilo sull'iPhone.",
+  "pt": "O antigo fica guardado ao lado. Será preciso reinstalar o perfil no iPhone."
+ },
+ "L'ancien fichier est gardé.": {
+  "en": "The old file is kept.",
+  "es": "El archivo anterior se conserva.",
+  "de": "Die alte Datei bleibt erhalten.",
+  "it": "Il vecchio file resta.",
+  "pt": "O arquivo antigo é mantido."
+ },
+ "L'app doit rester dans le dossier de l'outil, à côté de « moteur ».": {
+  "en": "The app must stay in the tool folder, next to “moteur”.",
+  "es": "La app debe quedarse en la carpeta de la herramienta, junto a «moteur».",
+  "de": "Die App muss im Ordner des Tools bleiben, neben „moteur“.",
+  "it": "L'app deve restare nella cartella dello strumento, accanto a «moteur».",
+  "pt": "O app deve ficar na pasta da ferramenta, ao lado de “moteur”."
+ },
+ "L'installer sur le téléphone branché ?": {
+  "en": "Install it on the plugged-in phone?",
+  "es": "¿Instalarlo en el teléfono conectado?",
+  "de": "Auf dem angeschlossenen Handy installieren?",
+  "it": "Installarlo sul telefono collegato?",
+  "pt": "Instalar no celular conectado?"
+ },
+ "L'outil et le jeu du téléphone, sans perdre la progression.": {
+  "en": "The tool and the phone's game, without losing progress.",
+  "es": "La herramienta y el juego del teléfono, sin perder el progreso.",
+  "de": "Das Tool und das Spiel auf dem Handy, ohne Fortschritt zu verlieren.",
+  "it": "Lo strumento e il gioco del telefono, senza perdere i progressi.",
+  "pt": "A ferramenta e o jogo do celular, sem perder o progresso."
+ },
+ "L'outil va redémarrer.": {
+  "en": "The tool will restart.",
+  "es": "La herramienta se reiniciará.",
+  "de": "Das Tool startet neu.",
+  "it": "Lo strumento si riavvierà.",
+  "pt": "A ferramenta vai reiniciar."
+ },
+ "La dernière ouverte": {
+  "en": "Last opened",
+  "es": "La última abierta",
+  "de": "Zuletzt geöffnet",
+  "it": "L'ultima aperta",
+  "pt": "A última aberta"
+ },
+ "La langue est gardée.": {
+  "en": "The language is kept.",
+  "es": "El idioma se conserva.",
+  "de": "Die Sprache bleibt.",
+  "it": "La lingua resta.",
+  "pt": "O idioma é mantido."
+ },
+ "La liste a changé : il faut recommencer.": {
+  "en": "The list changed: start again.",
+  "es": "La lista cambió: hay que volver a empezar.",
+  "de": "Die Liste hat sich geändert: bitte erneut versuchen.",
+  "it": "La lista è cambiata: bisogna ricominciare.",
+  "pt": "A lista mudou: é preciso recomeçar."
+ },
+ "La progression est gardée.": {
+  "en": "Progress is kept.",
+  "es": "El progreso se conserva.",
+  "de": "Der Fortschritt bleibt erhalten.",
+  "it": "I progressi restano.",
+  "pt": "O progresso é mantido."
+ },
+ "La version {v} est disponible.": {
+  "en": "Version {v} is available.",
+  "es": "La versión {v} está disponible.",
+  "de": "Version {v} ist verfügbar.",
+  "it": "La versione {v} è disponibile.",
+  "pt": "A versão {v} está disponível."
+ },
+ "Langue": {
+  "en": "Language",
+  "es": "Idioma",
+  "de": "Sprache",
+  "it": "Lingua",
+  "pt": "Idioma"
+ },
+ "Le Mac reste éveillé pendant une fabrication ou une installation.": {
+  "en": "The Mac stays awake during a build or an install.",
+  "es": "El Mac sigue activo durante una creación o una instalación.",
+  "de": "Der Mac bleibt während einer Erstellung oder Installation wach.",
+  "it": "Il Mac resta attivo durante una creazione o un'installazione.",
+  "pt": "O Mac fica ativo durante uma criação ou uma instalação."
+ },
+ "Le QR code apparaît au démarrage.": {
+  "en": "The QR code appears at start.",
+  "es": "El código QR aparece al iniciar.",
+  "de": "Der QR-Code erscheint beim Start.",
+  "it": "Il codice QR appare all'avvio.",
+  "pt": "O código QR aparece ao iniciar."
+ },
+ "Le fichier .xapk, .apkm ou .apk complet": {
+  "en": "The full .xapk, .apkm or .apk file",
+  "es": "El archivo .xapk, .apkm o .apk completo",
+  "de": "Die vollständige .xapk-, .apkm- oder .apk-Datei",
+  "it": "Il file .xapk, .apkm o .apk completo",
+  "pt": "O arquivo .xapk, .apkm ou .apk completo"
+ },
+ "Le jeu complet, sans serveur. La progression iPhone continue sur Android.": {
+  "en": "The full game, no server. iPhone progress carries on on Android.",
+  "es": "El juego completo, sin servidor. El progreso del iPhone continúa en Android.",
+  "de": "Das ganze Spiel, ohne Server. Der iPhone-Fortschritt geht auf Android weiter.",
+  "it": "Il gioco completo, senza server. I progressi dell'iPhone continuano su Android.",
+  "pt": "O jogo completo, sem servidor. O progresso do iPhone continua no Android."
+ },
+ "Le jeu du téléphone est déjà à jour ({version}).": {
+  "en": "The phone's game is already up to date ({version}).",
+  "es": "El juego del teléfono ya está al día ({version}).",
+  "de": "Das Spiel auf dem Handy ist schon aktuell ({version}).",
+  "it": "Il gioco del telefono è già aggiornato ({version}).",
+  "pt": "O jogo do celular já está atualizado ({version})."
+ },
+ "Le jeu du téléphone est déjà à jour ({version}). Le réinstaller quand même ?": {
+  "en": "The phone's game is already up to date ({version}). Reinstall it anyway?",
+  "es": "El juego del teléfono ya está al día ({version}). ¿Reinstalarlo de todos modos?",
+  "de": "Das Spiel auf dem Handy ist schon aktuell ({version}). Trotzdem neu installieren?",
+  "it": "Il gioco del telefono è già aggiornato ({version}). Reinstallarlo comunque?",
+  "pt": "O jogo do celular já está atualizado ({version}). Reinstalar mesmo assim?"
+ },
+ "Le jeu hors ligne est déjà sur le téléphone": {
+  "en": "The offline game is already on the phone",
+  "es": "El juego sin conexión ya está en el teléfono",
+  "de": "Das Offline-Spiel ist schon auf dem Handy",
+  "it": "Il gioco offline è già sul telefono",
+  "pt": "O jogo offline já está no celular"
+ },
+ "Le jeu hors ligne est déjà sur le téléphone.": {
+  "en": "The offline game is already on the phone.",
+  "es": "El juego sin conexión ya está en el teléfono.",
+  "de": "Das Offline-Spiel ist schon auf dem Handy.",
+  "it": "Il gioco offline è già sul telefono.",
+  "pt": "O jogo offline já está no celular."
+ },
+ "Le jeu hors ligne pour Android, installé par le câble.": {
+  "en": "The offline game for Android, installed by cable.",
+  "es": "El juego sin conexión para Android, instalado por cable.",
+  "de": "Das Offline-Spiel für Android, per Kabel installiert.",
+  "it": "Il gioco offline per Android, installato via cavo.",
+  "pt": "O jogo offline para Android, instalado pelo cabo."
+ },
+ "Le jeu hors ligne sur iPhone et iPad est en préparation.": {
+  "en": "The offline game for iPhone and iPad is in the works.",
+  "es": "El juego sin conexión para iPhone y iPad está en preparación.",
+  "de": "Das Offline-Spiel für iPhone und iPad ist in Arbeit.",
+  "it": "Il gioco offline per iPhone e iPad è in preparazione.",
+  "pt": "O jogo offline para iPhone e iPad está em preparação."
+ },
+ "Le jeu hors ligne sur ordinateur est en préparation.": {
+  "en": "The offline game for computers is in the works.",
+  "es": "El juego sin conexión para ordenador está en preparación.",
+  "de": "Das Offline-Spiel für Computer ist in Arbeit.",
+  "it": "Il gioco offline per computer è in preparazione.",
+  "pt": "O jogo offline para computador está em preparação."
+ },
+ "Le jeu refuse le certificat : il faut refaire l'étape 3.": {
+  "en": "The game refuses the certificate: do step 3 again.",
+  "es": "El juego rechaza el certificado: hay que repetir el paso 3.",
+  "de": "Das Spiel lehnt das Zertifikat ab: Schritt 3 wiederholen.",
+  "it": "Il gioco rifiuta il certificato: bisogna rifare il passo 3.",
+  "pt": "O jogo recusa o certificado: é preciso refazer o passo 3."
+ },
+ "Le moteur de l'outil ne démarre pas": {
+  "en": "The tool's engine does not start",
+  "es": "El motor de la herramienta no arranca",
+  "de": "Die Engine des Tools startet nicht",
+  "it": "Il motore dello strumento non si avvia",
+  "pt": "O motor da ferramenta não inicia"
+ },
+ "Le pare-feu de Windows bloque l'iPhone.": {
+  "en": "The Windows firewall blocks the iPhone.",
+  "es": "El firewall de Windows bloquea el iPhone.",
+  "de": "Die Windows-Firewall blockiert das iPhone.",
+  "it": "Il firewall di Windows blocca l'iPhone.",
+  "pt": "O firewall do Windows bloqueia o iPhone."
+ },
+ "Le téléphone": {
+  "en": "The phone",
+  "es": "El teléfono",
+  "de": "Das Handy",
+  "it": "Il telefono",
+  "pt": "O celular"
+ },
+ "Le téléphone a le jeu officiel : il faut d'abord installer le jeu hors ligne.": {
+  "en": "The phone has the official game: install the offline game first.",
+  "es": "El teléfono tiene el juego oficial: primero hay que instalar el juego sin conexión.",
+  "de": "Das Handy hat das offizielle Spiel: Zuerst das Offline-Spiel installieren.",
+  "it": "Il telefono ha il gioco ufficiale: prima bisogna installare il gioco offline.",
+  "pt": "O celular tem o jogo oficial: é preciso instalar o jogo offline primeiro."
+ },
+ "Lecture": {
+  "en": "Reading",
+  "es": "Lectura",
+  "de": "Lesen",
+  "it": "Lettura",
+  "pt": "Leitura"
+ },
+ "Les oublier ?": {
+  "en": "Forget them?",
+  "es": "¿Olvidarlos?",
+  "de": "Verwerfen?",
+  "it": "Dimenticarle?",
+  "pt": "Esquecê-las?"
+ },
+ "Les prochains APK seront signés avec la clé importée.": {
+  "en": "The next APKs will be signed with the imported key.",
+  "es": "Los próximos APK se firmarán con la clave importada.",
+  "de": "Die nächsten APKs werden mit dem importierten Schlüssel signiert.",
+  "it": "I prossimi APK saranno firmati con la chiave importata.",
+  "pt": "Os próximos APKs serão assinados com a chave importada."
+ },
+ "Les textes de l'outil.": {
+  "en": "The tool's texts.",
+  "es": "Los textos de la herramienta.",
+  "de": "Die Texte des Tools.",
+  "it": "I testi dello strumento.",
+  "pt": "Os textos da ferramenta."
+ },
+ "Mettre l'iPhone sur le même Wi-Fi que ce Mac.": {
+  "en": "Put the iPhone on the same Wi-Fi as this Mac.",
+  "es": "Poner el iPhone en el mismo Wi-Fi que este Mac.",
+  "de": "Das iPhone mit demselben Wi-Fi wie dieser Mac verbinden.",
+  "it": "Collegare l'iPhone alla stessa Wi-Fi di questo Mac.",
+  "pt": "Colocar o iPhone no mesmo Wi-Fi deste Mac."
+ },
+ "Mettre à jour le téléphone": {
+  "en": "Update the phone",
+  "es": "Actualizar el teléfono",
+  "de": "Handy aktualisieren",
+  "it": "Aggiorna il telefono",
+  "pt": "Atualizar o celular"
+ },
+ "Mise à jour de l'outil": {
+  "en": "Tool update",
+  "es": "Actualización de la herramienta",
+  "de": "Tool-Update",
+  "it": "Aggiornamento dello strumento",
+  "pt": "Atualização da ferramenta"
+ },
+ "Mise à jour du téléphone": {
+  "en": "Phone update",
+  "es": "Actualización del teléfono",
+  "de": "Handy-Update",
+  "it": "Aggiornamento del telefono",
+  "pt": "Atualização do celular"
+ },
+ "Modes": {
+  "en": "Modes",
+  "es": "Modos",
+  "de": "Modi",
+  "it": "Modalità",
+  "pt": "Modos"
+ },
+ "Modifications": {
+  "en": "Changes",
+  "es": "Modificación",
+  "de": "Änderungen",
+  "it": "Modifiche",
+  "pt": "Modificações"
+ },
+ "Montrer": {
+  "en": "Show",
+  "es": "Mostrar",
+  "de": "Zeigen",
+  "it": "Mostra",
+  "pt": "Mostrar"
+ },
+ "Nettoyer": {
+  "en": "Clean up",
+  "es": "Limpiar",
+  "de": "Aufräumen",
+  "it": "Pulisci",
+  "pt": "Limpar"
+ },
+ "Nettoyé": {
+  "en": "Cleaned up",
+  "es": "Limpiado",
+  "de": "Aufgeräumt",
+  "it": "Pulito",
+  "pt": "Limpo"
+ },
+ "Niveau max pour tous": {
+  "en": "Max level for all",
+  "es": "Nivel máximo para todos",
+  "de": "Max. Stufe für alle",
+  "it": "Livello massimo per tutti",
+  "pt": "Nível máximo para todos"
+ },
+ "Niveau max pour toutes": {
+  "en": "Max level for all",
+  "es": "Nivel máximo para todas",
+  "de": "Max. Stufe für alle",
+  "it": "Livello massimo per tutte",
+  "pt": "Nível máximo para todas"
+ },
+ "OK": {
+  "en": "OK",
+  "es": "OK",
+  "de": "OK",
+  "it": "OK",
+  "pt": "OK"
+ },
+ "OUTILS": {
+  "en": "TOOLS",
+  "es": "HERRAMIENTAS",
+  "de": "TOOLS",
+  "it": "STRUMENTI",
+  "pt": "FERRAMENTAS"
+ },
+ "Onglet inconnu.": {
+  "en": "Unknown tab.",
+  "es": "Pestaña desconocida.",
+  "de": "Unbekannter Tab.",
+  "it": "Scheda sconosciuta.",
+  "pt": "Aba desconhecida."
+ },
+ "Ordinateur": {
+  "en": "Computer",
+  "es": "Ordenador",
+  "de": "Computer",
+  "it": "Computer",
+  "pt": "Computador"
+ },
+ "Oublier": {
+  "en": "Forget",
+  "es": "Olvidar",
+  "de": "Verwerfen",
+  "it": "Dimentica",
+  "pt": "Esquecer"
+ },
+ "Outil {v} · Jeu {g}": {
+  "en": "Tool {v} · Game {g}",
+  "es": "Herramienta {v} · Juego {g}",
+  "de": "Tool {v} · Spiel {g}",
+  "it": "Strumento {v} · Gioco {g}",
+  "pt": "Ferramenta {v} · Jogo {g}"
+ },
+ "Outil à jour": {
+  "en": "Tool up to date",
+  "es": "Herramienta al día",
+  "de": "Tool aktuell",
+  "it": "Strumento aggiornato",
+  "pt": "Ferramenta atualizada"
+ },
+ "Outils Android": {
+  "en": "Android tools",
+  "es": "Herramientas Android",
+  "de": "Android-Tools",
+  "it": "Strumenti Android",
+  "pt": "Ferramentas Android"
+ },
+ "Outils Android (adb)": {
+  "en": "Android tools (adb)",
+  "es": "Herramientas Android (adb)",
+  "de": "Android-Tools (adb)",
+  "it": "Strumenti Android (adb)",
+  "pt": "Ferramentas Android (adb)"
+ },
+ "Outils Android installés": {
+  "en": "Android tools installed",
+  "es": "Herramientas Android instaladas",
+  "de": "Android-Tools installiert",
+  "it": "Strumenti Android installati",
+  "pt": "Ferramentas Android instaladas"
+ },
+ "Ouvrir": {
+  "en": "Open",
+  "es": "Abrir",
+  "de": "Öffnen",
+  "it": "Apri",
+  "pt": "Abrir"
+ },
+ "Ouvrir Ranger Rumble et attendre l'écran d'accueil.": {
+  "en": "Open Ranger Rumble and wait for the home screen.",
+  "es": "Abrir Ranger Rumble y esperar la pantalla de inicio.",
+  "de": "Ranger Rumble öffnen und auf den Startbildschirm warten.",
+  "it": "Aprire Ranger Rumble e aspettare la schermata iniziale.",
+  "pt": "Abrir o Ranger Rumble e esperar a tela inicial."
+ },
+ "Page d'ouverture": {
+  "en": "Start page",
+  "es": "Página de inicio",
+  "de": "Startseite",
+  "it": "Pagina iniziale",
+  "pt": "Página inicial"
+ },
+ "Pare-feu": {
+  "en": "Firewall",
+  "es": "Firewall",
+  "de": "Firewall",
+  "it": "Firewall",
+  "pt": "Firewall"
+ },
+ "Pas de Ranger Rumble": {
+  "en": "No Ranger Rumble",
+  "es": "Sin Ranger Rumble",
+  "de": "Kein Ranger Rumble",
+  "it": "Nessun Ranger Rumble",
+  "pt": "Sem Ranger Rumble"
+ },
+ "Pas encore choisi": {
+  "en": "Not chosen yet",
+  "es": "Aún no elegido",
+  "de": "Noch nicht gewählt",
+  "it": "Non ancora scelto",
+  "pt": "Ainda não escolhido"
+ },
+ "Pas encore installés": {
+  "en": "Not installed yet",
+  "es": "Aún no instaladas",
+  "de": "Noch nicht installiert",
+  "it": "Non ancora installati",
+  "pt": "Ainda não instaladas"
+ },
+ "Pas encore vérifié.": {
+  "en": "Not checked yet.",
+  "es": "Aún no comprobado.",
+  "de": "Noch nicht geprüft.",
+  "it": "Non ancora controllato.",
+  "pt": "Ainda não verificado."
+ },
+ "Plus tard": {
+  "en": "Later",
+  "es": "Más tarde",
+  "de": "Später",
+  "it": "Più tardi",
+  "pt": "Mais tarde"
+ },
+ "Pour mettre à jour, depuis ce Mac, un jeu installé par un autre ordinateur. La clé actuelle est gardée à côté.": {
+  "en": "To update from this Mac a game installed by another computer. The current key is kept alongside.",
+  "es": "Para actualizar desde este Mac un juego instalado por otro ordenador. La clave actual se conserva al lado.",
+  "de": "Um von diesem Mac ein Spiel zu aktualisieren, das ein anderer Computer installiert hat. Der aktuelle Schlüssel bleibt daneben erhalten.",
+  "it": "Per aggiornare da questo Mac un gioco installato da un altro computer. La chiave attuale resta accanto.",
+  "pt": "Para atualizar, a partir deste Mac, um jogo instalado por outro computador. A chave atual fica guardada ao lado."
+ },
+ "Première utilisation": {
+  "en": "First use",
+  "es": "Primer uso",
+  "de": "Erste Nutzung",
+  "it": "Primo utilizzo",
+  "pt": "Primeiro uso"
+ },
+ "Prochainement": {
+  "en": "Coming soon",
+  "es": "Próximamente",
+  "de": "Demnächst",
+  "it": "Prossimamente",
+  "pt": "Em breve"
+ },
+ "Profil": {
+  "en": "Profile",
+  "es": "Perfil",
+  "de": "Profil",
+  "it": "Profilo",
+  "pt": "Perfil"
+ },
+ "Progression": {
+  "en": "Progress",
+  "es": "Progreso",
+  "de": "Fortschritt",
+  "it": "Progressi",
+  "pt": "Progresso"
+ },
+ "Projet de fans, sans lien avec Sony Interactive Entertainment, Insomniac Games ou Oh BiBi.": {
+  "en": "Fan project, not affiliated with Sony Interactive Entertainment, Insomniac Games or Oh BiBi.",
+  "es": "Proyecto de fans, sin relación con Sony Interactive Entertainment, Insomniac Games ni Oh BiBi.",
+  "de": "Fanprojekt, ohne Verbindung zu Sony Interactive Entertainment, Insomniac Games oder Oh BiBi.",
+  "it": "Progetto di fan, senza legami con Sony Interactive Entertainment, Insomniac Games o Oh BiBi.",
+  "pt": "Projeto de fãs, sem vínculo com Sony Interactive Entertainment, Insomniac Games ou Oh BiBi."
+ },
+ "Préparation": {
+  "en": "Preparing",
+  "es": "Preparación",
+  "de": "Vorbereitung",
+  "it": "Preparazione",
+  "pt": "Preparação"
+ },
+ "Prêt": {
+  "en": "Ready",
+  "es": "Listo",
+  "de": "Bereit",
+  "it": "Pronto",
+  "pt": "Pronto"
+ },
+ "Quitter": {
+  "en": "Quit",
+  "es": "Salir",
+  "de": "Beenden",
+  "it": "Esci",
+  "pt": "Sair"
+ },
+ "Quitter quand même ? Elle sera arrêtée.": {
+  "en": "Quit anyway? It will be stopped.",
+  "es": "¿Salir de todos modos? Se detendrá.",
+  "de": "Trotzdem beenden? Sie wird gestoppt.",
+  "it": "Uscire comunque? Verrà fermata.",
+  "pt": "Sair mesmo assim? Ela será interrompida."
+ },
+ "Rechercher": {
+  "en": "Search",
+  "es": "Buscar",
+  "de": "Suchen",
+  "it": "Cerca",
+  "pt": "Buscar"
+ },
+ "Recréer": {
+  "en": "Recreate",
+  "es": "Volver a crear",
+  "de": "Neu erstellen",
+  "it": "Ricrea",
+  "pt": "Recriar"
+ },
+ "Recréer le certificat ?": {
+  "en": "Recreate the certificate?",
+  "es": "¿Volver a crear el certificado?",
+  "de": "Zertifikat neu erstellen?",
+  "it": "Ricreare il certificato?",
+  "pt": "Recriar o certificado?"
+ },
+ "Relancer": {
+  "en": "Restart",
+  "es": "Reiniciar",
+  "de": "Neu starten",
+  "it": "Riavvia",
+  "pt": "Reiniciar"
+ },
+ "Remplacer": {
+  "en": "Replace",
+  "es": "Reemplazar",
+  "de": "Ersetzen",
+  "it": "Sostituisci",
+  "pt": "Substituir"
+ },
+ "Remplacer la clé de ce Mac ?": {
+  "en": "Replace this Mac's key?",
+  "es": "¿Reemplazar la clave de este Mac?",
+  "de": "Schlüssel dieses Mac ersetzen?",
+  "it": "Sostituire la chiave di questo Mac?",
+  "pt": "Substituir a chave deste Mac?"
+ },
+ "Retirer": {
+  "en": "Remove",
+  "es": "Quitar",
+  "de": "Entfernen",
+  "it": "Togli",
+  "pt": "Tirar"
+ },
+ "Rien à ajouter ici.": {
+  "en": "Nothing to add here.",
+  "es": "Nada que añadir aquí.",
+  "de": "Hier gibt es nichts hinzuzufügen.",
+  "it": "Niente da aggiungere qui.",
+  "pt": "Nada a adicionar aqui."
+ },
+ "Rien à nettoyer": {
+  "en": "Nothing to clean up",
+  "es": "Nada que limpiar",
+  "de": "Nichts aufzuräumen",
+  "it": "Niente da pulire",
+  "pt": "Nada a limpar"
+ },
+ "Rien à retirer ici.": {
+  "en": "Nothing to remove here.",
+  "es": "Nada que quitar aquí.",
+  "de": "Hier gibt es nichts zu entfernen.",
+  "it": "Niente da togliere qui.",
+  "pt": "Nada a tirar aqui."
+ },
+ "Réduites": {
+  "en": "Reduced",
+  "es": "Reducidas",
+  "de": "Reduziert",
+  "it": "Ridotte",
+  "pt": "Reduzidas"
+ },
+ "Réessayer": {
+  "en": "Try again",
+  "es": "Reintentar",
+  "de": "Erneut versuchen",
+  "it": "Riprova",
+  "pt": "Tentar de novo"
+ },
+ "Réglage inconnu : {key}": {
+  "en": "Unknown setting: {key}",
+  "es": "Ajuste desconocido: {key}",
+  "de": "Unbekannte Einstellung: {key}",
+  "it": "Impostazione sconosciuta: {key}",
+  "pt": "Ajuste desconhecido: {key}"
+ },
+ "Réglages": {
+  "en": "Settings",
+  "es": "Ajustes",
+  "de": "Einstellungen",
+  "it": "Impostazioni",
+  "pt": "Ajustes"
+ },
+ "Réglages > Général > Informations > Réglages des certificats : activer RatchetRR.": {
+  "en": "Settings > General > About > Certificate Trust Settings: turn on RatchetRR.",
+  "es": "Ajustes > General > Información > Ajustes de confianza de certificados: activar RatchetRR.",
+  "de": "Einstellungen > Allgemein > Info > Zertifikatsvertrauenseinstellungen: RatchetRR einschalten.",
+  "it": "Impostazioni > Generali > Info > Impostazioni certificati attendibili: attivare RatchetRR.",
+  "pt": "Ajustes > Geral > Sobre > Ajustes de Confiança de Certificados: ativar RatchetRR."
+ },
+ "Scanner le QR code avec l'appareil photo, puis télécharger le profil RatchetRR.": {
+  "en": "Scan the QR code with the camera, then download the RatchetRR profile.",
+  "es": "Escanear el código QR con la cámara y luego descargar el perfil RatchetRR.",
+  "de": "Den QR-Code mit der Kamera scannen, dann das Profil RatchetRR laden.",
+  "it": "Scansionare il codice QR con la fotocamera, poi scaricare il profilo RatchetRR.",
+  "pt": "Ler o código QR com a câmera e depois transferir o perfil RatchetRR."
+ },
+ "Réglages > Général > tout en bas, « VPN et gestion de l'appareil » > RatchetRR : valider le profil (Installer).": {
+  "en": "Settings > General > at the very bottom, “VPN & Device Management” > RatchetRR: validate the profile (Install).",
+  "es": "Ajustes > General > abajo del todo, «VPN y gestión de dispositivos» > RatchetRR: validar el perfil (Instalar).",
+  "de": "Einstellungen > Allgemein > ganz unten „VPN und Geräteverwaltung“ > RatchetRR: Profil bestätigen (Installieren).",
+  "it": "Impostazioni > Generali > in fondo, «VPN e gestione dispositivi» > RatchetRR: convalidare il profilo (Installa).",
+  "pt": "Ajustes > Geral > bem no fim, «VPN e Gerenciamento de Dispositivos» > RatchetRR: validar o perfil (Instalar)."
+ },
+ "Réglages > Général > Informations : tout en bas, « Réglages des certificats » > activer RatchetRR.": {
+  "en": "Settings > General > About: at the very bottom, “Certificate Trust Settings” > turn on RatchetRR.",
+  "es": "Ajustes > General > Información: abajo del todo, «Ajustes de confianza de certificados» > activar RatchetRR.",
+  "de": "Einstellungen > Allgemein > Info: ganz unten „Zertifikatsvertrauenseinstellungen“ > RatchetRR einschalten.",
+  "it": "Impostazioni > Generali > Info: in fondo, «Impostazioni certificati attendibili» > attivare RatchetRR.",
+  "pt": "Ajustes > Geral > Sobre: bem no fim, «Ajustes de Confiança de Certificados» > ativar RatchetRR."
+ },
+ "Le jeu refuse le certificat : il faut refaire l'étape 4.": {
+  "en": "The game refuses the certificate: step 4 must be done again.",
+  "es": "El juego rechaza el certificado: hay que repetir el paso 4.",
+  "de": "Das Spiel lehnt das Zertifikat ab: Schritt 4 muss wiederholt werden.",
+  "it": "Il gioco rifiuta il certificato: bisogna rifare il passo 4.",
+  "pt": "O jogo recusa o certificado: é preciso refazer o passo 4."
+ },
+ "Réinitialiser": {
+  "en": "Reset",
+  "es": "Restablecer",
+  "de": "Zurücksetzen",
+  "it": "Ripristina",
+  "pt": "Redefinir"
+ },
+ "Réinitialiser les réglages": {
+  "en": "Reset settings",
+  "es": "Restablecer los ajustes",
+  "de": "Einstellungen zurücksetzen",
+  "it": "Ripristina le impostazioni",
+  "pt": "Redefinir os ajustes"
+ },
+ "Réinitialiser les réglages ?": {
+  "en": "Reset settings?",
+  "es": "¿Restablecer los ajustes?",
+  "de": "Einstellungen zurücksetzen?",
+  "it": "Ripristinare le impostazioni?",
+  "pt": "Redefinir os ajustes?"
+ },
+ "Réinstaller": {
+  "en": "Reinstall",
+  "es": "Reinstalar",
+  "de": "Neu installieren",
+  "it": "Reinstalla",
+  "pt": "Reinstalar"
+ },
+ "Réparer": {
+  "en": "Repair",
+  "es": "Reparar",
+  "de": "Reparieren",
+  "it": "Ripara",
+  "pt": "Reparar"
+ },
+ "Réparer les composants": {
+  "en": "Repair the components",
+  "es": "Reparar los componentes",
+  "de": "Komponenten reparieren",
+  "it": "Ripara i componenti",
+  "pt": "Reparar os componentes"
+ },
+ "Réparer les composants ?": {
+  "en": "Repair the components?",
+  "es": "¿Reparar los componentes?",
+  "de": "Komponenten reparieren?",
+  "it": "Riparare i componenti?",
+  "pt": "Reparar os componentes?"
+ },
+ "Sauvegarde copiée ! Il faut ensuite supprimer le profil RatchetRR de l'iPhone.": {
+  "en": "Save copied! Then remove the RatchetRR profile from the iPhone.",
+  "es": "¡Partida copiada! Después hay que eliminar el perfil RatchetRR del iPhone.",
+  "de": "Spielstand kopiert! Danach das Profil RatchetRR vom iPhone entfernen.",
+  "it": "Salvataggio copiato! Poi bisogna rimuovere il profilo RatchetRR dall'iPhone.",
+  "pt": "Jogo salvo copiado! Depois é preciso remover o perfil RatchetRR do iPhone."
+ },
+ "Sauvegarde du téléphone illisible : la sauvegarde choisie pour l'APK sera utilisée.": {
+  "en": "Phone save unreadable: the save chosen for the APK will be used.",
+  "es": "Partida del teléfono ilegible: se usará la partida elegida para el APK.",
+  "de": "Spielstand des Handys unlesbar: Der für die APK gewählte Spielstand wird benutzt.",
+  "it": "Salvataggio del telefono illeggibile: verrà usato il salvataggio scelto per l'APK.",
+  "pt": "Jogo salvo do celular ilegível: o jogo salvo escolhido para o APK será usado."
+ },
+ "Scanner le QR code avec l'appareil photo, puis installer le profil RatchetRR (Réglages > Profil téléchargé).": {
+  "en": "Scan the QR code with the camera, then install the RatchetRR profile (Settings > Profile Downloaded).",
+  "es": "Escanear el código QR con la cámara y luego instalar el perfil RatchetRR (Ajustes > Perfil descargado).",
+  "de": "Den QR-Code mit der Kamera scannen, dann das Profil RatchetRR installieren (Einstellungen > Profil geladen).",
+  "it": "Scansionare il codice QR con la fotocamera, poi installare il profilo RatchetRR (Impostazioni > Profilo scaricato).",
+  "pt": "Escanear o código QR com a câmera e depois instalar o perfil RatchetRR (Ajustes > Perfil Transferido)."
+ },
+ "Signature": {
+  "en": "Signing",
+  "es": "Firma",
+  "de": "Signatur",
+  "it": "Firma",
+  "pt": "Assinatura"
+ },
+ "Signature {s} · créée le {d}": {
+  "en": "Signature {s} · created on {d}",
+  "es": "Firma {s} · creada el {d}",
+  "de": "Signatur {s} · erstellt am {d}",
+  "it": "Firma {s} · creata il {d}",
+  "pt": "Assinatura {s} · criada em {d}"
+ },
+ "Sombre": {
+  "en": "Dark",
+  "es": "Oscuro",
+  "de": "Dunkel",
+  "it": "Scuro",
+  "pt": "Escuro"
+ },
+ "Son à la fin d'une tâche": {
+  "en": "Sound when a task ends",
+  "es": "Sonido al terminar una tarea",
+  "de": "Ton am Ende einer Aufgabe",
+  "it": "Suono alla fine di un'attività",
+  "pt": "Som no fim de uma tarefa"
+ },
+ "Source inconnue.": {
+  "en": "Unknown source.",
+  "es": "Origen desconocido.",
+  "de": "Unbekannte Quelle.",
+  "it": "Origine sconosciuta.",
+  "pt": "Origem desconhecida."
+ },
+ "Sur l'iPhone": {
+  "en": "On the iPhone",
+  "es": "En el iPhone",
+  "de": "Auf dem iPhone",
+  "it": "Sull'iPhone",
+  "pt": "No iPhone"
+ },
+ "Thème": {
+  "en": "Theme",
+  "es": "Tema",
+  "de": "Design",
+  "it": "Tema",
+  "pt": "Tema"
+ },
+ "Toucher « Autoriser » sur le téléphone": {
+  "en": "Tap “Allow” on the phone",
+  "es": "Tocar «Permitir» en el teléfono",
+  "de": "Auf dem Handy „Zulassen“ tippen",
+  "it": "Toccare «Consenti» sul telefono",
+  "pt": "Tocar em “Permitir” no celular"
+ },
+ "Tout": {
+  "en": "Everything",
+  "es": "Todo",
+  "de": "Alles",
+  "it": "Tutto",
+  "pt": "Tudo"
+ },
+ "Tout ce que l'outil a écrit depuis son ouverture.": {
+  "en": "Everything the tool has written since it opened.",
+  "es": "Todo lo que la herramienta ha escrito desde que se abrió.",
+  "de": "Alles, was das Tool seit dem Öffnen geschrieben hat.",
+  "it": "Tutto ciò che lo strumento ha scritto dall'apertura.",
+  "pt": "Tudo o que a ferramenta escreveu desde que foi aberta."
+ },
+ "Toute la sauvegarde. Avec précaution.": {
+  "en": "The whole save. Handle with care.",
+  "es": "Toda la partida. Con cuidado.",
+  "de": "Der ganze Spielstand. Vorsichtig.",
+  "it": "Tutto il salvataggio. Con cautela.",
+  "pt": "O jogo salvo inteiro. Com cuidado."
+ },
+ "Télécharger": {
+  "en": "Download",
+  "es": "Descargar",
+  "de": "Herunterladen",
+  "it": "Scarica",
+  "pt": "Baixar"
+ },
+ "Téléphone": {
+  "en": "Phone",
+  "es": "Teléfono",
+  "de": "Handy",
+  "it": "Telefono",
+  "pt": "Celular"
+ },
+ "Téléphone à jour": {
+  "en": "Phone up to date",
+  "es": "Teléfono al día",
+  "de": "Handy aktuell",
+  "it": "Telefono aggiornato",
+  "pt": "Celular atualizado"
+ },
+ "Téléphones branchés": {
+  "en": "Plugged-in phones",
+  "es": "Teléfonos conectados",
+  "de": "Angeschlossene Handys",
+  "it": "Telefoni collegati",
+  "pt": "Celulares conectados"
+ },
+ "Un autre Ranger Rumble est sur le téléphone. Le désinstaller pour installer celui-ci ? Sa progression sur le téléphone sera effacée (une copie est gardée).": {
+  "en": "Another Ranger Rumble is on the phone. Uninstall it to install this one? Its progress on the phone will be erased (a copy is kept).",
+  "es": "Hay otro Ranger Rumble en el teléfono. ¿Desinstalarlo para instalar este? Su progreso en el teléfono se borrará (se conserva una copia).",
+  "de": "Ein anderes Ranger Rumble ist auf dem Handy. Deinstallieren, um dieses zu installieren? Sein Fortschritt auf dem Handy wird gelöscht (eine Kopie bleibt erhalten).",
+  "it": "Sul telefono c'è un altro Ranger Rumble. Disinstallarlo per installare questo? I suoi progressi sul telefono verranno cancellati (una copia viene conservata).",
+  "pt": "Há outro Ranger Rumble no celular. Desinstalá-lo para instalar este? O progresso dele no celular será apagado (uma cópia é guardada)."
+ },
+ "Un dossier d'images pour l'artbook du jeu": {
+  "en": "An image folder for the game's artbook",
+  "es": "Una carpeta de imágenes para el artbook del juego",
+  "de": "Ein Bilderordner für das Artbook des Spiels",
+  "it": "Una cartella di immagini per l'artbook del gioco",
+  "pt": "Uma pasta de imagens para o artbook do jogo"
+ },
+ "Un fichier…": {
+  "en": "A file…",
+  "es": "Un archivo…",
+  "de": "Eine Datei…",
+  "it": "Un file…",
+  "pt": "Um arquivo…"
+ },
+ "Une copie…": {
+  "en": "A copy…",
+  "es": "Una copia…",
+  "de": "Eine Kopie…",
+  "it": "Una copia…",
+  "pt": "Uma cópia…"
+ },
+ "Une question posée à GitHub, rien d'autre.": {
+  "en": "One question sent to GitHub, nothing else.",
+  "es": "Una consulta a GitHub, nada más.",
+  "de": "Eine Anfrage an GitHub, sonst nichts.",
+  "it": "Una domanda a GitHub, nient'altro.",
+  "pt": "Uma pergunta ao GitHub, nada mais."
+ },
+ "Une tâche est déjà en cours : {name}.": {
+  "en": "A task is already running: {name}.",
+  "es": "Ya hay una tarea en curso: {name}.",
+  "de": "Eine Aufgabe läuft schon: {name}.",
+  "it": "Un'attività è già in corso: {name}.",
+  "pt": "Uma tarefa já está em andamento: {name}."
+ },
+ "Une tâche est en cours": {
+  "en": "A task is running",
+  "es": "Hay una tarea en curso",
+  "de": "Eine Aufgabe läuft",
+  "it": "Un'attività è in corso",
+  "pt": "Uma tarefa está em andamento"
+ },
+ "Utiliser pour l'APK": {
+  "en": "Use for the APK",
+  "es": "Usar para el APK",
+  "de": "Für die APK benutzen",
+  "it": "Usa per l'APK",
+  "pt": "Usar para o APK"
+ },
+ "VERSIONS DU JEU": {
+  "en": "GAME VERSIONS",
+  "es": "VERSIONES DEL JUEGO",
+  "de": "SPIELVERSIONEN",
+  "it": "VERSIONI DEL GIOCO",
+  "pt": "VERSÕES DO JOGO"
+ },
+ "Valeur refusée pour {key}.": {
+  "en": "Value refused for {key}.",
+  "es": "Valor rechazado para {key}.",
+  "de": "Wert für {key} abgelehnt.",
+  "it": "Valore rifiutato per {key}.",
+  "pt": "Valor recusado para {key}."
+ },
+ "Valeur refusée.": {
+  "en": "Value refused.",
+  "es": "Valor rechazado.",
+  "de": "Wert abgelehnt.",
+  "it": "Valore rifiutato.",
+  "pt": "Valor recusado."
+ },
+ "Versions": {
+  "en": "Versions",
+  "es": "Versiones",
+  "de": "Versionen",
+  "it": "Versioni",
+  "pt": "Versões"
+ },
+ "Voir": {
+  "en": "View",
+  "es": "Ver",
+  "de": "Ansehen",
+  "it": "Vedi",
+  "pt": "Ver"
+ },
+ "Voir le fichier": {
+  "en": "Show the file",
+  "es": "Ver el archivo",
+  "de": "Datei zeigen",
+  "it": "Mostra il file",
+  "pt": "Ver o arquivo"
+ },
+ "Vérification impossible (pas de connexion ?).": {
+  "en": "Could not check (no connection?).",
+  "es": "No se pudo comprobar (¿sin conexión?).",
+  "de": "Prüfung nicht möglich (keine Verbindung?).",
+  "it": "Verifica impossibile (nessuna connessione?).",
+  "pt": "Não foi possível verificar (sem conexão?)."
+ },
+ "jeu hors ligne {v}, installé par ce Mac": {
+  "en": "offline game {v}, installed by this Mac",
+  "es": "juego sin conexión {v}, instalado por este Mac",
+  "de": "Offline-Spiel {v}, von diesem Mac installiert",
+  "it": "gioco offline {v}, installato da questo Mac",
+  "pt": "jogo offline {v}, instalado por este Mac"
+ },
+ "jeu hors ligne {v}, installé par un autre ordinateur": {
+  "en": "offline game {v}, installed by another computer",
+  "es": "juego sin conexión {v}, instalado por otro ordenador",
+  "de": "Offline-Spiel {v}, von einem anderen Computer installiert",
+  "it": "gioco offline {v}, installato da un altro computer",
+  "pt": "jogo offline {v}, instalado por outro computador"
+ },
+ "jeu officiel": {
+  "en": "official game",
+  "es": "juego oficial",
+  "de": "offizielles Spiel",
+  "it": "gioco ufficiale",
+  "pt": "jogo oficial"
+ },
+ "pas de Ranger Rumble": {
+  "en": "no Ranger Rumble",
+  "es": "sin Ranger Rumble",
+  "de": "kein Ranger Rumble",
+  "it": "nessun Ranger Rumble",
+  "pt": "sem Ranger Rumble"
+ },
+ "{m} : jeu hors ligne {v}.": {
+  "en": "{m}: offline game {v}.",
+  "es": "{m}: juego sin conexión {v}.",
+  "de": "{m}: Offline-Spiel {v}.",
+  "it": "{m}: gioco offline {v}.",
+  "pt": "{m}: jogo offline {v}."
+ },
+ "{m} : jeu officiel.": {
+  "en": "{m}: official game.",
+  "es": "{m}: juego oficial.",
+  "de": "{m}: offizielles Spiel.",
+  "it": "{m}: gioco ufficiale.",
+  "pt": "{m}: jogo oficial."
+ },
+ "{m} : pas de Ranger Rumble.": {
+  "en": "{m}: no Ranger Rumble.",
+  "es": "{m}: sin Ranger Rumble.",
+  "de": "{m}: kein Ranger Rumble.",
+  "it": "{m}: nessun Ranger Rumble.",
+  "pt": "{m}: sem Ranger Rumble."
+ },
+ "{n} Mo dans la Corbeille": {
+  "en": "{n} MB in the Trash",
+  "es": "{n} MB en la Papelera",
+  "de": "{n} MB im Papierkorb",
+  "it": "{n} MB nel Cestino",
+  "pt": "{n} MB no Lixo"
+ },
+ "{n} Mo laissés par une fabrication arrêtée": {
+  "en": "{n} MB left by a stopped build",
+  "es": "{n} MB dejados por una creación detenida",
+  "de": "{n} MB von einer abgebrochenen Erstellung",
+  "it": "{n} MB lasciati da una creazione interrotta",
+  "pt": "{n} MB deixados por uma criação interrompida"
+ },
+ "{n} modifiée(s)": {
+  "en": "{n} changed",
+  "es": "{n} cambiada(s)",
+  "de": "{n} geändert",
+  "it": "{n} modificata/e",
+  "pt": "{n} alterada(s)"
+ },
+ "« Réduire les animations » du Mac est suivi aussi.": {
+  "en": "The Mac's “Reduce motion” is followed too.",
+  "es": "También se respeta «Reducir movimiento» del Mac.",
+  "de": "„Bewegung reduzieren“ des Mac wird auch beachtet.",
+  "it": "Viene seguito anche «Riduci movimento» del Mac.",
+  "pt": "O “Reduzir movimento” do Mac também é respeitado."
+ },
+ "À autoriser": {
+  "en": "Needs approval",
+  "es": "Por autorizar",
+  "de": "Zulassen nötig",
+  "it": "Da autorizzare",
+  "pt": "A autorizar"
+ },
+ "À côté de l'APK": {
+  "en": "Next to the APK",
+  "es": "Junto al APK",
+  "de": "Neben der APK",
+  "it": "Accanto all'APK",
+  "pt": "Ao lado do APK"
+ },
+ "À garder en lieu sûr.": {
+  "en": "Keep it somewhere safe.",
+  "es": "Guardar en un lugar seguro.",
+  "de": "Sicher aufbewahren.",
+  "it": "Da conservare in un posto sicuro.",
+  "pt": "Guardar em lugar seguro."
+ },
+ "À jour.": {
+  "en": "Up to date.",
+  "es": "Al día.",
+  "de": "Aktuell.",
+  "it": "Aggiornato.",
+  "pt": "Atualizado."
+ },
+ "À propos": {
+  "en": "About",
+  "es": "Acerca de",
+  "de": "Über",
+  "it": "Informazioni",
+  "pt": "Sobre"
+ },
+ "À réparer": {
+  "en": "Needs repair",
+  "es": "Por reparar",
+  "de": "Reparatur nötig",
+  "it": "Da riparare",
+  "pt": "A reparar"
+ },
+ "Échec": {
+  "en": "Failed",
+  "es": "Error",
+  "de": "Fehlgeschlagen",
+  "it": "Errore",
+  "pt": "Falha"
+ },
+ "Chemin du fichier :": {
+  "en": "File path:",
+  "es": "Ruta del archivo:",
+  "de": "Dateipfad:",
+  "it": "Percorso del file:",
+  "pt": "Caminho do arquivo:"
+ },
+ "Or": {
+  "en": "Gold",
+  "es": "Oro",
+  "de": "Gold",
+  "it": "Oro",
+  "pt": "Ouro"
+ },
+ "Bleu": {
+  "en": "Blue",
+  "es": "Azul",
+  "de": "Blau",
+  "it": "Blu",
+  "pt": "Azul"
+ },
+ "Vert": {
+  "en": "Green",
+  "es": "Verde",
+  "de": "Grün",
+  "it": "Verde",
+  "pt": "Verde"
+ },
+ "Violet": {
+  "en": "Purple",
+  "es": "Violeta",
+  "de": "Violett",
+  "it": "Viola",
+  "pt": "Roxo"
+ },
+ "Choisir un dossier": {
+  "en": "Choose a folder",
+  "es": "Elegir una carpeta",
+  "de": "Ordner wählen",
+  "it": "Scegli una cartella",
+  "pt": "Escolher uma pasta"
+ },
+ "Choisir un fichier": {
+  "en": "Choose a file",
+  "es": "Elegir un archivo",
+  "de": "Datei wählen",
+  "it": "Scegli un file",
+  "pt": "Escolher um arquivo"
+ },
+ "Demande inconnue.": {
+  "en": "Unknown request.",
+  "es": "Solicitud desconocida.",
+  "de": "Unbekannte Anfrage.",
+  "it": "Richiesta sconosciuta.",
+  "pt": "Pedido desconhecido."
+ },
+ "Enregistrer": {
+  "en": "Save",
+  "es": "Guardar",
+  "de": "Speichern",
+  "it": "Salva",
+  "pt": "Salvar"
+ },
+ "Environnement": {
+  "en": "Environment",
+  "es": "Entorno",
+  "de": "Umgebung",
+  "it": "Ambiente",
+  "pt": "Ambiente"
+ },
+ "Il faut une connexion Internet.": {
+  "en": "An Internet connection is needed.",
+  "es": "Hace falta conexión a Internet.",
+  "de": "Eine Internetverbindung ist nötig.",
+  "it": "Serve una connessione a Internet.",
+  "pt": "É preciso uma conexão com a Internet."
+ },
+ "Installation des composants (quelques minutes)": {
+  "en": "Installing the components (a few minutes)",
+  "es": "Instalación de los componentes (unos minutos)",
+  "de": "Installation der Komponenten (einige Minuten)",
+  "it": "Installazione dei componenti (qualche minuto)",
+  "pt": "Instalação dos componentes (alguns minutos)"
+ },
+ "L'installation a échoué.": {
+  "en": "The installation failed.",
+  "es": "La instalación ha fallado.",
+  "de": "Die Installation ist fehlgeschlagen.",
+  "it": "L'installazione non è riuscita.",
+  "pt": "A instalação falhou."
+ },
+ "L'ordinateur reste éveillé pendant une fabrication ou une installation.": {
+  "en": "The computer stays awake during a build or an installation.",
+  "es": "El ordenador sigue activo durante una creación o una instalación.",
+  "de": "Der Computer bleibt beim Erstellen oder Installieren wach.",
+  "it": "Il computer resta attivo durante una creazione o un'installazione.",
+  "pt": "O computador fica ativo durante uma criação ou uma instalação."
+ },
+ "L'outil a besoin de ses composants : Python et ses modules (environ 300 Mo, une seule fois).": {
+  "en": "The tool needs its components: Python and its modules (about 300 MB, once).",
+  "es": "La herramienta necesita sus componentes: Python y sus módulos (unos 300 MB, una sola vez).",
+  "de": "Das Tool braucht seine Komponenten: Python und seine Module (etwa 300 MB, nur einmal).",
+  "it": "Lo strumento ha bisogno dei suoi componenti: Python e i suoi moduli (circa 300 MB, una sola volta).",
+  "pt": "A ferramenta precisa dos seus componentes: Python e os seus módulos (cerca de 300 MB, uma só vez)."
+ },
+ "Le journal de l'outil apparaît ici.": {
+  "en": "The tool's log shows here.",
+  "es": "El registro de la herramienta aparece aquí.",
+  "de": "Das Protokoll des Tools erscheint hier.",
+  "it": "Il registro dello strumento compare qui.",
+  "pt": "O registro da ferramenta aparece aqui."
+ },
+ "Le réglage « Réduire les animations » du système est suivi aussi.": {
+  "en": "The system's \"Reduce motion\" setting is followed too.",
+  "es": "También se sigue el ajuste «Reducir movimiento» del sistema.",
+  "de": "Die Systemeinstellung „Bewegung reduzieren“ wird auch beachtet.",
+  "it": "Viene seguita anche l'impostazione «Riduci movimento» del sistema.",
+  "pt": "A opção \"Reduzir movimento\" do sistema também é seguida."
+ },
+ "Mettre l'iPhone sur le même Wi-Fi que cet ordinateur.": {
+  "en": "Put the iPhone on the same Wi-Fi as this computer.",
+  "es": "Conectar el iPhone a la misma Wi-Fi que este ordenador.",
+  "de": "Das iPhone mit demselben WLAN wie dieser Computer verbinden.",
+  "it": "Collegare l'iPhone alla stessa Wi-Fi di questo computer.",
+  "pt": "Conectar o iPhone ao mesmo Wi-Fi que este computador."
+ },
+ "Pour mettre à jour, depuis cet ordinateur, un jeu installé par un autre ordinateur. La clé actuelle est gardée à côté.": {
+  "en": "To update, from this computer, a game installed by another computer. The current key is kept beside it.",
+  "es": "Para actualizar, desde este ordenador, un juego instalado por otro ordenador. La clave actual se guarda al lado.",
+  "de": "Um von diesem Computer aus ein Spiel zu aktualisieren, das ein anderer Computer installiert hat. Der aktuelle Schlüssel bleibt daneben erhalten.",
+  "it": "Per aggiornare, da questo computer, un gioco installato da un altro computer. La chiave attuale viene conservata accanto.",
+  "pt": "Para atualizar, a partir deste computador, um jogo instalado por outro computador. A chave atual é guardada ao lado."
+ },
+ "Préparation de l'environnement": {
+  "en": "Preparing the environment",
+  "es": "Preparación del entorno",
+  "de": "Umgebung wird vorbereitet",
+  "it": "Preparazione dell'ambiente",
+  "pt": "Preparação do ambiente"
+ },
+ "Python": {
+  "en": "Python",
+  "es": "Python",
+  "de": "Python",
+  "it": "Python",
+  "pt": "Python"
+ },
+ "Recherche de Python": {
+  "en": "Looking for Python",
+  "es": "Búsqueda de Python",
+  "de": "Python wird gesucht",
+  "it": "Ricerca di Python",
+  "pt": "Procura do Python"
+ },
+ "Remplacer la clé de cet ordinateur ?": {
+  "en": "Replace this computer's key?",
+  "es": "¿Reemplazar la clave de este ordenador?",
+  "de": "Den Schlüssel dieses Computers ersetzen?",
+  "it": "Sostituire la chiave di questo computer?",
+  "pt": "Substituir a chave deste computador?"
+ },
+ "Téléchargement": {
+  "en": "Download",
+  "es": "Descarga",
+  "de": "Download",
+  "it": "Download",
+  "pt": "Download"
+ },
+ "Téléchargement de Python (25 à 75 Mo)": {
+  "en": "Downloading Python (25 to 75 MB)",
+  "es": "Descarga de Python (25 a 75 MB)",
+  "de": "Python wird heruntergeladen (25 bis 75 MB)",
+  "it": "Download di Python (da 25 a 75 MB)",
+  "pt": "Download do Python (25 a 75 MB)"
+ },
+ "jeu hors ligne {v}, installé par cet ordinateur": {
+  "en": "offline game {v}, installed by this computer",
+  "es": "juego sin conexión {v}, instalado por este ordenador",
+  "de": "Offline-Spiel {v}, von diesem Computer installiert",
+  "it": "gioco offline {v}, installato da questo computer",
+  "pt": "jogo offline {v}, instalado por este computador"
+ },
+ "« Lancer (Mac).command » manque dans le dossier de l'outil.": {
+  "en": "\"Lancer (Mac).command\" is missing from the tool's folder.",
+  "es": "Falta «Lancer (Mac).command» en la carpeta de la herramienta.",
+  "de": "„Lancer (Mac).command“ fehlt im Ordner des Tools.",
+  "it": "Manca «Lancer (Mac).command» nella cartella dello strumento.",
+  "pt": "Falta \"Lancer (Mac).command\" na pasta da ferramenta."
+ },
+ "Il faut un Mac avec une puce Apple (M1 ou plus récent).": {
+  "en": "A Mac with an Apple chip (M1 or later) is needed.",
+  "es": "Se necesita un Mac con chip de Apple (M1 o posterior).",
+  "de": "Ein Mac mit Apple-Chip (M1 oder neuer) ist nötig.",
+  "it": "Serve un Mac con chip Apple (M1 o successivo).",
+  "pt": "É preciso um Mac com chip Apple (M1 ou mais recente)."
+ },
+ "Le programme du jeu pour Mac manque dans l'outil.": {
+  "en": "The tool lacks the game's Mac program.",
+  "es": "Falta en la herramienta el programa del juego para Mac.",
+  "de": "Dem Tool fehlt das Mac-Programm des Spiels.",
+  "it": "Nello strumento manca il programma del gioco per Mac.",
+  "pt": "Falta na ferramenta o programa do jogo para Mac."
+ },
+ "MoltenVK manque dans l'outil.": {
+  "en": "The tool lacks MoltenVK.",
+  "es": "Falta MoltenVK en la herramienta.",
+  "de": "Dem Tool fehlt MoltenVK.",
+  "it": "Nello strumento manca MoltenVK.",
+  "pt": "Falta o MoltenVK na ferramenta."
+ },
+ "Java manque sur ce Mac.": {
+  "en": "Java is missing on this Mac.",
+  "es": "Falta Java en este Mac.",
+  "de": "Java fehlt auf diesem Mac.",
+  "it": "Manca Java su questo Mac.",
+  "pt": "Falta o Java neste Mac."
+ },
+ "Il faut d'abord fermer le jeu.": {
+  "en": "Close the game first.",
+  "es": "Primero hay que cerrar el juego.",
+  "de": "Zuerst das Spiel schließen.",
+  "it": "Prima bisogna chiudere il gioco.",
+  "pt": "Primeiro é preciso fechar o jogo."
+ },
+ "Préparation pour Mac...": {
+  "en": "Preparing for Mac...",
+  "es": "Preparando para Mac...",
+  "de": "Vorbereitung für den Mac...",
+  "it": "Preparazione per Mac...",
+  "pt": "Preparando para Mac..."
+ },
+ "Préparation pour Mac": {
+  "en": "Preparing for Mac",
+  "es": "Preparación para Mac",
+  "de": "Vorbereitung für den Mac",
+  "it": "Preparazione per Mac",
+  "pt": "Preparação para Mac"
+ },
+ "Le jeu est prêt sur ce Mac.": {
+  "en": "The game is ready on this Mac.",
+  "es": "El juego está listo en este Mac.",
+  "de": "Das Spiel ist auf diesem Mac bereit.",
+  "it": "Il gioco è pronto su questo Mac.",
+  "pt": "O jogo está pronto neste Mac."
+ },
+ "Le jeu est prêt sur ce Mac": {
+  "en": "The game is ready on this Mac",
+  "es": "El juego está listo en este Mac",
+  "de": "Das Spiel ist auf diesem Mac bereit",
+  "it": "Il gioco è pronto su questo Mac",
+  "pt": "O jogo está pronto neste Mac"
+ },
+ "Signature du jeu impossible : {error}": {
+  "en": "Could not sign the game: {error}",
+  "es": "No se pudo firmar el juego: {error}",
+  "de": "Spiel konnte nicht signiert werden: {error}",
+  "it": "Impossibile firmare il gioco: {error}",
+  "pt": "Não foi possível assinar o jogo: {error}"
+ },
+ "Il faut d'abord préparer le jeu.": {
+  "en": "Prepare the game first.",
+  "es": "Primero hay que preparar el juego.",
+  "de": "Zuerst das Spiel vorbereiten.",
+  "it": "Prima bisogna preparare il gioco.",
+  "pt": "Primeiro é preciso preparar o jogo."
+ },
+ "Le jeu est déjà ouvert.": {
+  "en": "The game is already open.",
+  "es": "El juego ya está abierto.",
+  "de": "Das Spiel ist schon geöffnet.",
+  "it": "Il gioco è già aperto.",
+  "pt": "O jogo já está aberto."
+ },
+ "Le serveur hors ligne n'a pas démarré. Voir {log}.": {
+  "en": "The offline server did not start. See {log}.",
+  "es": "El servidor sin conexión no arrancó. Ver {log}.",
+  "de": "Der Offline-Server ist nicht gestartet. Siehe {log}.",
+  "it": "Il server offline non è partito. Vedi {log}.",
+  "pt": "O servidor offline não iniciou. Ver {log}."
+ },
+ "Le jeu s'est arrêté (code {code}). Voir {log}.": {
+  "en": "The game stopped (code {code}). See {log}.",
+  "es": "El juego se detuvo (código {code}). Ver {log}.",
+  "de": "Das Spiel wurde beendet (Code {code}). Siehe {log}.",
+  "it": "Il gioco si è fermato (codice {code}). Vedi {log}.",
+  "pt": "O jogo parou (código {code}). Ver {log}."
+ },
+ "Le jeu s'est arrêté": {
+  "en": "The game stopped",
+  "es": "El juego se detuvo",
+  "de": "Das Spiel wurde beendet",
+  "it": "Il gioco si è fermato",
+  "pt": "O jogo parou"
+ },
+ "PRÉPARATION": {
+  "en": "PREPARATION",
+  "es": "PREPARACIÓN",
+  "de": "VORBEREITUNG",
+  "it": "PREPARAZIONE",
+  "pt": "PREPARAÇÃO"
+ },
+ "Espace libre : {n} Go (il faut 7 Go)": {
+  "en": "Free space: {n} GB (7 GB needed)",
+  "es": "Espacio libre: {n} GB (se necesitan 7 GB)",
+  "de": "Freier Speicher: {n} GB (7 GB nötig)",
+  "it": "Spazio libero: {n} GB (servono 7 GB)",
+  "pt": "Espaço livre: {n} GB (são precisos 7 GB)"
+ },
+ "Préparer à nouveau": {
+  "en": "Prepare again",
+  "es": "Preparar de nuevo",
+  "de": "Neu vorbereiten",
+  "it": "Preparare di nuovo",
+  "pt": "Preparar de novo"
+ },
+ "Préparer le jeu": {
+  "en": "Prepare the game",
+  "es": "Preparar el juego",
+  "de": "Spiel vorbereiten",
+  "it": "Preparare il gioco",
+  "pt": "Preparar o jogo"
+ },
+ "La progression reste sur ce Mac.": {
+  "en": "Progress stays on this Mac.",
+  "es": "El progreso se queda en este Mac.",
+  "de": "Der Fortschritt bleibt auf diesem Mac.",
+  "it": "I progressi restano su questo Mac.",
+  "pt": "O progresso fica neste Mac."
+ },
+ "Ouvrir le dossier": {
+  "en": "Open the folder",
+  "es": "Abrir la carpeta",
+  "de": "Ordner öffnen",
+  "it": "Apri la cartella",
+  "pt": "Abrir a pasta"
+ },
+ "COMMANDES": {
+  "en": "CONTROLS",
+  "es": "CONTROLES",
+  "de": "STEUERUNG",
+  "it": "COMANDI",
+  "pt": "CONTROLOS"
+ },
+ "Essai": {
+  "en": "Trial",
+  "es": "Prueba",
+  "de": "Test",
+  "it": "Prova",
+  "pt": "Teste"
+ },
+ "Le jeu complet sur ce Mac, sans émulateur.": {
+  "en": "The full game on this Mac, no emulator.",
+  "es": "El juego completo en este Mac, sin emulador.",
+  "de": "Das ganze Spiel auf diesem Mac, ohne Emulator.",
+  "it": "Il gioco completo su questo Mac, senza emulatore.",
+  "pt": "O jogo completo neste Mac, sem emulador."
+ },
+ "Fermer le jeu": {
+  "en": "Close the game",
+  "es": "Cerrar el juego",
+  "de": "Spiel schließen",
+  "it": "Chiudi il gioco",
+  "pt": "Fechar o jogo"
+ },
+ "Jouer": {
+  "en": "Play",
+  "es": "Jugar",
+  "de": "Spielen",
+  "it": "Gioca",
+  "pt": "Jogar"
+ },
+ "Impossible sur ce Mac": {
+  "en": "Not possible on this Mac",
+  "es": "No es posible en este Mac",
+  "de": "Auf diesem Mac nicht möglich",
+  "it": "Non possibile su questo Mac",
+  "pt": "Impossível neste Mac"
+ },
+ "Le jeu est ouvert": {
+  "en": "The game is open",
+  "es": "El juego está abierto",
+  "de": "Das Spiel ist geöffnet",
+  "it": "Il gioco è aperto",
+  "pt": "O jogo está aberto"
+ },
+ "Fermer sa fenêtre l'arrête": {
+  "en": "Closing its window stops it",
+  "es": "Cerrar su ventana lo detiene",
+  "de": "Schließen des Fensters beendet es",
+  "it": "Chiudere la finestra lo ferma",
+  "pt": "Fechar a janela para-o"
+ },
+ "Préparé le {d}": {
+  "en": "Prepared on {d}",
+  "es": "Preparado el {d}",
+  "de": "Vorbereitet am {d}",
+  "it": "Preparato il {d}",
+  "pt": "Preparado em {d}"
+ },
+ "À préparer": {
+  "en": "To prepare",
+  "es": "Por preparar",
+  "de": "Vorzubereiten",
+  "it": "Da preparare",
+  "pt": "Por preparar"
+ },
+ "Quelques minutes, une seule fois": {
+  "en": "A few minutes, only once",
+  "es": "Unos minutos, una sola vez",
+  "de": "Ein paar Minuten, nur einmal",
+  "it": "Pochi minuti, una sola volta",
+  "pt": "Alguns minutos, uma só vez"
+ },
+ "Espace": {
+  "en": "Space",
+  "es": "Espacio",
+  "de": "Leertaste",
+  "it": "Spazio",
+  "pt": "Espaço"
+ },
+ "Sauter": {
+  "en": "Jump",
+  "es": "Saltar",
+  "de": "Springen",
+  "it": "Saltare",
+  "pt": "Saltar"
+ },
+ "Maj": {
+  "en": "Shift",
+  "es": "Mayús",
+  "de": "Umschalt",
+  "it": "Maiusc",
+  "pt": "Shift"
+ },
+ "Souris": {
+  "en": "Mouse",
+  "es": "Ratón",
+  "de": "Maus",
+  "it": "Mouse",
+  "pt": "Rato"
+ },
+ "Menus et boutons du jeu": {
+  "en": "The game's menus and buttons",
+  "es": "Menús y botones del juego",
+  "de": "Menüs und Knöpfe des Spiels",
+  "it": "Menu e pulsanti del gioco",
+  "pt": "Menus e botões do jogo"
+ },
+ "Avancer": {
+  "en": "Forward",
+  "es": "Avanzar",
+  "de": "Vorwärts",
+  "it": "Avanti",
+  "pt": "Avançar"
+ },
+ "Reculer": {
+  "en": "Back",
+  "es": "Retroceder",
+  "de": "Rückwärts",
+  "it": "Indietro",
+  "pt": "Recuar"
+ },
+ "Gauche": {
+  "en": "Left",
+  "es": "Izquierda",
+  "de": "Links",
+  "it": "Sinistra",
+  "pt": "Esquerda"
+ },
+ "Droite": {
+  "en": "Right",
+  "es": "Derecha",
+  "de": "Rechts",
+  "it": "Destra",
+  "pt": "Direita"
+ },
+ "Cliquer sur une touche pour la changer.": {
+  "en": "Click a key to change it.",
+  "es": "Haz clic en una tecla para cambiarla.",
+  "de": "Auf eine Taste klicken, um sie zu ändern.",
+  "it": "Clicca su un tasto per cambiarlo.",
+  "pt": "Clicar numa tecla para a mudar."
+ },
+ "Appuyer sur la nouvelle touche (Échap : annuler, ⌫ : retirer).": {
+  "en": "Press the new key (Esc: cancel, ⌫: remove).",
+  "es": "Pulsa la nueva tecla (Esc: cancelar, ⌫: quitar).",
+  "de": "Neue Taste drücken (Esc: abbrechen, ⌫: entfernen).",
+  "it": "Premi il nuovo tasto (Esc: annulla, ⌫: togli).",
+  "pt": "Premir a nova tecla (Esc: cancelar, ⌫: retirar)."
+ },
+ "Touches par défaut": {
+  "en": "Default keys",
+  "es": "Teclas por defecto",
+  "de": "Standardtasten",
+  "it": "Tasti predefiniti",
+  "pt": "Teclas predefinidas"
+ },
+ "Touches illisibles.": {
+  "en": "Unreadable keys.",
+  "es": "Teclas ilegibles.",
+  "de": "Unlesbare Tasten.",
+  "it": "Tasti illeggibili.",
+  "pt": "Teclas ilegíveis."
+ },
+ "Gadget": {
+  "en": "Gadget",
+  "es": "Artilugio",
+  "de": "Gerät",
+  "it": "Gadget",
+  "pt": "Gadget"
+ },
+ "Mêlée": {
+  "en": "Melee",
+  "es": "Cuerpo a cuerpo",
+  "de": "Nahkampf",
+  "it": "Mischia",
+  "pt": "Corpo a corpo"
+ },
+ "Sprint": {
+  "en": "Dash",
+  "es": "Impulso",
+  "de": "Sprint",
+  "it": "Scatto",
+  "pt": "Investida"
+ },
+ "Ulti": {
+  "en": "Ultimate",
+  "es": "Definitiva",
+  "de": "Ultimativangriff",
+  "it": "Ultra",
+  "pt": "Suprema"
+ },
+ "Aussi dans le jeu : Paramètres > Commandes": {
+  "en": "Also in the game: Settings > Controls",
+  "es": "También en el juego: Ajustes > Controles",
+  "de": "Auch im Spiel: Einstellungen > Steuerung",
+  "it": "Anche nel gioco: Impostazioni > Comandi",
+  "pt": "Também no jogo: Definições > Controlos"
  }
 }
