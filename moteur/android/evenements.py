@@ -17,6 +17,12 @@ CARD_ROOT_IMAGE = 2324320
 CARD_ILLUSTRATION_IMAGE = 1736144
 CARD_ILLUSTRATION_RECT = 2788704
 BG_EVENT01 = (2, 788590339457935646)
+CARD_ROOT_SPRITE = (ATLAS, -81423715014193705)
+MOPZ_PICTURE = (ATLAS, 3487435678033934294)
+CARD_FATHER = (0, 3690149658893217645)
+IMAGE_ENABLED, IMAGE_COLOR, IMAGE_SPRITE, IMAGE_PRESERVE_ASPECT = (12, 44, 88, 104)
+RECT_ANCHORS = 68
+STRETCHED = bytes.fromhex('9e71b335da40a736e6ff7f3fb0ff7f3f')
 PICTURE = False
 ZURKON_KEY = 4331717916415248115
 TEXTURE_TEMPLATE = 3630189853526896061
@@ -43,17 +49,16 @@ WEAPON_ART = False
 WEAPON_ART_KEY = 8202227682763847771
 WEAPON_ART_TEXTURE = TEXTURE_TEMPLATE ^ WEAPON_ART_KEY
 WEAPON_ART_SPRITE = SPRITE_TEMPLATE ^ WEAPON_ART_KEY
-STRETCHED = bytes.fromhex('9e71b335da40a736e6ff7f3fb0ff7f3f')
 ZURKON_TOKEN = -5237341124298122588
 TOKEN_ON_GROUND = True
 ZURKON_TOKEN_OBJECTS = (ZURKON_TOKEN, 5952319859663788708, -2466255425291003228, 7861148539676220068)
 
 def card_event03_edits():
     if CARD_ART:
-        return [(CARD_ILLUSTRATION_IMAGE + 88, struct.pack('<iq', ATLAS, 3487435678033934294), struct.pack('<iq', 0, CARD_ART_SPRITE))]
-    picture = struct.pack('<iq', 0, ZURKON_SPRITE) if PICTURE else struct.pack('<iq', *ICO_EVENT_ZURKON)
+        return [(CARD_ILLUSTRATION_IMAGE + IMAGE_SPRITE, pptr(MOPZ_PICTURE), pptr((0, CARD_ART_SPRITE)))]
+    picture = pptr((0, ZURKON_SPRITE) if PICTURE else ICO_EVENT_ZURKON)
     anchors = (0.36, 0.04, 0.78, 0.96) if PICTURE else (0.45, 0.05, 0.9, 0.75)
-    return [(CARD_ROOT_IMAGE + 12, b'\x00', b'\x01'), (CARD_ROOT_IMAGE + 88, struct.pack('<iq', ATLAS, -81423715014193705), struct.pack('<iq', *BG_EVENT01)), (CARD_ROOT_IMAGE + 104, b'\x01', b'\x00'), (CARD_ILLUSTRATION_IMAGE + 88, struct.pack('<iq', ATLAS, 3487435678033934294), picture), (CARD_ILLUSTRATION_RECT + 68, bytes.fromhex('9e71b335da40a736e6ff7f3fb0ff7f3f'), struct.pack('<4f', *anchors))]
+    return [(CARD_ROOT_IMAGE + IMAGE_ENABLED, b'\x00', b'\x01'), (CARD_ROOT_IMAGE + IMAGE_SPRITE, pptr(CARD_ROOT_SPRITE), pptr(BG_EVENT01)), (CARD_ROOT_IMAGE + IMAGE_PRESERVE_ASPECT, b'\x01', b'\x00'), (CARD_ILLUSTRATION_IMAGE + IMAGE_SPRITE, pptr(MOPZ_PICTURE), picture), (CARD_ILLUSTRATION_RECT + RECT_ANCHORS, STRETCHED, struct.pack('<4f', *anchors))]
 CARD_EVENT03_OBJECTS = [-8656910176408572051, -6098841626221023379, 3474090388851584877, 533049979149479789, -6213716865482559635, 3513255527455059821, -3006274117324509331, -3740602691665596563]
 COPY_KEY = 6820431451652218957
 CARD_EVENT04 = (0, CARD_EVENT03_OBJECTS[0] ^ COPY_KEY)
@@ -122,24 +127,28 @@ def events_meta(old):
 
 def card_event04(object_id, raw):
     for old in CARD_EVENT03_OBJECTS:
-        raw = raw.replace(struct.pack('<iq', 0, old), struct.pack('<iq', 0, old ^ COPY_KEY))
+        raw = raw.replace(pptr((0, old)), pptr((0, old ^ COPY_KEY)))
     raw = bytearray(raw)
-    if object_id == CARD_EVENT03_OBJECTS[0]:
-        at = raw.index(b'CardBackground_Event03')
-        raw[at:at + 22] = b'CardBackground_Event04'
-    elif object_id == CARD_EVENT03_OBJECTS[1]:
-        father = raw.index(struct.pack('<iq', 0, 3690149658893217645))
-        raw[father:father + 12] = struct.pack('<iq', 0, 0)
-    elif object_id == CARD_EVENT03_OBJECTS[3] and WEAPON_ART:
-        raw[12] = 0
-    elif object_id == CARD_EVENT03_OBJECTS[3]:
-        raw[44:60] = struct.pack('<4f', *CARD_EVENT04_TINT)
-        raw[88:100] = struct.pack('<iq', *GRADIENT2)
-        raw[104] = 0
-    elif object_id == CARD_EVENT03_OBJECTS[5] and WEAPON_ART:
-        raw[68:84] = STRETCHED
-    elif object_id == CARD_EVENT03_OBJECTS[5]:
-        raw[68:84] = struct.pack('<4f', 0.5, 0.24, 0.8, 0.76)
-    elif object_id == CARD_EVENT03_OBJECTS[7]:
-        raw[88:100] = struct.pack('<iq', 0, WEAPON_ART_SPRITE) if WEAPON_ART else struct.pack('<iq', *ICO_EVENT_RANDOM_WEAPON)
+    game_object, rect, _, image, _, illustration_rect, _, illustration_image = CARD_EVENT03_OBJECTS
+    sprite = slice(IMAGE_SPRITE, IMAGE_SPRITE + 12)
+    anchors = slice(RECT_ANCHORS, RECT_ANCHORS + 16)
+    if object_id == game_object:
+        name = b'CardBackground_Event03'
+        at = raw.index(name)
+        raw[at:at + len(name)] = b'CardBackground_Event04'
+    elif object_id == rect:
+        father = raw.index(pptr(CARD_FATHER))
+        raw[father:father + 12] = pptr(NONE)
+    elif object_id == image and WEAPON_ART:
+        raw[IMAGE_ENABLED] = 0
+    elif object_id == image:
+        raw[IMAGE_COLOR:IMAGE_COLOR + 16] = struct.pack('<4f', *CARD_EVENT04_TINT)
+        raw[sprite] = pptr(GRADIENT2)
+        raw[IMAGE_PRESERVE_ASPECT] = 0
+    elif object_id == illustration_rect and WEAPON_ART:
+        raw[anchors] = STRETCHED
+    elif object_id == illustration_rect:
+        raw[anchors] = struct.pack('<4f', 0.5, 0.24, 0.8, 0.76)
+    elif object_id == illustration_image:
+        raw[sprite] = pptr((0, WEAPON_ART_SPRITE) if WEAPON_ART else ICO_EVENT_RANDOM_WEAPON)
     return bytes(raw)

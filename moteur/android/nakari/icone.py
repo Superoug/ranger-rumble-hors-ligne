@@ -2,6 +2,8 @@ import os
 import struct
 import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(HERE))
+import fichiers_unity as unity
 PICTURE = os.path.join(HERE, 'Nakari_vortex.png')
 PREVIEW = os.path.join(HERE, 'apercu.png')
 KEY = 5638870952370069334
@@ -16,6 +18,8 @@ SPEC_NAME = 'Q_Sabre_UltimateWeaponSpec_Nakari'
 SPRITE_NAME = 'WeaponIcon_Spin_Nakari'
 SPIN_NAME, FACE_NAME = ('WeaponIcon_Spin', 'ico_miniPortrait_Nakari')
 SIZE = 256
+DATA_OFFSET_AT = 32
+OBJECT_ENTRY_SIZE = 24
 FACE_SCALE = 1.1
 FACE_SHIFT = (0, -6)
 OUTLINE_LIGHTNESS = 70
@@ -37,7 +41,6 @@ def sprite_canvas(bundle, name):
     return canvas
 
 def grow(mask, steps=1):
-    import numpy as np
     for _ in range(steps):
         out = mask.copy()
         out[1:] |= mask[:-1]
@@ -165,31 +168,32 @@ def serialized(env):
 def object_table(stream, env):
     file = serialized(env)
     objects = list(file.objects.values())
-    data_offset = struct.unpack('>Q', stream[32:40])[0]
+    data_offset = struct.unpack_from('>Q', stream, DATA_OFFSET_AT)[0]
 
     def entry(obj):
         return struct.pack('<qqI', obj.path_id, obj.byte_start - data_offset, obj.byte_size)
     head = bytes(stream[:data_offset])
-    table = head.find(entry(objects[0]))
+    first, last = (entry(objects[0]), entry(objects[-1]))
+    table = head.find(first)
     count = len(objects)
-    if table < 0 or head.count(entry(objects[0])) != 1 or head[table + (count - 1) * 24:][:20] != entry(objects[-1]):
+    if table < 0 or head.count(first) != 1 or head[table + (count - 1) * OBJECT_ENTRY_SIZE:][:len(last)] != last:
         raise SystemExit("icone de Nakari : table d'objets introuvable")
     for padding in range(4):
         if struct.unpack_from('<i', stream, table - 4 - padding)[0] == count and (not any(stream[table - padding:table])):
             return (table, count, padding)
     raise SystemExit("icone de Nakari : nombre d'objets introuvable")
 
-def add_copies(data, apk, env, copies):
+def add_copies(data, env, copies):
     import UnityPy
     objects = {o.path_id: o for o in env.objects}
-    stream = bytearray(apk['bundle_stream'](bytes(data)))
+    stream = bytearray(unity.bundle_stream(bytes(data)))
     table, count, padding = object_table(stream, env)
-    changes = {new: (old, apk['typetree_change'](objects[old], edit)) for new, (old, edit) in copies.items()}
-    stream, grown = apk['add_object_copies'](stream, table, count, changes, padding)
-    apk['replace_bundle_stream'](data, stream, grown)
+    changes = {new: (old, unity.typetree_change(objects[old], edit)) for new, (old, edit) in copies.items()}
+    stream, grown = unity.add_object_copies(stream, table, count, changes, padding)
+    unity.replace_bundle_stream(data, stream, grown)
     data[:] = UnityPy.load(bytes(data)).file.save(packer='lz4')
 
-def patch_atlases(data, apk, portraits=None):
+def patch_atlases(data, portraits=None):
     import UnityPy
     picture = nakari_picture(bytes(data), portraits)
     if picture is None:
@@ -203,19 +207,19 @@ def patch_atlases(data, apk, portraits=None):
 
     def texture_edit(tree):
         tree['m_Name'] = SPRITE_NAME
-        apk['rgba_texture'](tree, picture)
+        unity.rgba_texture(tree, picture)
 
     def sprite_edit(tree):
         tree['m_Name'] = SPRITE_NAME
         tree['m_RenderDataKey'][0]['data[0]'] ^= KEY & 4294967295
         tree['m_AtlasTags'] = []
         tree['m_SpriteAtlas'] = {'m_FileID': 0, 'm_PathID': 0}
-        apk['full_rect_sprite'](tree, TEXTURE, *picture.size)
-    add_copies(data, apk, env, {TEXTURE: (TEXTURE_TEMPLATE, texture_edit), SPRITE: (SPIN_SPRITE, sprite_edit)})
+        unity.full_rect_sprite(tree, TEXTURE, *picture.size)
+    add_copies(data, env, {TEXTURE: (TEXTURE_TEMPLATE, texture_edit), SPRITE: (SPIN_SPRITE, sprite_edit)})
     print(f'icone de Nakari : image {picture.size[0]} x {picture.size[1]} dans ui_atlases')
     return True
 
-def patch_ultimates(data, apk):
+def patch_ultimates(data):
     import UnityPy
     env = UnityPy.load(bytes(data))
     spec = next((o for o in env.objects if o.path_id == SABRE_SPEC), None)
@@ -223,7 +227,7 @@ def patch_ultimates(data, apk):
         raise SystemExit('icone de Nakari : fiche de Vortex introuvable')
     externals = serialized(env).externals
     before = len(externals)
-    atlases = apk['external_index'](env, ATLASES_CAB)
+    atlases = unity.external_index(env, ATLASES_CAB)
     if len(externals) != before:
         raise SystemExit('icone de Nakari : ui_atlases absent des dependances de quantum_db_ultimates')
     original = {'m_FileID': atlases, 'm_PathID': SPIN_SPRITE}
@@ -234,7 +238,7 @@ def patch_ultimates(data, apk):
         tree['m_Name'] = SPEC_NAME
         for field in ('UltimateAbilityIcon', 'UltimateAbilityIcon_Small'):
             tree[field] = {'m_FileID': atlases, 'm_PathID': SPRITE}
-    add_copies(data, apk, env, {SPEC_COPY: (SABRE_SPEC, spec_edit)})
+    add_copies(data, env, {SPEC_COPY: (SABRE_SPEC, spec_edit)})
     print(f'icone de Nakari : copie de Q_Sabre_UltimateWeaponSpec ({SPEC_COPY})')
     return True
 

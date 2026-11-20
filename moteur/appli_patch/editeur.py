@@ -10,6 +10,7 @@ from langues import tr
 TITLE = tr('Ranger Rumble hors ligne')
 _IMAGES = {}
 OWNED_BG, MISSING_FG = (theme.OWNED, '#6c7899')
+WIDE = 120
 
 def picture(key):
     if not key:
@@ -22,12 +23,15 @@ def picture(key):
             _IMAGES[path] = None
     return _IMAGES[path]
 
-def icon(folder, key):
-    return picture(em.icon(folder, key))
-
 def with_icon(key):
-    image = icon('ui', key)
+    image = picture(em.icon('ui', key))
     return {'image': image, 'compound': 'left'} if image else {}
+
+def is_kind(kind, what):
+    return sv.describe(kind)[0] == what
+
+def show_refusal(refus, error=False):
+    (messagebox.showerror if error else messagebox.showinfo)(TITLE, str(refus))
 
 class Table(ttk.Frame):
 
@@ -41,7 +45,7 @@ class Table(ttk.Frame):
         self.tree.tag_configure('absent', foreground=MISSING_FG)
         for key, title, width, _ in columns:
             self.tree.heading(key, text=title)
-            self.tree.column(key, width=width, anchor='w' if width > 120 else 'center', stretch=width > 120)
+            self.tree.column(key, width=width, anchor='w' if width > WIDE else 'center', stretch=width > WIDE)
         scroll = ttk.Scrollbar(self, command=self.tree.yview)
         self.tree.configure(yscrollcommand=scroll.set)
         self.tree.pack(side='left', fill='both', expand=True)
@@ -72,37 +76,38 @@ class Table(ttk.Frame):
         return [self.rows[int(i)] for i in self.tree.selection()]
 
     def clicked(self, event):
-        item = self.tree.focus() if event.type == tk.EventType.KeyPress else self.tree.identify_row(event.y)
-        column = '#1' if event.type == tk.EventType.KeyPress else self.tree.identify_column(event.x)
+        by_key = event.type == tk.EventType.KeyPress
+        item = self.tree.focus() if by_key else self.tree.identify_row(event.y)
+        column = '#1' if by_key else self.tree.identify_column(event.x)
         if not item or not column:
             return
-        key, title, _, kind = self.columns[int(column[1:]) - 1]
         row = self.rows[int(item)]
+        key, title, _, kind = self.columns[int(column[1:]) - 1]
         if kind is None or not row.editable(key):
-            if event.type == tk.EventType.KeyPress:
+            if by_key:
                 return
-            for key, title, _, kind in self.columns:
-                if kind == 'bool' and row.editable(key):
-                    break
-            else:
+            fallback = next((column for column in self.columns if column[3] == 'bool' and row.editable(column[0])), None)
+            if fallback is None:
                 return
-        value = row.get(key)
-        if kind == 'bool':
-            new = not value
-        else:
-            low, high = row.bounds(key)
-            if isinstance(value, str):
-                new = simpledialog.askstring(TITLE, f"{title} — {row.get('name')} :", initialvalue=value, parent=self)
-            else:
-                new = simpledialog.askinteger(TITLE, tr('{title} — {v} ({low} à {high}) :', title=title, v=row.get('name'), low=low, high=high), initialvalue=value if value is not None else low, minvalue=low, maxvalue=high, parent=self)
-            if new is None:
-                return
+            key, title, _, kind = fallback
+        new = self.ask(row, key, title, kind)
+        if new is None:
+            return
         try:
             row.set(key, new)
         except em.Refus as refus:
-            messagebox.showinfo(TITLE, str(refus))
+            show_refusal(refus)
             return
         self.changed()
+
+    def ask(self, row, key, title, kind):
+        value = row.get(key)
+        if kind == 'bool':
+            return not value
+        if isinstance(value, str):
+            return simpledialog.askstring(TITLE, f"{title} — {row.get('name')} :", initialvalue=value, parent=self)
+        low, high = row.bounds(key)
+        return simpledialog.askinteger(TITLE, tr('{title} — {v} ({low} à {high}) :', title=title, v=row.get('name'), low=low, high=high), initialvalue=value if value is not None else low, minvalue=low, maxvalue=high, parent=self)
 
 class Editor(ttk.Frame):
 
@@ -110,21 +115,14 @@ class Editor(ttk.Frame):
         super().__init__(parent, padding=(22, 14, 22, 18))
         self.app = app
         self.model = em.Model()
-        style = ttk.Style(self)
-        style.configure('Icones.Treeview', rowheight=46)
-        style.configure('Cartes.Treeview', rowheight=54)
-        family = theme.family(self)
-        style.configure('Grand.TLabel', font=(family, -17, 'bold'))
-        style.configure('Chiffre.TLabel', font=(family, -14, 'bold'))
+        self._styles()
         ttk.Label(self, text=tr('Éditer une sauvegarde'), style='Big.TLabel').pack(anchor='w', pady=(0, 10))
         top = ttk.Frame(self)
         top.pack(fill='x')
         ttk.Label(top, text=tr('Ouvrir :'), style='Soft.TLabel').pack(side='left')
-        ttk.Button(top, text=tr('Le téléphone (câble)'), command=self.open_phone, **with_icon('telephone')).pack(side='left', padx=4)
-        ttk.Button(top, text=tr('Un fichier...'), command=self.open_file, **with_icon('fichier')).pack(side='left', padx=4)
-        ttk.Button(top, text=tr('Une copie...'), command=self.open_copy, **with_icon('copie')).pack(side='left', padx=4)
-        ttk.Button(top, text=tr('Partie vierge'), command=self.open_new, **with_icon('vierge')).pack(side='left', padx=4)
-        self.status = ttk.Label(self, text=tr('Ouvre une sauvegarde, en haut.'), foreground=theme.SOFT)
+        for text, command, icon in ((tr('Le téléphone (câble)'), self.open_phone, 'telephone'), (tr('Un fichier...'), self.open_file, 'fichier'), (tr('Une copie...'), self.open_copy, 'copie'), (tr('Partie vierge'), self.open_new, 'vierge')):
+            ttk.Button(top, text=text, command=command, **with_icon(icon)).pack(side='left', padx=4)
+        self.status = ttk.Label(self, text=tr('Ouvrir une sauvegarde, en haut.'), foreground=theme.SOFT)
         self.status.pack(fill='x', pady=(10, 6))
         self.summary = ttk.Frame(self)
         self.summary.pack(fill='x', pady=(0, 6))
@@ -134,8 +132,8 @@ class Editor(ttk.Frame):
         self.tabs.pack(fill='both', expand=True)
         self.tables = []
         self.profile_tab()
-        self.heroes_tab()
-        self.weapons_tab()
+        self.owned_tab(tr('Héros'), 'heros', 'heros', tr('Débloquer tous les héros'), lambda: self.model.all_heroes(), lambda rows: self.model.max_heroes(rows))
+        self.owned_tab(tr('Armes et gadgets'), 'armes', 'armes', tr('Débloquer toutes les armes'), lambda: self.model.all_weapons(), lambda rows: self.model.max_weapons(rows))
         self.skins_tab()
         self.modes_tab()
         self.all_tab()
@@ -143,6 +141,14 @@ class Editor(ttk.Frame):
         for button in self.save_buttons:
             button.pack(side='left', padx=(0, 8))
             button.configure(state='disabled')
+
+    def _styles(self):
+        style = ttk.Style(self)
+        style.configure('Icones.Treeview', rowheight=46)
+        style.configure('Cartes.Treeview', rowheight=54)
+        family = theme.family(self)
+        style.configure('Grand.TLabel', font=(family, -17, 'bold'))
+        style.configure('Chiffre.TLabel', font=(family, -14, 'bold'))
 
     @property
     def save(self):
@@ -155,7 +161,7 @@ class Editor(ttk.Frame):
         except ValueError as error:
             messagebox.showerror(TITLE, str(error))
             return
-        if self.save is not None and self.save.changed() and (not messagebox.askyesno(TITLE, tr("Tes changements dans la sauvegarde ouverte ne sont pas enregistrés. L'oublier ?"))):
+        if self.save is not None and self.save.changed() and (not messagebox.askyesno(TITLE, tr('Les changements de la sauvegarde ouverte ne sont pas enregistrés. Les oublier ?'))):
             return
         self.model = fresh
         for button in self.save_buttons:
@@ -181,17 +187,15 @@ class Editor(ttk.Frame):
         self.load(copie_android.pack(copie_android.new_save()), tr('partie vierge'))
 
     def phone(self, need_game=True):
-        adb = None
         try:
             try:
                 return em.find_phone(need_game)
             except em.NoAdb:
                 if not messagebox.askyesno(TITLE, tr('Il faut les outils Android de Google (10 Mo). Les télécharger ?\n\nConditions : ') + copie_android.ADB_PAGE):
                     return None
-                adb = copie_android.download_adb()
-            return em.find_phone(need_game, adb)
+            return em.find_phone(need_game, copie_android.download_adb())
         except em.Refus as refus:
-            messagebox.showinfo(TITLE, str(refus))
+            show_refusal(refus)
             return None
 
     def open_phone(self):
@@ -201,7 +205,7 @@ class Editor(ttk.Frame):
         try:
             local = em.pull_phone_save(*found, self.app.copies_folder())
         except em.Refus as refus:
-            messagebox.showinfo(TITLE, str(refus))
+            show_refusal(refus)
             return
         self.load(local.read_bytes(), tr('téléphone (copie gardée dans {name})', name=local.name))
 
@@ -224,9 +228,7 @@ class Editor(ttk.Frame):
     def use_for_apk(self):
         path = self.save_as()
         if path:
-            self.app.phone_save.set(path)
-            self.app.new_game.set(False)
-            self.app.new_game_changed()
+            self.app.choose_save(path)
             messagebox.showinfo(TITLE, tr("C'est fait : l'APK partira de cette sauvegarde."))
 
     def send_phone(self):
@@ -238,7 +240,7 @@ class Editor(ttk.Frame):
         try:
             local = em.push_save(*found, self.save.to_bytes(), self.app.copies_folder())
         except em.Refus as refus:
-            messagebox.showerror(TITLE, str(refus))
+            show_refusal(refus, error=True)
             return
         self.mark_saved(str(local))
         messagebox.showinfo(TITLE, tr('Sauvegarde envoyée.'))
@@ -248,17 +250,14 @@ class Editor(ttk.Frame):
             self.model.revert()
             self.refresh()
 
-    def changed(self):
-        self.refresh()
-
     def act(self, change):
         if self.save is None:
             return
         try:
             change()
         except em.Refus as refus:
-            messagebox.showinfo(TITLE, str(refus))
-        self.changed()
+            show_refusal(refus)
+        self.refresh()
 
     def refresh(self):
         if self.save is None:
@@ -289,55 +288,41 @@ class Editor(ttk.Frame):
             text = f"{count['owned']}/{count['total']}" if count['total'] else str(count['owned'])
             ttk.Label(tile, text=text, style='Chiffre.TLabel').pack(side='left')
 
+    def new_tab(self, title, icon, hint):
+        tab = ttk.Frame(self.tabs, padding=8)
+        self.tabs.add(tab, text=title, **with_icon(icon))
+        ttk.Label(tab, text=hint).pack(anchor='w')
+        return tab
+
     def table(self, tab, rows_tab, height, icons, style='Icones.Treeview'):
-        table = Table(tab, em.columns(rows_tab), lambda: self.model.rows(rows_tab), self.changed, height=height, icons=icons, style=style)
+        table = Table(tab, em.columns(rows_tab), lambda: self.model.rows(rows_tab), self.refresh, height=height, icons=icons, style=style)
         table.pack(fill='both', expand=True, pady=6)
         self.tables.append(table)
         return table
 
     def profile_tab(self):
-        tab = ttk.Frame(self.tabs, padding=8)
-        self.tabs.add(tab, text=tr('Profil et statistiques'), **with_icon('profil'))
-        ttk.Label(tab, text=tr('Double-clique sur une valeur pour la changer.')).pack(anchor='w')
+        tab = self.new_tab(tr('Profil et statistiques'), 'profil', tr('Double-cliquer sur une valeur pour la changer.'))
         self.table(tab, 'profil', 24, 28)
 
-    def heroes_tab(self):
-        tab = ttk.Frame(self.tabs, padding=8)
-        self.tabs.add(tab, text=tr('Héros'), **with_icon('heros'))
-        ttk.Label(tab, text=tr('Double-clique pour changer une valeur.')).pack(anchor='w')
-        table = self.table(tab, 'heros', 12, 40)
+    def owned_tab(self, title, icon, rows_tab, unlock_text, unlock_all, max_level):
+        tab = self.new_tab(title, icon, tr('Double-cliquer pour changer une valeur.'))
+        table = self.table(tab, rows_tab, 12, 40)
         buttons = ttk.Frame(tab)
         buttons.pack(anchor='w')
-        ttk.Button(buttons, text=tr('Débloquer tous les héros'), command=lambda: self.act(self.model.all_heroes), **with_icon('tout_debloquer')).pack(side='left')
-        ttk.Button(buttons, text=tr('Niveau max pour la sélection'), command=lambda: self.act(lambda: self.model.max_heroes(table.selected_rows())), **with_icon('niveau_max')).pack(side='left', padx=8)
-
-    def weapons_tab(self):
-        tab = ttk.Frame(self.tabs, padding=8)
-        self.tabs.add(tab, text=tr('Armes et gadgets'), **with_icon('armes'))
-        ttk.Label(tab, text=tr('Double-clique pour changer une valeur.')).pack(anchor='w')
-        table = self.table(tab, 'armes', 12, 40)
-        buttons = ttk.Frame(tab)
-        buttons.pack(anchor='w')
-        ttk.Button(buttons, text=tr('Débloquer toutes les armes'), command=lambda: self.act(self.model.all_weapons), **with_icon('tout_debloquer')).pack(side='left')
-        ttk.Button(buttons, text=tr('Niveau max pour la sélection'), command=lambda: self.act(lambda: self.model.max_weapons(table.selected_rows())), **with_icon('niveau_max')).pack(side='left', padx=8)
+        ttk.Button(buttons, text=unlock_text, command=lambda: self.act(unlock_all), **with_icon('tout_debloquer')).pack(side='left')
+        ttk.Button(buttons, text=tr('Niveau max pour la sélection'), command=lambda: self.act(lambda: max_level(table.selected_rows())), **with_icon('niveau_max')).pack(side='left', padx=8)
 
     def skins_tab(self):
-        tab = ttk.Frame(self.tabs, padding=8)
-        self.tabs.add(tab, text=tr('Costumes'), **with_icon('costumes'))
-        ttk.Label(tab, text=tr('Double-clique pour donner ou retirer un costume.')).pack(anchor='w')
+        tab = self.new_tab(tr('Costumes'), 'costumes', tr('Double-cliquer pour donner ou retirer un costume.'))
         self.table(tab, 'costumes', 10, 64, style='Cartes.Treeview')
         ttk.Button(tab, text=tr('Donner tous les costumes'), command=lambda: self.act(self.model.all_skins), **with_icon('tout_debloquer')).pack(anchor='w')
 
     def modes_tab(self):
-        tab = ttk.Frame(self.tabs, padding=8)
-        self.tabs.add(tab, text=tr('Modes de jeu'), **with_icon('modes'))
-        ttk.Label(tab, text=tr('Modes proposés dans le jeu, et les parties de chacun.')).pack(anchor='w')
+        tab = self.new_tab(tr('Modes de jeu'), 'modes', tr('Modes proposés dans le jeu, et les parties de chacun.'))
         self.table(tab, 'modes', 12, 32)
 
     def all_tab(self):
-        tab = ttk.Frame(self.tabs, padding=8)
-        self.tabs.add(tab, text=tr('Tout (avancé)'), **with_icon('tout'))
-        ttk.Label(tab, text=tr('Toute la sauvegarde. Double-clique pour changer, clic droit pour ajouter ou retirer. Avec précaution.')).pack(anchor='w')
+        tab = self.new_tab(tr('Tout (avancé)'), 'tout', tr('Toute la sauvegarde. Double-clique pour changer, clic droit pour ajouter ou retirer. Avec précaution.'))
         frame = ttk.Frame(tab, style='Card.TFrame', padding=6)
         frame.pack(fill='both', expand=True, pady=6)
         self.tree = ttk.Treeview(frame, columns=('value', 'type'), height=22)
@@ -407,7 +392,7 @@ class Editor(ttk.Frame):
         if new is None:
             return
         self.model.set_at(part, path, new)
-        self.changed()
+        self.refresh()
 
     def ask_value(self, label, value, what, detail):
         if what == 'bool' or isinstance(value, bool):
@@ -420,16 +405,23 @@ class Editor(ttk.Frame):
             return simpledialog.askstring(TITLE, f'{label} :', initialvalue=value or '', parent=self)
         if what == 'float' or isinstance(value, float):
             new = simpledialog.askfloat(TITLE, f'{label} :', initialvalue=value or 0.0, parent=self)
-            return None if new is None else sv.F32(new) if isinstance(value, sv.F32) or detail in ('float', 'Single') else new
-        if what == 'bytes':
-            text = simpledialog.askstring(TITLE, tr('{label} (en hexadécimal) :', label=label), initialvalue=(value or b'').hex(), parent=self)
-            try:
-                return None if text is None else bytes.fromhex(text)
-            except ValueError:
-                messagebox.showerror(TITLE, tr("Ce n'est pas de l'hexadécimal."))
+            if new is None:
                 return None
+            return sv.F32(new) if isinstance(value, sv.F32) or detail in ('float', 'Single') else new
+        if what == 'bytes':
+            return self.ask_bytes(label, value)
         low, high = detail if what == 'int' else (-2 ** 63, 2 ** 64 - 1)
         return simpledialog.askinteger(TITLE, tr('{label} ({low} à {high}) :', label=label, low=low, high=high), initialvalue=value if value is not None else 0, minvalue=low, maxvalue=high, parent=self)
+
+    def ask_bytes(self, label, value):
+        text = simpledialog.askstring(TITLE, tr('{label} (en hexadécimal) :', label=label), initialvalue=(value or b'').hex(), parent=self)
+        if text is None:
+            return None
+        try:
+            return bytes.fromhex(text)
+        except ValueError:
+            messagebox.showerror(TITLE, tr("Ce n'est pas de l'hexadécimal."))
+            return None
 
     def node_menu(self, event):
         item = self.tree.identify_row(event.y)
@@ -449,7 +441,7 @@ class Editor(ttk.Frame):
         if path:
             parent = self.model.value_at(part, path[:-1])
             parent_kind = self.nodes.get(self.tree.parent(item), (None, None, '?'))[2]
-            if isinstance(parent, list) and sv.describe(parent_kind)[0] == 'list' or (isinstance(parent, dict) and sv.describe(parent_kind)[0] == 'map'):
+            if isinstance(parent, list) and is_kind(parent_kind, 'list') or (isinstance(parent, dict) and is_kind(parent_kind, 'map')):
                 label = tr('Retirer cet élément') if isinstance(parent, list) else tr('Retirer cette clé')
                 menu.add_command(label=label, command=lambda: self.act(lambda: self.model.remove_item(parent, path[-1])))
         if menu.index('end') is not None:

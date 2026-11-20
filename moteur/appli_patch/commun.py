@@ -12,8 +12,11 @@ COPIES = Path(os.environ.get('RR_COPIES') or ROOT / 'Sauvegardes')
 TOOL = next((path for path in (HERE.parent / 'outil' / 'sauvegarde_rr.py', HERE.parent / 'outil_sauvegarde_source' / 'sauvegarde_rr.py') if path.exists()))
 BASE = Path.home() / '.sauvegarde-rr'
 DEFAULT_APK = Path.home() / 'RangerRumble_hors_ligne.apk'
+SAVE_NAME = 'save.msgpack'
 STEP = re.compile('(\\d)/6 ')
 BUILD_STEPS = {1: (0, 20, 8), 2: (20, 78, 20), 3: (78, 82, 2), 4: (82, 93, 4), 5: (93, 99, 2)}
+NAME_DATE = re.compile('_(\\d{4})-(\\d{2})-(\\d{2})_(\\d{2})(\\d{2})\\d{2}$')
+SAVE_CHECKS: dict[tuple[str, int], bool] = {}
 
 def load_tool():
     spec = importlib.util.spec_from_file_location('sauvegarde_rr', TOOL)
@@ -22,7 +25,7 @@ def load_tool():
     module.OUT = COPIES
     return module
 
-def open_folder(path, reveal=False):
+def open_folder(path, reveal: bool=False) -> None:
     path = str(path)
     if sys.platform == 'win32':
         if reveal:
@@ -32,7 +35,7 @@ def open_folder(path, reveal=False):
     else:
         subprocess.Popen(['open', '-R', path] if reveal else ['open', path])
 
-def is_save(path):
+def is_save(path) -> bool:
     try:
         key = (str(path), os.stat(path).st_mtime_ns)
     except OSError:
@@ -40,9 +43,8 @@ def is_save(path):
     if key not in SAVE_CHECKS:
         SAVE_CHECKS[key] = read_is_save(path)
     return SAVE_CHECKS[key]
-SAVE_CHECKS = {}
 
-def read_is_save(path):
+def read_is_save(path) -> bool:
     import msgpack
     try:
         with open(path, 'rb') as handle:
@@ -52,18 +54,21 @@ def read_is_save(path):
     parts = value.get('save') if isinstance(value, dict) else None
     return isinstance(parts, dict) and 'UnlockedHeroes' in parts
 
-def has_save(folder):
-    return (Path(folder) / 'save.msgpack').is_file()
+def has_save(folder) -> bool:
+    return (Path(folder) / SAVE_NAME).is_file()
 
-def copies(folder=None):
+def newest_first(paths) -> list[Path]:
+    return sorted(paths, key=lambda path: path.stat().st_mtime, reverse=True)
+
+def copies(folder=None) -> list[Path]:
     folder = Path(folder or COPIES)
-    found = [copy for copy in folder.iterdir() if copy.is_dir() and has_save(copy)] if folder.is_dir() else []
-    return sorted(found, key=lambda copy: copy.stat().st_mtime, reverse=True)
-NAME_DATE = re.compile('_(\\d{4})-(\\d{2})-(\\d{2})_(\\d{2})(\\d{2})\\d{2}$')
+    if not folder.is_dir():
+        return []
+    return newest_first((copy for copy in folder.iterdir() if copy.is_dir() and has_save(copy)))
 
-def save_kind(path):
+def save_kind(path) -> str:
     path = Path(path)
-    if path.name == 'save.msgpack':
+    if path.name == SAVE_NAME:
         return 'iphone'
     if path.name.startswith('TELEPHONE_'):
         return 'telephone'
@@ -71,9 +76,9 @@ def save_kind(path):
         return 'envoyee'
     return 'fichier'
 
-def save_date(path):
+def save_date(path) -> str:
     path = Path(path)
-    named = NAME_DATE.search(path.parent.name if path.name == 'save.msgpack' else path.stem)
+    named = NAME_DATE.search(path.parent.name if path.name == SAVE_NAME else path.stem)
     if named:
         _, month, day, hour, minute = named.groups()
         return f'{day}/{month} {hour}:{minute}'
@@ -82,7 +87,7 @@ def save_date(path):
     except OSError:
         return ''
 
-def save_label(path):
+def save_label(path) -> str:
     path = Path(path)
     date, kind = (save_date(path), save_kind(path))
     if kind == 'iphone':
@@ -93,10 +98,10 @@ def save_label(path):
         label = {'telephone': tr('Téléphone, gardée le {date}', date=date), 'envoyee': tr('Envoyée au téléphone le {date}', date=date)}.get(kind, path.name)
     return label if folder == COPIES else f'{label}  ·  {folder.name}'
 
-def saves(folder=None):
+def saves(folder=None) -> list[Path]:
     folder = Path(folder or COPIES)
     if not folder.is_dir():
         return []
-    own = [folder / 'save.msgpack'] if has_save(folder) else []
-    files = sorted((file for file in folder.glob('*.msgpack') if file.name != 'save.msgpack' and is_save(file)), key=lambda file: file.stat().st_mtime, reverse=True)
-    return own + [copy / 'save.msgpack' for copy in copies(folder)] + files
+    own = [folder / SAVE_NAME] if has_save(folder) else []
+    files = newest_first((file for file in folder.glob('*.msgpack') if file.name != SAVE_NAME and is_save(file)))
+    return own + [copy / SAVE_NAME for copy in copies(folder)] + files

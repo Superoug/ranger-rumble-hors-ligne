@@ -9,23 +9,35 @@ PAGE = '#0e1630'
 PANEL = '#152043'
 RAISED = '#1d2a55'
 HOVER = '#283a72'
+PRESSED = '#16214a'
 FIELD = '#0a1126'
 LINE = '#2a3a6e'
 TEXT = '#eef2fb'
 SOFT = '#9fb0d4'
 DIM = '#5d6b90'
 GREEN = '#50ec80'
+GREEN_HOVER = '#7af5a0'
+GREEN_DIM = '#21402f'
 SELECT = '#2f5aa8'
 RED = '#ff7a7a'
 OWNED = '#163a2a'
+GLOW = 14
+CARD = (360, 232)
+CARD_PICTURE = 150
+PILL = (360, 58)
+CHIP = (190, 44)
+BACK = (132, 38)
+NAV = (156, 36)
+
+def _first_family(root, names, default):
+    families = set(tkfont.families(root))
+    return next((name for name in names if name in families), default)
 
 def family(root):
-    families = set(tkfont.families(root))
-    return next((name for name in ('Avenir Next', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Arial') if name in families), 'TkDefaultFont')
+    return _first_family(root, ('Avenir Next', 'Segoe UI', 'Helvetica Neue', 'Helvetica', 'Arial'), 'TkDefaultFont')
 
 def mono_family(root):
-    families = set(tkfont.families(root))
-    return next((name for name in ('Menlo', 'Consolas', 'Courier New') if name in families), 'TkFixedFont')
+    return _first_family(root, ('Menlo', 'Consolas', 'Courier New'), 'TkFixedFont')
 
 def fonts(root):
     main = family(root)
@@ -33,14 +45,24 @@ def fonts(root):
 
 def apply(root):
     found = fonts(root)
+    _named_fonts(found)
+    root.configure(background=PAGE)
+    _plain_widgets(root, found)
+    style = ttk.Style(root)
+    style.theme_use('clam')
+    _ttk_styles(style, found)
+    rounded(root, style)
+
+def _named_fonts(found):
     for name, spec in (('TkDefaultFont', found['text']), ('TkTextFont', found['text']), ('TkHeadingFont', found['bold']), ('TkFixedFont', found['mono']), ('TkCaptionFont', found['heading'])):
         named = tkfont.nametofont(name)
         named.configure(family=spec[0], size=spec[1], weight=spec[2] if len(spec) > 2 else 'normal')
-    root.configure(background=PAGE)
+
+def _plain_widgets(root, found):
     for option, value in (('*Background', PAGE), ('*Foreground', TEXT), ('*Entry.Background', FIELD), ('*insertBackground', TEXT), ('*selectBackground', SELECT), ('*selectForeground', TEXT), ('*highlightBackground', PAGE), ('*highlightColor', LINE), ('*activeBackground', HOVER), ('*activeForeground', TEXT), ('*disabledForeground', DIM), ('*TCombobox*Listbox.background', FIELD), ('*TCombobox*Listbox.foreground', TEXT), ('*TCombobox*Listbox.selectBackground', SELECT), ('*TCombobox*Listbox.font', found['text'])):
         root.option_add(option, value)
-    style = ttk.Style(root)
-    style.theme_use('clam')
+
+def _ttk_styles(style, found):
     style.configure('.', background=PAGE, foreground=TEXT, fieldbackground=FIELD, bordercolor=LINE, lightcolor=PAGE, darkcolor=PAGE, troughcolor=FIELD, focuscolor=PAGE, selectbackground=SELECT, selectforeground=TEXT, insertcolor=TEXT, arrowcolor=SOFT, font=found['text'])
     style.map('.', foreground=[('disabled', DIM)])
     style.configure('TFrame', background=PAGE)
@@ -75,7 +97,6 @@ def apply(root):
     style.map('TNotebook.Tab', background=[('selected', PANEL), ('active', RAISED)], lightcolor=[('selected', GREEN)], foreground=[('selected', TEXT), ('active', TEXT)])
     style.layout('Pages.TNotebook.Tab', [])
     style.configure('Pages.TNotebook', background=PAGE, borderwidth=0, bordercolor=PAGE, lightcolor=PAGE, darkcolor=PAGE, tabmargins=0, padding=0)
-    rounded(root, style)
 
 def rounded(root, style):
 

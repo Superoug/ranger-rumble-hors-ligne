@@ -1,3 +1,4 @@
+import re
 import struct
 TEXT_DELTA = 16384
 CONDITIONS = {'eq': 0, 'ne': 1, 'hs': 2, 'lo': 3, 'ge': 10, 'lt': 11, 'gt': 12, 'le': 13}
@@ -80,8 +81,100 @@ def adrp_add(register, source, target):
     add = 2432696320 | (target + TEXT_DELTA & 4095) << 10 | register << 5 | register
     return word(adrp) + word(add)
 
+def is_bl(raw_word):
+    return raw_word >> 26 == 37
+
+def branch_target(source, raw_word):
+    offset = raw_word & 67108863
+    return source + (offset - (1 << 26) if offset & 33554432 else offset) * 4
+
 def br(register):
     return word(3592355840 | register << 5)
 RET = word(3596551104)
 NOP = word(3573751839)
 SP = 31
+LOADS = {8: 4181721088, 4: 3107979264, 1: 960495616}
+STORES = {8: 4177526784, 4: 3103784960, 1: 956301312}
+OFFSET19_KINDS = {'cbz': 3019898880, 'cbzw': 872415232, 'cbnzw': 889192448, 'cbnzx': 3036676096, 'ldrlit': 1476395008, 'ldrlit_s': 469762048}
+TBZ, TBNZ = (905969664, 922746880)
+
+def ldst(base, size, rt, rn, offset):
+    return word(base | offset // size << 10 | rn << 5 | rt)
+
+def adr(rd, source, target):
+    delta = target - source
+    return word(268435456 | (delta & 3) << 29 | (delta >> 2 & 524287) << 5 | rd)
+
+def offset19(base, rt, source, target):
+    return word(base | (target - source >> 2 & 524287) << 5 | rt)
+
+def test_bit_branch(opcode, register, bit, source, target):
+    return word(opcode | (bit & 31) << 19 | (target - source >> 2 & 16383) << 5 | register)
+
+def str_w(source, base, offset):
+    return ldst(STORES[4], 4, source, base, offset)
+
+def add_w(destination, first, second):
+    return word(184549376 | second << 16 | first << 5 | destination)
+
+def sub_w_imm(destination, source, value):
+    return word(1358954496 | value << 10 | source << 5 | destination)
+
+def umaddl_x(destination, first, second, addend):
+    return word(2610954240 | second << 16 | addend << 10 | first << 5 | destination)
+
+def adrp(register, source, address):
+    page = (address >> 12) - (source + TEXT_DELTA >> 12)
+    return word(2415919104 | (page & 3) << 29 | (page >> 2 & 524287) << 5 | register)
+
+class Assembler:
+
+    def __init__(self, at_address):
+        self.at = at_address
+        self.code = bytearray()
+        self.labels = {}
+        self.fixups = []
+
+    def here(self):
+        return self.at + len(self.code)
+
+    def emit(self, raw):
+        self.code.extend(raw)
+
+    def call(self, target):
+        self.emit(bl(self.here(), target))
+
+    def jump(self, kind, label, register=0):
+        self.fixups.append((kind, len(self.code), label, register))
+        self.code.extend(bytes(4))
+
+    def label(self, name):
+        self.labels[name] = len(self.code)
+
+    def align(self, size=8):
+        while len(self.code) % size:
+            self.emit(NOP)
+
+    def adrp_ldr(self, register, address):
+        self.emit(adrp(register, self.here(), address))
+        self.emit(ldr_x(register, register, address & 4095))
+
+    def build(self):
+        for kind, position, label, register in self.fixups:
+            source, target = (self.at + position, self.at + self.labels[label])
+            test_bit = re.fullmatch('(tbn?z)(\\d+)', kind)
+            if kind == 'b':
+                raw = b(source, target)
+            elif kind == 'bl':
+                raw = bl(source, target)
+            elif kind == 'adr':
+                raw = adr(register, source, target)
+            elif kind in OFFSET19_KINDS:
+                raw = offset19(OFFSET19_KINDS[kind], register, source, target)
+            elif test_bit:
+                opcode = TBNZ if test_bit.group(1) == 'tbnz' else TBZ
+                raw = test_bit_branch(opcode, register, int(test_bit.group(2)), source, target)
+            else:
+                raw = b_cond(kind[2:], source, target)
+            self.code[position:position + 4] = raw
+        return bytes(self.code)

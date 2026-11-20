@@ -6,17 +6,18 @@ SETTINGS = os.path.join(os.path.expanduser('~'), '.sauvegarde-rr', 'reglages.jso
 LANGUAGES = (('en', 'English'), ('fr', 'Français'), ('es', 'Español'), ('de', 'Deutsch'), ('it', 'Italiano'), ('pt', 'Português'))
 DEFAULT = 'en'
 
-def _load(path, default):
+def _load(path: str) -> dict:
     try:
         with open(path, encoding='utf-8') as handle:
-            return json.load(handle)
+            value = json.load(handle)
     except (OSError, ValueError):
-        return default
-TABLE = _load(TABLE_FILE, {})
-_chosen = _load(SETTINGS, {}).get('langue')
+        return {}
+    return value if isinstance(value, dict) else {}
+TABLE = _load(TABLE_FILE)
+_chosen = _load(SETTINGS).get('langue')
 CURRENT = _chosen if _chosen in dict(LANGUAGES) else DEFAULT
 
-def tr(text, /, **values):
+def tr(text: str, /, **values) -> str:
     if CURRENT != 'fr':
         core = text.strip()
         if core:
@@ -26,5 +27,5 @@ def tr(text, /, **values):
             text = lead + (entry.get(CURRENT) or entry.get('en') or core) + trail
     return text.format(**values) if values else text
 
-def names_language():
+def names_language() -> str:
     return 'fr' if CURRENT == 'fr' else 'en'

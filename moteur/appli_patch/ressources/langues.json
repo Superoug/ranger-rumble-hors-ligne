@@ -6,7 +6,7 @@
   "it": "Ranger Rumble offline",
   "pt": "Ranger Rumble offline"
  },
- "Choisis en haut où est ton jeu.": {
+ "Choisir en haut où est le jeu.": {
   "en": "Choose at the top where your game is.",
   "es": "Elige arriba dónde está tu juego.",
   "de": "Wähle oben, wo dein Spiel ist.",
@@ -20,7 +20,7 @@
   "it": "Avvia",
   "pt": "Iniciar"
  },
- "Choisis le jeu officiel 1.10.4 et ta sauvegarde (ou « Nouvelle partie »), puis clique sur « Fabriquer l'APK ». Il faut 5 Go libres.": {
+ "Choisir le jeu officiel 1.10.4 et la sauvegarde (ou « Nouvelle partie »), puis cliquer sur « Fabriquer l'APK ». Il faut 5 Go libres.": {
   "en": "Choose the official game 1.10.4 and your save (or “New game”), then click “Build the APK”. You need 5 GB free.",
   "es": "Elige el juego oficial 1.10.4 y tu partida (o «Partida nueva»), y haz clic en «Crear el APK». Necesitas 5 GB libres.",
   "de": "Wähle das offizielle Spiel 1.10.4 und deinen Spielstand (oder „Neues Spiel“), dann klicke auf „APK erstellen“. Du brauchst 5 GB frei.",
@@ -90,14 +90,14 @@
   "it": "Versione {version}. Ricerca aggiornamenti...",
   "pt": "Versão {version}. Procurando atualizações..."
  },
- "Version {game}. Branche le téléphone (débogage USB activé) et clique ci-dessous. Ta progression est gardée.": {
+ "Version {game}. Brancher le téléphone (débogage USB activé) et cliquer ci-dessous. La progression est gardée.": {
   "en": "Version {game}. Plug in the phone (USB debugging on) and click below. Your progress is kept.",
   "es": "Versión {game}. Conecta el teléfono (depuración USB activada) y haz clic abajo. Tu progreso se conserva.",
   "de": "Version {game}. Schließe das Handy an (USB-Debugging an) und klicke unten. Dein Fortschritt bleibt erhalten.",
   "it": "Versione {game}. Collega il telefono (debug USB attivo) e clicca qui sotto. I tuoi progressi restano.",
   "pt": "Versão {game}. Conecte o celular (depuração USB ativada) e clique abaixo. Seu progresso é mantido."
  },
- "L'outil est à jour. Relance-le.": {
+ "L'outil est à jour. Il faut le relancer.": {
   "en": "The tool is up to date. Start it again.",
   "es": "La herramienta está al día. Vuelve a abrirla.",
   "de": "Das Tool ist aktuell. Starte es neu.",
@@ -111,7 +111,7 @@
   "it": "Il gioco del telefono è aggiornato.",
   "pt": "O jogo do celular está atualizado."
  },
- "Le jeu du téléphone est à jour. Ta progression est gardée.": {
+ "Le jeu du téléphone est à jour. La progression est gardée.": {
   "en": "The phone's game is up to date. Your progress is kept.",
   "es": "El juego del teléfono está al día. Tu progreso se conserva.",
   "de": "Das Spiel auf dem Handy ist aktuell. Dein Fortschritt bleibt erhalten.",
@@ -146,14 +146,14 @@
   "it": "4. Aggiornamenti",
   "pt": "4. Atualizações"
  },
- "Scanne avec l'iPhone\n{url}": {
+ "Scanner avec l'iPhone\n{url}": {
   "en": "Scan with the iPhone\n{url}",
   "es": "Escanea con el iPhone\n{url}",
   "de": "Mit dem iPhone scannen\n{url}",
   "it": "Scansiona con l'iPhone\n{url}",
   "pt": "Escaneie com o iPhone\n{url}"
  },
- "Attends la fin de la fabrication de l'APK.": {
+ "Il faut attendre la fin de la fabrication de l'APK.": {
   "en": "Wait until the APK is built.",
   "es": "Espera a que termine la creación del APK.",
   "de": "Warte, bis die APK fertig ist.",
@@ -195,7 +195,7 @@
   "it": "APK da creare",
   "pt": "APK a criar"
  },
- "Choisis le fichier du jeu officiel 1.10.4 (.xapk, .apkm ou .apk).": {
+ "Choisir le fichier du jeu officiel 1.10.4 (.xapk, .apkm ou .apk).": {
   "en": "Choose the official game file 1.10.4 (.xapk, .apkm or .apk).",
   "es": "Elige el archivo del juego oficial 1.10.4 (.xapk, .apkm o .apk).",
   "de": "Wähle die Datei des offiziellen Spiels 1.10.4 (.xapk, .apkm oder .apk).",
@@ -216,21 +216,21 @@
   "it": "Questo file non è un salvataggio di Ranger Rumble.",
   "pt": "Este arquivo não é um jogo salvo do Ranger Rumble."
  },
- "Choisis une sauvegarde exportée ou « Nouvelle partie », pas les deux.": {
+ "Choisir une sauvegarde exportée ou « Nouvelle partie », pas les deux.": {
   "en": "Choose an exported save or “New game”, not both.",
   "es": "Elige una partida exportada o «Partida nueva», no las dos.",
   "de": "Wähle einen exportierten Spielstand oder „Neues Spiel“, nicht beides.",
   "it": "Scegli un salvataggio esportato o «Nuova partita», non entrambi.",
   "pt": "Escolha um jogo salvo exportado ou “Novo jogo”, não os dois."
  },
- "Choisis une sauvegarde exportée, ou coche « Nouvelle partie ».": {
+ "Choisir une sauvegarde exportée, ou cocher « Nouvelle partie ».": {
   "en": "Choose an exported save, or tick “New game”.",
   "es": "Elige una partida exportada o marca «Partida nueva».",
   "de": "Wähle einen exportierten Spielstand oder setze ein Häkchen bei „Neues Spiel“.",
   "it": "Scegli un salvataggio esportato, o spunta «Nuova partita».",
   "pt": "Escolha um jogo salvo exportado, ou marque “Novo jogo”."
  },
- "Choisis où créer l'APK.": {
+ "Choisir où créer l'APK.": {
   "en": "Choose where to create the APK.",
   "es": "Elige dónde crear el APK.",
   "de": "Wähle, wo die APK erstellt wird.",
@@ -258,7 +258,7 @@
   "it": "L'APK è qui:\n{out}\n\nAprire la sua cartella?",
   "pt": "O APK está aqui:\n{out}\n\nAbrir a pasta dele?"
  },
- "Attends la fin de la fabrication en cours.": {
+ "Il faut attendre la fin de la fabrication en cours.": {
   "en": "Wait until the current build is done.",
   "es": "Espera a que termine la creación en curso.",
   "de": "Warte, bis die laufende Erstellung fertig ist.",
@@ -300,7 +300,7 @@
   "it": "Lo strumento è già aggiornato.",
   "pt": "A ferramenta já está atualizada."
  },
- "Installer la version {version} ? L'outil se fermera, relance-le ensuite.": {
+ "Installer la version {version} ? L'outil se fermera, il faudra le relancer.": {
   "en": "Install version {version}? The tool will close, start it again afterwards.",
   "es": "¿Instalar la versión {version}? La herramienta se cerrará, vuelve a abrirla después.",
   "de": "Version {version} installieren? Das Tool schließt sich, starte es danach neu.",
@@ -356,7 +356,7 @@
   "it": "Novità:\n{v}",
   "pt": "Novidades:\n{v}"
  },
- "Mets ensuite à jour le jeu du téléphone.": {
+ "Il faut ensuite mettre à jour le jeu du téléphone.": {
   "en": "Then update the phone's game.",
   "es": "Después actualiza el juego del teléfono.",
   "de": "Aktualisiere danach das Spiel auf dem Handy.",
@@ -489,6 +489,13 @@
   "it": "Controlla ora",
   "pt": "Verificar agora"
  },
+ "Vérifier les mises à jour": {
+  "en": "Check for updates",
+  "es": "Buscar actualizaciones",
+  "de": "Nach Updates suchen",
+  "it": "Cerca aggiornamenti",
+  "pt": "Procurar atualizações"
+ },
  "Le jeu du téléphone": {
   "en": "The phone's game",
   "es": "El juego del teléfono",
@@ -531,7 +538,7 @@
   "it": "Creazione in corso. Uscire comunque?",
   "pt": "Criação em andamento. Sair mesmo assim?"
  },
- "Touche « Autoriser » sur le téléphone, puis recommence.": {
+ "Toucher « Autoriser » sur le téléphone, puis recommencer.": {
   "en": "Tap “Allow” on the phone, then try again.",
   "es": "Toca «Permitir» en el teléfono y vuelve a intentarlo.",
   "de": "Tippe auf dem Handy auf „Zulassen“ und versuche es erneut.",
@@ -671,7 +678,7 @@
   "it": "Nuova chiave",
   "pt": "Nova chave"
  },
- "Ouvre une sauvegarde, en haut.": {
+ "Ouvrir une sauvegarde, en haut.": {
   "en": "Open a save, at the top.",
   "es": "Abre una partida, arriba.",
   "de": "Öffne oben einen Spielstand.",
@@ -804,7 +811,7 @@
   "it": "Serie di vittorie",
   "pt": "Sequência de vitórias"
  },
- "Sélectionne d'abord des héros dans la liste (clic, Maj+clic ou Cmd/Ctrl+clic).": {
+ "Sélectionner d'abord des héros dans la liste (clic, Maj+clic ou Cmd/Ctrl+clic).": {
   "en": "Select heroes in the list first (click, Shift+click or Cmd/Ctrl+click).",
   "es": "Primero selecciona héroes en la lista (clic, Mayús+clic o Cmd/Ctrl+clic).",
   "de": "Wähle zuerst Helden in der Liste (Klick, Umschalt+Klick oder Cmd/Strg+Klick).",
@@ -853,7 +860,7 @@
   "it": "Equipaggiata",
   "pt": "Equipada"
  },
- "Sélectionne d'abord des armes dans la liste (clic, Maj+clic ou Cmd/Ctrl+clic).": {
+ "Sélectionner d'abord des armes dans la liste (clic, Maj+clic ou Cmd/Ctrl+clic).": {
   "en": "Select weapons in the list first (click, Shift+click or Cmd/Ctrl+click).",
   "es": "Primero selecciona armas en la lista (clic, Mayús+clic o Cmd/Ctrl+clic).",
   "de": "Wähle zuerst Waffen in der Liste (Klick, Umschalt+Klick oder Cmd/Strg+Klick).",
@@ -958,7 +965,7 @@
   "it": "Questo file non è un salvataggio leggibile di Ranger Rumble:\n\n{error}",
   "pt": "Este arquivo não é um jogo salvo legível do Ranger Rumble:\n\n{error}"
  },
- "Tes changements dans la sauvegarde ouverte ne sont pas enregistrés. L'oublier ?": {
+ "Les changements de la sauvegarde ouverte ne sont pas enregistrés. Les oublier ?": {
   "en": "Your changes to the open save are not saved. Forget them?",
   "es": "Tus cambios en la partida abierta no están guardados. ¿Olvidarlos?",
   "de": "Deine Änderungen am offenen Spielstand sind nicht gespeichert. Verwerfen?",
@@ -1119,14 +1126,14 @@
   "it": "nessuna modifica",
   "pt": "nenhuma mudança"
  },
- "Double-clique sur une valeur pour la changer.": {
+ "Double-cliquer sur une valeur pour la changer.": {
   "en": "Double-click a value to change it.",
   "es": "Haz doble clic en un valor para cambiarlo.",
   "de": "Doppelklicke auf einen Wert, um ihn zu ändern.",
   "it": "Fai doppio clic su un valore per cambiarlo.",
   "pt": "Clique duas vezes num valor para mudá-lo."
  },
- "Double-clique pour changer une valeur.": {
+ "Double-cliquer pour changer une valeur.": {
   "en": "Double-click to change a value.",
   "es": "Haz doble clic para cambiar un valor.",
   "de": "Doppelklicke, um einen Wert zu ändern.",
@@ -1154,7 +1161,7 @@
   "it": "Sblocca tutte le armi",
   "pt": "Desbloquear todas as armas"
  },
- "Double-clique pour donner ou retirer un costume.": {
+ "Double-cliquer pour donner ou retirer un costume.": {
   "en": "Double-click to give or remove a skin.",
   "es": "Haz doble clic para dar o quitar un aspecto.",
   "de": "Doppelklicke, um einen Skin zu geben oder zu entfernen.",
@@ -1168,7 +1175,7 @@
   "it": "Dai tutti i costumi",
   "pt": "Dar todos os visuais"
  },
- "Ce costume est porté : change de costume dans le jeu avant de le retirer.": {
+ "Ce costume est porté : il faut changer de costume dans le jeu avant de le retirer.": {
   "en": "This skin is worn: change skins in the game before removing it.",
   "es": "Este aspecto está puesto: cambia de aspecto en el juego antes de quitarlo.",
   "de": "Dieser Skin wird getragen: Wechsle den Skin im Spiel, bevor du ihn entfernst.",
@@ -1182,7 +1189,7 @@
   "it": "Le modalità del gioco, e le partite di ognuna.",
   "pt": "Os modos do jogo, e as partidas de cada um."
  },
- "Toute la sauvegarde. Double-clique pour changer, clic droit pour ajouter ou retirer. Avec précaution.": {
+ "Toute la sauvegarde. Double-cliquer pour changer, clic droit pour ajouter ou retirer. Avec précaution.": {
   "en": "The whole save. Double-click to change, right-click to add or remove. Be careful.",
   "es": "Toda la partida. Doble clic para cambiar, clic derecho para añadir o quitar. Con cuidado.",
   "de": "Der ganze Spielstand. Doppelklick zum Ändern, Rechtsklick zum Hinzufügen oder Entfernen. Vorsichtig.",
@@ -1224,7 +1231,7 @@
   "it": "Senza nome",
   "pt": "Sem nome"
  },
- "C'est le héros choisi dans le jeu : choisis-en un autre dans le jeu avant de le retirer.": {
+ "C'est le héros choisi dans le jeu : il faut en choisir un autre dans le jeu avant de le retirer.": {
   "en": "This is the hero chosen in the game: choose another one in the game before removing it.",
   "es": "Es el héroe elegido en el juego: elige otro en el juego antes de quitarlo.",
   "de": "Das ist der im Spiel gewählte Held: Wähle im Spiel einen anderen, bevor du ihn entfernst.",
@@ -1238,7 +1245,7 @@
   "it": "Devi tenere almeno un eroe.",
   "pt": "É preciso manter pelo menos um herói."
  },
- "Cette arme est équipée : équipe-en une autre dans le jeu avant de la retirer.": {
+ "Cette arme est équipée : il faut en équiper une autre dans le jeu avant de la retirer.": {
   "en": "This weapon is equipped: equip another one in the game before removing it.",
   "es": "Esta arma está equipada: equipa otra en el juego antes de quitarla.",
   "de": "Diese Waffe ist ausgerüstet: Rüste im Spiel eine andere aus, bevor du sie entfernst.",
@@ -1273,7 +1280,7 @@
   "it": "Impossibile installare gli strumenti Android.",
   "pt": "Não foi possível instalar as ferramentas Android."
  },
- "Ranger Rumble est déjà sur le téléphone, signé par quelqu'un d'autre : désinstalle-le, puis recommence.": {
+ "Ranger Rumble est déjà sur le téléphone, signé par quelqu'un d'autre : il faut le désinstaller, puis recommencer.": {
   "en": "Ranger Rumble is already on the phone, signed by someone else: uninstall it, then try again.",
   "es": "Ranger Rumble ya está en el teléfono, firmado por otra persona: desinstálalo y vuelve a intentarlo.",
   "de": "Ranger Rumble ist schon auf dem Handy, von jemand anderem signiert: Deinstalliere es und versuche es erneut.",
@@ -1343,21 +1350,21 @@
   "it": "Questo file non è il gioco (.xapk, .apkm o .apk).",
   "pt": "Este arquivo não é o jogo (.xapk, .apkm ou .apk)."
  },
- "Cette APK n'a pas tout le jeu : prends le .xapk (APKPure) ou le .apkm (APKMirror).": {
+ "Cette APK n'a pas tout le jeu : il faut le .xapk (APKPure) ou le .apkm (APKMirror).": {
   "en": "This APK does not have the whole game: take the .xapk (APKPure) or the .apkm (APKMirror).",
   "es": "Este APK no tiene todo el juego: usa el .xapk (APKPure) o el .apkm (APKMirror).",
   "de": "Diese APK hat nicht das ganze Spiel: Nimm die .xapk (APKPure) oder die .apkm (APKMirror).",
   "it": "Questo APK non ha tutto il gioco: prendi il .xapk (APKPure) o il .apkm (APKMirror).",
   "pt": "Este APK não tem o jogo inteiro: use o .xapk (APKPure) ou o .apkm (APKMirror)."
  },
- "Choisis une sauvegarde, ou une nouvelle partie.": {
+ "Choisir une sauvegarde, ou une nouvelle partie.": {
   "en": "Choose a save, or a new game.",
   "es": "Elige una partida guardada o una partida nueva.",
   "de": "Wähle einen Spielstand oder ein neues Spiel.",
   "it": "Scegli un salvataggio, o una nuova partita.",
   "pt": "Escolha um jogo salvo, ou um novo jogo."
  },
- "Choisis une copie de sauvegarde.": {
+ "Choisir une copie de sauvegarde.": {
   "en": "Choose a save copy.",
   "es": "Elige una copia de partida.",
   "de": "Wähle eine Spielstand-Kopie.",
@@ -1371,7 +1378,7 @@
   "it": "Questo file non è la versione 1.10.4 attesa del gioco.",
   "pt": "Este arquivo não é a versão 1.10.4 esperada do jogo."
  },
- "Cette version n'a pas le fichier de l'outil attendu : télécharge-la à la main sur sa page.": {
+ "Cette version n'a pas le fichier de l'outil attendu : il faut la télécharger à la main sur sa page.": {
   "en": "This version does not have the expected tool file: download it by hand from its page.",
   "es": "Esta versión no tiene el archivo esperado de la herramienta: descárgala a mano desde su página.",
   "de": "Diese Version hat nicht die erwartete Datei des Tools: Lade sie von Hand auf ihrer Seite herunter.",
@@ -1399,7 +1406,7 @@
   "it": "Lo strumento ora è nella versione {version}.",
   "pt": "A ferramenta agora está na versão {version}."
  },
- "Le fichier téléchargé est abîmé (empreinte différente). Réessaie plus tard.": {
+ "Le fichier téléchargé est abîmé (empreinte différente). Réessayer plus tard.": {
   "en": "The downloaded file is damaged (different fingerprint). Try again later.",
   "es": "El archivo descargado está dañado (huella distinta). Vuelve a intentarlo más tarde.",
   "de": "Die heruntergeladene Datei ist beschädigt (anderer Fingerabdruck). Versuche es später erneut.",
@@ -1469,7 +1476,7 @@
   "it": "Dati del server incompleti:",
   "pt": "Dados do servidor incompletos:"
  },
- "Si la copie ne démarre pas, règle le proxy à la main : Réglages &gt; Wi-Fi &gt; (i) &gt; Configurer le proxy &gt; Manuel, serveur <code>{address}</code>, port <code>{port}</code> (et remets-le sur Désactivé après).": {
+ "Si la copie ne démarre pas, régler le proxy à la main : Réglages &gt; Wi-Fi &gt; (i) &gt; Configurer le proxy &gt; Manuel, serveur <code>{address}</code>, port <code>{port}</code> (et le remettre sur Désactivé après).": {
   "en": "If the copy does not start, set the proxy by hand: Settings &gt; Wi-Fi &gt; (i) &gt; Configure Proxy &gt; Manual, server <code>{address}</code>, port <code>{port}</code> (and set it back to Off afterwards).",
   "es": "Si la copia no empieza, configura el proxy a mano: Ajustes &gt; Wi-Fi &gt; (i) &gt; Configurar proxy &gt; Manual, servidor <code>{address}</code>, puerto <code>{port}</code> (y vuelve a ponerlo en Desactivado después).",
   "de": "Wenn die Kopie nicht startet, stelle den Proxy von Hand ein: Einstellungen &gt; WLAN &gt; (i) &gt; Proxy konfigurieren &gt; Manuell, Server <code>{address}</code>, Port <code>{port}</code> (und stelle ihn danach wieder auf Aus).",
@@ -1490,21 +1497,21 @@
   "it": "Nessuna porta libera tra {start} e {v}.",
   "pt": "Nenhuma porta livre entre {start} e {v}."
  },
- "<b>1.</b> Touche le bouton, puis <b>Autoriser</b>.": {
+ "<b>1.</b> Toucher le bouton, puis <b>Autoriser</b>.": {
   "en": "<b>1.</b> Tap the button, then <b>Allow</b>.",
   "es": "<b>1.</b> Toca el botón y luego <b>Permitir</b>.",
   "de": "<b>1.</b> Tippe auf den Knopf, dann auf <b>Zulassen</b>.",
   "it": "<b>1.</b> Tocca il pulsante, poi <b>Consenti</b>.",
   "pt": "<b>1.</b> Toque no botão, depois em <b>Permitir</b>."
  },
- "<b>3.</b> Réglages &gt; Général &gt; <b>Informations</b> (pas VPN). Tout en bas de cette page : <b>Réglages des certificats</b> (la ligne n'apparaît qu'après l'étape 2). Active <b>RatchetRR</b>, puis <b>Continuer</b>.": {
+ "<b>3.</b> Réglages &gt; Général &gt; <b>Informations</b> (pas VPN). Tout en bas de cette page : <b>Réglages des certificats</b> (la ligne n'apparaît qu'après l'étape 2). Activer <b>RatchetRR</b>, puis <b>Continuer</b>.": {
   "en": "<b>3.</b> Settings &gt; General &gt; <b>About</b> (not VPN). At the very bottom of this page: <b>Certificate Trust Settings</b> (the line only appears after step 2). Turn on <b>RatchetRR</b>, then <b>Continue</b>.",
   "es": "<b>3.</b> Ajustes &gt; General &gt; <b>Información</b> (no VPN). Abajo del todo: <b>Ajustes de confianza de certificados</b> (la línea solo aparece después del paso 2). Activa <b>RatchetRR</b> y luego <b>Continuar</b>.",
   "de": "<b>3.</b> Einstellungen &gt; Allgemein &gt; <b>Info</b> (nicht VPN). Ganz unten auf dieser Seite: <b>Zertifikatsvertrauenseinstellungen</b> (die Zeile erscheint erst nach Schritt 2). Schalte <b>RatchetRR</b> ein, dann <b>Fortfahren</b>.",
   "it": "<b>3.</b> Impostazioni &gt; Generali &gt; <b>Info</b> (non VPN). In fondo a questa pagina: <b>Impostazioni certificati attendibili</b> (la riga appare solo dopo il passo 2). Attiva <b>RatchetRR</b>, poi <b>Continua</b>.",
   "pt": "<b>3.</b> Ajustes &gt; Geral &gt; <b>Sobre</b> (não VPN). Bem no fim desta página: <b>Ajustes de Confiança de Certificados</b> (a linha só aparece depois do passo 2). Ative <b>RatchetRR</b>, depois <b>Continuar</b>."
  },
- "<b>4.</b> Ouvre Ranger Rumble et attends l'écran d'accueil. C'est tout : la fenêtre de l'ordinateur dira quand c'est fini.": {
+ "<b>4.</b> Ouvrir Ranger Rumble et attendre l'écran d'accueil. C'est tout : la fenêtre de l'ordinateur dira quand c'est fini.": {
   "en": "<b>4.</b> Open Ranger Rumble and wait for the home screen. That's all: the computer's window will say when it is done.",
   "es": "<b>4.</b> Abre Ranger Rumble y espera la pantalla de inicio. Eso es todo: la ventana del ordenador dirá cuándo termina.",
   "de": "<b>4.</b> Öffne Ranger Rumble und warte auf den Startbildschirm. Das ist alles: Das Fenster des Computers sagt, wann es fertig ist.",
@@ -1525,28 +1532,28 @@
   "it": "L'iPhone e questo computer devono essere sulla stessa Wi-Fi.",
   "pt": "O iPhone e este computador precisam estar no mesmo Wi-Fi."
  },
- "ÉTAPE 1 - sur l'iPhone, vise le QR code de la fenêtre avec l'appareil photo": {
+ "ÉTAPE 1 - sur l'iPhone, viser le QR code de la fenêtre avec l'appareil photo": {
   "en": "STEP 1 - on the iPhone, point the camera at the QR code in the window",
   "es": "PASO 1 - en el iPhone, apunta la cámara al código QR de la ventana",
   "de": "SCHRITT 1 - Richte auf dem iPhone die Kamera auf den QR-Code im Fenster",
   "it": "PASSO 1 - sull'iPhone, inquadra con la fotocamera il codice QR della finestra",
   "pt": "PASSO 1 - no iPhone, aponte a câmera para o código QR da janela"
  },
- "(ou ouvre Safari à l'adresse http://{address}:{page_port} ).": {
+ "(ou ouvrir Safari à l'adresse http://{address}:{page_port} ).": {
   "en": "(or open Safari at http://{address}:{page_port} ).",
   "es": "(o abre Safari en http://{address}:{page_port} ).",
   "de": "(oder öffne Safari unter http://{address}:{page_port} ).",
   "it": "(oppure apri Safari all'indirizzo http://{address}:{page_port} ).",
   "pt": "(ou abra o Safari no endereço http://{address}:{page_port} )."
  },
- "Touche « Télécharger le profil RatchetRR », puis « Autoriser ».": {
+ "Toucher « Télécharger le profil RatchetRR », puis « Autoriser ».": {
   "en": "Tap “Download the RatchetRR profile”, then “Allow”.",
   "es": "Toca «Descargar el perfil RatchetRR» y luego «Permitir».",
   "de": "Tippe auf „Profil RatchetRR laden“, dann auf „Zulassen“.",
   "it": "Tocca «Scarica il profilo RatchetRR», poi «Consenti».",
   "pt": "Toque em “Baixar o perfil RatchetRR”, depois em “Permitir”."
  },
- "ÉTAPE 2 - installe le profil : Réglages > « Profil téléchargé » (en haut)": {
+ "ÉTAPE 2 - installer le profil : Réglages > « Profil téléchargé » (en haut)": {
   "en": "STEP 2 - install the profile: Settings > “Profile Downloaded” (at the top)",
   "es": "PASO 2 - instala el perfil: Ajustes > «Perfil descargado» (arriba)",
   "de": "SCHRITT 2 - installiere das Profil: Einstellungen > „Profil geladen“ (oben)",
@@ -1560,7 +1567,7 @@
   "it": "> Installa > codice dell'iPhone > Installa.",
   "pt": "> Instalar > código do iPhone > Instalar."
  },
- "ÉTAPE 3 - accepte le profil (sinon le jeu le refuse) :": {
+ "ÉTAPE 3 - accepter le profil (sinon le jeu le refuse) :": {
   "en": "STEP 3 - trust the profile (otherwise the game refuses it):",
   "es": "PASO 3 - acepta el perfil (si no, el juego lo rechaza):",
   "de": "SCHRITT 3 - vertraue dem Profil (sonst lehnt das Spiel es ab):",
@@ -1574,21 +1581,21 @@
   "it": "Impostazioni > Generali > Info > in fondo «Impostazioni certificati attendibili»",
   "pt": "Ajustes > Geral > Sobre > bem no fim “Ajustes de Confiança de Certificados”"
  },
- "> active « RatchetRR » > Continuer.": {
+ "> activer « RatchetRR » > Continuer.": {
   "en": "> turn on “RatchetRR” > Continue.",
   "es": "> activa «RatchetRR» > Continuar.",
   "de": "> „RatchetRR“ einschalten > Fortfahren.",
   "it": "> attiva «RatchetRR» > Continua.",
   "pt": "> ative “RatchetRR” > Continuar."
  },
- "ÉTAPE 4 - ouvre Ranger Rumble et attends l'écran d'accueil. C'est tout.": {
+ "ÉTAPE 4 - ouvrir Ranger Rumble et attendre l'écran d'accueil. C'est tout.": {
   "en": "STEP 4 - open Ranger Rumble and wait for the home screen. That's all.",
   "es": "PASO 4 - abre Ranger Rumble y espera la pantalla de inicio. Eso es todo.",
   "de": "SCHRITT 4 - öffne Ranger Rumble und warte auf den Startbildschirm. Das ist alles.",
   "it": "PASSO 4 - apri Ranger Rumble e aspetta la schermata iniziale. È tutto.",
   "pt": "PASSO 4 - abra o Ranger Rumble e espere a tela inicial. É só isso."
  },
- "Laisse cette fenêtre ouverte : elle dira quand la sauvegarde est copiée.": {
+ "Laisser cette fenêtre ouverte : elle dira quand la sauvegarde est copiée.": {
   "en": "Leave this window open: it will say when the save is copied.",
   "es": "Deja esta ventana abierta: dirá cuándo está copiada la partida.",
   "de": "Lass dieses Fenster offen: Es sagt, wann der Spielstand kopiert ist.",
@@ -1616,7 +1623,7 @@
   "it": "Cartella: {folder}",
   "pt": "Pasta: {folder}"
  },
- "Maintenant, sur l'iPhone, supprime le profil RatchetRR :": {
+ "Maintenant, sur l'iPhone, supprimer le profil RatchetRR :": {
   "en": "Now, on the iPhone, remove the RatchetRR profile:",
   "es": "Ahora, en el iPhone, elimina el perfil RatchetRR:",
   "de": "Entferne jetzt auf dem iPhone das Profil RatchetRR:",
@@ -1630,7 +1637,7 @@
   "it": "Impostazioni > Generali > VPN e gestione dispositivi > RatchetRR > Rimuovi profilo.",
   "pt": "Ajustes > Geral > VPN e Gerenciamento de Dispositivos > RatchetRR > Remover Perfil."
  },
- "(Si tu avais réglé le proxy à la main, remets-le sur Désactivé.)": {
+ "(Si le proxy a été réglé à la main, le remettre sur Désactivé.)": {
   "en": "(If you had set the proxy by hand, set it back to Off.)",
   "es": "(Si configuraste el proxy a mano, vuelve a ponerlo en Desactivado.)",
   "de": "(Wenn du den Proxy von Hand eingestellt hattest, stelle ihn wieder auf Aus.)",
@@ -1644,7 +1651,7 @@
   "it": "Salvataggio copiato: account {user}, {n_parts} parti.",
   "pt": "Jogo salvo copiado: conta {user}, {n_parts} partes."
  },
- "Reste sur l'écran d'accueil du jeu : il reste les données du serveur (environ 30 secondes).": {
+ "Rester sur l'écran d'accueil du jeu : il reste les données du serveur (environ 30 secondes).": {
   "en": "Stay on the game's home screen: the server data is still coming (about 30 seconds).",
   "es": "Quédate en la pantalla de inicio del juego: faltan los datos del servidor (unos 30 segundos).",
   "de": "Bleib auf dem Startbildschirm des Spiels: Die Serverdaten fehlen noch (etwa 30 Sekunden).",
@@ -1679,14 +1686,14 @@
   "it": "2. Impostazioni > Generali > Info, in fondo «Impostazioni certificati attendibili»:",
   "pt": "2. Ajustes > Geral > Sobre, bem no fim “Ajustes de Confiança de Certificados”:"
  },
- "active RatchetRR > Continuer.": {
+ "activer RatchetRR > Continuer.": {
   "en": "turn on RatchetRR > Continue.",
   "es": "activa RatchetRR > Continuar.",
   "de": "RatchetRR einschalten > Fortfahren.",
   "it": "attiva RatchetRR > Continua.",
   "pt": "ative RatchetRR > Continuar."
  },
- "Puis ferme complètement le jeu et rouvre-le.": {
+ "Puis fermer complètement le jeu et le rouvrir.": {
   "en": "Then fully close the game and open it again.",
   "es": "Luego cierra el juego por completo y vuelve a abrirlo.",
   "de": "Schließe dann das Spiel ganz und öffne es neu.",
@@ -1735,7 +1742,7 @@
   "it": "Il gioco si collega all'account {publicId}.",
   "pt": "O jogo se conecta à conta {publicId}."
  },
- "Ferme complètement le jeu, rouvre-le et attends l'écran d'accueil.": {
+ "Fermer complètement le jeu, le rouvrir et attendre l'écran d'accueil.": {
   "en": "Fully close the game, open it again and wait for the home screen.",
   "es": "Cierra el juego por completo, vuelve a abrirlo y espera la pantalla de inicio.",
   "de": "Schließe das Spiel ganz, öffne es neu und warte auf den Startbildschirm.",
@@ -1749,7 +1756,7 @@
   "it": "{name} ignorato: conteneva un dato di accesso.",
   "pt": "{name} ignorado: tinha um dado de login."
  },
- "La sauvegarde reçue est vide ou illisible. Ferme le jeu et relance-le.": {
+ "La sauvegarde reçue est vide ou illisible. Fermer le jeu et le relancer.": {
   "en": "The save received is empty or unreadable. Close the game and start it again.",
   "es": "La partida recibida está vacía o es ilegible. Cierra el juego y vuelve a abrirlo.",
   "de": "Der empfangene Spielstand ist leer oder unlesbar. Schließe das Spiel und starte es neu.",
@@ -1917,7 +1924,7 @@
   "it": "In attesa dell'iPhone...",
   "pt": "Aguardando o iPhone..."
  },
- "L'iPhone parle à l'outil. Ouvre le jeu.": {
+ "L'iPhone parle à l'outil. Ouvrir le jeu.": {
   "en": "The iPhone talks to the tool. Open the game.",
   "es": "El iPhone habla con la herramienta. Abre el juego.",
   "de": "Das iPhone spricht mit dem Tool. Öffne das Spiel.",
@@ -1959,42 +1966,42 @@
   "it": "Copia fermata, niente copiato.",
   "pt": "Cópia parada, nada copiado."
  },
- "SI RIEN NE SE PASSE - règle le proxy à la main sur l'iPhone :": {
+ "SI RIEN NE SE PASSE - régler le proxy à la main sur l'iPhone :": {
   "en": "IF NOTHING HAPPENS - set the proxy by hand on the iPhone:",
   "es": "SI NO PASA NADA - configura el proxy a mano en el iPhone:",
   "de": "WENN NICHTS PASSIERT - stell den Proxy auf dem iPhone von Hand ein:",
   "it": "SE NON SUCCEDE NULLA - imposta il proxy a mano sull'iPhone:",
   "pt": "SE NADA ACONTECER - configure o proxy à mão no iPhone:"
  },
- "À LA FIN - supprime le profil RatchetRR de l'iPhone et remets le proxy sur Désactivé.": {
+ "À LA FIN - supprimer le profil RatchetRR de l'iPhone et remettre le proxy sur Désactivé.": {
   "en": "AT THE END - remove the RatchetRR profile from the iPhone and set the proxy back to Off.",
   "es": "AL FINAL - elimina el perfil RatchetRR del iPhone y vuelve a poner el proxy en Desactivado.",
   "de": "AM ENDE - lösche das Profil RatchetRR vom iPhone und stell den Proxy wieder auf Aus.",
   "it": "ALLA FINE - rimuovi il profilo RatchetRR dall'iPhone e rimetti il proxy su Disattivato.",
   "pt": "NO FIM - remova o perfil RatchetRR do iPhone e volte o proxy para Desligado."
  },
- "iPhone sur le même Wi-Fi que cet ordinateur. Clique sur Démarrer, puis scanne le QR code avec l'iPhone. Avant le 1er mai 2027.": {
+ "iPhone sur le même Wi-Fi que cet ordinateur. Cliquer sur Démarrer, puis scanner le QR code avec l'iPhone. Avant le 1er mai 2027.": {
   "en": "iPhone on the same Wi-Fi as this computer. Click Start, then scan the QR code with the iPhone. Before May 1, 2027.",
   "es": "iPhone en el mismo Wi-Fi que este ordenador. Haz clic en Iniciar y escanea el código QR con el iPhone. Antes del 1 de mayo de 2027.",
   "de": "iPhone im selben WLAN wie dieser Computer. Klicke auf Starten und scanne dann den QR-Code mit dem iPhone. Vor dem 1. Mai 2027.",
   "it": "iPhone sulla stessa Wi-Fi di questo computer. Clicca su Avvia, poi scansiona il codice QR con l'iPhone. Entro il 1° maggio 2027.",
   "pt": "iPhone no mesmo Wi-Fi deste computador. Clique em Iniciar e escaneie o código QR com o iPhone. Antes de 1º de maio de 2027."
  },
- "Copie arrêtée. Supprime le profil RatchetRR de l'iPhone (Réglages > Général > VPN et gestion de l'appareil).": {
+ "Copie arrêtée. Il faut supprimer le profil RatchetRR de l'iPhone (Réglages > Général > VPN et gestion de l'appareil).": {
   "en": "Copy stopped. Remove the RatchetRR profile from the iPhone (Settings > General > VPN & Device Management).",
   "es": "Copia detenida. Elimina el perfil RatchetRR del iPhone (Ajustes > General > VPN y gestión de dispositivos).",
   "de": "Kopie gestoppt. Entferne das Profil RatchetRR vom iPhone (Einstellungen > Allgemein > VPN und Geräteverwaltung).",
   "it": "Copia fermata. Rimuovi il profilo RatchetRR dall'iPhone (Impostazioni > Generali > VPN e gestione dispositivi).",
   "pt": "Cópia parada. Remova o perfil RatchetRR do iPhone (Ajustes > Geral > VPN e Gerenciamento de Dispositivos)."
  },
- "<b>2.</b> Ouvre <b>Réglages</b> : en haut, touche <b>Profil téléchargé</b> (ou Général &gt; <b>VPN et gestion de l'appareil</b> &gt; RatchetRR). Touche <b>Installer</b>, le code de l'iPhone, et encore <b>Installer</b>.": {
+ "<b>2.</b> Ouvrir <b>Réglages</b> : en haut, toucher <b>Profil téléchargé</b> (ou Général &gt; <b>VPN et gestion de l'appareil</b> &gt; RatchetRR). Toucher <b>Installer</b>, le code de l'iPhone, et encore <b>Installer</b>.": {
   "en": "<b>2.</b> Open <b>Settings</b>: at the top, tap <b>Profile Downloaded</b> (or General &gt; <b>VPN &amp; Device Management</b> &gt; RatchetRR). Tap <b>Install</b>, the iPhone's passcode, and <b>Install</b> again.",
   "es": "<b>2.</b> Abre <b>Ajustes</b>: arriba, toca <b>Perfil descargado</b> (o General &gt; <b>VPN y gestión de dispositivos</b> &gt; RatchetRR). Toca <b>Instalar</b>, el código del iPhone y otra vez <b>Instalar</b>.",
   "de": "<b>2.</b> Öffne <b>Einstellungen</b>: Tippe oben auf <b>Profil geladen</b> (oder Allgemein &gt; <b>VPN und Geräteverwaltung</b> &gt; RatchetRR). Tippe auf <b>Installieren</b>, gib den iPhone-Code ein und tippe noch einmal auf <b>Installieren</b>.",
   "it": "<b>2.</b> Apri <b>Impostazioni</b>: in alto, tocca <b>Profilo scaricato</b> (oppure Generali &gt; <b>VPN e gestione dispositivi</b> &gt; RatchetRR). Tocca <b>Installa</b>, il codice dell'iPhone, e ancora <b>Installa</b>.",
   "pt": "<b>2.</b> Abra <b>Ajustes</b>: no alto, toque em <b>Perfil Transferido</b> (ou Geral &gt; <b>VPN e Gerenciamento de Dispositivos</b> &gt; RatchetRR). Toque em <b>Instalar</b>, digite o código do iPhone e toque de novo em <b>Instalar</b>."
  },
- "<b>À la fin :</b> supprime le profil (Réglages &gt; Général &gt; VPN et gestion de l'appareil &gt; RatchetRR). Sinon le jeu ne se connecte plus.": {
+ "<b>À la fin :</b> supprimer le profil (Réglages &gt; Général &gt; VPN et gestion de l'appareil &gt; RatchetRR). Sinon le jeu ne se connecte plus.": {
   "en": "<b>At the end:</b> remove the profile (Settings &gt; General &gt; VPN &amp; Device Management &gt; RatchetRR). Otherwise the game no longer connects.",
   "es": "<b>Al final:</b> elimina el perfil (Ajustes &gt; General &gt; VPN y gestión de dispositivos &gt; RatchetRR). Si no, el juego ya no se conecta.",
   "de": "<b>Am Ende:</b> Entferne das Profil (Einstellungen &gt; Allgemein &gt; VPN und Geräteverwaltung &gt; RatchetRR). Sonst verbindet sich das Spiel nicht mehr.",
@@ -2008,14 +2015,14 @@
   "it": "Copia del salvataggio di Ranger Rumble: il certificato del computer e un DNS solo per i server del gioco. Da rimuovere a copia fatta.",
   "pt": "Cópia do salvamento de Ranger Rumble: o certificado do computador e um DNS só para os servidores do jogo. Remova quando a cópia estiver feita."
  },
- "Ports {a} et {b} pris sur cet ordinateur : règle le proxy à la main.": {
+ "Ports {a} et {b} pris sur cet ordinateur : il faut régler le proxy à la main.": {
   "en": "Ports {a} and {b} are taken on this computer: set the proxy by hand.",
   "es": "Los puertos {a} y {b} están ocupados en este ordenador: configura el proxy a mano.",
   "de": "Die Ports {a} und {b} sind auf diesem Computer belegt: Stelle den Proxy von Hand ein.",
   "it": "Le porte {a} e {b} sono occupate su questo computer: imposta il proxy a mano.",
   "pt": "As portas {a} e {b} estão ocupadas neste computador: configure o proxy à mão."
  },
- "L'iPhone utilise le profil RatchetRR : ouvre le jeu.": {
+ "L'iPhone utilise le profil RatchetRR : ouvrir le jeu.": {
   "en": "The iPhone is using the RatchetRR profile: open the game.",
   "es": "El iPhone usa el perfil RatchetRR: abre el juego.",
   "de": "Das iPhone nutzt das Profil RatchetRR: Öffne das Spiel.",
@@ -2036,7 +2043,7 @@
   "it": "L'iPhone rifiuta il certificato del computer.",
   "pt": "O iPhone recusa o certificado do computador."
  },
- "Réglages > Général > Informations > Réglages des certificats > active RatchetRR.": {
+ "Réglages > Général > Informations > Réglages des certificats > activer RatchetRR.": {
   "en": "Settings > General > About > Certificate Trust Settings > turn on RatchetRR.",
   "es": "Ajustes > General > Información > Ajustes de confianza de certificados > activa RatchetRR.",
   "de": "Einstellungen > Allgemein > Info > Zertifikatsvertrauenseinstellungen > schalte RatchetRR ein.",
@@ -2064,7 +2071,7 @@
   "it": "Offline",
   "pt": "Offline"
  },
- "Choisis d'abord où est ton jeu.": {
+ "Choisir d'abord où est le jeu.": {
   "en": "First choose where your game is.",
   "es": "Primero elige dónde está tu juego.",
   "de": "Wähle zuerst, wo dein Spiel ist.",
@@ -2225,7 +2232,7 @@
   "it": "Salvataggio del telefono illeggibile: verrà usato il salvataggio esportato (passo 2).",
   "pt": "Jogo salvo do celular ilegível: o jogo salvo exportado (passo 2) será usado."
  },
- "Sur Android, rien à copier : va à l'étape 2 et choisis ta sauvegarde exportée ou « Nouvelle partie ».": {
+ "Sur Android, rien à copier : aller à l'étape 2 et choisir la sauvegarde exportée ou « Nouvelle partie ».": {
   "en": "On Android, nothing to copy: go to step 2 and choose your exported save or “New game”.",
   "es": "En Android no hay nada que copiar: ve al paso 2 y elige tu partida exportada o «Partida nueva».",
   "de": "Auf Android gibt es nichts zu kopieren: Geh zu Schritt 2 und wähle deinen exportierten Spielstand oder „Neues Spiel“.",
@@ -2246,7 +2253,7 @@
   "it": "no",
   "pt": "não"
  },
- "Cet ordinateur n'a pas d'adresse sur un réseau local ({address}) : mets-le sur le même Wi-Fi que l'iPhone.": {
+ "Cet ordinateur n'a pas d'adresse sur un réseau local ({address}) : il faut le mettre sur le même Wi-Fi que l'iPhone.": {
   "en": "This computer has no address on a local network ({address}): put it on the same Wi-Fi as the iPhone.",
   "es": "Este ordenador no tiene dirección en una red local ({address}): ponlo en el mismo Wi-Fi que el iPhone.",
   "de": "Dieser Computer hat keine Adresse in einem lokalen Netz ({address}): Verbinde ihn mit demselben WLAN wie das iPhone.",
@@ -2260,7 +2267,7 @@
   "it": "Il firewall di Windows impedisce all'iPhone di raggiungere lo strumento.",
   "pt": "O firewall do Windows impede o iPhone de chegar à ferramenta."
  },
- "Le pare-feu de Windows bloque l'iPhone.\n\nL'autoriser sur ton réseau local ? Windows va demander ton accord.": {
+ "Le pare-feu de Windows bloque l'iPhone.\n\nL'autoriser sur le réseau local ? Windows va demander l'accord.": {
   "en": "The Windows firewall blocks the iPhone.\n\nAllow it on your local network? Windows will ask for your approval.",
   "es": "El firewall de Windows bloquea el iPhone.\n\n¿Permitirlo en tu red local? Windows te pedirá permiso.",
   "de": "Die Windows-Firewall blockiert das iPhone.\n\nIm lokalen Netz erlauben? Windows fragt nach deiner Zustimmung.",
@@ -2281,7 +2288,7 @@
   "it": "Fatto. Scansiona di nuovo il codice QR con l'iPhone.",
   "pt": "Pronto. Leia o código QR de novo com o iPhone."
  },
- "Pas réglé. Sécurité Windows > Pare-feu > Autoriser une application : coche Python (Privé et Public).": {
+ "Pas réglé. Sécurité Windows > Pare-feu > Autoriser une application : cocher Python (Privé et Public).": {
   "en": "Not set. Windows Security > Firewall > Allow an app: tick Python (Private and Public).",
   "es": "No ajustado. Seguridad de Windows > Firewall > Permitir una aplicación: marca Python (Privada y Pública).",
   "de": "Nicht eingestellt. Windows-Sicherheit > Firewall > App durch Firewall zulassen: Python ankreuzen (Privat und Öffentlich).",
@@ -2337,7 +2344,7 @@
   "it": "{n} byte",
   "pt": "{n} bytes"
  },
- "Ouvre le jeu une fois sur le téléphone, puis recommence.": {
+ "Ouvrir le jeu une fois sur le téléphone, puis recommencer.": {
   "en": "Open the game once on the phone, then try again.",
   "es": "Abre el juego una vez en el teléfono y vuelve a intentarlo.",
   "de": "Öffne das Spiel einmal auf dem Handy und versuche es dann erneut.",
@@ -2358,14 +2365,14 @@
   "it": "Il gioco offline funziona solo su Android.",
   "pt": "O jogo offline só funciona no Android."
  },
- "Désinstalle le jeu officiel du téléphone avant d'installer l'APK.": {
+ "Il faut désinstaller le jeu officiel du téléphone avant d'installer l'APK.": {
   "en": "Uninstall the official game from the phone before installing the APK.",
   "es": "Desinstala el juego oficial del teléfono antes de instalar el APK.",
   "de": "Deinstalliere das offizielle Spiel vom Handy, bevor du die APK installierst.",
   "it": "Disinstalla il gioco ufficiale dal telefono prima di installare l'APK.",
   "pt": "Desinstale o jogo oficial do celular antes de instalar o APK."
  },
- "Sauvegarde copiée ! Elle est choisie à l'étape 2.\n\nSur l'iPhone, supprime le profil RatchetRR (Réglages > Général > VPN et gestion de l'appareil).": {
+ "Sauvegarde copiée ! Elle est choisie à l'étape 2.\n\nSur l'iPhone, supprimer le profil RatchetRR (Réglages > Général > VPN et gestion de l'appareil).": {
   "en": "Save copied! It is chosen in step 2.\n\nOn the iPhone, remove the RatchetRR profile (Settings > General > VPN & Device Management).",
   "es": "¡Partida copiada! Está elegida en el paso 2.\n\nEn el iPhone, elimina el perfil RatchetRR (Ajustes > General > VPN y gestión de dispositivos).",
   "de": "Spielstand kopiert! Er ist in Schritt 2 ausgewählt.\n\nEntferne auf dem iPhone das Profil RatchetRR (Einstellungen > Allgemein > VPN und Geräteverwaltung).",
@@ -2379,26 +2386,19 @@
   "it": "Il gioco offline è già sul telefono.\n\nSostituire i suoi progressi con il salvataggio di questo APK? (Il vecchio resta in Sauvegardes.)",
   "pt": "O jogo offline já está no celular.\n\nSubstituir o progresso pelo jogo salvo deste APK? (O antigo fica guardado em Sauvegardes.)"
  },
- "Ce jeu vient d'un autre ordinateur : il faut d'abord le désinstaller. Ta progression est gardée, pas les réglages du jeu.\n\nDésinstaller et réinstaller ?": {
+ "Ce jeu vient d'un autre ordinateur : il faut d'abord le désinstaller. La progression est gardée, pas les réglages du jeu.\n\nDésinstaller et réinstaller ?": {
   "en": "This game comes from another computer: it must be uninstalled first. Your progress is kept, not the game's settings.\n\nUninstall and reinstall?",
   "es": "Este juego viene de otro ordenador: primero hay que desinstalarlo. Tu progreso se conserva, los ajustes del juego no.\n\n¿Desinstalar y reinstalar?",
   "de": "Dieses Spiel stammt von einem anderen Computer: Es muss zuerst deinstalliert werden. Dein Fortschritt bleibt, die Spieleinstellungen nicht.\n\nDeinstallieren und neu installieren?",
   "it": "Questo gioco viene da un altro computer: va prima disinstallato. I tuoi progressi restano, le impostazioni del gioco no.\n\nDisinstallare e reinstallare?",
   "pt": "Este jogo vem de outro computador: é preciso desinstalá-lo primeiro. O seu progresso fica, as configurações do jogo não.\n\nDesinstalar e reinstalar?"
  },
- "Aucun téléphone trouvé. Active le débogage USB et mets l'USB en « Transfert de fichiers », puis recommence.": {
+ "Aucun téléphone trouvé. Activer le débogage USB et mettre l'USB en « Transfert de fichiers », puis recommencer.": {
   "en": "No phone found. Turn on USB debugging and set USB to “File transfer”, then try again.",
   "es": "No se encontró ningún teléfono. Activa la depuración USB y pon el USB en «Transferencia de archivos», y vuelve a intentarlo.",
   "de": "Kein Handy gefunden. Aktiviere USB-Debugging und stelle USB auf „Dateiübertragung“, dann versuche es erneut.",
   "it": "Nessun telefono trovato. Attiva il debug USB e imposta l'USB su «Trasferimento file», poi riprova.",
   "pt": "Nenhum celular encontrado. Ative a depuração USB e coloque o USB em “Transferência de arquivos”, depois tente de novo."
- },
- "5 Go libres pendant la fabrication": {
-  "en": "5 GB free during the build",
-  "es": "5 GB libres durante la creación",
-  "de": "5 GB frei während der Erstellung",
-  "it": "5 GB liberi durante la creazione",
-  "pt": "5 GB livres durante a criação"
  },
  "Action inconnue.": {
   "en": "Unknown action.",
@@ -2589,13 +2589,6 @@
   "it": "Certificato RatchetRR",
   "pt": "Certificado RatchetRR"
  },
- "Cet ordinateur n'a pas d'adresse sur un réseau local ({address}) : il faut le mettre sur le même Wi-Fi que l'iPhone.": {
-  "en": "This computer has no address on a local network ({address}): put it on the same Wi-Fi as the iPhone.",
-  "es": "Este ordenador no tiene dirección en una red local ({address}): hay que ponerlo en el mismo Wi-Fi que el iPhone.",
-  "de": "Dieser Computer hat keine Adresse in einem lokalen Netz ({address}): Er muss im selben Wi-Fi wie das iPhone sein.",
-  "it": "Questo computer non ha un indirizzo su una rete locale ({address}): va collegato alla stessa Wi-Fi dell'iPhone.",
-  "pt": "Este computador não tem endereço numa rede local ({address}): é preciso colocá-lo no mesmo Wi-Fi que o iPhone."
- },
  "Cette valeur ne peut pas changer.": {
   "en": "This value cannot change.",
   "es": "Este valor no puede cambiar.",
@@ -2630,13 +2623,6 @@
   "de": "Wählen…",
   "it": "Scegli…",
   "pt": "Escolher…"
- },
- "Clair": {
-  "en": "Light",
-  "es": "Claro",
-  "de": "Hell",
-  "it": "Chiaro",
-  "pt": "Claro"
  },
  "Clé de cet ordinateur": {
   "en": "This computer's key",
@@ -2693,13 +2679,6 @@
   "de": "Weiter",
   "it": "Continua",
   "pt": "Continuar"
- },
- "Copie arrêtée. Il faut supprimer le profil RatchetRR de l'iPhone (Réglages > Général > VPN et gestion de l'appareil).": {
-  "en": "Copy stopped. Remove the RatchetRR profile from the iPhone (Settings > General > VPN & Device Management).",
-  "es": "Copia detenida. Hay que eliminar el perfil RatchetRR del iPhone (Ajustes > General > VPN y gestión de dispositivos).",
-  "de": "Kopie gestoppt. Das Profil RatchetRR muss vom iPhone entfernt werden (Einstellungen > Allgemein > VPN und Geräteverwaltung).",
-  "it": "Copia fermata. Bisogna rimuovere il profilo RatchetRR dall'iPhone (Impostazioni > Generali > VPN e gestione dispositivi).",
-  "pt": "Cópia parada. É preciso remover o perfil RatchetRR do iPhone (Ajustes > Geral > VPN e Gerenciamento de Dispositivos)."
  },
  "Copie de la sauvegarde": {
   "en": "Save copy",
@@ -2939,13 +2918,6 @@
   "it": "Esporta…",
   "pt": "Exportar…"
  },
- "Fabrication, installation, mise à jour.": {
-  "en": "Build, install, update.",
-  "es": "Creación, instalación, actualización.",
-  "de": "Erstellung, Installation, Update.",
-  "it": "Creazione, installazione, aggiornamento.",
-  "pt": "Criação, instalação, atualização."
- },
  "Fabriquer et installer": {
   "en": "Build and install",
   "es": "Crear e instalar",
@@ -3015,13 +2987,6 @@
   "de": "Allgemein",
   "it": "Generali",
   "pt": "Geral"
- },
- "Héros, armes, costumes, monnaies, statistiques...": {
-  "en": "Heroes, weapons, skins, currencies, stats...",
-  "es": "Héroes, armas, aspectos, monedas, estadísticas...",
-  "de": "Helden, Waffen, Skins, Währungen, Statistiken...",
-  "it": "Eroi, armi, costumi, valute, statistiche...",
-  "pt": "Heróis, armas, visuais, moedas, estatísticas..."
  },
  "Il faut attendre la fin de la tâche en cours.": {
   "en": "Wait for the current task to finish.",
@@ -3120,13 +3085,6 @@
   "de": "Eine Zahl ist nötig.",
   "it": "Serve un numero.",
   "pt": "É preciso um número."
- },
- "Ils sont installés de nouveau au prochain démarrage.": {
-  "en": "They are installed again at the next startup.",
-  "es": "Se vuelven a instalar en el próximo inicio.",
-  "de": "Sie werden beim nächsten Start neu installiert.",
-  "it": "Vengono reinstallati al prossimo avvio.",
-  "pt": "Eles são reinstalados na próxima inicialização."
  },
  "Images de la galerie": {
   "en": "Gallery images",
@@ -3289,13 +3247,6 @@
   "it": "Il vecchio resta accanto. Bisognerà reinstallare il profilo sull'iPhone.",
   "pt": "O antigo fica guardado ao lado. Será preciso reinstalar o perfil no iPhone."
  },
- "L'ancien fichier est gardé.": {
-  "en": "The old file is kept.",
-  "es": "El archivo anterior se conserva.",
-  "de": "Die alte Datei bleibt erhalten.",
-  "it": "Il vecchio file resta.",
-  "pt": "O arquivo antigo é mantido."
- },
  "L'app doit rester dans le dossier de l'outil, à côté de « moteur ».": {
   "en": "The app must stay in the tool folder, next to “moteur”.",
   "es": "La app debe quedarse en la carpeta de la herramienta, junto a «moteur».",
@@ -3309,13 +3260,6 @@
   "de": "Auf dem angeschlossenen Handy installieren?",
   "it": "Installarlo sul telefono collegato?",
   "pt": "Instalar no celular conectado?"
- },
- "L'outil et le jeu du téléphone, sans perdre la progression.": {
-  "en": "The tool and the phone's game, without losing progress.",
-  "es": "La herramienta y el juego del teléfono, sin perder el progreso.",
-  "de": "Das Tool und das Spiel auf dem Handy, ohne Fortschritt zu verlieren.",
-  "it": "Lo strumento e il gioco del telefono, senza perdere i progressi.",
-  "pt": "A ferramenta e o jogo do celular, sem perder o progresso."
  },
  "L'outil va redémarrer.": {
   "en": "The tool will restart.",
@@ -3345,13 +3289,6 @@
   "it": "La lista è cambiata: bisogna ricominciare.",
   "pt": "A lista mudou: é preciso recomeçar."
  },
- "La progression est gardée.": {
-  "en": "Progress is kept.",
-  "es": "El progreso se conserva.",
-  "de": "Der Fortschritt bleibt erhalten.",
-  "it": "I progressi restano.",
-  "pt": "O progresso é mantido."
- },
  "La version {v} est disponible.": {
   "en": "Version {v} is available.",
   "es": "La versión {v} está disponible.",
@@ -3365,13 +3302,6 @@
   "de": "Sprache",
   "it": "Lingua",
   "pt": "Idioma"
- },
- "Le Mac reste éveillé pendant une fabrication ou une installation.": {
-  "en": "The Mac stays awake during a build or an install.",
-  "es": "El Mac sigue activo durante una creación o una instalación.",
-  "de": "Der Mac bleibt während einer Erstellung oder Installation wach.",
-  "it": "Il Mac resta attivo durante una creazione o un'installazione.",
-  "pt": "O Mac fica ativo durante uma criação ou uma instalação."
  },
  "Le QR code apparaît au démarrage.": {
   "en": "The QR code appears at start.",
@@ -3421,13 +3351,6 @@
   "de": "Das Offline-Spiel ist schon auf dem Handy.",
   "it": "Il gioco offline è già sul telefono.",
   "pt": "O jogo offline já está no celular."
- },
- "Le jeu hors ligne pour Android, installé par le câble.": {
-  "en": "The offline game for Android, installed by cable.",
-  "es": "El juego sin conexión para Android, instalado por cable.",
-  "de": "Das Offline-Spiel für Android, per Kabel installiert.",
-  "it": "Il gioco offline per Android, installato via cavo.",
-  "pt": "O jogo offline para Android, instalado pelo cabo."
  },
  "Le jeu hors ligne sur iPhone et iPad est en préparation.": {
   "en": "The offline game for iPhone and iPad is in the works.",
@@ -3498,13 +3421,6 @@
   "de": "Die nächsten APKs werden mit dem importierten Schlüssel signiert.",
   "it": "I prossimi APK saranno firmati con la chiave importata.",
   "pt": "Os próximos APKs serão assinados com a chave importada."
- },
- "Les textes de l'outil.": {
-  "en": "The tool's texts.",
-  "es": "Los textos de la herramienta.",
-  "de": "Die Texte des Tools.",
-  "it": "I testi dello strumento.",
-  "pt": "Os textos da ferramenta."
  },
  "Mettre l'iPhone sur le même Wi-Fi que ce Mac.": {
   "en": "Put the iPhone on the same Wi-Fi as this Mac.",
@@ -4003,13 +3919,6 @@
   "it": "Firma {s} · creata il {d}",
   "pt": "Assinatura {s} · criada em {d}"
  },
- "Sombre": {
-  "en": "Dark",
-  "es": "Oscuro",
-  "de": "Dunkel",
-  "it": "Scuro",
-  "pt": "Escuro"
- },
  "Son à la fin d'une tâche": {
   "en": "Sound when a task ends",
   "es": "Sonido al terminar una tarea",
@@ -4031,13 +3940,6 @@
   "it": "Sull'iPhone",
   "pt": "No iPhone"
  },
- "Thème": {
-  "en": "Theme",
-  "es": "Tema",
-  "de": "Design",
-  "it": "Tema",
-  "pt": "Tema"
- },
  "Toucher « Autoriser » sur le téléphone": {
   "en": "Tap “Allow” on the phone",
   "es": "Tocar «Permitir» en el teléfono",
@@ -4051,13 +3953,6 @@
   "de": "Alles",
   "it": "Tutto",
   "pt": "Tudo"
- },
- "Tout ce que l'outil a écrit depuis son ouverture.": {
-  "en": "Everything the tool has written since it opened.",
-  "es": "Todo lo que la herramienta ha escrito desde que se abrió.",
-  "de": "Alles, was das Tool seit dem Öffnen geschrieben hat.",
-  "it": "Tutto ciò che lo strumento ha scritto dall'apertura.",
-  "pt": "Tudo o que a ferramenta escreveu desde que foi aberta."
  },
  "Toute la sauvegarde. Avec précaution.": {
   "en": "The whole save. Handle with care.",
@@ -4121,13 +4016,6 @@
   "de": "Eine Kopie…",
   "it": "Una copia…",
   "pt": "Uma cópia…"
- },
- "Une question posée à GitHub, rien d'autre.": {
-  "en": "One question sent to GitHub, nothing else.",
-  "es": "Una consulta a GitHub, nada más.",
-  "de": "Eine Anfrage an GitHub, sonst nichts.",
-  "it": "Una domanda a GitHub, nient'altro.",
-  "pt": "Uma pergunta ao GitHub, nada mais."
  },
  "Une tâche est déjà en cours : {name}.": {
   "en": "A task is already running: {name}.",
@@ -4269,13 +4157,6 @@
   "it": "{n} modificata/e",
   "pt": "{n} alterada(s)"
  },
- "« Réduire les animations » du Mac est suivi aussi.": {
-  "en": "The Mac's “Reduce motion” is followed too.",
-  "es": "También se respeta «Reducir movimiento» del Mac.",
-  "de": "„Bewegung reduzieren“ des Mac wird auch beachtet.",
-  "it": "Viene seguito anche «Riduci movimento» del Mac.",
-  "pt": "O “Reduzir movimento” do Mac também é respeitado."
- },
  "À autoriser": {
   "en": "Needs approval",
   "es": "Por autorizar",
@@ -4416,13 +4297,6 @@
   "it": "L'installazione non è riuscita.",
   "pt": "A instalação falhou."
  },
- "L'ordinateur reste éveillé pendant une fabrication ou une installation.": {
-  "en": "The computer stays awake during a build or an installation.",
-  "es": "El ordenador sigue activo durante una creación o una instalación.",
-  "de": "Der Computer bleibt beim Erstellen oder Installieren wach.",
-  "it": "Il computer resta attivo durante una creazione o un'installazione.",
-  "pt": "O computador fica ativo durante uma criação ou uma instalação."
- },
  "L'outil a besoin de ses composants : Python et ses modules (environ 300 Mo, une seule fois).": {
   "en": "The tool needs its components: Python and its modules (about 300 MB, once).",
   "es": "La herramienta necesita sus componentes: Python y sus módulos (unos 300 MB, una sola vez).",
@@ -4436,13 +4310,6 @@
   "de": "Das Protokoll des Tools erscheint hier.",
   "it": "Il registro dello strumento compare qui.",
   "pt": "O registro da ferramenta aparece aqui."
- },
- "Le réglage « Réduire les animations » du système est suivi aussi.": {
-  "en": "The system's \"Reduce motion\" setting is followed too.",
-  "es": "También se sigue el ajuste «Reducir movimiento» del sistema.",
-  "de": "Die Systemeinstellung „Bewegung reduzieren“ wird auch beachtet.",
-  "it": "Viene seguita anche l'impostazione «Riduci movimento» del sistema.",
-  "pt": "A opção \"Reduzir movimento\" do sistema também é seguida."
  },
  "Mettre l'iPhone sur le même Wi-Fi que cet ordinateur.": {
   "en": "Put the iPhone on the same Wi-Fi as this computer.",
@@ -4647,13 +4514,6 @@
   "it": "Preparare il gioco",
   "pt": "Preparar o jogo"
  },
- "La progression reste sur ce Mac.": {
-  "en": "Progress stays on this Mac.",
-  "es": "El progreso se queda en este Mac.",
-  "de": "Der Fortschritt bleibt auf diesem Mac.",
-  "it": "I progressi restano su questo Mac.",
-  "pt": "O progresso fica neste Mac."
- },
  "Ouvrir le dossier": {
   "en": "Open the folder",
   "es": "Abrir la carpeta",
@@ -4674,13 +4534,6 @@
   "de": "Test",
   "it": "Prova",
   "pt": "Teste"
- },
- "Le jeu complet sur ce Mac, sans émulateur.": {
-  "en": "The full game on this Mac, no emulator.",
-  "es": "El juego completo en este Mac, sin emulador.",
-  "de": "Das ganze Spiel auf diesem Mac, ohne Emulator.",
-  "it": "Il gioco completo su questo Mac, senza emulatore.",
-  "pt": "O jogo completo neste Mac, sem emulador."
  },
  "Fermer le jeu": {
   "en": "Close the game",
@@ -4863,5 +4716,12 @@
   "de": "Auch im Spiel: Einstellungen > Steuerung",
   "it": "Anche nel gioco: Impostazioni > Comandi",
   "pt": "Também no jogo: Definições > Controlos"
+ },
+ "Pas de mise à jour.": {
+  "en": "No update.",
+  "es": "No hay actualizaciones.",
+  "de": "Kein Update.",
+  "it": "Nessun aggiornamento.",
+  "pt": "Nenhuma atualização."
  }
 }

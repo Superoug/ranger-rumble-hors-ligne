@@ -17,7 +17,7 @@ t() {
 
 pause() {
   [ -n "$ONLY" ] && return
-  printf "\n%s" "$(t "Appuie sur Entrée pour fermer..." "Press Enter to close...")"
+  printf "\n%s" "$(t "Appuyer sur Entrée pour fermer..." "Press Enter to close...")"
   read _
 }
 
@@ -34,7 +34,7 @@ portable_python() {
   curl -fL --progress-bar -o "$ARCHIVE" "https://github.com/astral-sh/python-build-standalone/releases/download/20261021/$FILE" || return 1
   GOT="$(shasum -a 256 "$ARCHIVE" | cut -d " " -f 1)"
   if [ "$GOT" != "$SUM" ]; then
-    t "Le fichier téléchargé n'est pas le bon : réessaie." "The downloaded file is not the right one: try again."
+    t "Le fichier téléchargé n'est pas le bon : réessayer." "The downloaded file is not the right one: try again."
     rm -f "$ARCHIVE"
     return 1
   fi
@@ -60,8 +60,8 @@ if [ "$(cat "$VENV/rr-pret" 2>/dev/null)" != "821fed449874" ] ||
     if portable_python && "$BASE/python/bin/python3" -c "import tkinter, venv" >/dev/null 2>&1; then
       PY="$BASE/python/bin/python3"
     else
-      t "Impossible d'avoir Python. Vérifie la connexion Internet et réessaie," "Could not get Python. Check the Internet connection and try again,"
-      t "ou installe Python : https://www.python.org/downloads/" "or install Python: https://www.python.org/downloads/"
+      t "Impossible d'avoir Python. Vérifier la connexion Internet et réessayer," "Could not get Python. Check the Internet connection and try again,"
+      t "ou installer Python : https://www.python.org/downloads/" "or install Python: https://www.python.org/downloads/"
       pause
       exit 1
     fi
@@ -78,7 +78,7 @@ if [ "$(cat "$VENV/rr-pret" 2>/dev/null)" != "821fed449874" ] ||
   step 4/4
   if ! "$VENV/bin/python" -m pip install --disable-pip-version-check -q "mitmproxy==12.3.1" "msgpack==1.2.4" "segno==1.6.1" "UnityPy==1.25.4" "numpy==2.5.4" "pillow==13.0.0" >"$BASE/pip.log" 2>&1 &&
      ! "$VENV/bin/python" -I "$HERE/moteur/appli_patch/composants.py"; then
-    t "L'installation a échoué. Vérifie la connexion Internet et réessaie." "The installation failed. Check the Internet connection and try again."
+    t "L'installation a échoué. Vérifier la connexion Internet et réessayer." "The installation failed. Check the Internet connection and try again."
     pause
     exit 1
   fi
@@ -88,12 +88,13 @@ fi
 echo "821fed449874" > "$VENV/rr-pret"
 printf '%s\n' "$HERE" > "$BASE/outil.txt"
 [ -n "$ONLY" ] && exit 0
-if [ -d "$HERE/Launcher Ratchet Ranger Rumble.app" ]; then
+# The app needs macOS 13; before it, the Tk window.
+if [ -d "$HERE/Launcher Ratchet Ranger Rumble.app" ] && [ "$(sw_vers -productVersion | cut -d. -f1)" -ge 13 ]; then
   t "L'outil s'ouvre : ce terminal peut être fermé." "The tool opens: this terminal can be closed."
   open "$HERE/Launcher Ratchet Ranger Rumble.app"
   exit 0
 fi
-t "La fenêtre de l'outil s'ouvre. Laisse ce terminal ouvert tant qu'elle sert." "The tool's window opens. Leave this terminal open while you use it."
+t "La fenêtre de l'outil s'ouvre. Laisser ce terminal ouvert tant qu'elle sert." "The tool's window opens. Leave this terminal open while you use it."
 if ! "$VENV/bin/python" -I "$HERE/moteur/appli_patch/appli.py"; then
   pause
 fi

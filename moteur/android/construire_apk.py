@@ -1,8 +1,12 @@
+import copy
 import functools
+import hashlib
 import io
 import json
+import math
 import os
 import re
+import shutil
 import struct
 import sys
 import zipfile
@@ -11,8 +15,12 @@ sys.path.insert(0, HERE)
 import a64
 import evenements
 import heros_caches
-xapk, out = sys.argv[1:3]
-os.makedirs(out, exist_ok=True)
+from a64 import word as w32
+from fichiers_unity import BUNDLE_BLOCK, OBJECT_ENTRY, add_object_copies, at, bundle_node_sizes, bundle_stream, external_index, full_rect_sprite, grow_objects, is_pptr, json_copy, local_ref, localization_entries, localization_entry, localization_file, object_entries, patch_bundle, persistent_call, place, raw_text, read_unity_string, rect_child_references, rect_children, rect_father, relink_local, replace_bundle_nodes, replace_bundle_stream, replace_once, rgba_texture, serialized_sizes, typetree_change, unity_string, with_added_children, with_children, with_father
+if len(sys.argv) < 3:
+    raise SystemExit('usage: construire_apk.py <xapk_dir> <out_dir>')
+PARTS_FOLDER, OUTPUT_FOLDER = sys.argv[1:3]
+BASE_PART, ASSET_PACK_PART, LIBRARY_PART = ('com.playstation.rattlesnake.apk', 'UnityDataAssetPack.apk', 'config.arm64_v8a.apk')
 OLD_HOST = b'\x1a\x00\x00\x00rattlesnake-prod.obb.cloud'
 NEW_HOST = b'\x1a\x00\x00\x0027.0.0.1:18443/xxxxxxxxxxx'
 RETURN_FALSE = bytes.fromhex('00008052c0035fd6')
@@ -44,85 +52,13 @@ def load_json(name):
     with open(data_file(name), encoding='utf-8') as handle:
         return json.load(handle)
 
-def at(data, offset, old, new):
-    if len(old) != len(new):
-        raise SystemExit('longueurs differentes')
-    if data[offset:offset + len(old)] != old:
-        raise SystemExit(f'octets inattendus a {offset:#x} : {bytes(data[offset:offset + len(old)]).hex()}')
-    data[offset:offset + len(new)] = new
-
-def place(data, address, code):
-    at(data, address, bytes(data[address:address + len(code)]), code)
-
-def replace_once(data, old, new, message):
-    source = bytes(data)
-    if source.count(old) != 1:
-        raise SystemExit(message)
-    at(data, source.index(old), old, new)
-LOADS = {8: 4181721088, 4: 3107979264, 1: 960495616}
-STORES = {8: 4177526784, 4: 3103784960, 1: 956301312}
-OFFSET19_KINDS = {'cbz': 3019898880, 'cbzw': 872415232, 'cbnzw': 889192448, 'cbnzx': 3036676096, 'ldrlit': 1476395008, 'ldrlit_s': 469762048}
-
-def w32(value):
-    return struct.pack('<I', value)
-
-def a64_ldst(base, size, rt, rn, offset):
-    return w32(base | offset // size << 10 | rn << 5 | rt)
-
-def a64_adr(rd, source, target):
-    delta = target - source
-    return w32(268435456 | (delta & 3) << 29 | (delta >> 2 & 524287) << 5 | rd)
-
-def a64_cb(base, rt, source, target):
-    return w32(base | (target - source >> 2 & 524287) << 5 | rt)
-
-def w_store(source, base, offset):
-    return a64_ldst(STORES[4], 4, source, base, offset)
-
-def w_add(destination, first, second):
-    return w32(184549376 | second << 16 | first << 5 | destination)
-
-def w_sub_imm(destination, source, value):
-    return w32(1358954496 | value << 10 | source << 5 | destination)
-
-def x_umaddl(destination, first, second, addend):
-    return w32(2610954240 | second << 16 | addend << 10 | first << 5 | destination)
+def in_language(texts, language):
+    return texts.get(language) or texts['EN']
 
 def fp(value):
     return struct.pack('<q', round(value * 65536))
 
-class Code:
-
-    def __init__(self, at_address):
-        self.at = at_address
-        self.code = bytearray()
-        self.labels = {}
-        self.fixups = []
-
-    def here(self):
-        return self.at + len(self.code)
-
-    def emit(self, raw):
-        self.code.extend(raw)
-
-    def call(self, target):
-        self.emit(a64.bl(self.here(), target))
-
-    def jump(self, kind, label, register=0):
-        self.fixups.append((kind, len(self.code), label, register))
-        self.code.extend(bytes(4))
-
-    def label(self, name):
-        self.labels[name] = len(self.code)
-
-    def align(self, size=8):
-        while len(self.code) % size:
-            self.emit(a64.NOP)
-
-    def adrp_ldr(self, register, address):
-        page = (address >> 12) - (self.here() + a64.TEXT_DELTA >> 12)
-        self.emit(w32(2415919104 | (page & 3) << 29 | (page >> 2 & 524287) << 5 | register))
-        self.emit(a64.ldr_x(register, register, address & 4095))
+class Code(a64.Assembler):
 
     def log(self, label):
         self.jump('adr', label, 0)
@@ -136,7 +72,7 @@ class Code:
         self.jump('cbz', 'no_fsm', 0)
         self.emit(a64.ldr_x(8, 0, 0))
         self.emit(a64.movz_w(1, state))
-        self.emit(bytes.fromhex('e2031f2a'))
+        self.emit(ZERO_W2)
         self.emit(a64.movz_w(3, 1))
         self.emit(CHANGE_TO_STATE)
         self.emit(restore)
@@ -145,66 +81,32 @@ class Code:
         self.emit(restore)
         self.emit(a64.RET)
 
-    def build(self):
-        for kind, position, label, register in self.fixups:
-            source, target = (self.at + position, self.at + self.labels[label])
-            if kind == 'b':
-                raw = a64.b(source, target)
-            elif kind == 'bl':
-                raw = a64.bl(source, target)
-            elif kind == 'adr':
-                raw = a64_adr(register, source, target)
-            elif kind in OFFSET19_KINDS:
-                raw = a64_cb(OFFSET19_KINDS[kind], register, source, target)
-            elif re.fullmatch('tbn?z\\d+', kind):
-                bit = int(kind.lstrip('tbnz'))
-                raw = w32((922746880 if kind.startswith('tbnz') else 905969664) | (bit & 31) << 19 | (target - source >> 2 & 16383) << 5 | register)
-            else:
-                raw = a64.b_cond(kind[2:], source, target)
-            self.code[position:position + 4] = raw
-        return bytes(self.code)
+    def prefs_get_string(self, key_label):
+        self.jump('adr', key_label, 0)
+        self.call(BUILD['string_new'])
+        self.emit(a64.mov_x_zero(1))
+        self.call(BUILD['prefs_get_string'])
 ASSEMBLED_CACHE = data_file('code_assemble.json')
 
 @functools.lru_cache(None)
 def assemble_source(name):
-    import hashlib
-    import shutil
     source = data_file(name)
     with open(source, 'rb') as handle:
         digest = hashlib.sha256(handle.read()).hexdigest()
     cache = {}
     if os.path.exists(ASSEMBLED_CACHE):
-        with open(ASSEMBLED_CACHE) as handle:
+        with open(ASSEMBLED_CACHE, encoding='utf-8') as handle:
             cache = json.load(handle)
     if not shutil.which('clang') or os.environ.get('RR_SANS_CLANG') == '1':
         entry = cache.get(name)
         if not entry or entry['sha256'] != digest:
             raise SystemExit(f'{name} : code assemble absent ou perime (construire une fois sur le Mac)')
         return (bytes.fromhex(entry['code']), [tuple(use) for use in entry['uses']], entry['labels'])
-    code, uses, labels = assemble_with_clang(source)
+    import assembler_s
+    code, uses, labels = assembler_s.assemble(source)
     cache[name] = {'sha256': digest, 'code': code.hex(), 'uses': uses, 'labels': labels}
-    with open(ASSEMBLED_CACHE, 'w') as handle:
+    with open(ASSEMBLED_CACHE, 'w', encoding='utf-8') as handle:
         json.dump(cache, handle, indent=1, sort_keys=True)
-    return (code, uses, labels)
-
-def assemble_with_clang(source):
-    import subprocess
-    import tempfile
-    obj = os.path.join(tempfile.mkdtemp(), 'code.o')
-    subprocess.run(['clang', '-c', '-target', 'arm64-apple-macos', source, '-o', obj], check=True)
-    lines = subprocess.run(['otool', '-s', '__TEXT', '__text', obj], capture_output=True, text=True, check=True).stdout
-    code = b''.join((bytes.fromhex(word)[::-1] for line in lines.splitlines()[2:] for word in line.split()[1:]))
-    relocs = subprocess.run(['objdump', '-d', '-r', obj], capture_output=True, text=True, check=True).stdout
-    uses = []
-    for line in relocs.splitlines():
-        found = re.match('\\s*([0-9a-f]+):\\s+ARM64_RELOC_(\\w+)\\s+(\\S+)', line)
-        if found and found.group(2) != 'PAGEOFF12':
-            uses.append((int(found.group(1), 16), found.group(3)))
-    labels = {}
-    for line in subprocess.run(['nm', obj], capture_output=True, text=True, check=True).stdout.splitlines():
-        parts = line.split()
-        if len(parts) == 3:
-            labels[parts[2]] = int(parts[0], 16)
     return (code, uses, labels)
 
 def assembled_code(name, journal=False):
@@ -221,13 +123,13 @@ def place_assembled(data, at_address, code, uses, targets, back):
     code = bytearray(code)
     for offset, name in uses:
         if name.startswith('slot'):
-            c = Code(at_address + offset)
-            c.adrp_ldr(struct.unpack('<I', code[offset + 4:offset + 8])[0] & 31, targets[name])
-            code[offset:offset + 8] = c.build()
+            register = struct.unpack_from('<I', code, offset + 4)[0] & 31
+            address = targets[name]
+            code[offset:offset + 8] = a64.adrp(register, at_address + offset, address) + a64.ldr_x(register, register, address & 4095)
             continue
         target = back if name.endswith('_back') else targets[name]
-        word = struct.unpack('<I', code[offset:offset + 4])[0]
-        code[offset:offset + 4] = (a64.bl if word >> 26 == 37 else a64.b)(at_address + offset, target)
+        branch = a64.bl if a64.is_bl(struct.unpack_from('<I', code, offset)[0]) else a64.b
+        code[offset:offset + 4] = branch(at_address + offset, target)
     place(data, at_address, bytes(code))
 
 def hook(data, hooks, entry):
@@ -236,6 +138,10 @@ def hook(data, hooks, entry):
 
 def entries(at_address, labels, start):
     return {name: at_address + offset - labels[start] for name, offset in labels.items()}
+
+def check_room(start, code, end, what):
+    if start + len(code) > end:
+        raise SystemExit(f'plus de place pour {what}')
 POLISH_SLOT = 'NL'
 POLISH_LANGUAGE = 15
 POLISH_LANGUAGES = [0, 1, 4, 3, 2, 5, 7, 9, 8, 13, POLISH_LANGUAGE]
@@ -247,7 +153,8 @@ def polish_build():
 def game_version():
     path = os.environ.get('RR_VERSION_OUTIL') or os.path.join(os.path.dirname(HERE), 'appli_patch', 'version.json')
     try:
-        info = json.load(open(path, encoding='utf-8'))
+        with open(path, encoding='utf-8') as handle:
+            info = json.load(handle)
     except (OSError, ValueError):
         print('version du jeu introuvable : texte de version laisse tel quel')
         return None
@@ -268,7 +175,7 @@ def patch_version_label(data):
     raw = b''
     for index, start in enumerate(starts):
         here = cave + 8 * index
-        raw += a64_adr(0, here, cave + start) + a64.b(here + 4, BUILD['string_new'])
+        raw += a64.adr(0, here, cave + start) + a64.b(here + 4, BUILD['string_new'])
     raw += strings
     if len(raw) > 864:
         raise SystemExit('texte de version trop long')
@@ -404,10 +311,17 @@ def patch_try_weapon(data):
     hook_at, hook_original = TRY_WEAPON_HOOK
     at(data, hook_at, bytes.fromhex(hook_original), a64.b(hook_at, at_address))
 
-def patch_code(data):
+def at_build(data, key, new):
+    offset, original = BUILD[key][:2]
+    at(data, offset, bytes.fromhex(original), new)
+
+def patch_offline_start(data):
     patch_play_games(data)
-    offset, original = BUILD['reachability']
-    at(data, offset, bytes.fromhex(original), RETURN_LOCAL_NETWORK)
+    at_build(data, 'reachability', RETURN_LOCAL_NETWORK)
+    if 'internet_check' in BUILD:
+        at_build(data, 'internet_check', RETURN_TRUE)
+
+def patch_arsenal(data):
     at(data, BUILD['disable_feature'], bytes.fromhex('fe0f1df8'), RETURN_NOW)
     at(data, BUILD['ensure_weapon'], bytes.fromhex('fe0f1ef8'), RETURN_NOW)
     jump = BUILD['equip_selected'] - (BUILD['equip_button'] + 8) >> 2
@@ -416,199 +330,77 @@ def patch_code(data):
     start = BUILD['try_button']
     at(data, cave, bytes.fromhex(original), bytes.fromhex('e07bbfa9') + bytes.fromhex('e1031f2a') + bytes.fromhex('e2031faa') + a64.bl(cave + 12, BUILD['equip_selected']) + bytes.fromhex('e07bc1a8') + bytes.fromhex('ff0301d1') + a64.b(cave + 24, start + 4))
     at(data, start, bytes.fromhex('ff0301d1'), a64.b(start, cave))
+
+def patch_map_draw(data):
     if 'map_pool_check' in BUILD:
-        offset, original = BUILD['map_pool_check']
-        at(data, offset, bytes.fromhex(original), bytes.fromhex('1f2003d5'))
+        at_build(data, 'map_pool_check', a64.NOP)
+
+def patch_training_weapon(data):
     if 'training_weapon' in BUILD:
-        offset, original = BUILD['training_weapon']
-        at(data, offset, bytes.fromhex(original), bytes.fromhex('e4031f2a'))
+        at_build(data, 'training_weapon', bytes.fromhex('e4031f2a'))
     if 'try_weapon' in BUILD:
         patch_try_weapon(data)
-    if 'polish' in BUILD:
-        patch_polish_code(data)
-    if 'version_label' in BUILD:
-        patch_version_label(data)
+
+def patch_ratchet_kept(data):
     if 'ratchet_lock' in BUILD:
         offset, original, skip = BUILD['ratchet_lock']
         at(data, offset, bytes.fromhex(original), a64.b(offset, skip))
         print("Ratchet : le jeu ne le retire plus seul en fin d'evenement")
-    if 'select_map' in BUILD:
-        cave, original = BUILD['free_code_map']
-        start = BUILD['select_map']
-        mode = BOLT_RUSH_SWITCH if BOLT_RUSH else None
-        hook = bytes.fromhex('ffc300d1') + bytes.fromhex('e00700a9') + bytes.fromhex('e20f01a9') + bytes.fromhex('fe1300f9') + bytes.fromhex('610000b4') + bytes.fromhex('281040b9') + (bytes.fromhex('48010035') if mode else bytes.fromhex('28010035')) + (bytes.fromhex('e0010010') if mode else bytes.fromhex('c0010010')) + a64.bl(cave + 32, BUILD['string_new']) + bytes.fromhex('e1031faa') + a64.bl(cave + 40, BUILD['prefs_get_string']) + bytes.fromhex('800000b4') + bytes.fromhex('081040b9') + bytes.fromhex('48000034') + bytes.fromhex('e00700f9') + (a64.bl(cave + 60, mode) if mode else b'') + bytes.fromhex('e00740a9') + bytes.fromhex('e20f41a9') + bytes.fromhex('fe1340f9') + bytes.fromhex('ffc30091') + bytes.fromhex('ffc302d1')
-        hook += a64.b(cave + len(hook), start + 4) + b'rr_map\x00\x00'
-        at(data, cave, bytes(data[cave:cave + len(hook)]) if mode else bytes.fromhex(original), hook)
-        at(data, start, bytes.fromhex('ffc302d1'), a64.b(start, cave))
-    if 'internet_check' in BUILD:
-        offset, original = BUILD['internet_check']
-        at(data, offset, bytes.fromhex(original), RETURN_TRUE)
+
+def map_hook_code(cave, start, mode):
+    hook = bytes.fromhex('ffc300d1') + bytes.fromhex('e00700a9') + bytes.fromhex('e20f01a9') + bytes.fromhex('fe1300f9') + bytes.fromhex('610000b4') + bytes.fromhex('281040b9') + (bytes.fromhex('48010035') if mode else bytes.fromhex('28010035')) + (bytes.fromhex('e0010010') if mode else bytes.fromhex('c0010010')) + a64.bl(cave + 32, BUILD['string_new']) + bytes.fromhex('e1031faa') + a64.bl(cave + 40, BUILD['prefs_get_string']) + bytes.fromhex('800000b4') + bytes.fromhex('081040b9') + bytes.fromhex('48000034') + bytes.fromhex('e00700f9') + (a64.bl(cave + 60, mode) if mode else b'') + bytes.fromhex('e00740a9') + bytes.fromhex('e20f41a9') + bytes.fromhex('fe1340f9') + bytes.fromhex('ffc30091') + bytes.fromhex('ffc302d1')
+    return hook + a64.b(cave + len(hook), start + 4) + b'rr_map\x00\x00'
+
+def patch_forced_map(data):
+    if 'select_map' not in BUILD:
+        return
+    cave, original = BUILD['free_code_map']
+    start = BUILD['select_map']
+    mode = BOLT_RUSH_SWITCH if BOLT_RUSH else None
+    hook = map_hook_code(cave, start, mode)
+    at(data, cave, bytes(data[cave:cave + len(hook)]) if mode else bytes.fromhex(original), hook)
+    at(data, start, bytes.fromhex('ffc302d1'), a64.b(start, cave))
+
+def patch_wip_heroes(data):
     if BUILD['show_wip_heroes']:
         at(data, BUILD['show_wip_heroes'], bytes.fromhex('e0031f2ac0035fd6'), RETURN_TRUE)
-    if JOURNAL:
-        at(data, BUILD['log_handler'], bytes.fromhex('010c01f8'), RETURN_NOW)
-        if BUILD.get('debug_log'):
-            at(data, BUILD['debug_log'], bytes.fromhex('48070034'), bytes.fromhex('1f2003d5'))
-    if GROUPE:
-        offset, original, target = BUILD['offline_game']
-        at(data, offset, bytes.fromhex(original), a64.b(offset, target))
-        for offset, original, fixed in BUILD['wander_tries']:
-            at(data, offset, bytes.fromhex(original), bytes.fromhex(fixed))
+
+def patch_test_logs(data):
+    if not JOURNAL:
+        return
+    at(data, BUILD['log_handler'], bytes.fromhex('010c01f8'), RETURN_NOW)
+    if BUILD.get('debug_log'):
+        at(data, BUILD['debug_log'], bytes.fromhex('48070034'), a64.NOP)
+
+def patch_squads(data):
+    if not GROUPE:
+        return
+    offset, original, target = BUILD['offline_game']
+    at(data, offset, bytes.fromhex(original), a64.b(offset, target))
+    for offset, original, fixed in BUILD['wander_tries']:
+        at(data, offset, bytes.fromhex(original), bytes.fromhex(fixed))
+
+def patch_bundle_checks(data):
     at(data, BUILD['crc_getter'], bytes.fromhex('001840b9'), ZERO_W0)
     at(data, BUILD['crc_local'], bytes.fromhex('011940b9'), ZERO_W1)
     at(data, BUILD['crc_web'], bytes.fromhex('011940b9'), ZERO_W1)
     at(data, BUILD['crc_web_cached'], bytes.fromhex('021940b9'), ZERO_W2)
-BUNDLE_BLOCK = 131072
 
-def lz4_decompress(source, size):
-    out = bytearray()
-    i = 0
-    while True:
-        token = source[i]
-        i += 1
-        count = token >> 4
-        if count == 15:
-            while True:
-                extra = source[i]
-                i += 1
-                count += extra
-                if extra != 255:
-                    break
-        out += source[i:i + count]
-        i += count
-        if i >= len(source):
-            break
-        distance = source[i] | source[i + 1] << 8
-        i += 2
-        count = token & 15
-        if count == 15:
-            while True:
-                extra = source[i]
-                i += 1
-                count += extra
-                if extra != 255:
-                    break
-        count += 4
-        start = len(out) - distance
-        if distance >= count:
-            out += out[start:start + count]
-        else:
-            out += (out[start:] * (count // distance + 1))[:count]
-    if len(out) != size:
-        raise SystemExit('bloc LZ4 de taille inattendue')
-    return out
-
-def bundle_layout(source):
-    position = source.index(b'\x00') + 1 + 4
-    position = source.index(b'\x00', position) + 1
-    position = source.index(b'\x00', position) + 1
-    header_end = position
-    _, packed_size, info_size, flags = struct.unpack('>qIII', source[position:position + 20])
-    if flags & 63 != 3 or flags & 128 or (not flags & 512):
-        raise SystemExit('format de paquet inattendu')
-    info_start = position + 20 + 15 & ~15
-    info = lz4_decompress(source[info_start:info_start + packed_size], info_size)
-    count, = struct.unpack('>i', info[16:20])
-    start = info_start + packed_size + 15 & ~15
-    return (header_end, packed_size, flags, info_start, info, count, start)
-
-def bundle_stream(source):
-    _, _, _, _, info, count, start = bundle_layout(source)
-    stream = bytearray()
-    for index in range(count):
-        plain, packed, block_flags = struct.unpack('>IIH', info[20 + index * 10:30 + index * 10])
-        piece = source[start:start + packed]
-        start += packed
-        stream += lz4_decompress(piece, plain) if block_flags & 63 else piece
-    return bytes(stream)
-
-def write_bundle(data, stream, node_place):
-    source = bytes(data)
-    header_end, _, flags, info_start, info, count, _ = bundle_layout(source)
-    block_flags = struct.unpack('>H', info[28:30])[0] & ~63
-    nodes = info[20 + count * 10:]
-    node_count, = struct.unpack('>i', nodes[:4])
-    blocks = [stream[i:i + BUNDLE_BLOCK] for i in range(0, len(stream), BUNDLE_BLOCK)]
-    new_info = bytes(info[:16]) + struct.pack('>i', len(blocks))
-    new_info += b''.join((struct.pack('>IIH', len(b), len(b), block_flags) for b in blocks))
-    new_nodes = bytearray(nodes[:4])
-    position = 4
-    for _ in range(node_count):
-        offset, size, node_flags = struct.unpack('>qqI', nodes[position:position + 20])
-        end = nodes.index(b'\x00', position + 20) + 1
-        new_nodes += struct.pack('>qqI', *node_place(offset, size), node_flags) + nodes[position + 20:end]
-        position = end
-    new_info += bytes(new_nodes) + bytes(nodes[position:])
-    data_start = info_start + len(new_info) + 15 & ~15
-    total = data_start + len(stream)
-    head = source[:header_end] + struct.pack('>qIII', total, len(new_info), len(new_info), flags & ~63)
-    head = head.ljust(info_start, b'\x00') + new_info
-    data[:] = head.ljust(data_start, b'\x00') + bytes(stream)
-
-def bundle_node_count(data):
-    _, _, _, _, info, count, _ = bundle_layout(bytes(data))
-    return struct.unpack('>i', info[20 + count * 10:24 + count * 10])[0]
-
-def replace_bundle_stream(data, stream, grown=0, node=0):
-    single = bundle_node_count(data) == 1
-    if not single and (not grown):
-        raise SystemExit('paquet a plusieurs fichiers')
-
-    def node_place(offset, size):
-        if single:
-            return (offset, len(stream))
-        if offset == node:
-            return (offset, size + grown)
-        return (offset + grown if offset > node else offset, size)
-    write_bundle(data, stream, node_place)
-
-def bundle_node_sizes(data):
-    _, _, _, _, info, count, _ = bundle_layout(bytes(data))
-    nodes = info[20 + count * 10:]
-    node_count, = struct.unpack('>i', nodes[:4])
-    position, sizes, expected = (4, [], 0)
-    for _ in range(node_count):
-        offset, size, _ = struct.unpack('>qqI', nodes[position:position + 20])
-        if offset != expected:
-            raise SystemExit('fichiers du paquet non contigus')
-        sizes.append(size)
-        expected += size
-        position = nodes.index(b'\x00', position + 20) + 1
-    return sizes
-
-def replace_bundle_nodes(data, stream, sizes):
-    if bundle_node_count(data) != len(sizes) or sum(sizes) != len(stream):
-        raise SystemExit('tailles de fichiers du paquet incoherentes')
-    starts = iter([sum(sizes[:index]) for index in range(len(sizes))])
-    sizes_left = iter(sizes)
-    write_bundle(data, stream, lambda offset, size: (next(starts), next(sizes_left)))
-
-def patch_bundle(data, edits):
-    source = bytes(data)
-    header_end, _, flags, info_start, info, count, start = bundle_layout(source)
-    stream = 0
-    pieces = []
-    for index in range(count):
-        entry = 20 + index * 10
-        plain, packed, block_flags = struct.unpack('>IIH', info[entry:entry + 10])
-        piece = source[start:start + packed]
-        start += packed
-        here = [edit for edit in edits if stream <= edit[0] < stream + plain]
-        if here:
-            block = lz4_decompress(piece, plain)
-            for offset, old, new in here:
-                at(block, offset - stream, old, new)
-            piece = bytes(block)
-            info[entry:entry + 10] = struct.pack('>IIH', plain, plain, block_flags & ~63)
-        pieces.append(piece)
-        stream += plain
-    if start != len(source):
-        raise SystemExit('paquet mal lu')
-    data_start = info_start + len(info) + 15 & ~15
-    total = data_start + sum((len(piece) for piece in pieces))
-    head = source[:header_end] + struct.pack('>qIII', total, len(info), len(info), flags & ~63)
-    head = head.ljust(info_start, b'\x00') + bytes(info)
-    data[:] = head.ljust(data_start, b'\x00') + b''.join(pieces)
+def patch_code(data):
+    patch_offline_start(data)
+    patch_arsenal(data)
+    patch_map_draw(data)
+    patch_training_weapon(data)
+    if 'polish' in BUILD:
+        patch_polish_code(data)
+    if 'version_label' in BUILD:
+        patch_version_label(data)
+    patch_ratchet_kept(data)
+    patch_forced_map(data)
+    patch_wip_heroes(data)
+    patch_test_logs(data)
+    patch_squads(data)
+    patch_bundle_checks(data)
 
 @functools.lru_cache(None)
 def heavy_tools():
@@ -637,12 +429,8 @@ LEFT_COLUMN_WIDE_SCALE = 1.05
 def left_column_edits(stream):
     if VERSION != '1.10.4':
         return []
-
-    def text(value):
-        raw = value.encode()
-        return struct.pack('<I', len(raw)) + raw + bytes(-len(raw) % 4)
-    wide = text('Ultra-Large (21:9)') + struct.pack('<2f', 2.21, 2.5)
-    intervals = wide + struct.pack('<3f', 1.2, 1.2, 1.0) + text('Standard PC (16:9)') + struct.pack('<5f', 1.6, 2.2, 1.2, 1.2, 1.0) + text('Ancien / Tablette (4:3)') + struct.pack('<5f', 1.0, 1.59, 1.5, 1.5, 1.0)
+    wide = unity_string('Ultra-Large (21:9)') + struct.pack('<2f', 2.21, 2.5)
+    intervals = wide + struct.pack('<3f', 1.2, 1.2, 1.0) + unity_string('Standard PC (16:9)') + struct.pack('<5f', 1.6, 2.2, 1.2, 1.2, 1.0) + unity_string('Ancien / Tablette (4:3)') + struct.pack('<5f', 1.0, 1.59, 1.5, 1.5, 1.0)
     if stream.count(LEFT_COLUMN_ANCHORS) != 1 or stream.count(intervals) != 1:
         raise SystemExit('menu principal : colonne de gauche introuvable')
     position = stream.find(LEFT_COLUMN_ANCHORS) + 16
@@ -698,64 +486,138 @@ GRAPHICS_TAB_TITLE = 'RR.SETTINGS.GRAPHICS'
 GRAPHICS_TAB_TEXTS = {'EN': 'Graphics', 'FR': 'Graphismes', 'DE': 'Grafik', 'ES': 'Gráficos', 'IT': 'Grafica', 'BR': 'Gráficos', 'NL': 'Grafika', 'RU': 'Графика', 'TR': 'Grafik', 'JP': 'グラフィック', 'KR': '그래픽', 'CN': '画面', 'TW': '畫面'}
 GRAPHICS_TAB = [{'mask': 62270, 'tab': 51862, 'label_reactive': 76869, 'label_tmp': 75906, 'button': 90849, 'widgets': (92858, 86865, 88424), 'container': 59045, 'containers': (3905, 18304, 10782), 'container_advanced': 52598, 'rows': (57028, 57575, 70831)}, {'mask': 60242, 'tab': 54184, 'label_reactive': 76936, 'label_tmp': 75618, 'button': 88509, 'widgets': (92275, 87430, 90751), 'container': 58484, 'containers': (6095, 15799, 11365), 'container_advanced': 53498, 'rows': (55056, 59945, 68819)}]
 
-def persistent_call(target, type_name, method, mode, flag=0):
-    return struct.pack('<iq', 0, target) + unity_string(type_name) + unity_string(method) + struct.pack('<i', mode) + struct.pack('<iq', 0, 0) + unity_string('UnityEngine.Object, UnityEngine') + struct.pack('<if', 0, 0.0) + unity_string('') + bytes([flag, 0, 0, 0]) + struct.pack('<i', 2)
-
 def scene_objects(scene):
     table, _, padding = BUILD['difficulty_row']['table']
     count, = struct.unpack_from('<i', scene, table - 4 - padding)
-    data_offset = struct.unpack('>QQ', scene[24:40])[1]
-    objects = {}
-    for i in range(count):
-        object_id, start, size, _ = struct.unpack_from('<qqIi', scene, table + i * 24)
-        objects[object_id] = (start, size)
+    data_offset = serialized_sizes(scene)[1]
+    objects = {object_id: (start, size) for object_id, start, size, _ in object_entries(scene, table, count)}
     return (objects, table, count, data_offset)
 
-def rect_father(raw):
-    return struct.unpack_from('<iq', raw, 56 + 12 * struct.unpack_from('<i', raw, 52)[0])[1]
+class MenuScene:
+
+    def __init__(self, scene):
+        self.scene = scene
+        self.objects, self.table, self.count, self.data_offset = scene_objects(scene)
+
+    def raw(self, object_id):
+        start, size = self.objects[object_id]
+        return bytes(self.scene[self.data_offset + start:self.data_offset + start + size])
+
+    def game_object(self, component):
+        return struct.unpack_from('<iq', self.raw(component), 0)[1]
+
+    def components(self, game_object):
+        data = self.raw(game_object)
+        count, = struct.unpack_from('<i', data, 0)
+        return [struct.unpack_from('<iq', data, 4 + i * 12)[1] for i in range(count)]
+
+    def name(self, game_object):
+        data = self.raw(game_object)
+        at_name = 8 + 12 * struct.unpack_from('<i', data, 0)[0]
+        length, = struct.unpack_from('<i', data, at_name)
+        return data[at_name + 4:at_name + 4 + length].decode()
+
+    def subtree(self, rect):
+        found, stack = ([], [rect])
+        while stack:
+            current = stack.pop()
+            game_object = self.game_object(current)
+            found += [game_object] + self.components(game_object)
+            stack += rect_children(self.raw(current))
+        return found
+
+def new_ids(objects, first):
+    return {old: first + index for index, old in enumerate(sorted(set(objects)))}
+
+def switched_off(data):
+    if data[-1] not in (0, 1):
+        raise SystemExit('onglet Commandes : objet inattendu')
+    return data[:-1] + b'\x00'
+
+def text_replaced(old_bytes, new_bytes):
+
+    def change(data):
+        if data.count(old_bytes) != 1:
+            raise SystemExit('onglet Commandes : texte inattendu')
+        return data.replace(old_bytes, new_bytes)
+    return change
 
 def tab_replace(data, old, new):
     if data.count(old) != 1:
         raise SystemExit('onglet Graphismes : objet inattendu')
     return data.replace(old, new)
 
-def rect_children(raw):
-    count, = struct.unpack_from('<i', raw, 52)
-    return [struct.unpack_from('<iq', raw, 56 + i * 12)[1] for i in range(count)]
+def controls_copy(old, ids, screen, wanted, leave):
+
+    def change(data):
+        data = bytearray(data)
+        relink_local(data, ids)
+        if old in (screen['scroll'], screen['hud_grid']):
+            data = with_father(data, screen['container_debug'])
+        if old == screen['content']:
+            data = with_children(data, [ids[rect] for rect in wanted])
+        if old in leave:
+            if data[-1] != 1:
+                raise SystemExit('onglet Commandes : bouton inattendu')
+            data[-1] = 0
+        return bytes(data)
+    return change
+
+def graphics_copy(menu, old, ids, graphics, screen, wanted, calls):
+
+    def change(data):
+        data = bytearray(data)
+        relink_local(data, ids)
+        data = bytes(data)
+        if old == graphics['container_advanced']:
+            data = with_children(data, [ids[screen['scroll']]])
+        if old == screen['scroll']:
+            data = with_father(data, ids[graphics['container_advanced']])
+        if old == screen['content']:
+            data = with_children(data, [ids[r] for r in wanted])
+        if old == menu.game_object(graphics['tab']):
+            data = tab_replace(data, unity_string('AdvancedTab'), unity_string('RRGraphicsTab'))
+        if old == menu.game_object(graphics['container_advanced']):
+            data = tab_replace(data, unity_string('ContainerAdvanced'), unity_string('RRGraphicsContainer'))
+            data = data[:-1] + b'\x00'
+        if old == graphics['label_reactive']:
+            data = tab_replace(data, raw_text('Common.Advanced'), raw_text(GRAPHICS_TAB_TITLE))
+        if old == graphics['label_tmp']:
+            data = tab_replace(data, unity_string('Advanced'), unity_string(GRAPHICS_TAB_TEXTS['EN']))
+        if old == graphics['button']:
+            data = tab_replace(data, struct.pack('<i', 0) + unity_string('ALL'), struct.pack('<i', len(calls)) + b''.join(calls) + unity_string('ALL'))
+        return data
+    return change
+
+def graphics_tab_calls(menu, graphics, ids):
+    game_object, tab_widget = ('UnityEngine.GameObject, UnityEngine', 'TabUIWidget, Assembly-CSharp')
+    tab = graphics['widgets'][1]
+    return [persistent_call(go, game_object, 'SetActive', 6, 0) for go in graphics['containers']] + [persistent_call(ids[menu.game_object(graphics['container_advanced'])], game_object, 'SetActive', 6, 1)] + [persistent_call(w, tab_widget, 'UnselectTab', 1) for w in graphics['widgets']] + [persistent_call(ids[tab], tab_widget, 'SelectTab', 1)]
+
+def add_graphics_tab(menu, screen, row, listed, grid_go, next_id, copies, changes):
+    graphics = next((g for g in GRAPHICS_TAB if g['container'] == rect_father(menu.raw(screen['container_debug']))))
+    advanced = menu.game_object(graphics['container_advanced'])
+    tab_set = menu.subtree(graphics['tab'])
+    container_set = [advanced] + menu.components(advanced)
+    full_copy = next((index for index, row_spec in enumerate(SETTINGS_ROWS) if row_spec[1] == FULLSCREEN_ROW_KEYS))
+    wanted = [SETTINGS_COPIES[full_copy][row['grid']]] + list(graphics['rows'])
+    changes[SETTINGS_COPIES[full_copy][grid_go]] = switched_off
+    left_out = {o for rect in listed if rect not in wanted for o in menu.subtree(rect)}
+    list_set = [o for o in menu.subtree(screen['scroll']) if o not in left_out]
+    ids = new_ids(tab_set + container_set + list_set, next_id)
+    calls = graphics_tab_calls(menu, graphics, ids)
+    for old, new in ids.items():
+        copies[new] = (old, graphics_copy(menu, old, ids, graphics, screen, wanted, calls))
+    changes[graphics['mask']] = lambda data, added=ids[graphics['tab']]: with_added_children(data, [added])
+    changes[graphics['container']] = lambda data, added=ids[graphics['container_advanced']]: with_added_children(data, [added])
+    return next_id + len(ids)
 
 def controls_tab(scene):
-    objects, table, count, data_offset = scene_objects(scene)
-    if max(objects) != count:
+    menu = MenuScene(scene)
+    if max(menu.objects) != menu.count:
         raise SystemExit('scene du menu inattendue (onglet Commandes)')
-
-    def raw(object_id):
-        start, size = objects[object_id]
-        return bytes(scene[data_offset + start:data_offset + start + size])
-
-    def game_object(rect):
-        return struct.unpack_from('<iq', raw(rect), 0)[1]
-
-    def components(go):
-        data = raw(go)
-        n, = struct.unpack_from('<i', data, 0)
-        return [struct.unpack_from('<iq', data, 4 + i * 12)[1] for i in range(n)]
-
-    def go_name(go):
-        data = raw(go)
-        at_name = 8 + 12 * struct.unpack_from('<i', data, 0)[0]
-        length, = struct.unpack_from('<i', data, at_name)
-        return data[at_name + 4:at_name + 4 + length].decode()
-
-    def subtree(rect):
-        found, stack = ([], [rect])
-        while stack:
-            current = stack.pop()
-            go = game_object(current)
-            found += [go] + components(go)
-            stack += rect_children(raw(current))
-        return found
     key_copies = [index for index, row in enumerate(SETTINGS_ROWS) if row[1][0].startswith('RR.K.')]
-    next_id = count + 1
+    next_id = menu.count + 1
     copies, changes = ({}, {})
     for screen, row in zip(CONTROLS_TAB, BUILD['difficulty_row']['rows']):
         if screen['content'] != row['content'][0]:
@@ -764,122 +626,27 @@ def controls_tab(scene):
         key_rects = [SETTINGS_COPIES[index][row['grid']] for index in key_copies]
         key_games = [SETTINGS_COPIES[index][grid_go] for index in key_copies]
         wanted = key_rects + list(screen['rows'])
-        listed = rect_children(raw(screen['content']))
+        listed = rect_children(menu.raw(screen['content']))
         if any((rect not in listed for rect in wanted)):
             raise SystemExit('onglet Commandes : lignes introuvables')
-        left_out = {o for rect in listed if rect not in wanted for o in subtree(rect)}
-        copied = [o for o in subtree(screen['scroll']) if o not in left_out] + subtree(screen['hud_grid'])
-        ids = {old: next_id + index for index, old in enumerate(sorted(set(copied)))}
+        left_out = {o for rect in listed if rect not in wanted for o in menu.subtree(rect)}
+        copied = [o for o in menu.subtree(screen['scroll']) if o not in left_out] + menu.subtree(screen['hud_grid'])
+        ids = new_ids(copied, next_id)
         next_id += len(ids)
-        leave = [game_object(rect) for rect in rect_children(raw(screen['hud_grid'])) if go_name(game_object(rect)) == 'LeaveGame']
-
-        def copy(old, ids=ids, screen=screen, wanted=wanted, leave=leave):
-
-            def change(data):
-                data = bytearray(data)
-                for offset in range(0, len(data) - 11, 4):
-                    file_id, path_id = struct.unpack_from('<iq', data, offset)
-                    if file_id == 0 and path_id in ids:
-                        struct.pack_into('<iq', data, offset, 0, ids[path_id])
-                if old in (screen['scroll'], screen['hud_grid']):
-                    father = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
-                    struct.pack_into('<iq', data, father, 0, screen['container_debug'])
-                if old == screen['content']:
-                    end = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
-                    data = data[:52] + struct.pack('<i', len(wanted)) + b''.join((struct.pack('<iq', 0, ids[rect]) for rect in wanted)) + data[end:]
-                if old in leave:
-                    if data[-1] != 1:
-                        raise SystemExit('onglet Commandes : bouton inattendu')
-                    data[-1] = 0
-                return bytes(data)
-            return change
+        leave = [menu.game_object(rect) for rect in rect_children(menu.raw(screen['hud_grid'])) if menu.name(menu.game_object(rect)) == 'LeaveGame']
         for old, new in ids.items():
-            copies[new] = (old, copy(old))
-
-        def add_children(data, added=(ids[screen['scroll']], ids[screen['hud_grid']])):
-            n = struct.unpack_from('<i', data, 52)[0]
-            end = 56 + n * 12
-            return data[:52] + struct.pack('<i', n + len(added)) + data[56:end] + b''.join((struct.pack('<iq', 0, a) for a in added)) + data[end:]
-
-        def off(data):
-            if data[-1] not in (0, 1):
-                raise SystemExit('onglet Commandes : objet inattendu')
-            return data[:-1] + b'\x00'
-
-        def replace(old_bytes, new_bytes):
-
-            def change(data):
-                if data.count(old_bytes) != 1:
-                    raise SystemExit('onglet Commandes : texte inattendu')
-                return data.replace(old_bytes, new_bytes)
-            return change
-        changes[screen['container_debug']] = add_children
+            copies[new] = (old, controls_copy(old, ids, screen, wanted, leave))
+        changes[screen['container_debug']] = lambda data, added=(ids[screen['scroll']], ids[screen['hud_grid']]): with_added_children(data, added)
         for go in screen['debug_children']:
-            changes[go] = off
-        graphics = next((g for g in GRAPHICS_TAB if g['container'] == rect_father(raw(screen['container_debug']))))
-        tab_set = subtree(graphics['tab'])
-        container_set = [game_object(graphics['container_advanced'])] + components(game_object(graphics['container_advanced']))
-        full_copy = next((index for index, row in enumerate(SETTINGS_ROWS) if row[1] == FULLSCREEN_ROW_KEYS))
-        full_rect = SETTINGS_COPIES[full_copy][row['grid']]
-        wanted_g = [full_rect] + list(graphics['rows'])
-        changes[SETTINGS_COPIES[full_copy][grid_go]] = off
-        left_out_g = {o for rect in listed if rect not in wanted_g for o in subtree(rect)}
-        list_set = [o for o in subtree(screen['scroll']) if o not in left_out_g]
-        g_ids = {old: next_id + index for index, old in enumerate(sorted(set(tab_set + container_set + list_set)))}
-        next_id += len(g_ids)
-        tab_widget = graphics['widgets'][1]
-        calls = [persistent_call(go, 'UnityEngine.GameObject, UnityEngine', 'SetActive', 6, 0) for go in graphics['containers']] + [persistent_call(g_ids[game_object(graphics['container_advanced'])], 'UnityEngine.GameObject, UnityEngine', 'SetActive', 6, 1)] + [persistent_call(w, 'TabUIWidget, Assembly-CSharp', 'UnselectTab', 1) for w in graphics['widgets']] + [persistent_call(g_ids[tab_widget], 'TabUIWidget, Assembly-CSharp', 'SelectTab', 1)]
-
-        def g_copy(old, ids=g_ids, graphics=graphics, screen=screen, wanted=wanted_g, calls=calls):
-
-            def change(data):
-                data = bytearray(data)
-                for offset in range(0, len(data) - 11, 4):
-                    file_id, path_id = struct.unpack_from('<iq', data, offset)
-                    if file_id == 0 and path_id in ids:
-                        struct.pack_into('<iq', data, offset, 0, ids[path_id])
-                data = bytes(data)
-                if old == graphics['container_advanced']:
-                    end = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
-                    data = data[:52] + struct.pack('<i', 1) + struct.pack('<iq', 0, ids[screen['scroll']]) + data[end:]
-                if old == screen['scroll']:
-                    father = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
-                    data = data[:father] + struct.pack('<iq', 0, ids[graphics['container_advanced']]) + data[father + 12:]
-                if old == screen['content']:
-                    end = 56 + 12 * struct.unpack_from('<i', data, 52)[0]
-                    data = data[:52] + struct.pack('<i', len(wanted)) + b''.join((struct.pack('<iq', 0, ids[r]) for r in wanted)) + data[end:]
-                if old == game_object(graphics['tab']):
-                    data = tab_replace(data, unity_string('AdvancedTab'), unity_string('RRGraphicsTab'))
-                if old == game_object(graphics['container_advanced']):
-                    data = tab_replace(data, unity_string('ContainerAdvanced'), unity_string('RRGraphicsContainer'))
-                    data = data[:-1] + b'\x00'
-                if old == graphics['label_reactive']:
-                    data = tab_replace(data, raw_text('Common.Advanced'), raw_text(GRAPHICS_TAB_TITLE))
-                if old == graphics['label_tmp']:
-                    data = tab_replace(data, unity_string('Advanced'), unity_string(GRAPHICS_TAB_TEXTS['EN']))
-                if old == graphics['button']:
-                    data = tab_replace(data, struct.pack('<i', 0) + unity_string('ALL'), struct.pack('<i', len(calls)) + b''.join(calls) + unity_string('ALL'))
-                return data
-            return change
-        for old, new in g_ids.items():
-            copies[new] = (old, g_copy(old))
-
-        def append_child(added):
-
-            def change(data):
-                n = struct.unpack_from('<i', data, 52)[0]
-                end = 56 + n * 12
-                return data[:52] + struct.pack('<i', n + 1) + data[56:end] + struct.pack('<iq', 0, added) + data[end:]
-            return change
-        changes[graphics['mask']] = append_child(g_ids[graphics['tab']])
-        changes[graphics['container']] = append_child(g_ids[graphics['container_advanced']])
+            changes[go] = switched_off
+        next_id = add_graphics_tab(menu, screen, row, listed, grid_go, next_id, copies, changes)
         for go in key_games:
-            changes[go] = off
-        changes[screen['debug_tab']] = replace(unity_string('DebugTab'), unity_string('RRControlsTab'))
-        changes[screen['label_reactive']] = replace(unity_string('Debug Mode') + struct.pack('<i', 1), raw_text(CONTROLS_TAB_TITLE))
-        changes[screen['label_tmp']] = replace(unity_string('Debug Mode'), unity_string(CONTROLS_TAB_TEXTS['EN']))
-    scene, _ = add_object_copies(scene, table, count, copies, BUILD['difficulty_row']['table'][2])
-    objects, table, count, data_offset = scene_objects(scene)
+            changes[go] = switched_off
+        changes[screen['debug_tab']] = text_replaced(unity_string('DebugTab'), unity_string('RRControlsTab'))
+        changes[screen['label_reactive']] = text_replaced(unity_string('Debug Mode') + struct.pack('<i', 1), raw_text(CONTROLS_TAB_TITLE))
+        changes[screen['label_tmp']] = text_replaced(unity_string('Debug Mode'), unity_string(CONTROLS_TAB_TEXTS['EN']))
+    scene, _ = add_object_copies(scene, menu.table, menu.count, copies, BUILD['difficulty_row']['table'][2])
+    objects, table, count, _ = scene_objects(scene)
     grow_objects(scene, table, count, {object_id: (*objects[object_id], change) for object_id, change in changes.items()}, shrink=True)
     print(f'onglet Commandes : {len(copies)} objets copies')
     return scene
@@ -895,16 +662,16 @@ if MAC:
     SETTINGS_ROWS += tuple(((title, key_row_options(action), english, 1, (f'RRKeyGrid{action}', f'RRToucheSel{action}')) for action, (title, english) in enumerate(zip(KEY_ROW_TITLES, KEY_ROW_ENGLISH))))
 
 def difficulty_texts(language):
-    title, *levels = DIFFICULTY_TEXTS.get(language) or DIFFICULTY_TEXTS['EN']
-    proto_title, *choices = PROTOTYPES_TEXTS.get(language) or PROTOTYPES_TEXTS['EN']
+    title, *levels = in_language(DIFFICULTY_TEXTS, language)
+    proto_title, *choices = in_language(PROTOTYPES_TEXTS, language)
     texts = {DIFFICULTY_ROW_TITLE: title, **dict(zip(DIFFICULTY_ROW_KEYS, levels)), PROTOTYPES_ROW_TITLE: proto_title, **dict(zip(PROTOTYPES_ROW_KEYS, choices))}
     if MAC:
-        texts[CONTROLS_TAB_TITLE] = CONTROLS_TAB_TEXTS.get(language) or CONTROLS_TAB_TEXTS['EN']
-        texts[GRAPHICS_TAB_TITLE] = GRAPHICS_TAB_TEXTS.get(language) or GRAPHICS_TAB_TEXTS['EN']
-        full_title, *full_choices = FULLSCREEN_TEXTS.get(language) or FULLSCREEN_TEXTS['EN']
+        texts[CONTROLS_TAB_TITLE] = in_language(CONTROLS_TAB_TEXTS, language)
+        texts[GRAPHICS_TAB_TITLE] = in_language(GRAPHICS_TAB_TEXTS, language)
+        full_title, *full_choices = in_language(FULLSCREEN_TEXTS, language)
         texts[FULLSCREEN_ROW_TITLE] = full_title
         texts.update(zip(FULLSCREEN_ROW_KEYS, full_choices))
-        texts.update(zip(KEY_ROW_TITLES, KEYS_TEXTS.get(language) or KEYS_TEXTS['EN']))
+        texts.update(zip(KEY_ROW_TITLES, in_language(KEYS_TEXTS, language)))
         texts.update({key: '' for action in range(len(KEY_ROW_TITLES)) for key in key_row_options(action)})
     return texts
 SETTINGS_COPIES = []
@@ -925,11 +692,10 @@ def difficulty_row(scene):
         content, content_start, content_size, children = row['content']
 
         def add_children(old, children=children, grid=row['grid']):
-            end = 56 + children * 12
-            if struct.unpack_from('<i', old, 52)[0] != children or struct.unpack_from('<iq', old, end - 12) != (0, grid):
+            listed = rect_child_references(old)
+            if len(listed) != children or listed[-1:] != [(0, grid)]:
                 raise SystemExit('liste des reglages inattendue')
-            added = b''.join((struct.pack('<iq', 0, ids[grid]) for ids in new_ids))
-            return old[:52] + struct.pack('<i', children + len(new_ids)) + old[56:end] + added + old[end:]
+            return with_added_children(old, [ids[grid] for ids in new_ids])
         grows[content] = (content_start, content_size, add_children)
         for copy_index, (title, keys, english, shown, names) in enumerate(SETTINGS_ROWS):
             renamed = dict(zip(('FOVGrid', 'CamFOVSelection'), names))
@@ -940,10 +706,7 @@ def difficulty_row(scene):
 
         def change(raw):
             raw = bytearray(raw)
-            for offset in range(0, len(raw) - 11, 4):
-                file_id, path_id = struct.unpack_from('<iq', raw, offset)
-                if file_id == 0 and path_id in ids:
-                    struct.pack_into('<iq', raw, offset, 0, ids[path_id])
+            relink_local(raw, ids)
             if old_id in key_values and SETTINGS_ROWS[copy_index][1][0].startswith('RR.K.'):
                 if raw[12] != 1:
                     raise SystemExit('texte du reglage inattendu')
@@ -1029,19 +792,6 @@ def new_skin_records():
 def has_record(model=None, hero=None):
     return any((record[0] == model or record[1] == hero for record in new_skin_records()))
 
-def typetree_change(obj, edit):
-    from UnityPy.helpers import TypeTreeHelper
-    from UnityPy.streams import EndianBinaryReader, EndianBinaryWriter
-    node, assets = (obj._get_typetree_node(), obj.assets_file)
-
-    def change(raw):
-        tree = TypeTreeHelper.read_typetree(node, EndianBinaryReader(raw, endian='<'), as_dict=True, byte_size=len(raw), assetsfile=assets)
-        edit(tree)
-        writer = EndianBinaryWriter(endian='<')
-        TypeTreeHelper.write_typetree(tree, node, writer, assets)
-        return writer.bytes
-    return change
-
 def characters_table_change(data, records):
     import UnityPy
     env = UnityPy.load(bytes(data))
@@ -1097,6 +847,7 @@ def characters_table_change(data, records):
 @functools.lru_cache(None)
 def melee_specs_without_visual():
     import UnityPy
+    from UnityPy.exceptions import TypeTreeError
     _, bundle = asset_pack_bundle('quantum_db_meleeweapons_assets_all')
     if not bundle:
         return frozenset()
@@ -1105,7 +856,7 @@ def melee_specs_without_visual():
         if obj.type.name == 'MonoBehaviour':
             try:
                 tree = obj.read_typetree()
-            except Exception:
+            except (TypeTreeError, ValueError):
                 continue
             visual = tree.get('<finalVisual>k__BackingField')
             if visual is not None and (not visual['m_PathID']):
@@ -1142,11 +893,15 @@ def rivet_hammer_patches():
     return {weapon: patch_weapon, database: patch_database}
 RIVET_HERO_SPECS = [('HeroesTable', struct.pack('<iiq', 16, 0, -7414600841294808171), struct.pack('<iiq', 16, 0, -307863333376545080)), ('SimulationHeroesTable', struct.pack('<iq', 16, 1675496277196913591), struct.pack('<iq', 16, 640634350159564227))]
 RIVET_HERO_TEXTS = {'FR': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'UI.WEAPONS.MELEE.RIVET': 'Marteau de Rivet', 'UI.WEAPON_DESCRIPTION.MELEE.RIVET': 'Son marteau : aussi rapide que la clé de Ratchet, en plus lourd.', 'UI.HERO_IMPROVEMENT.NAME.RIVET_SLAM': 'Marteau plongeant', 'UI.HERO_IMPROVEMENT.DESC.RIVET_SLAM': "En l'air, coup de mêlée : Rivet plonge et frappe le sol.", 'CHARACTER.BIO.AVATAR': "Venue d'une autre dimension, Rivet la Lombax fait équipe avec Ratchet et Clank : mêmes armes, même gadget, et un sacré caractère."}, 'EN': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'UI.WEAPONS.MELEE.RIVET': "Rivet's Hammer", 'UI.WEAPON_DESCRIPTION.MELEE.RIVET': "Her hammer: as quick as Ratchet's wrench, and heavier.", 'UI.HERO_IMPROVEMENT.NAME.RIVET_SLAM': 'Hammer Slam', 'UI.HERO_IMPROVEMENT.DESC.RIVET_SLAM': 'Melee in the air: Rivet dives and slams the ground.', 'CHARACTER.BIO.AVATAR': 'From another dimension, Rivet the Lombax teams up with Ratchet and Clank: same weapons, same gadget, and plenty of attitude.'}}
+RATCHET_KIT = ('_defaultWeapon', '_commonFavoriteWeapon', '_rareFavoriteWeapon', '_epicFavoriteWeapon', 'ultimates', 'gadgets', 'meleeWeaponSpec', 'maxHeroImprovementLevel', 'equipMeleeWeaponInMenu', 'menusAnimID', 'specificWinLoseAnimID')
+
+def take_ratchet_kit(record, ratchet, *more):
+    for field in RATCHET_KIT + more:
+        record[field] = json_copy(ratchet[field])
 
 def rivet_hero(characters, guid):
     avatar, ratchet = (characters['AVATAR'], characters['RATCHET'])
-    for field in ('_defaultWeapon', '_commonFavoriteWeapon', '_rareFavoriteWeapon', '_epicFavoriteWeapon', 'ultimates', 'gadgets', 'meleeWeaponSpec', 'maxHeroImprovementLevel', 'equipMeleeWeaponInMenu', 'menusAnimID', 'specificWinLoseAnimID'):
-        avatar[field] = json_copy(ratchet[field])
+    take_ratchet_kit(avatar, ratchet)
     if RIVET_HAMMER and heavy_tools():
         hammer = characters['STEELJAW']['meleeWeaponSpec']
         if hammer['m_PathID'] != hammer_module().STEELJAW_MELEE_SPEC:
@@ -1185,41 +940,6 @@ def rivet_portrait():
     fade = fade.filter(ImageFilter.GaussianBlur(12))
     picture.putalpha(ImageChops.multiply(picture.getchannel('A'), fade))
     return picture
-
-def full_rect_sprite(tree, texture_id, width, height):
-    units = tree['m_PixelsToUnits']
-    old_count = tree['m_RD']['m_VertexData']['m_VertexCount']
-    if len(tree['m_RD']['m_VertexData']['m_DataSize']) != (old_count * 12 + 15 & ~15) + old_count * 8:
-        raise SystemExit('maillage de sprite inattendu')
-    rect = {'x': 0.0, 'y': 0.0, 'width': float(width), 'height': float(height)}
-    tree['m_Rect'] = dict(rect)
-    tree['m_PhysicsShape'] = []
-    render = tree['m_RD']
-    render['texture'] = {'m_FileID': 0, 'm_PathID': texture_id}
-    render['textureRect'] = dict(rect)
-    render['textureRectOffset'] = {'x': 0.0, 'y': 0.0}
-    render['uvTransform'] = {'x': units, 'y': width / 2, 'z': units, 'w': height / 2}
-    half_x, half_y = (width / 2 / units, height / 2 / units)
-    corners = [(-half_x, half_y, 0.0, 1.0), (half_x, half_y, 1.0, 1.0), (-half_x, -half_y, 0.0, 0.0), (half_x, -half_y, 1.0, 0.0)]
-    positions = b''.join((struct.pack('<3f', x, y, 0.0) for x, y, _, _ in corners))
-    positions += bytes(-len(positions) % 16)
-    render['m_VertexData']['m_VertexCount'] = 4
-    render['m_VertexData']['m_DataSize'] = positions + b''.join((struct.pack('<2f', u, v) for _, _, u, v in corners))
-    render['m_IndexBuffer'] = list(struct.pack('<6H', 0, 1, 2, 2, 1, 3))
-    submesh = render['m_SubMeshes'][0]
-    submesh.update(firstByte=0, indexCount=6, baseVertex=0, firstVertex=0, vertexCount=4)
-    submesh['localAABB'] = {'m_Center': {'x': 0.0, 'y': 0.0, 'z': 0.0}, 'm_Extent': {'x': half_x, 'y': half_y, 'z': 0.0}}
-    render['settingsRaw'] &= ~64
-
-def rgba_texture(tree, picture):
-    from PIL import Image
-    pixels = picture.transpose(Image.FLIP_TOP_BOTTOM).tobytes()
-    tree['m_Width'], tree['m_Height'] = picture.size
-    tree['m_CompleteImageSize'] = len(pixels)
-    tree['m_TextureFormat'] = 4
-    tree['m_MipCount'] = 1
-    tree['image data'] = pixels
-    tree['m_StreamData'] = {'offset': 0, 'size': 0, 'path': ''}
 
 def patch_rivet_portrait(data):
     if not heavy_tools():
@@ -1267,8 +987,7 @@ def wendy_switch():
 
 def wendy_hero(characters, guid):
     hero, ratchet = (characters['STEELJAW'], characters['RATCHET'])
-    for field in ('_defaultWeapon', '_commonFavoriteWeapon', '_rareFavoriteWeapon', '_epicFavoriteWeapon', 'ultimates', 'gadgets', 'meleeWeaponSpec', 'maxHeroImprovementLevel', 'equipMeleeWeaponInMenu', 'menusAnimID', 'specificWinLoseAnimID', 'mainMenuAnimatorOverrideController'):
-        hero[field] = json_copy(ratchet[field])
+    take_ratchet_kit(hero, ratchet, 'mainMenuAnimatorOverrideController')
     icon = {'m_AssetGUID': PORTRAIT_GUIDS['ico_dialog_Wendy'], 'm_SubObjectName': 'ico_dialog_Wendy', 'm_SubObjectType': ratchet['thumbnailRef']['m_SubObjectType']}
     hero['thumbnailRef'] = dict(icon)
     hero['visibleInCharactersMenu'] = 1 if WENDY_VISIBLE or wendy_switch() else 0
@@ -1289,7 +1008,7 @@ def wendy_hero(characters, guid):
 JUYCEE_TABLES = [(-5940201613183132357, struct.pack('<iiq', 2, 0, -1122880514257579180), struct.pack('<iiq', 22, 0, -307863333376545080), struct.pack('<iiq', 23, 0, 8164001146724866422)), (-2561997552144112879, struct.pack('<iq', 2, 3703090579129389015), struct.pack('<iq', 22, 640634350159564227), struct.pack('<iq', 23, 1437917254422004741))]
 
 def juycee_hero_specs(stream, table, count):
-    entries = {struct.unpack_from('<q', stream, table + i * 24)[0]: struct.unpack_from('<qqIi', stream, table + i * 24) for i in range(count)}
+    entries = {entry[0]: entry for entry in object_entries(stream, table, count)}
     changes = {}
     for object_id, first_entry, last, added in JUYCEE_TABLES:
         _, start, length, _ = entries[object_id]
@@ -1330,9 +1049,6 @@ def juycee_character(chance):
     record['thumbnailRef'] = dict(record['thumbnailRef'], m_SubObjectName='ico_dialog_evilWendy', m_AssetGUID=PORTRAIT_GUIDS['ico_dialog_evilWendy'])
     record['skins'] = []
     return record
-
-def json_copy(value):
-    return json.loads(json.dumps(value))
 SKIN_CODE = 68314416
 IS_SKIN = 75018420
 CHARACTER_OF_SKIN = 75046628
@@ -1420,20 +1136,20 @@ def new_skin_code(data):
         at(data, STABLE_ENUM_CALL, a64.bl(STABLE_ENUM_CALL, STABLE_ENUM_TRY_PARSE), a64.bl(STABLE_ENUM_CALL, SKIN_CODE + 4 + entries['stable_enum']))
 
 def new_skin_texts(language):
-    names = JUYCEE_TEXTS.get(language) or JUYCEE_TEXTS['EN']
+    names = in_language(JUYCEE_TEXTS, language)
     texts = {}
     for _, _, _, _, _, text, _ in new_skin_records():
         if text.startswith('SKIN.JUYCEE_'):
             name = names[int(text[-2:])]
             texts[text] = texts[text + '.DESCRIPTION'] = name
         elif text == 'SKIN.RIVET_00':
-            texts[text], texts[text + '.DESCRIPTION'] = RIVET_TEXTS.get(language) or RIVET_TEXTS['EN']
+            texts[text], texts[text + '.DESCRIPTION'] = in_language(RIVET_TEXTS, language)
     if has_record(model='Rivet'):
-        texts.update(RIVET_HERO_TEXTS.get(language) or RIVET_HERO_TEXTS['EN'])
+        texts.update(in_language(RIVET_HERO_TEXTS, language))
     if 'Wendy' in hero_sources()[0]:
-        texts.update(WENDY_HERO_TEXTS.get(language) or WENDY_HERO_TEXTS['EN'])
+        texts.update(in_language(WENDY_HERO_TEXTS, language))
     if has_record(hero='JUYCEE'):
-        texts.update(JUYCEE_HERO_TEXTS.get(language) or JUYCEE_HERO_TEXTS['EN'])
+        texts.update(in_language(JUYCEE_HERO_TEXTS, language))
     return texts
 
 def cdn_skins_present():
@@ -1444,11 +1160,12 @@ def cdn_skin_edits(stream):
     skins, edits = ([], [])
     for skin in cdn_skins_present():
         hero, number = skin.split('_Skin')
-        record = f'SKIN_{hero.upper()}_SKIN{number}'.encode()
-        if skin not in info or stream.count(struct.pack('<I', len(record)) + record) != 1:
+        name = f'SKIN_{hero.upper()}_SKIN{number}'.encode()
+        record = struct.pack('<I', len(name)) + name
+        if skin not in info or stream.count(record) != 1:
             continue
-        skins.append((struct.pack('<I', len(record)) + record, hero, info[skin]['guid']))
-        start = stream.index(struct.pack('<I', len(record)) + record)
+        skins.append((record, hero, info[skin]['guid']))
+        start = stream.index(record)
         description = stream.index(b'.DESCRIPTION', start) + len(b'.DESCRIPTION')
         availability = (description + 3 & ~3) + 8
         if struct.unpack_from('<i', stream, availability)[0] == 1:
@@ -1572,27 +1289,24 @@ def zurkon_token_copies(data):
             TypeTreeHelper.write_typetree(tree, node, writer, assets)
             return writer.bytes
         return (template.path_id, change)
-
-    def own(path_id):
-        return {'m_FileID': 0, 'm_PathID': path_id}
     go, transform, mesh_filter, renderer = evenements.ZURKON_TOKEN_OBJECTS
     source_renderer = next((common[c['component']['m_PathID']].read_typetree() for c in common[GADGETOKEN_ROOT].read_typetree()['m_Component'] if common[c['component']['m_PathID']].type.name == 'MeshRenderer'))
 
     def game_object(tree):
-        tree.update(m_Name='EventToken_Zurkon', m_Layer=0, m_Tag=0, m_IsActive=1, m_Component=[{'component': own(i)} for i in (transform, mesh_filter, renderer)])
+        tree.update(m_Name='EventToken_Zurkon', m_Layer=0, m_Tag=0, m_IsActive=1, m_Component=[{'component': local_ref(i)} for i in (transform, mesh_filter, renderer)])
 
     def transform_tree(tree):
-        tree.update(m_GameObject=own(go), m_Father=own(0), m_Children=[], m_LocalPosition={'x': 0.0, 'y': 0.0, 'z': 0.0}, m_LocalRotation={'x': 0.0, 'y': 0.0, 'z': 0.0, 'w': 1.0}, m_LocalScale={'x': 0.7, 'y': 0.7, 'z': 0.7})
+        tree.update(m_GameObject=local_ref(go), m_Father=local_ref(0), m_Children=[], m_LocalPosition={'x': 0.0, 'y': 0.0, 'z': 0.0}, m_LocalRotation={'x': 0.0, 'y': 0.0, 'z': 0.0, 'w': 1.0}, m_LocalScale={'x': 0.7, 'y': 0.7, 'z': 0.7})
 
     def filter_tree(tree):
-        tree.update(m_GameObject=own(go), m_Mesh={'m_FileID': common_id, 'm_PathID': GADGETOKEN_MESH})
+        tree.update(m_GameObject=local_ref(go), m_Mesh={'m_FileID': common_id, 'm_PathID': GADGETOKEN_MESH})
 
     def renderer_tree(tree):
         tree.update({k: v for k, v in source_renderer.items() if k in tree})
-        tree.update(m_GameObject=own(go), m_Enabled=1, m_Materials=[{'m_FileID': common_id, 'm_PathID': m} for m in GADGETOKEN_MATERIALS], m_ProbeAnchor=own(0), m_LightProbeVolumeOverride=own(0), m_StaticBatchRoot=own(0))
+        tree.update(m_GameObject=local_ref(go), m_Enabled=1, m_Materials=[{'m_FileID': common_id, 'm_PathID': m} for m in GADGETOKEN_MATERIALS], m_ProbeAnchor=local_ref(0), m_LightProbeVolumeOverride=local_ref(0), m_StaticBatchRoot=local_ref(0))
         for key in ('m_AdditionalVertexStreams', 'm_EnlightenVertexStream'):
             if key in tree:
-                tree[key] = own(0)
+                tree[key] = local_ref(0)
     print('jeton de Mme Zurkon au sol : la piece Gadgetron de 1.1.0')
     return {go: written('GameObject', game_object), transform: written('Transform', transform_tree), mesh_filter: written('MeshFilter', filter_tree), renderer: written('MeshRenderer', renderer_tree)}
 
@@ -1654,7 +1368,7 @@ def zurkon_copies(data):
 
     def relink(value):
         if isinstance(value, dict):
-            if set(value) == {'m_FileID', 'm_PathID'} and value['m_FileID'] == 0 and (value['m_PathID'] in renamed):
+            if is_pptr(value) and value['m_FileID'] == 0 and (value['m_PathID'] in renamed):
                 value['m_PathID'] = renamed[value['m_PathID']]
             for item in value.values():
                 relink(item)
@@ -1674,9 +1388,9 @@ def zurkon_copies(data):
                 tree['m_SizeDelta'] = dict(zip('xy', evenements.ZURKON_FIGURE_SIZE))
                 tree['m_AnchoredPosition'] = dict(zip('xy', evenements.ZURKON_FIGURE_OFFSET))
             elif old_id == figure_image:
-                tree['m_Sprite'] = {'m_FileID': 0, 'm_PathID': evenements.ZURKON_SPRITE}
+                tree['m_Sprite'] = local_ref(evenements.ZURKON_SPRITE)
                 tree['m_PreserveAspect'] = 1
-                tree['m_Material'] = {'m_FileID': 0, 'm_PathID': 0}
+                tree['m_Material'] = local_ref(0)
         return rewrite(old_id, edit)
     copies.update({evenements.ZURKON_TEXTURE: (evenements.TEXTURE_TEMPLATE, rewrite(evenements.TEXTURE_TEMPLATE, texture)), evenements.ZURKON_SPRITE: (evenements.SPRITE_TEMPLATE, rewrite(evenements.SPRITE_TEMPLATE, sprite))})
     for old, new in renamed.items():
@@ -1705,9 +1419,9 @@ def patch_hero_talents(data, edits=()):
     stream = bytearray(bundle_stream(bytes(data)))
     for offset, old, new in edits:
         at(stream, offset, old, new)
-    file_size, data_offset = struct.unpack('>QQ', stream[24:40])
+    file_size, data_offset = serialized_sizes(stream)
     table, count = BUILD['hero_specs_table']
-    objects = [struct.unpack_from('<qqIi', stream, table + i * 24) for i in range(count)]
+    objects = object_entries(stream, table, count)
     specs = sorted((o for o in objects if o[0] in HEROES_WITHOUT_TALENTS), key=lambda o: -o[1])
     if len(specs) != len(HEROES_WITHOUT_TALENTS):
         raise SystemExit('fiches de heros introuvables')
@@ -1722,7 +1436,7 @@ def patch_hero_talents(data, edits=()):
         moved = start + len(HERO_TALENTS) * sum((1 for s in starts if s < start))
         if object_id in HEROES_WITHOUT_TALENTS:
             size += len(HERO_TALENTS)
-        struct.pack_into('<qqIi', stream, table + i * 24, object_id, moved, size, kind)
+        OBJECT_ENTRY.pack_into(stream, table + i * OBJECT_ENTRY.size, object_id, moved, size, kind)
     struct.pack_into('>Q', stream, 24, file_size + len(HERO_TALENTS) * len(specs))
     if 'Rivet' in hero_sources()[0] and (not (RIVET_JUMP and heavy_tools())):
         ratchet_hero_specs(stream, RIVET_HERO_SPECS)
@@ -1745,68 +1459,10 @@ KING_ANNOUNCER_KEYS = ['ANNOUNCER.BOLTKING.PLAYER_BECAME_KING', 'ANNOUNCER.BOLTK
 LOCALIZATION_FILE = 'assets/Data/Localization/{}/_DEFAULT.protobd'
 LANGUAGES = ['AR', 'BR', 'CN', 'DE', 'EN', 'ES', 'FR', 'GD', 'IT', 'JP', 'KR', 'MY', 'NL', 'RU', 'TR', 'TW']
 BOLT_RUSH_CARD = {'name': 'UI.GAME_MODE.BOLT_RUSH', 'description': 'UI.GAME_MODE.BOLT_RUSH_DESC', 'icon': 2472658898744702415, 'illustration': -81423715014193705, 'animated': 4212379821872507239, 'steps': [('UI.GAME_MODE.BOLT_KING.STEP_01', -2923374288120182764), ('UI.GAME_MODE.BOLT_RUSH_SOLO.STEP_02', 8644978053141830954), ('UI.GAME_MODE.BOLT_RUSH.STEP_03', -940617046196073270)], 'weapons': [1, 2, 14]}
-
-def unity_string(text):
-    raw = text.encode('utf-8')
-    return struct.pack('<I', len(raw)) + raw + bytes(-len(raw) % 4)
-
-def raw_text(key):
-    return unity_string(key) + struct.pack('<i', 0)
-
-def varint(value):
-    out = bytearray()
-    while True:
-        out.append(value & 127 | (128 if value > 127 else 0))
-        value >>= 7
-        if not out[-1] & 128:
-            return bytes(out)
-
-def read_varint(data, position):
-    value = shift = 0
-    while True:
-        byte = data[position]
-        position += 1
-        value |= (byte & 127) << shift
-        shift += 7
-        if byte < 128:
-            return (value, position)
-
-def proto_fields(data, start, end):
-    position = start
-    while position < end:
-        first = position
-        tag, position = read_varint(data, position)
-        if tag & 7 != 2:
-            raise SystemExit('fichier de langue inattendu')
-        size, position = read_varint(data, position)
-        yield (tag >> 3, first, position, position + size)
-        position += size
-
-def localization_entries(source, error):
-    (_, _, root_start, root_end), = list(proto_fields(source, 0, len(source)))
-    inner = list(proto_fields(source, root_start, root_end))
-    if inner[0][0] != 500:
-        raise SystemExit(error)
-    _, _, table_start, table_end = inner[0]
-    entries = []
-    for _, first, start, end in proto_fields(source, table_start, table_end):
-        key = next((source[s:e] for f, _, s, e in proto_fields(source, start, end) if f == 1))
-        entries.append((key, source[first:end]))
-    return (entries, source[table_end:root_end])
-
-def localization_entry(key, text):
-    value = text.encode('utf-8')
-    body = b'\n' + varint(len(key)) + key + b'\x12' + varint(len(value)) + value
-    return b'\n' + varint(len(body)) + body
-
-def localization_file(entries, rest):
-    table = b''.join((raw for _, raw in entries))
-    root_body = varint(500 << 3 | 2) + varint(len(table)) + table + rest
-    return b'\n' + varint(len(root_body)) + root_body
 CDN_SKIN_TEXTS = {'FR': {'Molly_Skin01': 'Molly Mystique', 'Molly_Skin02': 'Molly Robot', 'Molly_Skin03': 'Molly galactique'}, 'EN': {'Molly_Skin01': 'Mystic Molly', 'Molly_Skin02': 'Robo Molly', 'Molly_Skin03': 'Galaxy Molly'}}
 
 def cdn_skin_texts(language):
-    names = CDN_SKIN_TEXTS.get(language) or CDN_SKIN_TEXTS['EN']
+    names = in_language(CDN_SKIN_TEXTS, language)
     texts = {}
     for skin in cdn_skins_present():
         if skin in names:
@@ -1818,7 +1474,7 @@ MAPS_174_TEXTS = {'FR': 'Stade des pirates', 'EN': 'Pirate Stadium', 'DE': 'Pira
 MAPS_174_NAME_KEY = 'LEVEL.BB_ARDOLIS_01.NAME'
 
 def patch_localization(language):
-    texts = dict(BOLT_RUSH_TEXTS.get(language) or BOLT_RUSH_TEXTS['EN']) if BOLT_RUSH else {}
+    texts = dict(in_language(BOLT_RUSH_TEXTS, language)) if BOLT_RUSH else {}
     if 'difficulty_row' in BUILD:
         texts.update(difficulty_texts(language))
     if 'flail_enhancements' in BUILD:
@@ -1827,12 +1483,12 @@ def patch_localization(language):
         texts.update(cdn_skin_texts(language))
         texts.update(new_skin_texts(language))
     if weapon_slots_build():
-        texts.update(WEAPON_SLOTS_TEXTS.get(language) or WEAPON_SLOTS_TEXTS['EN'])
+        texts.update(in_language(WEAPON_SLOTS_TEXTS, language))
     if EVENTS:
-        texts.update(ZURKON_TEXTS.get(language) or ZURKON_TEXTS['EN'])
-        texts['UI.EVENT.ZURKON.RULES'] = ZURKON_RULES.get(language) or ZURKON_RULES['EN']
+        texts.update(in_language(ZURKON_TEXTS, language))
+        texts['UI.EVENT.ZURKON.RULES'] = in_language(ZURKON_RULES, language)
     if maps_174():
-        texts[MAPS_174_NAME_KEY] = MAPS_174_TEXTS.get(language) or MAPS_174_TEXTS['EN']
+        texts[MAPS_174_NAME_KEY] = in_language(MAPS_174_TEXTS, language)
 
     def patch(data):
         entries, rest = localization_entries(bytes(data), f'fichier de langue {language} inattendu')
@@ -1900,61 +1556,6 @@ RUSH_GOLDEN_BOLTS = 75
 RUSH_GOLDEN_DROP = 1474560
 RUSH_GOLDEN_HEIGHT = 1966080
 RUSH_MAP_POINTS = {'assets/aa/Android/quantum_map_assets_q_bk_sargasso_01_assets_all_a40920a2717fdbf541b730ebc78f0ff1.bundle': ((97968, 7), (-8094758613156511176, 395808, 10940), 1124, [(-2621439, 589824, 2621440), (-131072, 196608, 0), (2621440, 589824, -2621440), (2146304, 786432, 2179071), (-2146304, 786432, -2179072)]), 'assets/aa/Android/quantum_map_assets_q_bk_torreniv_01_assets_all_80833395b99dd7f69dd57fd576e3e057.bundle': ((97968, 13), (-3114715822146110700, 576448, 11620), 1020, [(2686976, 786432, -2097152), (-2686976, 786432, 2097152), (0, 524288, 0), (-655360, 688128, -3866624), (655360, 688128, 3866624)]), 'assets/aa/Android/quantum_map_assets_q_bk_torreniv_02_assets_all_85d23b5e205308433d95349c0a02342a.bundle': ((97968, 13), (-1287192862409957299, 908080, 10724), 1020, [(0, 393216, 0), (-2555904, 753664, 1048576), (2555904, 753664, -1048576), (655360, 917504, 2097152), (-655360, 917504, -2097152)]), 'assets/aa/Android/quantum_map_assets_q_bk_ardolis_01_assets_all_9e50eadafc80e9a53e0b96483c49694b.bundle': ((97968, 7), (-9187427915300057292, 0, 4500), 912, [(-2402785, 655360, 1489868), (2402785, 655360, -1489868), (0, 196608, 0), (2664604, 557056, 2664604), (-2664604, 557056, -2664605)]), 'assets/aa/Android/quantum_map_assets_q_bk_megalopolis_00_assets_all_17e4e0ab8b87be0756e41315370ef97f.bundle': ((97968, 7), (-3342730429618726170, 111632, 5252), 816, [(0, 131072, 0), (917504, 393216, 1703936), (-917504, 393216, -1703936), (1703936, 393216, -2162688), (-1703936, 393216, 2162688)]), 'assets/aa/Android/quantum_map_assets_q_bk_megalopolis_01c_assets_all_facc055495154defa7c621dec2d92309.bundle': ((97968, 7), (5464993316374041169, 748592, 2828), 1132, [(0, 669481, 0), (0, 524288, 2621440), (0, 655360, -2293760), (-2621440, 655360, 1310720), (2621440, 655360, 1310720)]), 'assets/aa/Android/quantum_map_assets_q_bk_megalopolis_02b_assets_all_23f580cfdc258930b02642d438599885.bundle': ((97968, 7), (-4282096647975423578, 0, 11192), 1080, [(0, 393216, 0), (-2949120, 262144, -655360), (2949120, 262144, -655360), (-1802240, 262144, 3440640), (1802240, 262144, 3440640)])}
-
-def grow_objects(stream, table, count, changes, shrink=False, types=None):
-    file_size, data_offset = struct.unpack('>QQ', stream[24:40])
-    entries = [list(struct.unpack_from('<qqIi', stream, table + i * 24)) for i in range(count)]
-    total = 0
-    for object_id, (start, size, change) in sorted(changes.items(), key=lambda item: -item[1][0]):
-        found = [e for e in entries if e[0] == object_id]
-        if len(found) != 1 or found[0][1:3] != [start, size]:
-            raise SystemExit(f'objet {object_id} introuvable')
-        old = bytes(stream[data_offset + start:data_offset + start + size])
-        new = change(old)
-        if len(new) < size and (not shrink):
-            raise SystemExit(f'objet {object_id} raccourci')
-        grown = max(0, len(new) - size + 7 & ~7)
-        stream[data_offset + start:data_offset + start + size] = new + bytes(size + grown - len(new))
-        for e in entries:
-            if e[0] == object_id:
-                e[2] = len(new)
-            elif e[1] > start:
-                e[1] += grown
-        total += grown
-    for e in entries:
-        if types and e[0] in types:
-            e[3] = types[e[0]]
-    for i, e in enumerate(entries):
-        struct.pack_into('<qqIi', stream, table + i * 24, *e)
-    struct.pack_into('>Q', stream, 24, file_size + total)
-    return total
-
-def add_object_copies(stream, table, count, copies, padding=3):
-    meta_size = struct.unpack('>I', stream[20:24])[0]
-    file_size, data_offset = struct.unpack('>QQ', stream[24:40])
-    entries = [struct.unpack_from('<qqIi', stream, table + i * 24) for i in range(count)]
-    by_id = {e[0]: e for e in entries}
-    data = bytearray(stream[data_offset:file_size])
-    for new_id, (old_id, change) in sorted(copies.items()):
-        if new_id in by_id:
-            raise SystemExit(f'objet {new_id} deja present')
-        _, start, size, type_index = by_id[old_id]
-        raw = change(bytes(data[start:start + size]))
-        data += bytes(-len(data) % 8)
-        by_id[new_id] = (new_id, len(data), len(raw), type_index)
-        data += raw
-    entries = sorted(by_id.values())
-    added = len(entries) - count
-    count_at = table - 4 - padding
-    metadata = bytes(stream[48:count_at]) + struct.pack('<i', len(entries)) + bytes(stream[count_at + 4:table]) + b''.join((struct.pack('<qqIi', *e) for e in entries)) + bytes(stream[table + count * 24:48 + meta_size])
-    if stream[count_at:count_at + 4] != struct.pack('<i', count) or len(metadata) != meta_size + added * 24:
-        raise SystemExit("table d'objets inattendue")
-    new_offset = 48 + len(metadata) + 15 & ~15
-    head = bytearray(stream[:48])
-    struct.pack_into('>I', head, 20, len(metadata))
-    struct.pack_into('>QQ', head, 24, new_offset + len(data), new_offset)
-    new_file = bytes(head) + metadata + bytes(new_offset - 48 - len(metadata)) + bytes(data)
-    return (bytearray(new_file + bytes(stream[file_size:])), len(new_file) - file_size)
 
 def game_modes_table(old):
     if old.count(TUTORIAL_TABLE_ENTRY) != 1:
@@ -2061,16 +1662,13 @@ def bolt_rush_switch(c):
     c.jump('b.eq', 'switch_find')
     c.emit(a64.movz_w(19, 3) + a64.cmp_x_imm(0, 3))
     c.jump('b.eq', 'switch_find')
-    c.jump('adr', 'switch_key', 0)
-    c.call(BUILD['string_new'])
-    c.emit(a64.mov_x_zero(1))
-    c.call(BUILD['prefs_get_string'])
+    c.prefs_get_string('switch_key')
     c.emit(a64.movz_w(19, 0))
     c.jump('cbz', 'switch_find', 0)
     c.emit(a64.ldr_w(8, 0, 16))
     c.jump('cbzw', 'switch_find', 8)
     c.emit(a64.movz_w(19, 1))
-    c.emit(a64_ldst(2034237440, 2, 8, 0, 20))
+    c.emit(a64.ldst(2034237440, 2, 8, 0, 20))
     c.emit(a64.cmp_w_imm(8, ord('2')))
     c.jump('b.ne', 'switch_find')
     c.emit(a64.movz_w(19, 2))
@@ -2089,7 +1687,7 @@ def bolt_rush_switch(c):
     position = 0
     for offset, size in SPEC_FIELDS:
         position += -position % size
-        c.emit(a64_ldst(LOADS[size], size, 10, 9, position) + a64_ldst(STORES[size], size, 10, 8, offset))
+        c.emit(a64.ldst(a64.LOADS[size], size, 10, 9, position) + a64.ldst(a64.STORES[size], size, 10, 8, offset))
         position += size
     c.label('switch_end')
     c.emit(a64.ldp_x_post(19, 30, a64.SP, 16))
@@ -2397,6 +1995,7 @@ def coop_battle_code(at_address):
     c.emit(ENEMY_TOTAL_OPEN + b'\x00')
     return (c.build(), {name: at_address + c.labels[name] for name in ('is_coop', 'own_bolts', 'team_flag', 'result', 'row', 'team_split', 'item_color', 'max_key', 'max_text')})
 PROTOTYPES_KEY = b'rr_prototypes'
+WENDY_KEY = b'rr_wendy'
 PROTOTYPE_LEVELS = ['q_EL_Prototype_01', 'q_FFA_Sargasso_01B', 'q_FFA_TorrenIV_01B', 'q_BK_TorrenIV_02B']
 
 def prototype_maps():
@@ -2422,12 +2021,6 @@ def prototypes_code(at_address):
     prototypes = prototype_maps()
     row = BUILD['difficulty_row_code']
 
-    def prefs_get(label):
-        c.jump('adr', label, 0)
-        c.call(BUILD['string_new'])
-        c.emit(a64.mov_x_zero(1))
-        c.call(BUILD['prefs_get_string'])
-
     def first_char(fail):
         c.jump('cbz', fail, 0)
         c.emit(a64.ldr_w(8, 0, 16))
@@ -2438,7 +2031,7 @@ def prototypes_code(at_address):
     c.emit(a64.str_x(2, a64.SP, 32))
     c.emit(a64.stp_x(19, 20, a64.SP, 40))
     c.emit(a64.movz_w(20, 0))
-    prefs_get('proto_key')
+    c.prefs_get_string('proto_key')
     first_char('proto_checked')
     c.emit(a64.cmp_w_imm(8, ord('1')))
     c.jump('b.ne', 'proto_checked')
@@ -2450,7 +2043,7 @@ def prototypes_code(at_address):
         c.emit(a64.cmp_w_imm(21, FFA_GAME_MODE))
         c.jump('b.ne', 'count_store')
         c.emit(w32(840893076))
-        prefs_get('count_key')
+        c.prefs_get_string('count_key')
         first_char('count_read')
         c.emit(w32(1359003912))
         c.emit(a64.cmp_w_imm(8, SPECIAL_EVERY + 1))
@@ -2549,10 +2142,16 @@ def prototypes_code(at_address):
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
         c.call(ON_MAIN_THREAD)
         c.jump('tbz0', 'available_no', 0)
-        prefs_get('proto_key')
+        c.prefs_get_string('proto_key')
+        first_char('available_save')
+        c.emit(a64.cmp_w_imm(8, ord('1')))
+        c.jump('b.eq', 'available_yes')
+        c.label('available_save')
+        c.prefs_get_string('wendy_key')
         first_char('available_no')
         c.emit(a64.cmp_w_imm(8, ord('1')))
         c.jump('b.ne', 'available_no')
+        c.label('available_yes')
         c.emit(a64.movz_w(0, 1))
         c.jump('b', 'available_end')
         c.label('available_no')
@@ -2584,6 +2183,9 @@ def prototypes_code(at_address):
     c.emit(PROTOTYPES_KEY + b'\x00')
     c.label('count_key')
     c.emit(SPECIAL_COUNT_KEY + b'\x00')
+    if wendy_switch():
+        c.label('wendy_key')
+        c.emit(WENDY_KEY + b'\x00')
     if eights:
         c.label('special_names')
         c.emit(eights[0].encode() + b'\x00')
@@ -2657,7 +2259,7 @@ def rush_code(at_address):
     c.jump('ldrlit', 'rush_golden', 10)
     c.emit(a64.cmp_x(9, 10))
     c.jump('b.ne', 'not_rush')
-    c.emit(a64_ldst(LOADS[1], 1, 9, 8, 240))
+    c.emit(a64.ldst(a64.LOADS[1], 1, 9, 8, 240))
     c.emit(struct.pack('<I', 1895825727))
     c.emit(struct.pack('<I', 446633952))
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
@@ -2667,8 +2269,8 @@ def rush_code(at_address):
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
     c.emit(a64.RET)
     c.label('team_counter_flag')
-    c.emit(a64_ldst(LOADS[1], 1, 10, 19, 408))
-    c.emit(a64_ldst(LOADS[1], 1, 11, 19, 240))
+    c.emit(a64.ldst(a64.LOADS[1], 1, 10, 19, 408))
+    c.emit(a64.ldst(a64.LOADS[1], 1, 11, 19, 240))
     c.emit(struct.pack('<I', 167772160 | 11 << 16 | 10 << 5 | 10))
     c.emit(a64.RET)
     c.align()
@@ -2707,13 +2309,13 @@ def display_code(at_address, is_coop, is_rush):
     c.emit(a64.stp_x(0, 1, a64.SP, 16))
     c.emit(a64.str_x(2, a64.SP, 32))
     c.call(is_coop)
-    c.emit(a64_ldst(STORES[4], 4, 0, a64.SP, 40))
+    c.emit(a64.ldst(a64.STORES[4], 4, 0, a64.SP, 40))
     c.call(is_rush)
-    c.emit(a64_ldst(STORES[4], 4, 0, a64.SP, 44))
+    c.emit(a64.ldst(a64.STORES[4], 4, 0, a64.SP, 44))
     c.jump('bl', 'is_br')
     c.emit(a64.mov_w(11, 0))
-    c.emit(a64_ldst(LOADS[4], 4, 9, a64.SP, 40))
-    c.emit(a64_ldst(LOADS[4], 4, 10, a64.SP, 44))
+    c.emit(a64.ldst(a64.LOADS[4], 4, 9, a64.SP, 40))
+    c.emit(a64.ldst(a64.LOADS[4], 4, 10, a64.SP, 44))
     c.emit(a64.ldp_x(0, 1, a64.SP, 16))
     c.emit(a64.ldr_x(2, a64.SP, 32))
     c.emit(a64.ldp_x_post(29, 30, a64.SP, 48))
@@ -3033,7 +2635,7 @@ def br_weapons_code(at_address):
         c.emit(a64.ldr_x(17, a64.SP, 144))
         c.emit(a64.ldp_x_post(29, 30, a64.SP, 160))
         c.emit(a64.RET)
-    for name, base, store in (('stats_store', 19, w_store(0, 19, 32)), ('dash_store', 24, w_store(0, 24, 32)), ('multiplier_store', 0, a64_ldst(STORES[8], 8, 8, 0, 120))):
+    for name, base, store in (('stats_store', 19, a64.str_w(0, 19, 32)), ('dash_store', 24, a64.str_w(0, 24, 32)), ('multiplier_store', 0, a64.ldst(a64.STORES[8], 8, 8, 0, 120))):
         c.label(name)
         c.emit(a64.ldr_x(9, base, 120))
         mark(10)
@@ -3186,13 +2788,13 @@ def patch_weapon_pickup(data):
     slots = {'_Diffuse': 'TEX_Energytank_ALB', '_Emission': 'TEX_Energytank_ALB', '_MRAO': 'TEX_Energytank_MSAO', '_Normal': 'TEX_Energytank_NRM'}
     for slot, value in tree['m_SavedProperties']['m_TexEnvs']:
         if slot in slots:
-            value['m_Texture'] = {'m_FileID': 0, 'm_PathID': one('Texture2D', slots[slot]).path_id}
+            value['m_Texture'] = local_ref(one('Texture2D', slots[slot]).path_id)
     material.save_typetree(tree)
     tree = parts['MeshFilter'].read_typetree()
     tree['m_Mesh'] = {'m_FileID': builtin[0], 'm_PathID': BUILTIN_CUBE}
     parts['MeshFilter'].save_typetree(tree)
     tree = parts['MeshRenderer'].read_typetree()
-    tree['m_Materials'] = [{'m_FileID': 0, 'm_PathID': material.path_id}]
+    tree['m_Materials'] = [local_ref(material.path_id)]
     parts['MeshRenderer'].save_typetree(tree)
     tree = parts['Transform'].read_typetree()
     position, scale = WEAPON_PICKUP_SLAB
@@ -3556,8 +3158,7 @@ SELECT_TAB = 68196808
 
 def keys_code():
     code, uses, labels = assemble_source('touches_clavier.s')
-    if KEYS_CODE + len(code) > KEYS_CODE_END:
-        raise SystemExit('plus de place pour les touches du clavier')
+    check_room(KEYS_CODE, code, KEYS_CODE_END, 'les touches du clavier')
     return (code, uses, {name: KEYS_CODE + labels[name] - labels['_tk_start'] for name in ('_tk_get', '_tk_set', '_tk_text', '_tk_hide', '_tk_tab')})
 
 def keys_targets():
@@ -3593,10 +3194,7 @@ def difficulty_code(at_address):
     c.emit(a64.RET)
     c.label('level')
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
-    c.jump('adr', 'key', 0)
-    c.call(BUILD['string_new'])
-    c.emit(a64.mov_x_zero(1))
-    c.call(BUILD['prefs_get_string'])
+    c.prefs_get_string('key')
     c.emit(a64.movz_w(9, 1))
     c.jump('cbz', 'level_done', 0)
     c.emit(a64.ldr_w(8, 0, 16))
@@ -3744,8 +3342,7 @@ def patch_bolt_rush_phases(data):
     at_address = PHASES_CODE
     code, uses, labels = assembled_code('phases_bolt_rush.s', journal=True)
     targets = dict(PHASE_TARGETS, ext_string_new=BUILD['string_new'])
-    if at_address + len(code) > PHASES_CODE_END:
-        raise SystemExit('plus de place pour les phases de Bolt Rush')
+    check_room(at_address, code, PHASES_CODE_END, 'les phases de Bolt Rush')
     place_assembled(data, at_address, code, uses, targets, None)
     at(data, PHASE_TICK_HOOK, bytes.fromhex('ff0301d1'), a64.b(PHASE_TICK_HOOK, at_address + labels['_phase_tick']))
     at(data, PHASE_SPAWNER_HOOK, bytes.fromhex('ffc306d1'), a64.b(PHASE_SPAWNER_HOOK, at_address + labels['_phase_spawner']))
@@ -3853,8 +3450,7 @@ def patch_bolt_rush_code(data):
     for host in (COOP_BATTLE_HOST, RUSH_CODE, DISPLAY_CODE, WEAPON_CODE):
         place(data, host, a64.RET)
     battle, entries = coop_battle_code(COOP_BATTLE_CODE)
-    if COOP_BATTLE_CODE + len(battle) > COOP_BATTLE_END:
-        raise SystemExit('plus de place pour le code de partie Bolt Rush')
+    check_room(COOP_BATTLE_CODE, battle, COOP_BATTLE_END, 'le code de partie Bolt Rush')
     place(data, COOP_BATTLE_CODE, battle)
     at(data, RANKING_COLLECTED_BOLTS_CALL, a64.bl(RANKING_COLLECTED_BOLTS_CALL, GET_COLLECTED_BOLTS), a64.bl(RANKING_COLLECTED_BOLTS_CALL, entries['own_bolts']))
     at(data, TEAM_COUNTER_CHECK, bytes.fromhex('000540b9'), a64.bl(TEAM_COUNTER_CHECK, entries['team_flag']))
@@ -3867,11 +3463,9 @@ def patch_bolt_rush_code(data):
         at(data, check, bytes.fromhex('08554079'), a64.bl(check, entries['max_key']))
     at(data, MAX_COUNTER_FORMAT_CALL, a64.bl(MAX_COUNTER_FORMAT_CALL, STRING_FORMAT), a64.bl(MAX_COUNTER_FORMAT_CALL, entries['max_text']))
     code, rush = rush_code(RUSH_CODE)
-    if RUSH_CODE + len(code) > RUSH_CODE_END:
-        raise SystemExit('plus de place pour le code de Bolt Rush')
+    check_room(RUSH_CODE, code, RUSH_CODE_END, 'le code de Bolt Rush')
     checked, end_screen, available = prototypes_code(PROTOTYPES_CODE)
-    if PROTOTYPES_CODE + len(checked) > PROTOTYPES_CODE_END:
-        raise SystemExit('plus de place pour le tirage sans prototypes')
+    check_room(PROTOTYPES_CODE, checked, PROTOTYPES_CODE_END, 'le tirage sans prototypes')
     place(data, PROTOTYPES_CODE, checked)
     at(data, FFA_END_BIND_CALL, a64.bl(FFA_END_BIND_CALL, GAME_MODE_END_BIND), a64.bl(FFA_END_BIND_CALL, end_screen))
     if available:
@@ -3882,14 +3476,12 @@ def patch_bolt_rush_code(data):
         raise SystemExit('aiguillage de Bolt Rush mal place')
     place(data, RUSH_CODE + 4, code[4:])
     shown, display = display_code(DISPLAY_CODE, entries['is_coop'], rush['is_rush'])
-    if DISPLAY_CODE + len(shown) > DISPLAY_CODE_END:
-        raise SystemExit("plus de place pour l'affichage des nouveaux modes")
+    check_room(DISPLAY_CODE, shown, DISPLAY_CODE_END, "l'affichage des nouveaux modes")
     place(data, DISPLAY_CODE + 4, shown[4:])
     rush.update(display)
     king_at = KING_CODE
     king, king_entries = king_code(king_at)
-    if king_at + len(king) > KING_CODE_END:
-        raise SystemExit('plus de place pour le Roi de Bolt Rush')
+    check_room(king_at, king, KING_CODE_END, 'le Roi de Bolt Rush')
     grow = actor_growth_code(0)
     grow_at = HERO_RETURN_CODE - len(grow) - 16 & ~15
     grow = actor_growth_code(grow_at)
@@ -3900,15 +3492,13 @@ def patch_bolt_rush_code(data):
     place(data, king_at, king)
     crown_at = king_at + len(king) + 15 & ~15
     crown = crown_code(crown_at)
-    if crown_at + len(crown) > KING_CODE_END:
-        raise SystemExit('plus de place pour la couronne')
+    check_room(crown_at, crown, KING_CODE_END, 'la couronne')
     place(data, crown_at, crown)
     at(data, CROWN_SCORE_LOAD, w32(3108102154), a64.bl(CROWN_SCORE_LOAD, crown_at))
     difficulty_at = crown_at + len(crown) + 15 & ~15
     if 'difficulty' in BUILD:
         difficulty, entries = difficulty_code(difficulty_at)
-        if difficulty_at + len(difficulty) > KING_CODE_END:
-            raise SystemExit('plus de place pour la difficulte')
+        check_room(difficulty_at, difficulty, KING_CODE_END, 'la difficulte')
         place(data, difficulty_at, difficulty)
         pve, power = BUILD['difficulty']
         at(data, pve, bytes.fromhex('fe4fbfa9'), a64.b(pve, entries['pve']))
@@ -3934,8 +3524,7 @@ def patch_bolt_rush_code(data):
     at(data, KCC_SURFACE_RESET, bytes.fromhex('480440f9'), a64.b(KCC_SURFACE_RESET, king_entries['tick']))
     at(data, BOLT_COUNT_FINISH, bytes.fromhex('01ed40f9'), a64.bl(BOLT_COUNT_FINISH, king_entries['skip']))
     timer, timer_uses, timer_labels = assemble_source('chrono_roi.s')
-    if KING_TIMER_CODE + len(timer) > KING_TIMER_END:
-        raise SystemExit('plus de place pour le chrono du Roi')
+    check_room(KING_TIMER_CODE, timer, KING_TIMER_END, 'le chrono du Roi')
     place_assembled(data, KING_TIMER_CODE, timer, timer_uses, KING_TIMER_TARGETS, None)
     at(data, KING_TIMER_CALL, a64.bl(KING_TIMER_CALL, KING_TIMER_TARGETS['ext_ceil_to_int']), a64.bl(KING_TIMER_CALL, KING_TIMER_CODE + timer_labels['_kt_timer'] - timer_labels['_kt_start']))
     print(f'chrono du Roi : {len(timer)} octets')
@@ -3950,8 +3539,7 @@ def patch_bolt_rush_code(data):
     at(data, TITLE_KEY_LOAD, bytes.fromhex('611640f9'), a64.bl(TITLE_KEY_LOAD, rush['title_key']))
     at(data, BR_RANK_CHECK, BR_RANK_CMP, a64.bl(BR_RANK_CHECK, rush['br_rank']))
     weapons, hooks = br_weapons_code(WEAPON_CODE)
-    if WEAPON_CODE + len(weapons) > WEAPON_CODE_END:
-        raise SystemExit('plus de place pour les armes du Battle Royale')
+    check_room(WEAPON_CODE, weapons, WEAPON_CODE_END, 'les armes du Battle Royale')
     print(f'armes du Battle Royale : {len(weapons)} octets')
     place(data, WEAPON_CODE + 4, weapons[4:])
     at(data, POWERUP_START_CALL, a64.bl(POWERUP_START_CALL, POWERUP_START), a64.bl(POWERUP_START_CALL, hooks['br_powerup']))
@@ -3965,8 +3553,7 @@ def patch_bolt_rush_code(data):
         at(data, address, bytes.fromhex(old), a64.bl(address, hooks[name]))
     at(data, TRY_GET_ENTITY_TO_SPAWN, TRY_GET_ENTITY_TO_SPAWN_FIRST, a64.b(TRY_GET_ENTITY_TO_SPAWN, hooks['spawn_pick']))
     bots, bots_uses, bots_labels = assembled_code('robots_br.s', journal=True)
-    if BR_BOTS_CODE + len(bots) > BR_BOTS_END:
-        raise SystemExit('plus de place pour les robots du Battle Royale')
+    check_room(BR_BOTS_CODE, bots, BR_BOTS_END, 'les robots du Battle Royale')
     place_assembled(data, BR_BOTS_CODE, bots, bots_uses, dict(BR_BOTS_TARGETS, ext_string_new=BUILD['string_new'], ext_debug_log=DEBUG_LOG), SEEK_CRATE_EXECUTE + 4)
     at(data, SEEK_CRATE_EXECUTE, bytes.fromhex('fd7bbaa9'), a64.b(SEEK_CRATE_EXECUTE, BR_BOTS_CODE + bots_labels['_bb_seek'] - bots_labels['_bb_start']))
     print(f'robots du Battle Royale : {len(bots)} octets')
@@ -3977,8 +3564,7 @@ def patch_bolt_rush_code(data):
     at(data, 129706620, bytes.fromhex('7d000094'), bytes.fromhex('000140b9'))
     cave = BUILD['free_code'][0] + len(bytes.fromhex(BUILD['free_code'][1]))
     code = bytes.fromhex('e07bbfa9') + bytes.fromhex('e00314aa') + bytes.fromhex('e10316aa') + bytes.fromhex('e2031faa') + a64.bl(cave + 16, GET_COLLECTED_BOLTS) + bytes.fromhex('f503002a') + bytes.fromhex('e07bc1a8') + bytes.fromhex('c0035fd6')
-    if cave + len(code) > TRY_WEAPON_CODE[0]:
-        raise SystemExit("plus de place pour le compteur de boulons de l'equipe")
+    check_room(cave, code, TRY_WEAPON_CODE[0], "le compteur de boulons de l'equipe")
     place(data, cave, code)
     at(data, BOLT_COUNTER_LOAD, bytes.fromhex('f52340b9'), a64.bl(BOLT_COUNTER_LOAD, cave))
 WEAPON_LEVEL_CODE = 67924384 + 4
@@ -4105,7 +3691,7 @@ def max_ammo_check_code(at_address):
     c.emit(a64.ldr_w(9, 19, 220))
     c.emit(a64.cmp_w(9, 22))
     c.jump('b.eq', 'same')
-    c.emit(w_store(22, 19, 220))
+    c.emit(a64.str_w(22, 19, 220))
     c.emit(bytes.fromhex('7f660339'))
     c.emit(a64.stp_x_pre(29, 30, a64.SP, -32))
     c.emit(a64.stp_x(20, 21, a64.SP, 16))
@@ -4210,10 +3796,7 @@ def gadget_weapon_return(data):
 
     def target(call):
         word = struct.unpack_from('<I', data, call)[0]
-        if word >> 26 != 37:
-            return None
-        offset = word & 67108863
-        return call + (offset - (1 << 26) if offset & 33554432 else offset) * 4
+        return a64.branch_target(call, word) if a64.is_bl(word) else None
     main, gadget = (MAIN_WEAPON_RETURN, MAIN_WEAPON_RETURN + 24)
     if target(main - 4) is None or target(main - 4) != target(gadget - 4):
         print('niveau du gadget : appel introuvable, le gadget garde le niveau du heros')
@@ -4227,8 +3810,7 @@ def patch_weapons_code(data):
     place(data, HERO_RETURN_CODE, hero)
     check_at = HERO_RETURN_CODE + len(hero) + 15 & ~15
     check = max_ammo_check_code(check_at)
-    if check_at + len(check) > EVENTS_CODE_END:
-        raise SystemExit('plus de place pour le code du HUD des armes')
+    check_room(check_at, check, EVENTS_CODE_END, 'le code du HUD des armes')
     place(data, check_at, check)
     at(data, MAX_AMMO_ONCE, bytes.fromhex('68664339'), a64.bl(MAX_AMMO_ONCE, check_at))
     level = weapon_level_code(WEAPON_LEVEL_CODE, gadget_weapon_return(data))
@@ -4241,8 +3823,7 @@ def patch_weapons_code(data):
     at(data, jump_at, a64.b(jump_at, BUILD['equip_selected']), a64.b(jump_at, equip_at))
     shown_at = equip_at + 4 + 15 & ~15
     shown = shown_weapon_code(shown_at)
-    if shown_at + len(shown) > LOADING_SCREEN_CODE:
-        raise SystemExit('plus de place pour le code des armes')
+    check_room(shown_at, shown, LOADING_SCREEN_CODE, 'le code des armes')
     place(data, shown_at, shown)
     if not weapon_slots_build():
         at(data, WEAPON_WIDGET_DEFAULT_WEAPON, a64.bl(WEAPON_WIDGET_DEFAULT_WEAPON, GET_DEFAULT_WEAPON_UID), a64.bl(WEAPON_WIDGET_DEFAULT_WEAPON, shown_at))
@@ -4270,8 +3851,7 @@ def patch_loading_screen(data):
     host = 67924384
     place(data, host, a64.RET)
     code = loading_screen_code(LOADING_SCREEN_CODE)
-    if LOADING_SCREEN_CODE + len(code) > host + 1136:
-        raise SystemExit("plus de place pour le code de l'ecran de chargement")
+    check_room(LOADING_SCREEN_CODE, code, host + 1136, "le code de l'ecran de chargement")
     place(data, LOADING_SCREEN_CODE, code)
     at(data, LOADING_SCREEN_STATES, a64.cmp_w_imm(24, 6), a64.bl(LOADING_SCREEN_STATES, LOADING_SCREEN_CODE))
 EVENTS_CODE = 67945436
@@ -4318,19 +3898,19 @@ def events_code(at_address):
     c.emit(a64.cmp_w(10, 12))
     c.jump('b.ge', 'points_store')
     c.emit(a64.movz_w(12, 40))
-    c.emit(x_umaddl(12, 10, 12, 11))
+    c.emit(a64.umaddl_x(12, 10, 12, 11))
     c.emit(a64.ldr_w(12, 12, 56))
     c.emit(a64.cmp_w(9, 12))
     c.emit(a64.csel_w(9, 9, 12, 'lt'))
     c.label('points_store')
-    c.emit(w_store(9, 19, 0))
+    c.emit(a64.str_w(9, 19, 0))
     c.label('points_done')
     c.emit(a64.ldr_x(8, a64.SP, 200))
     c.emit(a64.RET)
     c.label('on_win_tokens')
     c.emit(a64.ldr_w(8, a64.SP, 192))
-    c.emit(w_add(8, 8, 9))
-    c.emit(w_store(8, a64.SP, 192))
+    c.emit(a64.add_w(8, 8, 9))
+    c.emit(a64.str_w(8, a64.SP, 192))
     c.emit(a64.ldr_x(9, 20, 32))
     c.jump('cbz', 'win_done', 9)
     c.emit(a64.ldr_x(9, 9, 48))
@@ -4338,10 +3918,10 @@ def events_code(at_address):
     c.emit(a64.ldr_w(10, 9, 24))
     c.emit(a64.cmp_w(8, 10))
     c.jump('b.gt', 'win_done')
-    c.emit(w_sub_imm(11, 8, 1))
+    c.emit(a64.sub_w_imm(11, 8, 1))
     c.jump('tbnz31', 'win_done', 11)
     c.emit(a64.movz_w(12, 40))
-    c.emit(x_umaddl(11, 11, 12, 9))
+    c.emit(a64.umaddl_x(11, 11, 12, 9))
     c.emit(a64.ldr_w(12, 11, 32))
     c.emit(a64.cmp_w_imm(12, LOOT_BOX_TYPE))
     c.jump('b.ne', 'win_done')
@@ -4498,22 +4078,6 @@ GADGET_CARD_PICTURES = {GADGET_DB_BUNDLE: [('Q_DrillDash_MeleeWeapon_WeaponSpec'
 GADGET_FINAL_VISUALS = {'Q_DrillDash_MeleeWeapon_WeaponSpec': ('CAB-e558baa0355476ff6a05bf24f0600558', -9011812752001224597), 'Q_WrenchThrow_WeaponSpec': ('CAB-53ec03604fbee74dd8dfe45ec46f104e', -3839807419143728885)}
 GADGET_MENU_RENDER = {'Q_WrenchThrow_WeaponSpec': {'<menuRenderZRotateNeeded>k__BackingField': 0, '<menuRenderXRotationInDegrees>k__BackingField': 0}}
 
-def external_index(env, cab):
-    import copy
-    files = [f for bundle in env.files.values() for name, f in getattr(bundle, 'files', {}).items() if name.startswith('CAB-') and hasattr(f, 'externals')]
-    if len(files) != 1:
-        raise SystemExit('paquet de fiches inattendu')
-    externals = files[0].externals
-    path = f'archive:/{cab}/{cab}'
-    for index, external in enumerate(externals, 1):
-        if external.path == path:
-            return index
-    model = next((e for e in externals if e.path.startswith('archive:/CAB-')))
-    added = copy.copy(model)
-    added.path = path
-    externals.append(added)
-    return len(externals)
-
 def gadget_card_pictures(data, pairs):
     if not heavy_tools():
         return
@@ -4575,7 +4139,7 @@ def patch_shop_cards(data):
         tree = obj.read_typetree()
         owner = layers.get(tree.get('m_GameObject', {}).get('m_PathID'))
         if owner and 'dynamicThumbnailRoot' in tree and (not tree['dynamicThumbnailRoot']['m_PathID']):
-            tree['dynamicThumbnailRoot'] = {'m_FileID': 0, 'm_PathID': owner[1]}
+            tree['dynamicThumbnailRoot'] = local_ref(owner[1])
             obj.save_typetree(tree)
             done.append(owner[0])
     if sorted(done) != sorted(SHOP_SMALL_CARDS):
@@ -4637,7 +4201,7 @@ def nakari_icon_patches():
     _, portraits = asset_pack_bundle('ui_portraits_assets_all')
     if not (atlases and ultimates and portraits):
         raise SystemExit('icone de Nakari : paquets introuvables')
-    return {atlases: lambda data: icone.patch_atlases(data, globals(), portraits), ultimates: lambda data: icone.patch_ultimates(data, globals())}
+    return {atlases: lambda data: icone.patch_atlases(data, portraits), ultimates: icone.patch_ultimates}
 
 def secondary_gadget_lists(characters):
     by_id = {c['uniqueID']['_value']: c for c in characters.values()}
@@ -4656,8 +4220,7 @@ def patch_weapon_slots(data):
     table = code[labels['_ws_hero_ultimates']:labels['_ws_hero_ultimates'] + 2 * len(HERO_ULTIMATES)]
     if dict(zip(table[::2], table[1::2])) != HERO_ULTIMATES:
         raise SystemExit("armes_secondaires.s et HERO_ULTIMATES ne sont plus d'accord")
-    if WEAPON_SLOTS_CODE + len(code) > WEAPON_SLOTS_END:
-        raise SystemExit('plus de place pour les armes secondaires')
+    check_room(WEAPON_SLOTS_CODE, code, WEAPON_SLOTS_END, 'les armes secondaires')
     ids = struct.unpack('<12I', code[labels['_ws_gadget_ids']:labels['_ws_gadget_ids'] + 48])
     owners = struct.unpack('<12I', code[labels['_ws_gadget_ids'] + 48:labels['_ws_gadget_ids'] + 96])
     if list(zip(ids, owners)) != SECONDARY_GADGETS:
@@ -4741,8 +4304,7 @@ def patch_events_code(data):
     tbz = w32(905969664 | EVENT_META_FAIL - EVENT_META_CHECK >> 2 << 5)
     at(data, EVENT_META_CHECK, tbz, a64.b(EVENT_META_CHECK, EVENT_ICON_CODE))
     code, entries = events_code(EVENTS_CODE)
-    if EVENTS_CODE + len(code) > HERO_RETURN_CODE:
-        raise SystemExit('plus de place pour le code des evenements')
+    check_room(EVENTS_CODE, code, HERO_RETURN_CODE, 'le code des evenements')
     place(data, EVENTS_CODE, code)
     at(data, BIG_REWARD_POINTS, bytes.fromhex('e86740f9'), a64.bl(BIG_REWARD_POINTS, entries['big_reward_points']))
     at(data, ON_WIN_TOKENS, bytes.fromhex('e8c340b9'), a64.bl(ON_WIN_TOKENS, entries['on_win_tokens']))
@@ -4795,8 +4357,7 @@ PODIUM_CREDITS_TARGETS = {'ext_init_metadata': 63400440, 'slot_modify_pending': 
 
 def patch_podium_credits(data):
     code, uses, labels = assembled_code('credits_podium.s', journal=True)
-    if PODIUM_CREDITS_CODE + len(code) > PODIUM_CREDITS_END:
-        raise SystemExit('plus de place pour les credits du podium')
+    check_room(PODIUM_CREDITS_CODE, code, PODIUM_CREDITS_END, 'les credits du podium')
     if JOURNAL:
         set_word(code, labels, 'last_paid_rank', int(os.environ.get('RR_RANG_CREDITS', '3')))
         set_word(code, labels, 'test_kills', int(os.environ.get('RR_KILLS_TEST', '0')))
@@ -4814,8 +4375,7 @@ def patch_podium_credits(data):
 
 def patch_enemy_tokens(data):
     code, uses, labels = assembled_code('jetons_ennemis.s', journal=True)
-    if ENEMY_TOKENS_CODE + len(code) > RIVET_LEGENDARY_CODE:
-        raise SystemExit('plus de place pour les jetons des ennemis')
+    check_room(ENEMY_TOKENS_CODE, code, RIVET_LEGENDARY_CODE, 'les jetons des ennemis')
     if COLLECT_SCREEN_CODE + len(assemble_source('ecran_collecte.s')[0]) > ENEMY_TOKENS_CODE:
         raise SystemExit("l'ecran de collecte deborde sur les jetons des ennemis")
     place_assembled(data, ENEMY_TOKENS_CODE, code, uses, dict(ENEMY_TOKENS_TARGETS, ext_string_new=63431916, ext_debug_log=DEBUG_LOG), None)
@@ -4833,8 +4393,7 @@ def collect_screen_build():
 
 def patch_collect_screen(data):
     code, uses, labels = assembled_code('ecran_collecte.s', journal=True)
-    if COLLECT_SCREEN_CODE + len(code) > COLLECT_SCREEN_END:
-        raise SystemExit("plus de place pour l'ecran de collecte")
+    check_room(COLLECT_SCREEN_CODE, code, COLLECT_SCREEN_END, "l'ecran de collecte")
     place_assembled(data, COLLECT_SCREEN_CODE, code, uses, dict(COLLECT_SCREEN_TARGETS, ext_debug_log=DEBUG_LOG), None)
     entry = entries(COLLECT_SCREEN_CODE, labels, '_ec_start')
     hook(data, COLLECT_SCREEN_HOOKS, entry)
@@ -4845,7 +4404,7 @@ def patch_collect_screen(data):
 @functools.lru_cache(None)
 def collect_graft():
     import greffe_evenement
-    old_pack = zipfile.ZipFile(io.BytesIO(zipfile.ZipFile(OLD_110_XAPK).read('UnityDataAssetPack.apk')))
+    old_pack = zipfile.ZipFile(io.BytesIO(zipfile.ZipFile(OLD_110_XAPK).read(ASSET_PACK_PART)))
     new_pack = asset_pack()
 
     def bundles(pack, *prefixes):
@@ -4870,20 +4429,17 @@ FLAIL_SPIN_TARGETS = {'ext0_button_is_down': 130965704, 'ext1_is_dead': 12971475
 def patch_flail_spin(data):
     hook, cave = BUILD['flail_spin']
     code, uses, labels = assembled_code('fleau_ameliorations.s', journal=True)
-    if FLAIL_ENHANCEMENTS_CODE + len(code) > FLAIL_ENHANCEMENTS_END:
-        raise SystemExit('plus de place pour les ameliorations du fleau')
+    check_room(FLAIL_ENHANCEMENTS_CODE, code, FLAIL_ENHANCEMENTS_END, 'les ameliorations du fleau')
     code[labels['mega_gain']:labels['mega_gain'] + 8] = fp(FLAIL_MEGASPIN_RADIUS / FLAIL_SPIN_RANGE)
     code[labels['torque_pusher']:labels['torque_pusher'] + 8] = struct.pack('<q', BUILD['flail_enhancements']['torque_pusher'][3])
     place_assembled(data, FLAIL_ENHANCEMENTS_CODE, code, uses, dict(FLAIL_ENHANCEMENTS_TARGETS, ext_string_new=BUILD['string_new'], ext_debug_log=DEBUG_LOG), None)
     code, uses, _ = assemble_source('fleau_toupie.s')
-    if cave + len(code) > BUILD['flail_view'][1]:
-        raise SystemExit('plus de place pour le tourbillon du fleau')
+    check_room(cave, code, BUILD['flail_view'][1], 'le tourbillon du fleau')
     place_assembled(data, cave, code, uses, FLAIL_SPIN_TARGETS, hook + 4)
     at(data, hook, bytes.fromhex('ffc301d1'), a64.b(hook, cave))
     view_hook, view_cave = BUILD['flail_view']
     code, uses, _ = assemble_source('fleau_vue.s')
-    if view_cave + len(code) > BUILD['flail_auto'][2]:
-        raise SystemExit('plus de place pour la vue du fleau')
+    check_room(view_cave, code, BUILD['flail_auto'][2], 'la vue du fleau')
     place_assembled(data, view_cave, code, uses, dict(FLAIL_VIEW_TARGETS, slot_aoe=FLAIL_ENHANCEMENTS_TARGETS['slot_aoe']), view_hook + 4)
     at(data, view_hook, bytes.fromhex('08284439'), a64.b(view_hook, view_cave))
 
@@ -4973,8 +4529,7 @@ def patch_flail_blueprint(data):
 def patch_flail_auto(data):
     widget, fetch, cave, cave_end, delta_time, component = BUILD['flail_auto']
     code, entries = flail_auto_code(cave, delta_time, component)
-    if cave + len(code) > cave_end:
-        raise SystemExit('plus de place pour le tir automatique du fleau')
+    check_room(cave, code, cave_end, 'le tir automatique du fleau')
     place(data, cave, code)
     if widget:
         at(data, widget, bytes.fromhex('08bd4639'), a64.bl(widget, entries['widget']))
@@ -5091,13 +4646,8 @@ FLAIL_MEGASPIN_RADIUS = 1.0
 FLAIL_ENHANCEMENT_TEXTS = {'EN': ('Mega Spin', 'After 2 seconds of spinning, the spin grows 1 m wider.', 'Torque Impact', 'After 2 seconds of spinning, the spin pushes enemies 50% harder.'), 'FR': ('Méga toupie', "Après 2 secondes de tourbillon, il s'élargit d'un mètre.", 'Impact de couple', 'Après 2 secondes de tourbillon, il repousse les ennemis 50 % plus fort.')}
 
 def flail_enhancement_texts(language):
-    mega, mega_desc, torque, torque_desc = FLAIL_ENHANCEMENT_TEXTS.get(language) or FLAIL_ENHANCEMENT_TEXTS['EN']
+    mega, mega_desc, torque, torque_desc = in_language(FLAIL_ENHANCEMENT_TEXTS, language)
     return {FLAIL_MEGASPIN[0]: mega, FLAIL_MEGASPIN[1]: mega_desc, FLAIL_TORQUE[0]: torque, FLAIL_TORQUE[1]: torque_desc}
-
-def read_unity_string(raw, position):
-    size, = struct.unpack_from('<I', raw, position)
-    end = position + 4 + size
-    return (raw[position + 4:end].decode(), end + -size % 4)
 
 def flail_enhancement_spec(texts):
     name_key, description_key, icon = texts
@@ -5324,8 +4874,7 @@ MEDAL_LOSS_HOOKS = [(66378064, '080140f9', '_mm_format', 'bl')]
 
 def place_cave(data, source, start, end, cave_start, targets, hooks, start_label, what):
     code, uses, labels = assemble_source(source)
-    if start + len(code) > end:
-        raise SystemExit(f'plus de place pour {what}')
+    check_room(start, code, end, what)
     if bytes(code[:4]) != RETURN_NOW:
         raise SystemExit(f'{source} doit commencer par ret')
     if bytes(data[start:start + 4]) != bytes.fromhex(cave_start):
@@ -5427,7 +4976,6 @@ DIMENSIONAL_BUNDLE = 'skins_character_helen_skin01rr_assets_all_5d1f0c3a9e7b4268
 DIMENSIONAL_CAB = 'CAB-5d1f0c3a9e7b4268a1c2e3f405162738'
 
 def dimensional_helen(base, costume):
-    import copy
     import UnityPy
     costume_env = UnityPy.load(costume)
     costume_cab = next((name for name in costume_env.file.files if not name.endswith('.resS')))
@@ -5476,8 +5024,6 @@ def kit_bag_bone(name):
     return 'B_body'
 
 def kit_backpack(playable, model_file):
-    import copy
-    import math
     import numpy
     spec = KIT_BACKPACK
     _, source = asset_pack_bundle(spec['source'])
@@ -5577,7 +5123,7 @@ def kit_backpack(playable, model_file):
         kit = his[mesh_name]
         tree['m_Mesh'] = {'m_FileID': model_file, 'm_PathID': meshes[mesh_name].path_id}
         tree['m_Materials'] = [{'m_FileID': model_file, 'm_PathID': m['m_PathID']} for m in kit['m_Materials']]
-        tree['m_Bones'] = [{'m_FileID': 0, 'm_PathID': bag_bones[t]} for t in bones_of[mesh_name]]
+        tree['m_Bones'] = [local_ref(bag_bones[t]) for t in bones_of[mesh_name]]
         tree['m_BlendShapeWeights'] = list(kit['m_BlendShapeWeights'])
         tree['m_AABB'] = copy.deepcopy(aabb)
         tree['m_Enabled'] = 1
@@ -5586,11 +5132,11 @@ def kit_backpack(playable, model_file):
     return env.file.save(packer='lz4')
 
 def asset_pack():
-    return pack_parts()['UnityDataAssetPack.apk']
+    return pack_parts()[ASSET_PACK_PART]
 
 @functools.lru_cache(None)
 def pack_parts():
-    return {name: zipfile.ZipFile(os.path.join(xapk, name)) for name in sorted(os.listdir(xapk)) if name.endswith('.apk')}
+    return {name: zipfile.ZipFile(os.path.join(PARTS_FOLDER, name)) for name in sorted(os.listdir(PARTS_FOLDER)) if name.endswith('.apk')}
 
 @functools.lru_cache(None)
 def pack_bundles():
@@ -5693,7 +5239,6 @@ STURDY_BONES = {'limbs': ('B_upper_arm.', 'B_forearm.', 'B_thigh.', 'B_shin.'), 
 def cinematic_hero_bundles(key):
     if not heavy_tools():
         return []
-    import copy
     import numpy
     spec = CINEMATIC_HEROES[key]
     _, ratchet = asset_pack_bundle('skins_character_ratchet_00_playable_assets_all')
@@ -5798,7 +5343,7 @@ def cinematic_hero_bundles(key):
         her = hers[mesh_name]
         tree['m_Mesh'] = {'m_FileID': model_file, 'm_PathID': meshes[mesh_name]}
         tree['m_Materials'] = [{'m_FileID': model_file, 'm_PathID': material['m_PathID']} for material in her['m_Materials']]
-        tree['m_Bones'] = [{'m_FileID': 0, 'm_PathID': his[bone]} for bone in bones_of[mesh_name][0]]
+        tree['m_Bones'] = [local_ref(his[bone]) for bone in bones_of[mesh_name][0]]
         tree['m_RootBone'] = dict(root)
         weights = list(her['m_BlendShapeWeights'])
         if spec.get('blendshapes'):
@@ -5858,7 +5403,7 @@ def cdn_skin_bundles():
 
 @functools.lru_cache(None)
 def hero_sources():
-    old_path = os.path.join(xapk, '..', 'v1103', 'split_UnityDataAssetPack.apk')
+    old_path = os.path.join(PARTS_FOLDER, '..', 'v1103', 'split_UnityDataAssetPack.apk')
     index_path = os.path.join(HEROES_RESOURCES, 'heros.json')
     if os.path.exists(old_path):
         pack = zipfile.ZipFile(old_path)
@@ -5868,12 +5413,12 @@ def hero_sources():
         for _, path, bundle in bundles:
             with open(os.path.join(HEROES_RESOURCES, os.path.basename(path)), 'wb') as handle:
                 handle.write(bundle)
-        with open(index_path, 'w') as handle:
+        with open(index_path, 'w', encoding='utf-8') as handle:
             json.dump({'info': info, 'bundles': [[hero, path] for hero, path, _ in bundles]}, handle, indent=1)
     else:
         if not os.path.exists(index_path):
             raise SystemExit('Il faut aussi le jeu officiel en version 1.10.3 (fichier .apkm ou .xapk) : il contient les 7 héros jamais sortis.')
-        with open(index_path) as handle:
+        with open(index_path, encoding='utf-8') as handle:
             index = json.load(handle)
         info = index['info']
         bundles = []
@@ -5883,10 +5428,10 @@ def hero_sources():
     costumes = [entry for entry in cdn_skin_bundles() if os.path.exists(old_path) or entry[0] in info]
     if costumes and os.path.exists(old_path):
         info.update(heros_caches.old_hero_info(zipfile.ZipFile(old_path).read('assets/aa/catalog.bin'), [skin for skin, _, _ in costumes]))
-        with open(index_path) as handle:
+        with open(index_path, encoding='utf-8') as handle:
             index = json.load(handle)
         index['info'] = info
-        with open(index_path, 'w') as handle:
+        with open(index_path, 'w', encoding='utf-8') as handle:
             json.dump(index, handle, indent=1)
     bundles += costumes
     costume = next((entry for entry in costumes if entry[0] == 'Helen_Skin01'), None)
@@ -5934,13 +5479,13 @@ def maps_174():
     path = os.path.join(MAPS_174_FOLDER, 'cartes.json')
     if VERSION != '1.10.4' or os.environ.get('RR_CARTES_174') == '0' or (not os.path.isfile(path)) or (not heavy_tools()):
         return None
-    with open(path) as handle:
+    with open(path, encoding='utf-8') as handle:
         info = json.load(handle)
     if not all((os.path.isfile(os.path.join(MAPS_174_FOLDER, 'fichiers', b['file'])) for b in info['bundles'])):
         return None
     old = os.path.join(MAPS_174_FOLDER, MAPS_142_FILE)
     if os.path.isfile(old) and os.environ.get('RR_CARTES_142') != '0':
-        with open(old) as handle:
+        with open(old, encoding='utf-8') as handle:
             more = json.load(handle)
         if all((os.path.isfile(os.path.join(MAPS_174_FOLDER, 'fichiers_142', b['file'])) for b in more['bundles'])):
             for bundle in more['bundles']:
@@ -5960,8 +5505,8 @@ def maps_174_files():
     return files
 
 def patch_maps_local_data(data):
-    import copy
     import UnityPy
+    from UnityPy.exceptions import TypeTreeError
     maps = maps_174()
     env = UnityPy.load(bytes(data))
     serialized = env.assets[0]
@@ -5971,7 +5516,7 @@ def patch_maps_local_data(data):
         if obj.type.name == 'MonoBehaviour':
             try:
                 named[obj.peek_name()] = obj
-            except Exception:
+            except (TypeTreeError, ValueError):
                 pass
     levels_object, resources_object = (named['LevelsTable'], named['AssetResources'])
     levels = levels_object.read_typetree()
@@ -5994,7 +5539,7 @@ def patch_maps_local_data(data):
             if visual in previews:
                 row['levelDisplayVisual'] = {'m_FileID': file_id, 'm_PathID': visual}
         mesh = old['meshCombineParameters']['m_PathID']
-        row['meshCombineParameters'] = {'m_FileID': 0, 'm_PathID': mesh if mesh in objects else 0}
+        row['meshCombineParameters'] = local_ref(mesh if mesh in objects else 0)
         minimap = info['minimap']
         like = objects[template['minimapLevelData']['m_PathID']]
         tree = like.read_typetree()
@@ -6008,7 +5553,7 @@ def patch_maps_local_data(data):
         added.path_id = path_id
         objects[path_id] = added
         added.save_typetree(tree)
-        row['minimapLevelData'] = {'m_FileID': 0, 'm_PathID': path_id}
+        row['minimapLevelData'] = local_ref(path_id)
         levels['levels'].append(row)
         for entry in info['asset_resources']:
             if entry['AssetRef']['Id']['Value'] not in known:
@@ -6054,8 +5599,14 @@ def patch_photon_settings(data):
     struct.pack_into('<I', data, 344 + grown, 1)
     struct.pack_into('<I', data, 128, 164 + grown)
     struct.pack_into('>Q', data, 24, 372 + grown)
-assert set(BOLT_RUSH_EDITS) <= set(RUSH_MAP_POINTS) | {GAME_MODES_BUNDLE}
-PATCHES = {'com.playstation.rattlesnake.apk': {'assets/bin/Data/Managed/Metadata/global-metadata.dat': patch_metadata, 'assets/bin/Data/globalgamemanagers': patch_player_settings}, 'UnityDataAssetPack.apk': {'assets/bin/Data/1bf6573aa4de63f4ab5f6bce63d9c51e': patch_host, **({PHOTON_SETTINGS: patch_photon_settings} if os.environ.get('RR_PHOTON') else {}), BUILD['menu_bundle']: patch_main_menu, **({BUILD['init_bundle']: patch_init_scene} if 'init_bundle' in BUILD else {}), **({BUILD['heroes_bundle']: patch_local_data_and_maps} if 'heroes_bundle' in BUILD else {}), **({BUILD['flail_spec'][0]: patch_flail_spec} if 'flail_spec' in BUILD else {}), **({'assets/aa/catalog.bin': patch_catalog} if 'hero_models' in BUILD else {}), **({BUILD['hero_specs_bundle']: patch_hero_specs_bundle} if 'hero_specs_bundle' in BUILD else {}), **({gadget_db_bundle(): patch_gadget_db} if gadget_db_bundle() else {}), **shop_cards_patches(), **rivet_hammer_patches(), **({MONOSCRIPTS_BUNDLE: patch_monoscripts} if collect_screen_build() else {}), **({PORTRAITS_BUNDLE: patch_rivet_portrait} if 'hero_models' in BUILD and VERSION == '1.10.4' else {}), **nakari_icon_patches(), **({path: rush_map(path) for path in RUSH_MAP_POINTS} if BOLT_RUSH else {}), **({GAME_MODES_BUNDLE: patch_game_modes} if BOLT_RUSH else {}), **({asset_pack_path(KING_LINES_BUNDLE): patch_king_lines} if BOLT_RUSH and asset_pack_path(KING_LINES_BUNDLE) else {}), **king_crown_patches(), **({asset_pack_path(WEAPON_PICKUP_BUNDLE): patch_weapon_pickup} if BOLT_RUSH and asset_pack_path(WEAPON_PICKUP_BUNDLE) else {}), **({LEVEL_DESIGN_BUNDLE: patch_level_design} if BOLT_RUSH else {}), **({'assets/Data/Localization/NL/FidelioFramework.protobd': patch_polish_framework} if polish_build() else {}), **({LOCALIZATION_FILE.format(lang): patch_localization(lang) for lang in LANGUAGES} if BOLT_RUSH or 'difficulty_row' in BUILD or 'hero_models' in BUILD else {})}, 'config.arm64_v8a.apk': {'lib/arm64-v8a/libil2cpp.so': patch_library}}
+
+def game_patches():
+    assert set(BOLT_RUSH_EDITS) <= set(RUSH_MAP_POINTS) | {GAME_MODES_BUNDLE}
+    patches = {BASE_PART: {'assets/bin/Data/Managed/Metadata/global-metadata.dat': patch_metadata, 'assets/bin/Data/globalgamemanagers': patch_player_settings}, ASSET_PACK_PART: {'assets/bin/Data/1bf6573aa4de63f4ab5f6bce63d9c51e': patch_host, **({PHOTON_SETTINGS: patch_photon_settings} if os.environ.get('RR_PHOTON') else {}), BUILD['menu_bundle']: patch_main_menu, **({BUILD['init_bundle']: patch_init_scene} if 'init_bundle' in BUILD else {}), **({BUILD['heroes_bundle']: patch_local_data_and_maps} if 'heroes_bundle' in BUILD else {}), **({BUILD['flail_spec'][0]: patch_flail_spec} if 'flail_spec' in BUILD else {}), **({'assets/aa/catalog.bin': patch_catalog} if 'hero_models' in BUILD else {}), **({BUILD['hero_specs_bundle']: patch_hero_specs_bundle} if 'hero_specs_bundle' in BUILD else {}), **({gadget_db_bundle(): patch_gadget_db} if gadget_db_bundle() else {}), **shop_cards_patches(), **rivet_hammer_patches(), **({MONOSCRIPTS_BUNDLE: patch_monoscripts} if collect_screen_build() else {}), **({PORTRAITS_BUNDLE: patch_rivet_portrait} if 'hero_models' in BUILD and VERSION == '1.10.4' else {}), **nakari_icon_patches(), **({path: rush_map(path) for path in RUSH_MAP_POINTS} if BOLT_RUSH else {}), **({GAME_MODES_BUNDLE: patch_game_modes} if BOLT_RUSH else {}), **({asset_pack_path(KING_LINES_BUNDLE): patch_king_lines} if BOLT_RUSH and asset_pack_path(KING_LINES_BUNDLE) else {}), **king_crown_patches(), **({asset_pack_path(WEAPON_PICKUP_BUNDLE): patch_weapon_pickup} if BOLT_RUSH and asset_pack_path(WEAPON_PICKUP_BUNDLE) else {}), **({LEVEL_DESIGN_BUNDLE: patch_level_design} if BOLT_RUSH else {}), **({'assets/Data/Localization/NL/FidelioFramework.protobd': patch_polish_framework} if polish_build() else {}), **({LOCALIZATION_FILE.format(lang): patch_localization(lang) for lang in LANGUAGES} if BOLT_RUSH or 'difficulty_row' in BUILD or 'hero_models' in BUILD else {})}, LIBRARY_PART: {'lib/arm64-v8a/libil2cpp.so': patch_library}}
+    pack = patches[ASSET_PACK_PART]
+    for path, edit in edited_map_patches().items():
+        pack[path] = then(pack.get(path), edit)
+    return patches
 UNITY_TOOLS = data_file('..', 'unity_outils')
 
 def edited_map_patches():
@@ -6066,18 +5617,24 @@ def edited_map_patches():
     sys.path.insert(0, UNITY_TOOLS)
     import remettre_carte
     return remettre_carte.build_patches(asset_pack())
-for _path, _edit in edited_map_patches().items():
 
-    def _both(data, before=PATCHES['UnityDataAssetPack.apk'].get(_path), edit=_edit):
+def then(before, edit):
+
+    def both(data):
         if before:
             before(data)
         edit(data)
-    PATCHES['UnityDataAssetPack.apk'][_path] = _both
+    return both
 ENTRY_DATE = (1981, 1, 1, 1, 1, 0)
-for apk, changes in PATCHES.items():
-    source = zipfile.ZipFile(os.path.join(xapk, apk))
+
+def added_entries(apk):
+    if apk != ASSET_PACK_PART or 'hero_models' not in BUILD:
+        return []
+    return [(path, bundle) for _, path, bundle in hero_sources()[1]] + [('assets/aa/Android/' + name, bundle) for name, bundle in maps_174_files()]
+
+def write_part(apk, changes):
     done = set()
-    with zipfile.ZipFile(os.path.join(out, apk), 'w', allowZip64=True) as target:
+    with zipfile.ZipFile(os.path.join(PARTS_FOLDER, apk)) as source, zipfile.ZipFile(os.path.join(OUTPUT_FOLDER, apk), 'w', allowZip64=True) as target:
         for info in source.infolist():
             name = info.filename
             if name.startswith('META-INF/') or name == 'stamp-cert-sha256':
@@ -6092,12 +5649,16 @@ for apk, changes in PATCHES.items():
                 data = bytes(data)
                 done.add(name)
             target.writestr(entry, data)
-        if apk == 'UnityDataAssetPack.apk' and 'hero_models' in BUILD:
-            for _, path, bundle in hero_sources()[1]:
-                target.writestr(zipfile.ZipInfo(path, date_time=ENTRY_DATE), bundle)
-            for name, bundle in maps_174_files():
-                target.writestr(zipfile.ZipInfo('assets/aa/Android/' + name, date_time=ENTRY_DATE), bundle)
+        for name, data in added_entries(apk):
+            target.writestr(zipfile.ZipInfo(name, date_time=ENTRY_DATE), data)
     missing = set(changes) - done
     if missing:
         raise SystemExit(f'fichiers non trouves : {missing}')
     print(f'{apk} : {len(done)} fichier(s) modifie(s)')
+
+def main():
+    os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+    for apk, changes in game_patches().items():
+        write_part(apk, changes)
+if __name__ == '__main__':
+    main()

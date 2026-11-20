@@ -1,25 +1,64 @@
 <!doctype html>
-<html lang="fr" data-theme="sombre" data-accent="or" data-animations="completes">
+<html lang="fr" data-accent="vert" data-animations="completes" style="background:#062328;color-scheme:dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>Ranger Rumble</title>
+<style>
+  /* Dark from the first paint, before app.css arrives (or if it never does). */
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #062328; color: #effcf8; }
+  #ouverture { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: #062328; }
+  #ouverture img { width: 360px; }
+  #app { opacity: 0; }
+  img.cassee { visibility: hidden; }
+</style>
+<script>
+  // A picture that does not load is hidden: the dark panel behind it stays, never a broken icon.
+  // Its address is kept so that the same picture drawn again is hidden at once (app.js).
+  window.imagesCassees = new Set();
+  document.addEventListener("error", (e) => {
+    if (e.target.tagName !== "IMG") return;
+    e.target.classList.add("cassee");
+    imagesCassees.add(e.target.src);
+  }, true);
+
+  // A file refused for its declared type (a Windows registry setting can serve .css or .js as text/plain)
+  // is read again and applied as inline text.
+  function secours(el) {
+    if (!el || el.dataset.secours) return;
+    el.dataset.secours = 1;
+    fetch(el.href || el.src).then((r) => r.text()).then((texte) => {
+      const copie = document.createElement(el.tagName === "LINK" ? "style" : "script");
+      copie.textContent = texte;
+      (el.tagName === "LINK" ? document.head : document.body).append(copie);
+    }).catch(() => {});
+  }
+  // the same when no error event came: app.css sets --fond, app.js defines demarrer
+  addEventListener("DOMContentLoaded", () => {
+    if (!getComputedStyle(document.documentElement).getPropertyValue("--fond")) secours(document.querySelector('link[rel="stylesheet"]'));
+    if (typeof demarrer === "undefined") secours(document.querySelector('script[src$="app.js"]'));
+  });
+</script>
 <link rel="icon" href="/ressources/lanceur/icone.png">
-<link rel="stylesheet" href="/web/app.css">
+<link rel="preload" href="/ressources/lanceur/polices/proximanova_blackit.otf" as="font" type="font/otf" crossorigin>
+<link rel="stylesheet" href="/web/app.css" onerror="secours(this)">
 </head>
 <body>
 <div id="ouverture"><img src="/ressources/lanceur/logo.png" alt=""></div>
 <div id="app">
   <aside id="barre">
     <img class="logo" src="/ressources/lanceur/logo_moyen.png" alt="">
+    <div class="logo-texte jeu">Ranger Rumble</div>
     <div class="etiquette" data-tr="VERSIONS DU JEU"></div>
-    <div class="tuiles" id="tuiles"><div class="surligne" id="surligne"></div></div>
+    <div class="tuiles" id="tuiles"></div>
     <div class="bas tuiles" id="tuiles-bas"></div>
     <div class="version" id="version"></div>
+    <div class="surligne" id="surligne"></div>
   </aside>
   <main id="contenu"></main>
 </div>
 <div id="toasts"></div>
-<script src="/web/app.js"></script>
+<script src="/web/app.js" onerror="secours(this)"></script>
 </body>
 </html>

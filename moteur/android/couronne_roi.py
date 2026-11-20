@@ -1,8 +1,9 @@
-import copy
 import io
 import UnityPy
 from UnityPy.enums import ClassIDType
-from greffe_evenement import write
+from UnityPy.exceptions import TypeTreeError
+from fichiers_unity import local_ref
+from greffe_evenement import add_copy
 NAME = 'KingCrown'
 ATLAS_CAB = 'cab-eb81065746cc034320560818911bbc9f'
 CROWN = 1276451307963928147
@@ -10,55 +11,38 @@ COUNTDOWN_PLACE = ((-240.0, 10.0), (150.0, 120.0))
 MARK_ROOT = 'CanvasMark_Damageable_Player'
 MARK_PLACE = ((0.0, 165.0), (100.0, 80.0))
 MARK_CHILDREN = 2
+IMAGE_OBJECT = [ClassIDType.RectTransform, ClassIDType.CanvasRenderer, ClassIDType.MonoBehaviour]
+
+def model_image(f, models):
+    objects = f.objects
+    for pid, o in objects.items():
+        if o.type == ClassIDType.GameObject and o.peek_name() in models:
+            parts = [c['component']['m_PathID'] for c in o.read_typetree()['m_Component']]
+            kinds = [objects[c].type for c in parts if c in objects]
+            if kinds == IMAGE_OBJECT and 'm_Sprite' in objects[parts[2]].read_typetree():
+                return (pid, parts)
+    raise SystemExit("couronne : pas d'image modele")
 
 def add_crown(f, parent_rt, place, models):
     objects = f.objects
-
-    def tree(pid):
-        return objects[pid].read_typetree()
-
-    def own(pid):
-        return {'m_FileID': 0, 'm_PathID': pid}
     atlas = [i for i, e in enumerate(f.externals, 1) if ATLAS_CAB in e.path.lower()]
     if len(atlas) != 1:
         raise SystemExit('couronne : atlas absent du fichier')
-    model = None
-    for pid, o in objects.items():
-        if o.type == ClassIDType.GameObject and o.peek_name() in models:
-            parts = [c['component']['m_PathID'] for c in tree(pid)['m_Component']]
-            kinds = [objects[c].type for c in parts if c in objects]
-            if kinds == [ClassIDType.RectTransform, ClassIDType.CanvasRenderer, ClassIDType.MonoBehaviour] and 'm_Sprite' in tree(parts[2]):
-                model = (pid, parts)
-                break
-    if model is None:
-        raise SystemExit("couronne : pas d'image modele")
-    go, (rt, renderer, image) = model
+    go, (rt, renderer, image) = model_image(f, models)
     next_id = max(objects) + 1
     ids = {old: next_id + i for i, old in enumerate((go, rt, renderer, image))}
 
-    def add(old, t):
-        o = objects[old]
-        copy_of = copy.copy(o)
-        copy_of.path_id = ids[old]
-        copy_of.data = write(t, o.serialized_type.node)
-        objects[ids[old]] = copy_of
+    def add(old, **fields):
+        tree = objects[old].read_typetree()
+        tree.update(fields)
+        add_copy(objects, objects[old], ids[old], tree)
     (x, y), (width, height) = place
-    t = tree(go)
-    t['m_Component'] = [{'component': own(ids[old])} for old in (rt, renderer, image)]
-    t['m_Name'] = NAME
-    t['m_IsActive'] = False
-    add(go, t)
-    t = tree(rt)
-    t.update(m_GameObject=own(ids[go]), m_Father=own(parent_rt), m_Children=[], m_LocalRotation={'x': 0.0, 'y': 0.0, 'z': 0.0, 'w': 1.0}, m_LocalPosition={'x': x, 'y': y, 'z': 0.0}, m_LocalScale={'x': 1.0, 'y': 1.0, 'z': 1.0}, m_AnchorMin={'x': 0.5, 'y': 0.5}, m_AnchorMax={'x': 0.5, 'y': 0.5}, m_AnchoredPosition={'x': x, 'y': y}, m_SizeDelta={'x': width, 'y': height}, m_Pivot={'x': 0.5, 'y': 0.5})
-    add(rt, t)
-    t = tree(renderer)
-    t['m_GameObject'] = own(ids[go])
-    add(renderer, t)
-    t = tree(image)
-    t.update(m_GameObject=own(ids[go]), m_Enabled=1, m_Material=own(0), m_Color={'r': 1.0, 'g': 1.0, 'b': 1.0, 'a': 1.0}, m_RaycastTarget=False, m_Sprite={'m_FileID': atlas[0], 'm_PathID': CROWN}, m_Type=0, m_PreserveAspect=True)
-    add(image, t)
-    parent = tree(parent_rt)
-    parent['m_Children'] = parent['m_Children'] + [own(ids[rt])]
+    add(go, m_Component=[{'component': local_ref(ids[old])} for old in (rt, renderer, image)], m_Name=NAME, m_IsActive=False)
+    add(rt, m_GameObject=local_ref(ids[go]), m_Father=local_ref(parent_rt), m_Children=[], m_LocalRotation={'x': 0.0, 'y': 0.0, 'z': 0.0, 'w': 1.0}, m_LocalPosition={'x': x, 'y': y, 'z': 0.0}, m_LocalScale={'x': 1.0, 'y': 1.0, 'z': 1.0}, m_AnchorMin={'x': 0.5, 'y': 0.5}, m_AnchorMax={'x': 0.5, 'y': 0.5}, m_AnchoredPosition={'x': x, 'y': y}, m_SizeDelta={'x': width, 'y': height}, m_Pivot={'x': 0.5, 'y': 0.5})
+    add(renderer, m_GameObject=local_ref(ids[go]))
+    add(image, m_GameObject=local_ref(ids[go]), m_Enabled=1, m_Material=local_ref(0), m_Color={'r': 1.0, 'g': 1.0, 'b': 1.0, 'a': 1.0}, m_RaycastTarget=False, m_Sprite={'m_FileID': atlas[0], 'm_PathID': CROWN}, m_Type=0, m_PreserveAspect=True)
+    parent = objects[parent_rt].read_typetree()
+    parent['m_Children'] = parent['m_Children'] + [local_ref(ids[rt])]
     objects[parent_rt].save_typetree(parent)
 
 def king_crown(bundle_bytes, log=print):
@@ -73,7 +57,7 @@ def king_crown(bundle_bytes, log=print):
         if o.type == ClassIDType.MonoBehaviour:
             try:
                 t = o.read_typetree()
-            except Exception:
+            except (TypeTreeError, ValueError):
                 continue
             if 'lastSecondsText' in t and 'timerText' in t:
                 widgets.append(t)

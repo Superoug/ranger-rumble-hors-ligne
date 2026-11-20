@@ -15,6 +15,7 @@ BODY_Y = DESIGN_Y - 0.02
 BODY_R = 0.205
 MARGIN = 8
 HANDLE_END = -0.15
+RGBA32 = 4
 
 def _blocks():
     return {name: (i % 4 * 128, i // 4 * 128, 128) for i, name in enumerate(FINISHES)}
@@ -63,8 +64,8 @@ class Builder:
             self._band(rings[0], rings[1], finish_of(i))
 
     def lathe(self, profile, axis, centre, finish_of, segments=SEGMENTS):
-        circle = [((math.cos(2 * math.pi * k / segments), math.sin(2 * math.pi * k / segments)), (math.cos(2 * math.pi * k / segments), math.sin(2 * math.pi * k / segments))) for k in range(segments + 1)]
-        self.extrude(circle, profile, axis, centre, finish_of)
+        points = [(math.cos(2 * math.pi * k / segments), math.sin(2 * math.pi * k / segments)) for k in range(segments + 1)]
+        self.extrude([(p, p) for p in points], profile, axis, centre, finish_of)
 
     def place_since(self, start, design, factor, centre):
         d, c = (np.array(design, float), np.array(centre, float))
@@ -230,6 +231,9 @@ def build():
     geometry = {'vertices': np.array(b.vertices, np.float32), 'normals': np.array(b.normals, np.float32), 'tangents': np.array(b.tangents, np.float32), 'uvs': np.array(b.uvs, np.float32), 'triangles': np.array(triangles, np.uint16)}
     return (geometry, textures(b.blocks))
 
+def _shaded(rgb, shade):
+    return tuple((min(255, int(c * shade)) for c in rgb)) + (255,)
+
 def textures(blocks):
     albedo = Image.new('RGBA', (SIZE, SIZE), (128, 128, 128, 255))
     msao = Image.new('RGBA', (SIZE, SIZE), (0, 128, 255, 255))
@@ -241,8 +245,7 @@ def textures(blocks):
         for row in range(size):
             t = row / (size - 1)
             shade = 0.86 + 0.18 * math.sin(math.pi * t)
-            colour = tuple((min(255, int(c * shade)) for c in rgb)) + (255,)
-            da.line([(u0, v0 + row), (u0 + size - 1, v0 + row)], fill=colour)
+            da.line([(u0, v0 + row), (u0 + size - 1, v0 + row)], fill=_shaded(rgb, shade))
         if name == 'plaque':
             for col in range(size):
                 p = (col - 8) / (size - 16) * 8 % 1.0
@@ -255,22 +258,21 @@ def textures(blocks):
                     continue
                 for row in range(size):
                     shade = 0.86 + 0.18 * math.sin(math.pi * row / (size - 1))
-                    albedo.putpixel((u0 + col, v0 + row), tuple((min(255, int(c * shade)) for c in rgb2)) + (255,))
+                    albedo.putpixel((u0 + col, v0 + row), _shaded(rgb2, shade))
         dm.rectangle([u0, v0, u0 + size - 1, v0 + size - 1], fill=(int(255 * metal), int(255 * smooth), 255, 255))
         if glow:
             de.rectangle([u0, v0, u0 + size - 1, v0 + size - 1], fill=glow + (255,))
     return {'ALB': albedo, 'MSAO': msao, 'E': emission, 'NRM': normal}
 VERTEX_LAYOUT = np.dtype([('position', '<f4', 3), ('normal', '<f4', 3), ('tangent', '<f4', 4), ('colour', 'u1', 4), ('uv', '<f4', 2)])
+CHANNELS = [(0, 0, 3), (12, 0, 3), (24, 0, 4), (40, 2, 4), (44, 0, 2)]
+CHANNEL_COUNT = 14
 
 def unity_mesh(tree, geometry):
     v, n, tg, uv, tri = (geometry[k] for k in ('vertices', 'normals', 'tangents', 'uvs', 'triangles'))
     count = len(v)
-    channels = [{'stream': 0, 'offset': 0, 'format': 0, 'dimension': 0} for _ in range(14)]
-    channels[0] = {'stream': 0, 'offset': 0, 'format': 0, 'dimension': 3}
-    channels[1] = {'stream': 0, 'offset': 12, 'format': 0, 'dimension': 3}
-    channels[2] = {'stream': 0, 'offset': 24, 'format': 0, 'dimension': 4}
-    channels[3] = {'stream': 0, 'offset': 40, 'format': 2, 'dimension': 4}
-    channels[4] = {'stream': 0, 'offset': 44, 'format': 0, 'dimension': 2}
+    channels = [{'stream': 0, 'offset': 0, 'format': 0, 'dimension': 0} for _ in range(CHANNEL_COUNT)]
+    for i, (offset, fmt, dimension) in enumerate(CHANNELS):
+        channels[i] = {'stream': 0, 'offset': offset, 'format': fmt, 'dimension': dimension}
     stream = np.empty(count, VERTEX_LAYOUT)
     stream['position'], stream['normal'], stream['tangent'], stream['uv'] = (v, n, tg, uv)
     stream['colour'] = VERTEX_COLOUR
@@ -359,7 +361,7 @@ def patch_weapon_bundle(data, wrench_data):
             texture = obj.read()
             suffix = texture.m_Name.rsplit('_', 1)[-1]
             if suffix in images:
-                texture.set_image(images[suffix].convert('RGBA'), target_format=4, mipmap_count=1)
+                texture.set_image(images[suffix].convert('RGBA'), target_format=RGBA32, mipmap_count=1)
                 texture.save()
                 done['textures'] += 1
         elif kind == 'Transform':
