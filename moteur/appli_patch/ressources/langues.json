@@ -2764,6 +2764,27 @@
   "it": "Cavo USB, debug USB attivo",
   "pt": "Cabo USB, depuração USB ativada"
  },
+ "Téléphone : notification USB > « Transfert de fichiers »": {
+  "en": "Phone: USB notification > “File transfer”",
+  "es": "Teléfono: notificación USB > «Transferencia de archivos»",
+  "de": "Telefon: USB-Benachrichtigung > „Dateiübertragung“",
+  "it": "Telefono: notifica USB > «Trasferimento file»",
+  "pt": "Telefone: notificação USB > «Transferência de arquivos»"
+ },
+ "Faire reconnaître le téléphone": {
+  "en": "Get the phone recognized",
+  "es": "Hacer que se reconozca el teléfono",
+  "de": "Das Telefon erkennen lassen",
+  "it": "Far riconoscere il telefono",
+  "pt": "Fazer o telefone ser reconhecido"
+ },
+ "1. Brancher le téléphone avec un câble USB.\n2. Sur le téléphone : glisser du haut de l'écran, toucher la notification USB, choisir « Transfert de fichiers ».\n3. Toujours rien ? Activer le mode développeur (une seule fois) : Paramètres > À propos du téléphone, toucher 7 fois « Numéro de build » (Samsung : À propos du téléphone > Informations sur le logiciel > « Numéro de version »).\n4. Paramètres > Options de développement (tout en bas, ou dans Système) : activer « Débogage USB ».\n5. Toucher « Autoriser » quand le téléphone demande « Autoriser le débogage USB ? ».": {
+  "en": "1. Plug the phone in with a USB cable.\n2. On the phone: swipe down from the top of the screen, tap the USB notification, choose “File transfer”.\n3. Still nothing? Turn on developer mode (once): Settings > About phone, tap “Build number” 7 times (Samsung: About phone > Software information > “Build number”).\n4. Settings > Developer options (at the very bottom, or in System): turn on “USB debugging”.\n5. Tap “Allow” when the phone asks “Allow USB debugging?”.",
+  "es": "1. Conectar el teléfono con un cable USB.\n2. En el teléfono: deslizar desde arriba de la pantalla, tocar la notificación USB, elegir «Transferencia de archivos».\n3. ¿Sigue sin aparecer? Activar el modo desarrollador (una sola vez): Ajustes > Acerca del teléfono, tocar 7 veces «Número de compilación» (Samsung: Acerca del teléfono > Información de software > «Número de compilación»).\n4. Ajustes > Opciones de desarrollador (abajo del todo, o en Sistema): activar «Depuración USB».\n5. Tocar «Permitir» cuando el teléfono pregunte «¿Permitir depuración USB?».",
+  "de": "1. Das Telefon mit einem USB-Kabel anschließen.\n2. Auf dem Telefon: vom oberen Bildschirmrand nach unten wischen, die USB-Benachrichtigung antippen, „Dateiübertragung“ wählen.\n3. Immer noch nichts? Den Entwicklermodus einschalten (einmalig): Einstellungen > Über das Telefon, 7-mal auf „Build-Nummer“ tippen (Samsung: Telefoninfo > Softwareinformationen > „Buildnummer“).\n4. Einstellungen > Entwickleroptionen (ganz unten oder unter System): „USB-Debugging“ einschalten.\n5. „Zulassen“ antippen, wenn das Telefon „USB-Debugging zulassen?“ fragt.",
+  "it": "1. Collegare il telefono con un cavo USB.\n2. Sul telefono: scorrere dall'alto dello schermo, toccare la notifica USB, scegliere «Trasferimento file».\n3. Ancora niente? Attivare la modalità sviluppatore (una volta sola): Impostazioni > Info telefono, toccare 7 volte «Numero build» (Samsung: Info sul telefono > Informazioni sul software > «Numero build»).\n4. Impostazioni > Opzioni sviluppatore (in fondo, o in Sistema): attivare «Debug USB».\n5. Toccare «Consenti» quando il telefono chiede «Consentire il debug USB?».",
+  "pt": "1. Ligar o telefone com um cabo USB.\n2. No telefone: deslizar do topo da tela, tocar na notificação USB, escolher «Transferência de arquivos».\n3. Ainda nada? Ativar o modo de desenvolvedor (uma só vez): Configurações > Sobre o telefone, tocar 7 vezes em «Número da versão» (Samsung: Sobre o telefone > Informações do software > «Número de compilação»).\n4. Configurações > Opções do desenvolvedor (bem no fim, ou em Sistema): ativar «Depuração USB».\n5. Tocar em «Permitir» quando o telefone perguntar «Permitir depuração USB?»."
+ },
  "Demande illisible.": {
   "en": "Unreadable request.",
   "es": "Solicitud ilegible.",

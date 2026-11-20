@@ -61,7 +61,7 @@ const $$ = (choix, dans = document) => [...dans.querySelectorAll(choix)];
 const h = (texte) => String(texte ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const nomFichier = (chemin) => String(chemin || "").split(/[\\/]/).pop();
 const duree = () => (E.reglages.animations === "aucune" ? 0 : E.reglages.animations === "reduites" || matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.5 : 1);
-const chiffre = (n) => Number(n || 0).toLocaleString("fr-FR").replace(/ | /g, " ");
+const chiffre = (n) => Number(n || 0).toLocaleString("fr-FR").replace(/[\s\u00A0\u202F]/g, "\u202F");  // a space that never breaks the number
 
 function tr(texte, valeurs = {}) {
   let resultat = texte;
@@ -341,7 +341,7 @@ async function ouvrirSauvegarde(source, chemin, oublier = false) {
 function majEditeur(reponse) {
   E.editeur = reponse;
   E.edVersion++;
-  E.edLignes = null;
+  // the lines stay shown while they are read again: the box just clicked stays, with its cursor
   E.edArbre = null;
   rendre();
 }
@@ -394,7 +394,8 @@ function rendre(passage = "entree") {
 /// What the player was doing stays: the field being typed in, where the lists were scrolled.
 function garderEtat(vue, refaire) {
   const actif = document.activeElement;
-  const focus = actif && vue.contains(actif) && actif.id ? { id: actif.id, debut: actif.selectionStart, fin: actif.selectionEnd } : null;
+  const focus = actif && vue.contains(actif) && actif.id ? { id: actif.id, debut: actif.selectionStart, fin: actif.selectionEnd,
+    tape: actif.dataset.tape ? actif.value : null } : null;
   const defilements = [vue, ...$$("[data-garde]", vue)].map((el) => [el.dataset.garde || "", el.scrollTop]);
   // the banner's pictures and the sparks keep moving: the same elements stay
   const gardes = [".banniere .images", "canvas[data-particules]", ".qr svg"].map((choix) => [choix, $(choix, vue)]);
@@ -409,7 +410,11 @@ function garderEtat(vue, refaire) {
   }
   if (focus) {
     const el = document.getElementById(focus.id);
-    if (el) { el.focus(); try { el.setSelectionRange(focus.debut, focus.fin); } catch { /* not a text field */ } }
+    if (el) {
+      if (focus.tape !== null) { el.value = focus.tape; el.dataset.tape = "1"; }  // what was being typed is not lost
+      el.focus();
+      try { el.setSelectionRange(focus.debut, focus.fin); } catch { /* not a text field */ }
+    }
   }
 }
 
@@ -552,11 +557,16 @@ function boutonPrincipal() {
 function etatTelephone() {
   const t = telephone();
   let detail;
-  if (!t) detail = E.telephones.some((x) => x.etat === "unauthorized") ? tr("Toucher « Autoriser » sur le téléphone") : tr("Câble USB, débogage USB activé");
+  if (!t) detail = E.telephones.some((x) => x.etat === "unauthorized") ? tr("Toucher « Autoriser » sur le téléphone") : tr("Téléphone : notification USB > « Transfert de fichiers »");
   else if (!t.jeu) detail = tr("Pas de Ranger Rumble");
   else if (t.origine === "officiel") detail = tr("Jeu officiel");
   else detail = tr("Jeu hors ligne {v}", { v: t.version || "?" });
-  return `<div class="verre"><span class="dot ${t ? "on" : ""}"></span><span><b>${h(t ? t.modele : tr("Aucun téléphone branché"))}</b><small>${h(detail)}</small></span></div>`;
+  return `<div class="verre"><span class="dot ${t ? "on" : ""}"></span><span><b>${h(t ? t.modele : tr("Aucun téléphone branché"))}</b><small>${h(detail)}</small></span>${t ? "" : boutonAideTelephone()}</div>`;
+}
+
+// The small « i » beside « Aucun téléphone branché »: how to have the phone recognized (USB, developer mode).
+function boutonAideTelephone() {
+  return `<button class="aide-i" data-action="aide-telephone" title="${h(tr("Faire reconnaître le téléphone"))}">i</button>`;
 }
 
 // Android: tool pages -------------------------------------------------------------------------------
@@ -667,7 +677,7 @@ function pageFabrication() {
       <button class="principal grand jeu" data-action="fabriquer" ${E.tache ? "disabled" : ""}>${SVG.marteau} ${h(tr("Fabriquer l'APK"))}</button>
       <button class="secondaire" data-action="installer" ${E.tache ? "disabled" : ""}>${SVG.cable} ${h(tr("Installer sur le téléphone"))}</button>
       <span style="flex:1"></span>
-      <span style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--doux)"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:${t ? "var(--vert)" : "var(--pale)"}"></span>${h(t ? t.modele : tr("Aucun téléphone branché"))}</span>
+      <span style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--doux)"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:${t ? "var(--vert)" : "var(--pale)"}"></span>${h(t ? t.modele : tr("Aucun téléphone branché"))}${t ? "" : boutonAideTelephone()}</span>
     </div>
     ${progression(["fabrication", "installation"], E.tache === "fabrication" ? etapes : [])}
     ${journal(["fabrication", "installation", "adb"])}</div>`;
@@ -746,7 +756,7 @@ async function chargerEditeur() {
 
 function tableau() {
   const donnees = E.edLignes;
-  if (!donnees) return `<div class="carte table"></div>`;
+  if (!donnees || !donnees.cle.startsWith(`${E.onglet}-`)) return `<div class="carte table"></div>`;
   const colonnes = donnees.colonnes;
   // a name keeps a sensible width; the space a large window adds goes to the values
   const gabarit = `40px ${colonnes.map((c) => (["name", "hero"].includes(c.cle) ? "minmax(140px, 260px)" : "minmax(64px, 1fr)")).join(" ")}`;
@@ -966,6 +976,7 @@ const ACTIONS = {
     nouvelle: !!E.reglages.nouvelle_partie, images: E.reglages.artworks }),
   installer: () => installer(E.reglages.output),
   "maj-verifier": () => commande("maj_verifier"),
+  "aide-telephone": () => question(tr("Faire reconnaître le téléphone"), tr("1. Brancher le téléphone avec un câble USB.\n2. Sur le téléphone : glisser du haut de l'écran, toucher la notification USB, choisir « Transfert de fichiers ».\n3. Toujours rien ? Activer le mode développeur (une seule fois) : Paramètres > À propos du téléphone, toucher 7 fois « Numéro de build » (Samsung : À propos du téléphone > Informations sur le logiciel > « Numéro de version »).\n4. Paramètres > Options de développement (tout en bas, ou dans Système) : activer « Débogage USB ».\n5. Toucher « Autoriser » quand le téléphone demande « Autoriser le débogage USB ? »."), [{ titre: tr("OK") }]),
   "maj-outil": () => commande("maj_outil"),
   "ed-ouvrir": async (el) => {
     const source = el.dataset.source;
@@ -1046,20 +1057,33 @@ document.addEventListener("click", (e) => {
   ACTIONS[el.dataset.action]?.(el, e);
 });
 
+// A value changed in the editor's table shows at once, before the lines are read again.
+function noterValeur(el, valeur) {
+  const ligne = E.edLignes?.lignes[Number(el.dataset.ligne)];
+  if (ligne) ligne.valeurs[el.dataset.cle] = valeur;
+}
+
 const CHANGEMENTS = {
   sauvegarde: (el) => ecrire({ sauvegarde: el.value, nouvelle_partie: false }),
   nouvelle: (el) => ecrire({ nouvelle_partie: el.checked }),
   drapeau: (el) => ecrire({ [el.dataset.cle]: el.checked }),
   langue: (el) => ecrire({ langue: el.value }),
-  "ed-bool": (el) => editer("ed_changer", { onglet: E.onglet, ligne: Number(el.dataset.ligne), cle: el.dataset.cle, valeur: el.checked,
-    nom: E.edLignes?.lignes[Number(el.dataset.ligne)]?.valeurs.name ?? null }),
+  "ed-bool": (el) => {
+    noterValeur(el, el.checked);
+    editer("ed_changer", { onglet: E.onglet, ligne: Number(el.dataset.ligne), cle: el.dataset.cle, valeur: el.checked,
+      nom: E.edLignes?.lignes[Number(el.dataset.ligne)]?.valeurs.name ?? null });
+  },
   "ed-valeur": (el) => {
     const valeur = el.dataset.texte ? el.value : Number(el.value.replace(/\s/g, ""));
     if (!el.dataset.texte && !Number.isFinite(valeur)) return;
+    noterValeur(el, valeur);
     editer("ed_changer", { onglet: E.onglet, ligne: Number(el.dataset.ligne), cle: el.dataset.cle, valeur,
       nom: E.edLignes?.lignes[Number(el.dataset.ligne)]?.valeurs.name ?? null });
   },
 };
+
+// A number box of the editor: its value selected at once, so that typing replaces it (Return or leaving sends it).
+document.addEventListener("focusin", (e) => { if (e.target.matches?.("input.valeur") && !e.target.dataset.tape) e.target.select(); });
 
 document.addEventListener("change", (e) => {
   const el = e.target.closest("[data-change]");
@@ -1068,6 +1092,7 @@ document.addEventListener("change", (e) => {
 
 document.addEventListener("input", (e) => {
   if (e.target.dataset?.change === "recherche") { E.recherche = e.target.value; rendre(); }
+  if (e.target.matches?.("input.valeur")) e.target.dataset.tape = "1";  // typed, not sent yet
 });
 
 window.addEventListener("resize", () => { rendreBarre(); placerIndicateurs(); });

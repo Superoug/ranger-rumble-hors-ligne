@@ -378,6 +378,7 @@ class Phones:
         self.lock = threading.Lock()
         self.known = {}
         self.shown = None
+        self.version_read = {}
 
     def details(self, adb, serial, state, model):
         found = {'serie': serial, 'etat': state, 'modele': model or serial, 'emulateur': serial.startswith('emulator-'), 'jeu': False, 'version': None, 'signature': None, 'origine': None}
@@ -413,10 +414,26 @@ class Phones:
                 key = (serial, state)
                 if key not in self.known:
                     self.known[key] = self.details(adb, serial, state, model)
+                    self.version_read[serial] = time.monotonic()
+                else:
+                    self.known[key] = self.fresh_version(adb, self.known[key])
                 phones.append(self.known[key])
             self.known = {k: v for k, v in self.known.items() if any((k == (p['serie'], p['etat']) for p in phones))}
         phones.sort(key=lambda p: (p['emulateur'], p['etat'] != 'device'))
         return {'adb': adb, 'telephones': phones}
+
+    def fresh_version(self, adb, phone):
+        if phone['etat'] != 'device' or not phone['jeu'] or phone['origine'] == 'officiel':
+            return phone
+        now = time.monotonic()
+        if now - self.version_read.get(phone['serie'], 0) < 5:
+            return phone
+        self.version_read[phone['serie']] = now
+        try:
+            version = mises_a_jour.phone_game_version(adb, phone['serie'])
+        except Exception:
+            return phone
+        return phone if version == phone['version'] else {**phone, 'version': version}
 
     def watch(self):
         while True:
