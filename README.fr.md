@@ -6,6 +6,10 @@ Un outil pour continuer à jouer à *Ratchet & Clank: Ranger Rumble* après la f
 serveurs, le 1er mai 2027. Pour Windows et macOS, en 6 langues : anglais, français, espagnol,
 allemand, italien et portugais.
 
+
+**Il est recommandé d'installer Python 3.15 avant.**
+
+
 ## iPhone et Android
 
 - **La copie de sauvegarde se fait uniquement sur iPhone ou iPad.**
