@@ -189,6 +189,7 @@ class Work:
 
     def run(self, name: str, function, args: tuple) -> None:
         result, error, code, details = (None, None, None, {})
+        started = time.time()
         windows_awake = os.name == 'nt' and setting('anti_veille')
         if windows_awake:
             windows_keep_awake(True)
@@ -204,7 +205,7 @@ class Work:
             error = str(stop)
         except Exception as failure:
             error = f'{type(failure).__name__} : {failure}'
-            print(traceback.format_exc())
+            commun.keep_details(traceback.format_exc())
         finally:
             sys.stdout.flush()
             self.keep_awake(False)
@@ -214,6 +215,8 @@ class Work:
                 self.name = None
         if error:
             print(tr('Échec : {error}', error=error))
+            if commun.DETAILS.is_file() and commun.DETAILS.stat().st_mtime >= started:
+                print(tr('Détails : {path}', path=commun.DETAILS))
         BUS.send('tache', nom=name, etat='fin', ok=error is None, erreur=error, code=code, resultat=result, **details)
 
     def keep_awake(self, on: bool) -> None:

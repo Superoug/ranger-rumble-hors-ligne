@@ -11,12 +11,30 @@ ROOT = HERE.parent.parent if HERE.parent.name == 'moteur' else HERE.parent
 COPIES = Path(os.environ.get('RR_COPIES') or ROOT / 'Sauvegardes')
 TOOL = next((path for path in (HERE.parent / 'outil' / 'sauvegarde_rr.py', HERE.parent / 'outil_sauvegarde_source' / 'sauvegarde_rr.py') if path.exists()))
 BASE = Path.home() / '.sauvegarde-rr'
+DETAILS = BASE / 'journal_details.txt'
 DEFAULT_APK = Path.home() / 'RangerRumble_hors_ligne.apk'
 SAVE_NAME = 'save.msgpack'
 STEP = re.compile('(\\d)/6 ')
 BUILD_STEPS = {1: (0, 20, 8), 2: (20, 78, 20), 3: (78, 82, 2), 4: (82, 93, 4), 5: (93, 99, 2)}
 NAME_DATE = re.compile('_(\\d{4})-(\\d{2})-(\\d{2})_(\\d{2})(\\d{2})\\d{2}$')
 SAVE_CHECKS: dict[tuple[str, int], bool] = {}
+
+def start_details() -> None:
+    try:
+        BASE.mkdir(parents=True, exist_ok=True)
+        DETAILS.write_text('', encoding='utf-8')
+    except OSError:
+        pass
+
+def keep_details(text: str) -> None:
+    if not text.strip():
+        return
+    try:
+        BASE.mkdir(parents=True, exist_ok=True)
+        with open(DETAILS, 'a', encoding='utf-8') as handle:
+            handle.write(text if text.endswith('\n') else text + '\n')
+    except OSError:
+        pass
 
 def load_tool():
     spec = importlib.util.spec_from_file_location('sauvegarde_rr', TOOL)

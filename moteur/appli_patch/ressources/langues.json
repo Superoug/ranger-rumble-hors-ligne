@@ -4940,5 +4940,12 @@
   "de": "Antwort des Handys: {text}",
   "it": "Risposta del telefono: {text}",
   "pt": "Resposta do celular: {text}"
+ },
+ "Détails : {path}": {
+  "en": "Details: {path}",
+  "es": "Detalles: {path}",
+  "de": "Details: {path}",
+  "it": "Dettagli: {path}",
+  "pt": "Detalhes: {path}"
  }
 }

@@ -11,6 +11,7 @@ import zipfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 ANDROID = os.path.join(HERE, '..', 'android')
 sys.path.insert(0, HERE)
+import commun
 import copie_android
 import donnees_capture
 import manifeste
@@ -23,7 +24,6 @@ PARTS = {BASE_PART: (BASE_PART, 'base.apk'), LIBRARY_PART: (LIBRARY_PART, 'split
 BASE_ASSETS = {'assets/bin/Data/Managed/Metadata/global-metadata.dat', 'assets/bin/Data/Managed/Resources/OhbibiCore.dll-resources.dat', 'assets/bin/Data/Managed/Resources/System.Collections.Immutable.dll-resources.dat', 'assets/bin/Data/Managed/Resources/System.Data.dll-resources.dat', 'assets/bin/Data/Managed/Resources/System.Drawing.dll-resources.dat', 'assets/bin/Data/Managed/Resources/mscorlib.dll-resources.dat', 'assets/bin/Data/Resources/unity default resources', 'assets/bin/Data/Resources/unity_builtin_extra', 'assets/bin/Data/RuntimeInitializeOnLoads.json', 'assets/bin/Data/ScriptingAssemblies.json', 'assets/bin/Data/boot.config', 'assets/bin/Data/globalgamemanagers', 'assets/bin/Data/globalgamemanagers.assets.split0', 'assets/bin/Data/globalgamemanagers.assets.split1', 'assets/bin/Data/globalgamemanagers.assets.split2', 'assets/bin/Data/level0', 'assets/bin/Data/sharedassets0.assets', 'assets/bin/Data/sharedassets0.resource', 'assets/bin/Data/unity_app_guid', 'assets/dexopt/baseline.prof', 'assets/dexopt/baseline.profm'}
 NATIVE_LIBRARIES = 'lib/arm64-v8a/'
 COPY_BLOCK = 1 << 22
-DETAILS_SHOWN = 12
 KEY_FOLDER = os.path.join(os.path.expanduser('~'), '.sauvegarde-rr')
 ARTBOOK = os.path.join(HERE, '..', 'artbook')
 OLD_110_SUBSET = os.path.join(HERE, '..', 'ressources_110', 'jeu_110_ecran_collecte.xapk')
@@ -46,6 +46,37 @@ def bundles_without_lz4():
     BundleFile.save = lambda self, packer=None: save(self, 'none' if packer in ('lz4', 'lz4hc') else packer)
 bundles_without_lz4()
 
+def pictures_without_native_extras():
+    import importlib
+    import types
+    missing = []
+    for name in ('fmod_toolkit', 'astc_encoder'):
+        if isinstance(sys.modules.get(name), types.ModuleType) and (not getattr(sys.modules[name], '__file__', None)):
+            missing.append(name)
+            continue
+        try:
+            importlib.import_module(name)
+        except Exception as failure:
+            commun.keep_details(f'{name} : {type(failure).__name__} : {failure}')
+            sys.modules[name] = types.ModuleType(name)
+            missing.append(name)
+    if 'astc_encoder' in missing:
+        try:
+            import texture2ddecoder
+            from PIL import Image
+            from UnityPy.export import Texture2DConverter
+        except Exception as failure:
+            commun.keep_details(f'UnityPy.export : {type(failure).__name__} : {failure}')
+            return missing
+
+        def astc(image_data, width, height, block_size, hdr=False):
+            raw = texture2ddecoder.decode_astc(image_data, width, height, *block_size)
+            return Image.frombytes('RGBA', (width, height), raw, 'raw', 'BGRA')
+        for texture_format, (function, args) in list(Texture2DConverter.CONV_TABLE.items()):
+            if getattr(function, '__name__', '') == 'astc':
+                Texture2DConverter.CONV_TABLE[texture_format] = (astc, args)
+    return missing
+
 def say(text):
     print(text, flush=True)
 
@@ -58,11 +89,8 @@ def hidden_output(errors_too=False):
     try:
         with contextlib.redirect_stdout(details), contextlib.redirect_stderr(details) if errors_too else contextlib.nullcontext():
             yield
-    except BaseException:
-        tail = details.getvalue().strip().splitlines()[-DETAILS_SHOWN:]
-        if tail:
-            say('\n'.join(tail))
-        raise
+    finally:
+        commun.keep_details(details.getvalue())
 
 def quietly(function, *args):
     with hidden_output():
@@ -187,6 +215,8 @@ def assemble(work, data, save, artworks, unsigned):
     run_script(os.path.join(ANDROID, 'assembler_apk.py'), [os.path.join(work, 'base.apk'), os.path.join(work, 'patched'), os.path.join(HERE, 'ressources', 'serveur.dex'), server, unsigned], {'RR_ALIGNE': '1', 'RR_SAUVEGARDE': os.path.abspath(save), 'RR_VERSION': GAME_VERSION, 'RR_ARTWORKS': os.path.abspath(artworks) if artworks else '', 'RR_ARTBOOK': artbook})
 
 def build(official, out, data=None, save=None, copy=None, key_store=None, password=None, work=None, new_game=False, artworks=None, mac=False):
+    commun.start_details()
+    pictures_without_native_extras()
     work = work or tempfile.mkdtemp(prefix='rr_patch_', dir=os.path.dirname(os.path.abspath(out)))
     try:
         parts = os.path.join(work, 'xapk')
