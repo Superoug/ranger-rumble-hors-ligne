@@ -349,12 +349,9 @@ main_weapon_test:
     stp  x29, x30, [sp, #-0x10]!
     cmp  w23, #RATCHET_BLASTER
     b.eq 8f
-    cmp  w23, #51
-    b.eq 8f
-    cmp  w23, #53
-    b.eq 8f
-    cmp  w23, #56
-    b.eq 8f
+    mov  w0, w23
+    bl   gadget_index
+    tbz  w0, #31, 8f
     mov  x0, x20
     mov  w1, w23
     mov  x2, x22

@@ -23,6 +23,7 @@ sys.path.insert(0, str(HERE))
 import commun
 import copie_android
 import editeur_modele as em
+import jeu_ios
 import jeu_mac
 import langues
 import mises_a_jour
@@ -39,7 +40,8 @@ READY_EXPECTED = HERE.parent / 'pret.txt'
 DEFAULTS = {'langue': langues.CURRENT, 'maj_demarrage': True, 'page_depart': 'accueil', 'derniere_page': 'android', 'son_fin': True, 'anti_veille': True, 'animations': 'completes', 'accent': 'vert', 'adb': '', 'dossier_travail': '', 'official': '', 'output': str(commun.DEFAULT_APK), 'artworks': '', 'sauvegarde': '', 'nouvelle_partie': False, 'dossier_sauvegardes': ''}
 CHOICES = {'page_depart': ('accueil', 'derniere'), 'animations': ('completes', 'reduites', 'aucune'), 'accent': ('or', 'bleu', 'vert', 'violet'), 'langue': tuple(dict(langues.LANGUAGES))}
 FLAGS = ('maj_demarrage', 'son_fin', 'anti_veille', 'nouvelle_partie')
-BAR_TASKS = ('fabrication', 'maj_telephone', 'ordinateur')
+BAR_TASKS = ('fabrication', 'maj_telephone', 'ordinateur', 'iphone')
+IPHONE_SHARE = jeu_ios.APK_SHARE
 WORK_FOLDER_TASKS = BAR_TASKS + ('maj_outil',)
 PHONE_TASKS = ('installation', 'maj_telephone')
 LAST_STEP = 6
@@ -137,12 +139,13 @@ class Output(io.TextIOBase):
         step = commun.STEP.match(text.strip())
         if step and WORK.name in BAR_TASKS:
             number = int(step.group(1))
-            what = tr('Préparation pour Mac') if WORK.name == 'ordinateur' else tr('Fabrication')
+            what = {'ordinateur': tr('Préparation pour Mac'), 'iphone': tr('Préparation pour iPhone')}.get(WORK.name, tr('Fabrication'))
+            share = IPHONE_SHARE if WORK.name == 'iphone' else 1
             if number in commun.BUILD_STEPS:
                 start, goal, seconds = commun.BUILD_STEPS[number]
-                bar(start, goal, seconds / 2, what, number)
+                bar(start * share, goal * share, seconds / 2, what, number)
             elif number == LAST_STEP:
-                bar(100, 100, 0, what, LAST_STEP)
+                bar(100 * share, 100 * share, 0, what, jeu_ios.STEP_CONVERSION if share < 1 else LAST_STEP)
         BUS.send('journal', texte=text, tache=WORK.name)
 
 def bar(start: float, goal: float, seconds: float, what: str, step: int | None=None) -> None:
@@ -150,8 +153,10 @@ def bar(start: float, goal: float, seconds: float, what: str, step: int | None=N
 
 def sending(what: str):
 
-    def progress(fraction):
-        if fraction >= copie_android.INSTALL_COPY_SHARE:
+    def progress(fraction, direct=False):
+        if direct:
+            bar(0, 99, copie_android.DIRECT_SECONDS, tr('Installation directe...'))
+        elif fraction >= copie_android.INSTALL_COPY_SHARE:
             bar(80, 99, 8, what)
         else:
             bar(fraction * 100, fraction * 100, 0, what)
@@ -165,7 +170,7 @@ def windows_keep_awake(on: bool) -> None:
     ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | (ES_SYSTEM_REQUIRED if on else 0))
 
 class Work:
-    PROBLEMS = (copie_android.Problem, mises_a_jour.Problem, em.Refus, jeu_mac.Probleme)
+    PROBLEMS = (copie_android.Problem, mises_a_jour.Problem, em.Refus, jeu_mac.Probleme, jeu_ios.Probleme)
 
     def __init__(self):
         self.lock = threading.Lock()
@@ -222,7 +227,7 @@ class Work:
 WORK = Work()
 
 def task_name(name: str) -> str:
-    return {'copie': tr('Copie de la sauvegarde'), 'fabrication': tr('Fabrication'), 'installation': tr('Installation'), 'maj_telephone': tr('Mise à jour du téléphone'), 'maj_outil': tr("Mise à jour de l'outil"), 'adb': tr('Outils Android'), 'ordinateur': tr('Préparation pour Mac')}.get(name, name)
+    return {'copie': tr('Copie de la sauvegarde'), 'fabrication': tr('Fabrication'), 'installation': tr('Installation'), 'maj_telephone': tr('Mise à jour du téléphone'), 'maj_outil': tr("Mise à jour de l'outil"), 'adb': tr('Outils Android'), 'ordinateur': tr('Préparation pour Mac'), 'iphone': tr('Préparation pour iPhone')}.get(name, name)
 
 def refuse_while_building() -> None:
     if WORK.name in WORK_FOLDER_TASKS:
@@ -423,12 +428,12 @@ class Phones:
         self.lock = threading.Lock()
         self.known = {}
         self.version_read = {}
+        self.installed = {}
         self.shown_lock = threading.Lock()
         self.shown = None
         self.failure = None
 
-    @staticmethod
-    def details(adb: str, serial: str, state: str, model: str) -> dict:
+    def details(self, adb: str, serial: str, state: str, model: str) -> dict:
         found = {'serie': serial, 'etat': state, 'modele': model or serial, 'emulateur': serial.startswith('emulator-'), 'jeu': False, 'version': None, 'signature': None, 'origine': None}
         if state != 'device':
             return found
@@ -441,7 +446,7 @@ class Phones:
             found.update(jeu=True, signature=signature, origine=origin)
             if origin != 'officiel':
                 try:
-                    found['version'] = mises_a_jour.phone_game_version(adb, serial)
+                    found['version'] = self.game_version(adb, serial)
                 except ADB_ERRORS:
                     pass
         return found
@@ -479,7 +484,7 @@ class Phones:
             return phone
         self.version_read[phone['serie']] = now
         try:
-            version = mises_a_jour.phone_game_version(adb, phone['serie'])
+            version = self.game_version(adb, phone['serie'])
         except ADB_ERRORS:
             return phone
         return phone if version == phone['version'] else {**phone, 'version': version}
@@ -501,6 +506,22 @@ class Phones:
                         self.failure = failure
                         print(failure)
             time.sleep(PHONES_EVERY)
+
+    def game_version(self, adb: str, serial: str):
+        written = mises_a_jour.phone_game_version(adb, serial)
+        installed = self.installed.get(serial)
+        if installed and written != installed:
+            return installed
+        self.installed.pop(serial, None)
+        return written
+
+    def remember(self, serial: str, apk: str) -> None:
+        version = mises_a_jour.apk_game_version(apk)
+        with self.lock:
+            if version:
+                self.installed[serial] = version
+            else:
+                self.installed.pop(serial, None)
 
     def forget(self) -> None:
         with self.lock:
@@ -539,11 +560,12 @@ def cmd_installer(body):
             kept = mises_a_jour.phone_save(adb, serial, str(copies_folder()))
             mises_a_jour.apply_apk_save(adb, serial, apk)
             print(tr("La sauvegarde de l'APK remplace celle du téléphone."))
-        return installed(adb, serial, kept)
+        return installed(adb, serial, apk, kept)
     WORK.start('installation', work)
     return {}
 
-def installed(adb: str, serial: str, kept) -> dict:
+def installed(adb: str, serial: str, apk: str, kept) -> dict:
+    PHONES.remember(serial, apk)
     PHONES.forget()
     model = next((m for p, _, m in copie_android.phones(adb) if p == serial and m), tr('le téléphone'))
     print(tr('Le jeu est installé sur {model}.', model=model))
@@ -560,7 +582,7 @@ def cmd_reinstaller(body):
             print(tr('Sauvegarde du téléphone copiée : {copy}', copy=copy))
         print(tr('Désinstallation, puis installation...'))
         mises_a_jour.reinstall(adb, serial, apk, sending(tr('Installation')))
-        return installed(adb, serial, copy)
+        return installed(adb, serial, apk, copy)
     WORK.start(body.get('tache') or 'installation', work)
     return {}
 
@@ -647,6 +669,35 @@ def cmd_ordinateur_touches(body):
         return {'touches': jeu_mac.set_keys(None if body.get('defaut') else body.get('touches'))}
     except jeu_mac.Probleme as problem:
         raise Erreur(str(problem))
+
+def cmd_iphone_etat(_):
+    return jeu_ios.state(setting('output'))
+
+def cmd_iphone_site(_):
+    import webbrowser
+    webbrowser.open(jeu_ios.SIDELOADLY)
+    return {}
+
+def cmd_iphone_preparer(body):
+    official, save, new_game, artworks = build_choices(body)
+    problem = jeu_ios.missing()
+    if problem:
+        raise Erreur(problem)
+    output = setting('output')
+    mises_a_jour.remember(official=official, artworks=artworks or '', sauvegarde=save or '', nouvelle_partie=new_game)
+    game = mises_a_jour.current().get('jeu') or ''
+
+    def work():
+        ipa = jeu_ios.ipa_path(output)
+        ipa.parent.mkdir(parents=True, exist_ok=True)
+        folder = work_folder(str(ipa))
+        bar(0, 0, 0, tr('Préparation pour iPhone'), 0)
+        try:
+            return jeu_ios.prepare(official, save, new_game, artworks, output, folder, game, lambda fraction, text, number: bar(fraction * 100, fraction * 100, 0, text, number))
+        finally:
+            shutil.rmtree(folder, ignore_errors=True)
+    WORK.start('iphone', work)
+    return {}
 RELEASE = {}
 
 def check_release() -> dict:
@@ -690,7 +741,7 @@ def cmd_maj_telephone(body):
     if signature == copie_android.OFFICIAL_SIGNATURE:
         raise Erreur(tr("Le téléphone a le jeu officiel : il faut d'abord installer le jeu hors ligne."), 'officiel')
     game = mises_a_jour.current().get('jeu')
-    on_phone = mises_a_jour.phone_game_version(adb, serial)
+    on_phone = PHONES.game_version(adb, serial)
     if on_phone and game and (not mises_a_jour.newer(game, on_phone)) and (not body.get('forcer')):
         raise Erreur(tr('Le jeu du téléphone est déjà à jour ({version}).', version=on_phone), 'deja_a_jour', version=on_phone)
     out = setting('output') or str(commun.DEFAULT_APK)
@@ -715,7 +766,7 @@ def cmd_maj_telephone(body):
         except copie_android.OtherSignature as problem:
             raise Erreur(str(problem), 'autre_signature', apk=out)
         print(tr('Le jeu du téléphone est à jour.'))
-        return installed(adb, serial, None) | {'apk': out}
+        return installed(adb, serial, out, None) | {'apk': out}
     WORK.start('maj_telephone', work)
     return {}
 

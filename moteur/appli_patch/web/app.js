@@ -17,6 +17,8 @@ const E = {
   tache: null, barre: null, verification: false, apresAdb: null, dernierAPK: null, libre: null,
   // the iPhone copy
   copieEtat: null, copieFinie: false, qr: null, qrSvg: null,
+  // the game for iPhone (jeu_ios): { bientot, manque, pret, ipa, taille, infos }
+  iphone: {},
   // the editor
   editeur: { ouvert: false }, edVersion: 0, edLignes: null, edArbre: null, onglet: "heros",
   // where the window is
@@ -68,7 +70,8 @@ const PAGES = {
 };
 const BANNIERE = ["fond_1", "fond_3", "fond_2", "fond_5", "fond_6", "fond_4"];
 const NOMS_TACHES = { copie: "Copie de la sauvegarde", fabrication: "Fabrication", installation: "Installation",
-  maj_telephone: "Mise à jour du téléphone", maj_outil: "Mise à jour de l'outil", adb: "Outils Android" };
+  maj_telephone: "Mise à jour du téléphone", maj_outil: "Mise à jour de l'outil", adb: "Outils Android",
+  iphone: "Préparation pour iPhone" };
 const ONGLETS = [["profil", "Profil"], ["heros", "Héros"], ["armes", "Armes"], ["costumes", "Costumes"], ["modes", "Modes"], ["tout", "Tout"]];
 const ACTIONS_ONGLET = {
   heros: [["tous_heros", "Débloquer tous les héros"], ["max_heros", "Niveau max pour tous"]],
@@ -229,6 +232,7 @@ function recevoirTache(ev) {
   E.tache = null;
   E.barre = null;
   if (E.reglages.son_fin && ev.nom !== "copie") son(ev.ok);
+  if (ev.nom === "iphone") lireIphone();
   if (!ev.ok) {
     if (ev.code === "autre_signature") demanderReinstallation(ev.apk || E.dernierAPK || E.reglages.output, ev.nom === "maj_telephone");
     else toast(tr("Échec"), ev.erreur || "", "erreur");
@@ -246,6 +250,8 @@ function recevoirTache(ev) {
     if (resultat.gardee) texte += "\n" + tr("Ancienne sauvegarde gardée : {name}", { name: nomFichier(resultat.gardee) });
     toast(ev.nom === "maj_telephone" ? tr("Téléphone à jour") : tr("Jeu installé"), texte, "succes");
     api("telephones", { rafraichir: true });
+  } else if (ev.nom === "iphone") {
+    toast(tr("L'IPA est prête"), tr("À installer avec Sideloadly."), "succes");
   } else if (ev.nom === "copie" && resultat.sauvegarde) {
     lister();
   } else if (ev.nom === "maj_outil") {
@@ -365,6 +371,14 @@ async function lireEspaceLibre() {
   if (reponse) { E.libre = reponse.libre; rendre(); }
 }
 
+async function lireIphone() {
+  const [reponse] = await api("iphone_etat", {}, { silencieux: true });
+  if (!reponse) return;
+  E.iphone = reponse;
+  rendreBarre();
+  if (E.section === "ios") rendre();
+}
+
 async function chargerInfos() {
   for (const nom of ["cle_info", "certificat_info", "composants", "temporaires"]) {
     const [reponse] = await api(nom, {}, { silencieux: true });
@@ -462,7 +476,8 @@ function rendre() {
 }
 
 function vue() {
-  if (E.section === "ios" || E.section === "ordinateur") return prochainement(E.section);
+  if (E.section === "ios") return E.iphone.bientot === false ? pageIphone() : prochainement("ios");
+  if (E.section === "ordinateur") return prochainement("ordinateur");
   if (E.section === "reglages") return reglages();
   return E.page ? pageOutil(E.page) : accueil();
 }
@@ -502,6 +517,7 @@ function apresRendu() {
   if (window.imagesCassees?.size) for (const img of $$("img:not(.cassee)")) if (imagesCassees.has(img.src)) img.classList.add("cassee");
   placerIndicateurs();
   retrouverBulle();
+  if (E.section === "ios" && E.iphone.bientot === false && E.libre === null) lireEspaceLibre();
   if (E.section !== "android") return;
   if (E.page === "editeur" && E.editeur.ouvert) chargerEditeur();
   if (E.page === "fabrication" && E.libre === null) lireEspaceLibre();
@@ -628,8 +644,11 @@ function ligneVersion() {
 function rendreBarre() {
   const t = telephone();
   const detailAndroid = E.tache ? tr("En cours : {t}", { t: nomTache(E.tache) }) : t ? t.modele : tr("Disponible");
+  const iosBientot = E.iphone.bientot !== false;
+  const detailIos = iosBientot ? tr("Prochainement") : E.tache === "iphone" ? tr("En cours : {t}", { t: nomTache("iphone") })
+    : E.iphone.pret ? tr("IPA prête") : tr("Disponible");
   $("#tuiles").innerHTML = tuile("android", "android", "Android", detailAndroid)
-    + tuile("ios", "apple", "iOS", tr("Prochainement"), true)
+    + tuile("ios", "apple", "iOS", detailIos, iosBientot)
     + tuile("ordinateur", "ordinateur", tr("Ordinateur"), tr("Prochainement"), true);
   $("#tuiles-bas").innerHTML = tuile("reglages", "reglages", tr("Réglages"), "");
   $("#version").innerHTML = ligneVersion();
@@ -668,7 +687,7 @@ function tournerBanniere() {
   const vue = vueActuelle();
   if (!vue || document.hidden || E.reglages.animations === "aucune") return;
   const images = $$(".banniere .images img", vue);
-  if (!images.length) return;
+  if (images.length < 2) return;
   images[rangBanniere].classList.remove("vue-img");
   rangBanniere = (rangBanniere + 1) % images.length;
   images[rangBanniere].classList.add("vue-img");
@@ -677,7 +696,8 @@ function tournerBanniere() {
 function boutonPrincipal() {
   const t = telephone();
   if (E.tache) {
-    return `<button class="principal grand jeu" data-action="page" data-page="${pageDeTache(E.tache)}">${SVG.sablier} ${h(tr("En cours : {t}", { t: nomTache(E.tache) }))}</button>`;
+    const vers = E.tache === "iphone" ? 'data-action="section" data-section="ios"' : `data-action="page" data-page="${pageDeTache(E.tache)}"`;
+    return `<button class="principal grand jeu" ${vers}>${SVG.sablier} ${h(tr("En cours : {t}", { t: nomTache(E.tache) }))}</button>`;
   }
   if (t && t.jeu && t.origine !== "officiel" && t.version && plusAncien(t.version, E.jeu)) {
     return `<button class="principal grand jeu" data-action="maj-telephone">${SVG.sortie} ${h(tr("Mettre à jour le téléphone"))}</button>`;
@@ -777,15 +797,16 @@ function champ(cle, titre, nomIcone, vide, action) {
     <button class="secondaire" data-action="${action}" data-cle="${cle}">${h(tr("Choisir…"))}</button></div>`;
 }
 
-function pageFabrication() {
+const etapesFabrication = () => [tr("Lecture"), tr("Modifications"), tr("Préparation"), tr("Sauvegarde"), tr("Signature"), tr("Fini")];
+// The iPhone's: the APK's first five, then the libraries' conversion and the IPA (jeu_ios.STEP_CONVERSION...).
+const etapesIphone = () => [...etapesFabrication().slice(0, 5), tr("Conversion"), "IPA"];
+const espaceLibre = () => (E.libre ? `<div class="libre ${E.libre < 5e9 ? "peu" : ""}">${h(tr("Espace libre : {n} Go (il faut 5 Go)", { n: (E.libre / 1e9).toFixed(1) }))}</div>` : "");
+
+// What a build is made from: the official file, the progression (a save or a new game), the gallery's pictures.
+function champsJeu() {
   const nouvelle = !!E.reglages.nouvelle_partie;
   const options = E.sauvegardes.map((s) => `<option value="${h(s.chemin)}" ${s.chemin === E.reglages.sauvegarde ? "selected" : ""}>${h(s.libelle)}</option>`).join("");
-  const etapes = [tr("Lecture"), tr("Modifications"), tr("Préparation"), tr("Sauvegarde"), tr("Signature"), tr("Fini")];
-  const libre = E.libre ? `<div class="libre ${E.libre < 5e9 ? "peu" : ""}">${h(tr("Espace libre : {n} Go (il faut 5 Go)", { n: (E.libre / 1e9).toFixed(1) }))}</div>` : "";
-  const t = telephone();
-  return `<div class="colonne">
-    <div class="carte champs">
-      ${champ("official", tr("Jeu officiel 1.10.4"), "doc", tr("Le fichier .xapk, .apkm ou .apk complet"), "choisir-jeu")}
+  return `${champ("official", tr("Jeu officiel 1.10.4"), "doc", tr("Le fichier .xapk, .apkm ou .apk complet"), "choisir-jeu")}
       <div class="champ">${SVG.personne}<div class="quoi"><small>${h(tr("Progression"))}</small>
         <div class="boutons">
           <select class="choix" id="choix-sauvegarde" data-change="sauvegarde" ${nouvelle ? "disabled" : ""}>
@@ -794,9 +815,16 @@ function pageFabrication() {
           ${bascule(nouvelle, 'data-change="nouvelle"')}
           <span class="petit">${h(tr("Nouvelle partie"))}</span>
         </div></div></div>
-      ${champ("artworks", tr("Images de la galerie (facultatif)"), "image", tr("Un dossier d'images pour l'artbook du jeu"), "choisir-dossier")}
+      ${champ("artworks", tr("Images de la galerie (facultatif)"), "image", tr("Un dossier d'images pour l'artbook du jeu"), "choisir-dossier")}`;
+}
+
+function pageFabrication() {
+  const t = telephone();
+  return `<div class="colonne">
+    <div class="carte champs">
+      ${champsJeu()}
       ${champ("output", tr("APK à créer"), "sortie", "RangerRumble_hors_ligne.apk", "choisir-sortie")}
-      ${libre}
+      ${espaceLibre()}
     </div>
     <div class="boutons">
       <button class="principal grand jeu" data-action="fabriquer" ${E.tache ? "disabled" : ""}>${SVG.marteau} ${h(tr("Fabriquer l'APK"))}</button>
@@ -804,7 +832,7 @@ function pageFabrication() {
       <span class="espace"></span>
       <span class="etat-tel"><span class="dot ${t ? "on" : ""}"></span>${h(t ? t.modele : tr("Aucun téléphone branché"))}${t ? "" : boutonAideTelephone()}</span>
     </div>
-    ${progression(["fabrication", "installation"], E.tache === "fabrication" ? etapes : [])}
+    ${progression(["fabrication", "installation"], E.tache === "fabrication" ? etapesFabrication() : [])}
     ${boiteJournal(["fabrication", "installation", "adb"])}</div>`;
 }
 
@@ -943,6 +971,59 @@ async function toucherNoeud(cle) {
       : saisie !== "" && !isNaN(Number(saisie)) ? Number(saisie) : saisie;
     editer("ed_noeud_changer", { partie: n.part, chemin: n.path, type: n.kind, valeur });
   }
+}
+
+// iPhone and iPad: an .ipa made from the official file, installed with Sideloadly ----------------------------
+function pageIphone() {
+  const I = E.iphone, pret = !!I.pret, marche = E.tache === "iphone";
+  let etat;
+  if (I.manque) etat = ["", tr("Impossible"), I.manque];
+  else if (pret) etat = ["on", tr("IPA prête"), tr("Préparée le {d}, {n} Go", { d: I.infos?.date || "?", n: ((I.taille || 0) / 1e9).toFixed(1) })];
+  else etat = ["", tr("À préparer"), tr("Quelques minutes, une seule fois")];
+  const preparer = `data-action="iphone-preparer" ${E.tache || I.manque ? "disabled" : ""}`;
+  const principal = marche
+    ? `<button class="principal grand jeu" disabled>${SVG.sablier} ${h(tr("En cours : {t}", { t: nomTache("iphone") }))}</button>`
+    : pret ? `<button class="principal grand jeu" data-action="montrer" data-chemin="${h(I.ipa)}">${SVG.dossier} ${h(tr("Afficher l'IPA"))}</button>`
+      : `<button class="principal grand jeu" ${preparer}>${SVG.marteau} ${h(tr("Préparer pour iPhone"))}</button>`;
+  return `<div class="banniere"><div class="images"><img src="/ressources/lanceur/fond_6.png" alt="" class="vue-img"></div>
+    <div class="texte">
+      <div class="puces"><span class="puce" style="--c:#8ab4ff">${SVG.apple} IPHONE · IPAD</span>
+      <span class="puce" style="--c:var(--a1)">${h(tr("Jeu {g}", { g: E.jeu }))}</span>
+      <span class="puce" style="--c:var(--orange)">${h(tr("Essai"))}</span></div>
+      <h1 class="jeu">${h(tr("Ranger Rumble hors ligne"))}</h1>
+      <div class="actions">${principal}
+        <div class="verre"><span class="dot ${etat[0]}"></span><span><b>${h(etat[1])}</b><small>${h(etat[2])}</small></span></div></div>
+    </div></div>
+    <div class="section"><div class="titre-section">${h(tr("PRÉPARATION"))}</div>
+    <div class="colonne">
+      <div class="carte champs">${champsJeu()}${espaceLibre()}</div>
+      <div class="boutons">
+        <button class="secondaire" ${preparer}>${SVG.marteau} ${h(pret ? tr("Préparer à nouveau") : tr("Préparer pour iPhone"))}</button>
+        <span class="espace"></span>
+        ${pret ? `<button class="secondaire" data-action="montrer" data-chemin="${h(I.ipa)}">${h(tr("Afficher l'IPA"))}</button>` : ""}
+      </div>
+      ${progression(["iphone"], etapesIphone())}
+      ${marche || E.journal.some((l) => l.tache === "iphone") ? boiteJournal(["iphone"]) : ""}
+    </div>
+    <div class="titre-section">${h(tr("INSTALLATION AVEC SIDELOADLY"))}</div>
+    ${etapesSideloadly(pret ? I.ipa : null)}</div>`;
+}
+
+// What to do with the IPA: Sideloadly, the iPhone's settings, every 7 days.
+function etapesSideloadly(ipa) {
+  const etape = (n, texte) => `<div class="etape"><span class="num">${n}</span><span>${h(texte)}</span></div>`;
+  return `<div class="carte">
+    ${etape(1, tr("Installer Sideloadly sur cet ordinateur (gratuit)."))}
+    ${etape(2, tr("Brancher l'iPhone par câble, le déverrouiller, puis « Se fier » à cet ordinateur."))}
+    ${etape(3, tr("Sur l'iPhone : Réglages > Confidentialité et sécurité > Mode développeur : activer, puis redémarrer."))}
+    ${etape(4, tr("Dans Sideloadly : glisser l'IPA, choisir l'iPhone, saisir son identifiant Apple, puis Start."))}
+    ${etape(5, tr("Sur l'iPhone : Réglages > Général > VPN et gestion de l'appareil > son identifiant Apple > Faire confiance."))}
+    ${etape(6, tr("Ouvrir Ranger Rumble."))}
+    <div class="message note">${SVG.synchro} ${h(tr("Avec un compte Apple gratuit, l'app s'arrête au bout de 7 jours : refaire l'étape 4. La progression est gardée."))}</div>
+    <div class="boutons">
+      <button class="secondaire" data-action="iphone-site">${h(tr("Site de Sideloadly"))}</button>
+      ${ipa ? `<button class="secondaire" data-action="montrer" data-chemin="${h(ipa)}">${h(tr("Afficher l'IPA"))}</button>` : ""}
+    </div></div>`;
 }
 
 // Coming soon ------------------------------------------------------------------------------------------
@@ -1162,6 +1243,9 @@ const ACTIONS = {
   fabriquer: () => api("fabriquer", { jeu: E.reglages.official, sortie: E.reglages.output, sauvegarde: E.reglages.sauvegarde,
     nouvelle: !!E.reglages.nouvelle_partie, images: E.reglages.artworks }),
   installer: () => installer(E.reglages.output),
+  "iphone-preparer": () => api("iphone_preparer", { jeu: E.reglages.official, sauvegarde: E.reglages.sauvegarde,
+    nouvelle: !!E.reglages.nouvelle_partie, images: E.reglages.artworks }),
+  "iphone-site": () => api("iphone_site"),
   "maj-telephone": () => mettreAJourTelephone(),
   "maj-verifier": () => verifierMaj(),
   "maj-outil": () => api("maj_outil"),
@@ -1323,6 +1407,7 @@ async function demarrer() {
   ecouter();
   lister();
   chargerInfos();
+  lireIphone();
   setTimeout(() => { $("#ouverture").classList.add("parti"); $("#app").classList.add("pret"); placerSurligne(); }, 900 * duree());
   if (PARAMETRES.get("visite")) visite();
 }

@@ -238,6 +238,7 @@ img.cassee { visibility: hidden; }
 .retour:hover { background: var(--a1); color: var(--encre); }
 .retour svg { width: 15px; height: 15px; fill: currentColor; }
 .colonne { max-width: 980px; margin: 0 auto; padding: 22px 30px 30px; display: flex; flex-direction: column; gap: 20px; }
+.section .colonne { max-width: none; padding: 16px 0 30px; }
 .carte { position: relative; padding: 22px; }
 .carte h4 { margin: 0 0 14px; font-size: 18px; line-height: 1.15; }
 .carte h4.petit { font-size: 16px; }
@@ -254,6 +255,8 @@ img.cassee { visibility: hidden; }
 .message svg { width: 16px; fill: currentColor; }
 .message.ok { color: var(--vert); }
 .message.ko { color: var(--rouge); }
+.message.note { color: var(--doux); font-weight: 500; }
+.message + .boutons { margin-top: 14px; }
 
 /* The iPhone copy: steps, QR code, timeline */
 .etape { display: flex; gap: 12px; margin-bottom: 14px; font-size: 13.5px; }

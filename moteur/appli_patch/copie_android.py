@@ -9,6 +9,7 @@ import shutil
 import ssl
 import stat
 import subprocess
+import tempfile
 import time
 import urllib.request
 import zipfile
@@ -29,6 +30,11 @@ ID_LETTERS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
 QUIET = {'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}
 PHONE_TEMPORARY = '/data/local/tmp/rr_installation.apk'
 INSTALL_COPY_SHARE = 0.8
+ROOM_MARGIN = 700000000
+ROOM_WAIT = 60
+STALL_SECONDS = 60
+DIRECT_SECONDS = 120
+DIRECT_TIMEOUT = 900
 BUILTIN_CONFIG = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ressources', 'config_jeu.msgpack')
 NO_DATE = msgpack.Timestamp(-62135596800, 0)
 
@@ -103,13 +109,19 @@ def phones(adb: str) -> list[tuple[str, str, str]]:
     return found
 
 def install(adb: str, serial: str, apk: str, progress=None) -> None:
-    text = sent_install(adb, serial, apk, progress) if progress else None
+    size = os.path.getsize(apk)
+    free = free_space(adb, serial)
+    if free is None:
+        say(tr('Place libre sur le téléphone illisible.'))
+    else:
+        say(tr('Place libre sur le téléphone : {free} Go (APK : {size} Go).', free=gigabytes(free), size=gigabytes(size)))
+        if free < size + ROOM_MARGIN:
+            raise Problem(tr('Pas assez de place sur le téléphone (3 Go).'))
+    copied = bool(progress) and (free is None or free >= 2 * size + ROOM_MARGIN)
+    text = sent_install(adb, serial, apk, progress) if copied else None
     if text is None:
-        code, out, err = run(adb, '-s', serial, 'install', '-r', apk, timeout=900)
-        text = (out + err).strip()
-        if code == 0 and 'Success' in text:
-            return
-    elif text == 'Success':
+        text = direct_install(adb, serial, apk, progress, size + ROOM_MARGIN if copied else 0)
+    if text == 'Success':
         return
     if 'UPDATE_INCOMPATIBLE' in text or 'SIGNATURES_DO_NOT_MATCH' in text:
         raise OtherSignature(tr("Ranger Rumble est déjà sur le téléphone, signé par quelqu'un d'autre : il faut le désinstaller, puis recommencer."))
@@ -117,31 +129,92 @@ def install(adb: str, serial: str, apk: str, progress=None) -> None:
         raise Problem(tr('Pas assez de place sur le téléphone (3 Go).'))
     raise Problem(tr('Installation impossible : {v}', v=text[-300:]))
 
+def stalled() -> Problem:
+    return Problem(tr("La copie vers le téléphone est bloquée. Vérifier le câble, le brancher directement sur l'ordinateur, déverrouiller le téléphone et choisir « Transfert de fichiers », puis recommencer."))
+
 def no_room(answer: str) -> bool:
     return 'INSUFFICIENT_STORAGE' in answer or 'not enough space' in answer
 
+def gigabytes(size: int) -> str:
+    return f'{size / 1000000000.0:.1f}'
+
+def free_space(adb: str, serial: str) -> int | None:
+    try:
+        _, out, _ = run(adb, '-s', serial, 'shell', 'df', '-k', '/data', timeout=30)
+    except subprocess.TimeoutExpired:
+        return None
+    for line in reversed(out.splitlines()[1:]):
+        numbers = [part for part in line.split() if part.isdigit()]
+        if len(numbers) >= 3:
+            return int(numbers[2]) * 1024
+    return None
+
+def room(adb: str, serial: str, need: int, seconds: int) -> int | None:
+    end = time.monotonic() + seconds
+    free = free_space(adb, serial)
+    while free is not None and free < need and (time.monotonic() < end):
+        time.sleep(3)
+        free = free_space(adb, serial)
+    return free
+
+def phone_size(adb: str, serial: str) -> int | None:
+    try:
+        _, out, _ = run(adb, '-s', serial, 'shell', 'stat', '-c', '%s', PHONE_TEMPORARY, timeout=15)
+    except subprocess.TimeoutExpired:
+        return None
+    return int(out.strip()) if out.strip().isdigit() else None
+
+def direct_install(adb: str, serial: str, apk: str, progress, need: int=0) -> str:
+    say(tr('Installation directe...'))
+    if progress:
+        progress(0, direct=True)
+    if need:
+        room(adb, serial, need, ROOM_WAIT)
+    try:
+        code, out, err = run(adb, '-s', serial, 'install', '-r', apk, timeout=DIRECT_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        raise stalled()
+    text = (out + err).strip()
+    return 'Success' if code == 0 and 'Success' in text else text
+
 def sent_install(adb: str, serial: str, apk: str, progress) -> str | None:
     size = os.path.getsize(apk)
-    copying = subprocess.Popen([adb, '-s', serial, 'push', apk, PHONE_TEMPORARY], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **QUIET)
-    try:
-        while copying.poll() is None:
-            time.sleep(1)
-            _, out, _ = run(adb, '-s', serial, 'shell', 'stat', '-c', '%s', PHONE_TEMPORARY, timeout=30)
-            if out.strip().isdigit():
-                progress(min(int(out.strip()) / size, 1) * INSTALL_COPY_SHARE)
-        if copying.returncode != 0:
-            return None
-        progress(INSTALL_COPY_SHARE)
-        _, out, err = run(adb, '-s', serial, 'shell', 'pm', 'install', '-r', PHONE_TEMPORARY, timeout=900)
-        text = (out + err).strip()
-        if no_room(text):
-            return None
-        return 'Success' if 'Success' in text else text
-    finally:
-        if copying.poll() is None:
-            copying.kill()
-            copying.wait()
-        run(adb, '-s', serial, 'shell', 'rm', '-f', PHONE_TEMPORARY, timeout=60)
+    started = time.monotonic()
+    with tempfile.TemporaryFile() as said:
+        copying = subprocess.Popen([adb, '-s', serial, 'push', apk, PHONE_TEMPORARY], stdout=said, stderr=subprocess.STDOUT, **QUIET)
+        try:
+            copied, moved = (0, started)
+            while copying.poll() is None:
+                time.sleep(1)
+                now = phone_size(adb, serial)
+                if now is not None and now > copied:
+                    copied, moved = (now, time.monotonic())
+                    progress(min(copied / size, 1) * INSTALL_COPY_SHARE)
+                elif time.monotonic() - moved >= STALL_SECONDS:
+                    say(tr('Copie bloquée à {percent} % depuis {seconds} s.', percent=copied * 100 // size, seconds=round(time.monotonic() - moved)))
+                    raise stalled()
+            said.seek(0)
+            answer = said.read().decode('utf-8', 'replace').strip()
+            if copying.returncode != 0:
+                say(tr('Copie interrompue (code {code}) : {error}', code=copying.returncode, error=answer[-300:] or '-'))
+                return None
+            spent = max(time.monotonic() - started, 1)
+            say(tr('Copie finie en {seconds} s ({speed} Mo/s).', seconds=round(spent), speed=round(size / 1000000.0 / spent)))
+            progress(INSTALL_COPY_SHARE)
+            _, out, err = run(adb, '-s', serial, 'shell', 'pm', 'install', '-r', PHONE_TEMPORARY, timeout=900)
+            text = (out + err).strip()
+            if no_room(text):
+                say(tr('Réponse du téléphone : {text}', text=text[-300:]))
+                return None
+            return 'Success' if 'Success' in text else text
+        finally:
+            if copying.poll() is None:
+                copying.kill()
+                copying.wait()
+            try:
+                run(adb, '-s', serial, 'shell', 'rm', '-f', PHONE_TEMPORARY, timeout=30)
+            except (OSError, subprocess.SubprocessError):
+                pass
 
 def new_player_id() -> str:
     return random_text(ID_LETTERS, 8)

@@ -60,7 +60,7 @@ class Bar:
         self.frame = ttk.Frame(parent)
         self.bar = ttk.Progressbar(self.frame, mode='determinate', length=240, maximum=100)
         self.bar.pack(side='left')
-        self.text = ttk.Label(self.frame, width=18)
+        self.text = ttk.Label(self.frame, width=-18)
         self.text.pack(side='left', padx=8)
         self.what = ''
         self.start = self.goal = 0.0
@@ -87,8 +87,11 @@ class Bar:
         elif number == 6:
             self.set(100)
 
-    def sending(self, fraction):
-        if fraction >= 0.8:
+    def sending(self, fraction, direct=False):
+        if direct:
+            self.what = tr('Installation directe...')
+            self.set(0, 99, copie_android.DIRECT_SECONDS)
+        elif fraction >= 0.8:
             self.set(80, 99, 8)
         else:
             self.set(fraction * 100)
@@ -568,7 +571,7 @@ class Application:
             open_folder(Path(out).parent)
 
     def sending(self, bar):
-        return lambda fraction: self.later(bar.sending, fraction)
+        return lambda fraction, direct=False: self.later(bar.sending, fraction, direct)
 
     def busy(self, on):
         for button in (self.build_button, self.install_button):

@@ -21,6 +21,7 @@ KEPT = ('moteur', 'Sauvegardes')
 DOWNLOAD_SHARE = 0.85
 EDITOR_FOLDER = copie_android.EDITOR_FOLDER
 APK_SAVE = 'assets/rr_offline/save.msgpack'
+APK_VERSION = 'assets/rr_offline/version.json'
 _SETTINGS_LOCK = threading.Lock()
 
 class Problem(Exception):
@@ -181,6 +182,14 @@ def phone_game_version(adb: str, serial: str):
     try:
         info = json.loads(out)
     except ValueError:
+        return None
+    return info.get('jeu') or info.get('version') if isinstance(info, dict) else None
+
+def apk_game_version(apk: str):
+    try:
+        with zipfile.ZipFile(apk) as archive:
+            info = json.loads(archive.read(APK_VERSION))
+    except (OSError, KeyError, ValueError, zipfile.BadZipFile):
         return None
     return info.get('jeu') or info.get('version') if isinstance(info, dict) else None
 

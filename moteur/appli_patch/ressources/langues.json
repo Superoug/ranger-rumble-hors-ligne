@@ -4723,5 +4723,222 @@
   "de": "Kein Update.",
   "it": "Nessun aggiornamento.",
   "pt": "Nenhuma atualização."
+ },
+ "Préparation pour iPhone": {
+  "en": "Preparing for iPhone",
+  "es": "Preparación para iPhone",
+  "de": "Vorbereitung für iPhone",
+  "it": "Preparazione per iPhone",
+  "pt": "Preparação para iPhone"
+ },
+ "Préparer pour iPhone": {
+  "en": "Prepare for iPhone",
+  "es": "Preparar para iPhone",
+  "de": "Für iPhone vorbereiten",
+  "it": "Preparare per iPhone",
+  "pt": "Preparar para iPhone"
+ },
+ "Afficher l'IPA": {
+  "en": "Show the IPA",
+  "es": "Mostrar el IPA",
+  "de": "IPA anzeigen",
+  "it": "Mostrare l'IPA",
+  "pt": "Mostrar o IPA"
+ },
+ "IPA prête": {
+  "en": "IPA ready",
+  "es": "IPA lista",
+  "de": "IPA bereit",
+  "it": "IPA pronta",
+  "pt": "IPA pronto"
+ },
+ "L'IPA est prête": {
+  "en": "The IPA is ready",
+  "es": "El IPA está listo",
+  "de": "Die IPA ist bereit",
+  "it": "L'IPA è pronta",
+  "pt": "O IPA está pronto"
+ },
+ "L'IPA est prête : {path}": {
+  "en": "The IPA is ready: {path}",
+  "es": "El IPA está listo: {path}",
+  "de": "Die IPA ist bereit: {path}",
+  "it": "L'IPA è pronta: {path}",
+  "pt": "O IPA está pronto: {path}"
+ },
+ "À installer avec Sideloadly.": {
+  "en": "Install it with Sideloadly.",
+  "es": "Instalarlo con Sideloadly.",
+  "de": "Mit Sideloadly installieren.",
+  "it": "Da installare con Sideloadly.",
+  "pt": "Instalar com o Sideloadly."
+ },
+ "Préparée le {d}, {n} Go": {
+  "en": "Prepared on {d}, {n} GB",
+  "es": "Preparada el {d}, {n} GB",
+  "de": "Vorbereitet am {d}, {n} GB",
+  "it": "Preparata il {d}, {n} GB",
+  "pt": "Preparado em {d}, {n} GB"
+ },
+ "INSTALLATION AVEC SIDELOADLY": {
+  "en": "INSTALLING WITH SIDELOADLY",
+  "es": "INSTALACIÓN CON SIDELOADLY",
+  "de": "INSTALLATION MIT SIDELOADLY",
+  "it": "INSTALLAZIONE CON SIDELOADLY",
+  "pt": "INSTALAÇÃO COM O SIDELOADLY"
+ },
+ "Installer Sideloadly sur cet ordinateur (gratuit).": {
+  "en": "Install Sideloadly on this computer (free).",
+  "es": "Instalar Sideloadly en este ordenador (gratis).",
+  "de": "Sideloadly auf diesem Computer installieren (kostenlos).",
+  "it": "Installare Sideloadly su questo computer (gratis).",
+  "pt": "Instalar o Sideloadly neste computador (grátis)."
+ },
+ "Brancher l'iPhone par câble, le déverrouiller, puis « Se fier » à cet ordinateur.": {
+  "en": "Plug the iPhone in with a cable, unlock it, then “Trust” this computer.",
+  "es": "Conectar el iPhone con un cable, desbloquearlo y luego «Confiar» en este ordenador.",
+  "de": "Das iPhone per Kabel anschließen, entsperren, dann diesem Computer „Vertrauen“.",
+  "it": "Collegare l'iPhone con un cavo, sbloccarlo, poi «Autorizza» questo computer.",
+  "pt": "Conectar o iPhone com um cabo, desbloqueá-lo e depois “Confiar” neste computador."
+ },
+ "Sur l'iPhone : Réglages > Confidentialité et sécurité > Mode développeur : activer, puis redémarrer.": {
+  "en": "On the iPhone: Settings > Privacy & Security > Developer Mode: turn on, then restart.",
+  "es": "En el iPhone: Ajustes > Privacidad y seguridad > Modo de desarrollador: activar y reiniciar.",
+  "de": "Auf dem iPhone: Einstellungen > Datenschutz & Sicherheit > Entwicklermodus: einschalten, dann neu starten.",
+  "it": "Sull'iPhone: Impostazioni > Privacy e sicurezza > Modalità sviluppatore: attivare, poi riavviare.",
+  "pt": "No iPhone: Ajustes > Privacidade e Segurança > Modo de Desenvolvedor: ativar e reiniciar."
+ },
+ "Dans Sideloadly : glisser l'IPA, choisir l'iPhone, saisir son identifiant Apple, puis Start.": {
+  "en": "In Sideloadly: drop the IPA, choose the iPhone, enter your Apple Account, then Start.",
+  "es": "En Sideloadly: arrastrar el IPA, elegir el iPhone, escribir la cuenta de Apple y luego Start.",
+  "de": "In Sideloadly: die IPA hineinziehen, das iPhone wählen, den Apple Account eingeben, dann Start.",
+  "it": "In Sideloadly: trascinare l'IPA, scegliere l'iPhone, inserire l'Account Apple, poi Start.",
+  "pt": "No Sideloadly: arrastar o IPA, escolher o iPhone, digitar a Conta Apple e depois Start."
+ },
+ "Sur l'iPhone : Réglages > Général > VPN et gestion de l'appareil > son identifiant Apple > Faire confiance.": {
+  "en": "On the iPhone: Settings > General > VPN & Device Management > your Apple Account > Trust.",
+  "es": "En el iPhone: Ajustes > General > VPN y gestión de dispositivos > la cuenta de Apple > Confiar.",
+  "de": "Auf dem iPhone: Einstellungen > Allgemein > VPN und Geräteverwaltung > der Apple Account > Vertrauen.",
+  "it": "Sull'iPhone: Impostazioni > Generali > VPN e gestione dispositivi > l'Account Apple > Autorizza.",
+  "pt": "No iPhone: Ajustes > Geral > VPN e Gerenciamento de Dispositivos > a Conta Apple > Confiar."
+ },
+ "Ouvrir Ranger Rumble.": {
+  "en": "Open Ranger Rumble.",
+  "es": "Abrir Ranger Rumble.",
+  "de": "Ranger Rumble öffnen.",
+  "it": "Aprire Ranger Rumble.",
+  "pt": "Abrir o Ranger Rumble."
+ },
+ "Avec un compte Apple gratuit, l'app s'arrête au bout de 7 jours : refaire l'étape 4. La progression est gardée.": {
+  "en": "With a free Apple Account, the app stops after 7 days: do step 4 again. Progress is kept.",
+  "es": "Con una cuenta de Apple gratuita, la app se detiene a los 7 días: repetir el paso 4. El progreso se conserva.",
+  "de": "Mit einem kostenlosen Apple Account läuft die App nach 7 Tagen ab: Schritt 4 wiederholen. Der Fortschritt bleibt.",
+  "it": "Con un Account Apple gratuito, l'app si ferma dopo 7 giorni: rifare il passo 4. I progressi restano.",
+  "pt": "Com uma Conta Apple gratuita, o app para após 7 dias: refazer a etapa 4. O progresso é mantido."
+ },
+ "Site de Sideloadly": {
+  "en": "Sideloadly website",
+  "es": "Web de Sideloadly",
+  "de": "Sideloadly-Website",
+  "it": "Sito di Sideloadly",
+  "pt": "Site do Sideloadly"
+ },
+ "Assemblage de l'IPA...": {
+  "en": "Putting the IPA together...",
+  "es": "Montando el IPA...",
+  "de": "IPA wird zusammengestellt...",
+  "it": "Assemblaggio dell'IPA...",
+  "pt": "Montando o IPA..."
+ },
+ "Conversion de {name} impossible : {error}": {
+  "en": "Could not convert {name}: {error}",
+  "es": "No se pudo convertir {name}: {error}",
+  "de": "{name} konnte nicht umgewandelt werden: {error}",
+  "it": "Impossibile convertire {name}: {error}",
+  "pt": "Não foi possível converter {name}: {error}"
+ },
+ "Conversion pour iPhone : {name}": {
+  "en": "Converting for iPhone: {name}",
+  "es": "Conversión para iPhone: {name}",
+  "de": "Umwandlung für iPhone: {name}",
+  "it": "Conversione per iPhone: {name}",
+  "pt": "Conversão para iPhone: {name}"
+ },
+ "Des fichiers du jeu pour iPhone manquent dans l'outil.": {
+  "en": "Some iPhone game files are missing from the tool.",
+  "es": "Faltan archivos del juego para iPhone en la herramienta.",
+  "de": "Im Tool fehlen Dateien des iPhone-Spiels.",
+  "it": "Mancano file del gioco per iPhone nello strumento.",
+  "pt": "Faltam arquivos do jogo para iPhone na ferramenta."
+ },
+ "Le jeu fabriqué n'a pas ses bibliothèques ARM64.": {
+  "en": "The built game has no ARM64 libraries.",
+  "es": "El juego creado no tiene sus bibliotecas ARM64.",
+  "de": "Dem erstellten Spiel fehlen die ARM64-Bibliotheken.",
+  "it": "Il gioco creato non ha le librerie ARM64.",
+  "pt": "O jogo criado não tem as bibliotecas ARM64."
+ },
+ "Conversion": {
+  "en": "Conversion",
+  "es": "Conversión",
+  "de": "Umwandlung",
+  "it": "Conversione",
+  "pt": "Conversão"
+ },
+ "La copie vers le téléphone est bloquée. Vérifier le câble, le brancher directement sur l'ordinateur, déverrouiller le téléphone et choisir « Transfert de fichiers », puis recommencer.": {
+  "en": "The copy to the phone is stuck. Check the cable, plug it straight into the computer, unlock the phone and choose “File transfer”, then try again.",
+  "es": "La copia al teléfono está bloqueada. Revisa el cable, conéctalo directamente al ordenador, desbloquea el teléfono y elige «Transferencia de archivos»; luego vuelve a intentarlo.",
+  "de": "Die Kopie aufs Handy hängt. Kabel prüfen, direkt am Computer anschließen, Handy entsperren und „Dateiübertragung“ wählen, dann neu starten.",
+  "it": "La copia sul telefono è bloccata. Controlla il cavo, collegalo direttamente al computer, sblocca il telefono e scegli «Trasferimento file», poi riprova.",
+  "pt": "A cópia para o celular travou. Verifique o cabo, ligue-o direto no computador, desbloqueie o celular e escolha “Transferência de arquivos”, depois tente de novo."
+ },
+ "Installation directe...": {
+  "en": "Direct install...",
+  "es": "Instalación directa...",
+  "de": "Direktinstallation...",
+  "it": "Installazione diretta...",
+  "pt": "Instalação direta..."
+ },
+ "Place libre sur le téléphone : {free} Go (APK : {size} Go).": {
+  "en": "Free space on the phone: {free} GB (APK: {size} GB).",
+  "es": "Espacio libre en el teléfono: {free} GB (APK: {size} GB).",
+  "de": "Freier Platz auf dem Handy: {free} GB (APK: {size} GB).",
+  "it": "Spazio libero sul telefono: {free} GB (APK: {size} GB).",
+  "pt": "Espaço livre no celular: {free} GB (APK: {size} GB)."
+ },
+ "Place libre sur le téléphone illisible.": {
+  "en": "Free space on the phone unreadable.",
+  "es": "No se pudo leer el espacio libre del teléfono.",
+  "de": "Freier Platz auf dem Handy nicht lesbar.",
+  "it": "Spazio libero sul telefono illeggibile.",
+  "pt": "Espaço livre no celular ilegível."
+ },
+ "Copie bloquée à {percent} % depuis {seconds} s.": {
+  "en": "Copy stuck at {percent} % for {seconds} s.",
+  "es": "Copia bloqueada en {percent} % desde hace {seconds} s.",
+  "de": "Kopie hängt seit {seconds} s bei {percent} %.",
+  "it": "Copia bloccata al {percent} % da {seconds} s.",
+  "pt": "Cópia travada em {percent} % há {seconds} s."
+ },
+ "Copie interrompue (code {code}) : {error}": {
+  "en": "Copy stopped (code {code}): {error}",
+  "es": "Copia interrumpida (código {code}): {error}",
+  "de": "Kopie abgebrochen (Code {code}): {error}",
+  "it": "Copia interrotta (codice {code}): {error}",
+  "pt": "Cópia interrompida (código {code}): {error}"
+ },
+ "Copie finie en {seconds} s ({speed} Mo/s).": {
+  "en": "Copy done in {seconds} s ({speed} MB/s).",
+  "es": "Copia terminada en {seconds} s ({speed} MB/s).",
+  "de": "Kopie fertig in {seconds} s ({speed} MB/s).",
+  "it": "Copia finita in {seconds} s ({speed} MB/s).",
+  "pt": "Cópia concluída em {seconds} s ({speed} MB/s)."
+ },
+ "Réponse du téléphone : {text}": {
+  "en": "Phone's answer: {text}",
+  "es": "Respuesta del teléfono: {text}",
+  "de": "Antwort des Handys: {text}",
+  "it": "Risposta del telefono: {text}",
+  "pt": "Resposta do celular: {text}"
  }
 }

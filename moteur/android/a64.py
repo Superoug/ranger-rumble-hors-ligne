@@ -1,7 +1,7 @@
 import re
 import struct
 TEXT_DELTA = 16384
-CONDITIONS = {'eq': 0, 'ne': 1, 'hs': 2, 'lo': 3, 'ge': 10, 'lt': 11, 'gt': 12, 'le': 13}
+CONDITIONS = {'eq': 0, 'ne': 1, 'hs': 2, 'lo': 3, 'hi': 8, 'ls': 9, 'ge': 10, 'lt': 11, 'gt': 12, 'le': 13}
 
 def word(value):
     return struct.pack('<I', value & 4294967295)

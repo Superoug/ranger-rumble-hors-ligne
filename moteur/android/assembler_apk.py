@@ -220,6 +220,23 @@ def add_modelled_costumes(apk, game):
     if worn:
         apk.add(OFFLINE + 'costumes.txt', '\n'.join(map(str, worn)).encode())
         print(f'costumes avec modele : {worn}')
+HERO_POWER_RARITIES = {(3000, 900): ('SANDY', 'CHIP', 'SPROCKET', 'TERRY', 'FLARE', 'NAKARI'), (3900, 850): ('FUSE', 'LIL_ANN', 'LUMP', 'MARKUS', 'RAIDEN', 'HELEN', 'MOLLY', 'CRUMBY'), (4800, 800): ('CELESTE', 'CHANCE', 'GRIMSHOT', 'STEELJAW', 'ZEDONE', 'RATCHET')}
+JUYCEE_SKINS = (83, 84, 86, 109, 41)
+
+def add_hero_powers(apk, game):
+    powers = {name: power for power, names in HERO_POWER_RARITIES.items() for name in names}
+    powers['AVATAR'] = (4800, 800) if game.has_model('rivet') else (3000, 900)
+    ids = skin_ids()
+    lines = {}
+    for key, skin in ids.items():
+        hero = re.sub('_SKIN\\d+(_DEPRECATED)?$', '', key[len('SKIN_'):])
+        base = ids.get(f'SKIN_{hero}_SKIN00')
+        if hero in powers and base is not None:
+            lines[skin] = (base, *powers[hero])
+    if game.has_model('juycee'):
+        for skin in JUYCEE_SKINS:
+            lines[skin] = (JUYCEE_SKINS[0], 4800, 800)
+    apk.add(OFFLINE + 'puissances.txt', '\n'.join((f'{skin} {base} {first} {step}' for skin, (base, first, step) in sorted(lines.items()))).encode())
 BOLT_RUSH_MODE = 114
 BOLT_KING_MODE = 131
 BOLT_RUSH_SOLO_MODE = 68
@@ -699,6 +716,7 @@ def edit_config(apk, game, config, release):
         shop_without_cdn_skins(config)
     else:
         add_modelled_costumes(apk, game)
+        add_hero_powers(apk, game)
         if os.environ.get('RR_BOLT_RUSH', '1') == '1':
             add_bolt_rush_mode(config)
             if os.environ.get('RR_EVENEMENTS', '1') == '1':

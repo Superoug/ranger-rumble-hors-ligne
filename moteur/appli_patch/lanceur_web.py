@@ -26,7 +26,7 @@ def main() -> None:
     if found:
         PROFILE.mkdir(parents=True, exist_ok=True)
         quiet = {'creationflags': subprocess.CREATE_NO_WINDOW} if os.name == 'nt' else {}
-        subprocess.Popen([found, f'--app={url}', f'--user-data-dir={PROFILE}', '--window-size=1260,840', '--force-dark-mode', '--no-first-run', '--no-default-browser-check', '--disable-sync', '--disable-features=Translate,msEdgeSidebarV2,msHubApps'], **quiet)
+        subprocess.Popen([found, f'--app={url}', f'--user-data-dir={PROFILE}', '--window-size=1260,840', '--no-first-run', '--no-default-browser-check', '--disable-sync', '--disable-features=Translate,msEdgeSidebarV2,msHubApps'], **quiet)
     else:
         webbrowser.open(url)
     service.serve(server, 'fenetre')
