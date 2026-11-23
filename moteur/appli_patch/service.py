@@ -146,12 +146,24 @@ class Output(io.TextIOBase):
             number = int(step.group(1))
             what = {'ordinateur': tr('Préparation pour Mac'), 'iphone': tr('Préparation pour iPhone')}.get(WORK.name, tr('Fabrication'))
             share = IPHONE_SHARE if WORK.name == 'iphone' else 1
-            if number in commun.BUILD_STEPS:
+            commun.DETAILS_LISTENER = None
+            if number in commun.DETAIL_LINES:
+                follow = following_details(*commun.BUILD_STEPS[number][:2], commun.DETAIL_LINES[number], share, what, number)
+                follow(0)
+                commun.DETAILS_LISTENER = follow
+            elif number in commun.BUILD_STEPS:
                 start, goal, seconds = commun.BUILD_STEPS[number]
                 bar(start * share, goal * share, seconds / 2, what, number)
             elif number == LAST_STEP:
                 bar(100 * share, 100 * share, 0, what, jeu_ios.STEP_CONVERSION if share < 1 else LAST_STEP)
         BUS.send('journal', texte=text, tache=WORK.name)
+
+def following_details(start: float, goal: float, expected: int, share: float, what: str, step: int):
+
+    def moved(lines: int) -> None:
+        done, coming = (min(lines / expected, 0.97), min((lines + 3) / expected, 0.98))
+        bar((start + (goal - start) * done) * share, (start + (goal - start) * coming) * share, 30, what, step)
+    return moved
 
 def bar(start: float, goal: float, seconds: float, what: str, step: int | None=None) -> None:
     BUS.send('barre', tache=WORK.name, debut=start, but=goal, secondes=seconds, texte=what, etape=step)
@@ -798,7 +810,11 @@ def cmd_maj_telephone(body):
             save = exported
         else:
             raise SystemExit(tr("La sauvegarde du téléphone n'a pas pu être lue."))
-        patcher.build(official, out, save=save, artworks=artworks if artworks and os.path.isdir(artworks) else None, work=work_folder(out))
+        commun.DETAILS_ECHO = lambda line: BUS.send('journal', texte=line, tache='maj_telephone')
+        try:
+            patcher.build(official, out, save=save, artworks=artworks if artworks and os.path.isdir(artworks) else None, work=work_folder(out))
+        finally:
+            commun.DETAILS_ECHO = None
         print(tr('Installation sur le téléphone...'))
         bar(0, 0, 0, tr('Installation'))
         try:
@@ -1417,6 +1433,7 @@ def main():
     args = parser.parse_args()
     os.chdir(commun.BASE if commun.BASE.is_dir() else Path.home())
     remove_old_mac_app()
+    threading.Thread(target=mises_a_jour.clean_after_update, args=(str(commun.ROOT),), daemon=True).start()
     server = new_server(args.port, args.jeton)
     sys.stdout.write(json.dumps({'port': server.server_port, 'jeton': server.key}) + '\n')
     sys.stdout.flush()

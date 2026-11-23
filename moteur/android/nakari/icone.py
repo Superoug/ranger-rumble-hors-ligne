@@ -197,7 +197,7 @@ def patch_atlases(data, portraits=None):
     import UnityPy
     picture = nakari_picture(bytes(data), portraits)
     if picture is None:
-        print('icone de Nakari : image absente, laissee de cote')
+        print('Nakari icon: picture missing, skipped')
         return False
     env = UnityPy.load(bytes(data))
     objects = {o.path_id: o for o in env.objects}
@@ -216,7 +216,7 @@ def patch_atlases(data, portraits=None):
         tree['m_SpriteAtlas'] = {'m_FileID': 0, 'm_PathID': 0}
         unity.full_rect_sprite(tree, TEXTURE, *picture.size)
     add_copies(data, env, {TEXTURE: (TEXTURE_TEMPLATE, texture_edit), SPRITE: (SPIN_SPRITE, sprite_edit)})
-    print(f'icone de Nakari : image {picture.size[0]} x {picture.size[1]} dans ui_atlases')
+    print(f'Nakari icon: picture {picture.size[0]} x {picture.size[1]} in ui_atlases')
     return True
 
 def patch_ultimates(data):
@@ -239,7 +239,7 @@ def patch_ultimates(data):
         for field in ('UltimateAbilityIcon', 'UltimateAbilityIcon_Small'):
             tree[field] = {'m_FileID': atlases, 'm_PathID': SPRITE}
     add_copies(data, env, {SPEC_COPY: (SABRE_SPEC, spec_edit)})
-    print(f'icone de Nakari : copie de Q_Sabre_UltimateWeaponSpec ({SPEC_COPY})')
+    print(f'Nakari icon: copy of Q_Sabre_UltimateWeaponSpec ({SPEC_COPY})')
     return True
 
 def nakari_ultimate(characters):

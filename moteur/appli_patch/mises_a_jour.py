@@ -4,6 +4,8 @@ import json
 import os
 import re
 import shutil
+import stat
+import sys
 import tempfile
 import threading
 import zipfile
@@ -189,10 +191,28 @@ def unpacked_tool(archive: str, unpacked: str, version: str) -> str:
         if json.load(handle).get('version') != version:
             raise Problem(tr("Le fichier téléchargé n'est pas la version annoncée."))
     return new
+WINDOWS = os.name == 'nt'
+
+def remove_tree(path: str) -> None:
+
+    def writable_again(function, name, _):
+        for target in (os.path.dirname(name), name):
+            try:
+                os.chmod(target, stat.S_IWRITE | stat.S_IREAD | stat.S_IEXEC)
+            except OSError:
+                pass
+        function(name)
+    if os.path.isdir(path):
+        shutil.rmtree(path, **{'onexc': writable_again} if sys.version_info >= (3, 12) else {'onerror': writable_again})
+
+def clean_after_update(root: str) -> None:
+    old_engine = os.path.join(root, ENGINE + '.ancien')
+    if os.path.isdir(old_engine) and os.path.isfile(os.path.join(root, ENGINE, 'appli_patch', 'version.json')):
+        shutil.rmtree(old_engine, ignore_errors=True)
 
 def install_tool(new: str, root: str) -> None:
     engine, old_engine = (os.path.join(root, ENGINE), os.path.join(root, ENGINE + '.ancien'))
-    shutil.rmtree(old_engine, ignore_errors=True)
+    remove_tree(old_engine)
     os.replace(engine, old_engine)
     try:
         shutil.copytree(os.path.join(new, ENGINE), engine)
@@ -203,8 +223,9 @@ def install_tool(new: str, root: str) -> None:
     for name in os.listdir(new):
         source, target = (os.path.join(new, name), os.path.join(root, name))
         if name.endswith('.app') and os.path.isdir(source):
-            shutil.rmtree(target, ignore_errors=True)
-            shutil.copytree(source, target)
+            if not WINDOWS:
+                remove_tree(target)
+                shutil.copytree(source, target, dirs_exist_ok=True)
         elif name not in KEPT and os.path.isfile(source):
             shutil.copy2(source, target + '.nouveau')
             os.replace(target + '.nouveau', target)

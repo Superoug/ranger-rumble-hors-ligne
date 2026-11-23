@@ -219,7 +219,7 @@ def add_modelled_costumes(apk, game):
     worn = sorted((ids[key] for name in game.skins_with_model if name.split('_')[0] in HIDDEN_HEROES for key in (f'SKIN_{name}', f'SKIN_{name}_DEPRECATED') if key in ids))
     if worn:
         apk.add(OFFLINE + 'costumes.txt', '\n'.join(map(str, worn)).encode())
-        print(f'costumes avec modele : {worn}')
+        print(f'costumes with a model: {worn}')
 HERO_POWER_RARITIES = {(3000, 900): ('SANDY', 'CHIP', 'SPROCKET', 'TERRY', 'FLARE', 'NAKARI'), (3900, 850): ('FUSE', 'LIL_ANN', 'LUMP', 'MARKUS', 'RAIDEN', 'HELEN', 'MOLLY', 'CRUMBY'), (4800, 800): ('CELESTE', 'CHANCE', 'GRIMSHOT', 'STEELJAW', 'ZEDONE', 'RATCHET')}
 JUYCEE_SKINS = (83, 84, 86, 109, 41)
 
@@ -266,7 +266,7 @@ def allow_squads(config):
         for entry in settings['GameModeConfigs']:
             entry['forceOffline'] = entry['gameModeId'] in OFFLINE_ONLY_MODES
     shared = sum((1 for entry in settings['GameModeConfigs'] if not entry['forceOffline']))
-    print(f'modes jouables en groupe : {shared}')
+    print(f'modes playable in squads: {shared}')
     item = config_item(config, 'eventseconomydata')
     table = json.loads(item['value'])
     opened = []
@@ -277,8 +277,9 @@ def allow_squads(config):
             opened.append(event['id'])
     if opened:
         store(item, table)
-    print(f'evenements ouverts au groupe : {opened}')
+    print(f'events open to squads: {opened}')
 GALLERY_URL = 'rrgalerie://artworks'
+UPDATE_CHECK_URL = 'rrmaj://verifier'
 PICTURES = ('.png', '.jpg', '.jpeg', '.webp', '.gif', '.bmp')
 
 def open_gallery(config):
@@ -287,6 +288,7 @@ def open_gallery(config):
         return
     value = json.loads(item['value'])
     value['URLInstagram'] = GALLERY_URL
+    value['URLTikTok'] = UPDATE_CHECK_URL
     store(item, value)
 
 def files_under(folder):
@@ -332,7 +334,7 @@ def add_gallery(apk, game):
     arrow = game.gallery_arrow()
     if arrow:
         apk.add(OFFLINE + 'galerie/fleche.png', arrow)
-    print(f'galerie : {book or pictures} images' + (' (artbook)' if book else '') + (', fleches du jeu' if arrow else ''))
+    print(f'gallery: {book or pictures} pictures' + (' (artbook)' if book else '') + (', game arrows' if arrow else ''))
 ZURKON_EVENT = 1
 RANDOM_WEAPON_EVENT = 2
 RESCUE_MOPZ_EVENT = 3
@@ -415,13 +417,13 @@ def add_cinematic_heroes(apk, game, config):
     if game.has_model('wendy'):
         open_cinematic_hero(config, WENDY_CHARACTER, WENDY_SKIN, 'SKIN_STEELJAW_SKIN00', 'Lorbs_Wendy_300', hidden=not WENDY_VISIBLE)
         apk.add(OFFLINE + 'wendy', str(WENDY_SKIN).encode())
-        print('Wendy : heroine a part (personnage STEELJAW)' + ('' if WENDY_VISIBLE else ', cachee'))
+        print('Wendy: hero of her own (character STEELJAW)' + ('' if WENDY_VISIBLE else ', hidden'))
     if game.has_model('rivet'):
         open_cinematic_hero(config, RIVET_CHARACTER, RIVET_SKIN, 'SKIN_AVATAR_SKIN00', 'Lorbs_Rivet_300', sold=True)
-        print('Rivet : heroine a part (personnage AVATAR)')
+        print('Rivet: hero of her own (character AVATAR)')
     if game.has_model('juycee'):
         open_cinematic_hero(config, JUYCEE_CHARACTER, JUYCEE_SKIN, 'SKIN_JUYCEE_SKIN00', 'Lorbs_Juycee_300', CHANCE_CHARACTER, CHANCE_SKIN, 'SKIN_CHANCE_SKIN00')
-        print('Juycee : heroine a part (personnage 23)')
+        print('Juycee: hero of her own (character 23)')
 CORES_PRICE = 100
 DAILY_RARITANIUM = {3: 15, 7: 25}
 
@@ -458,8 +460,8 @@ def shop_adjustments(config):
         on_roads = skins_on_roads(decoded(config, 'medalrun'))
         freed = [skin for skin in shop['skinsForbiddenInShop'] if skin not in on_roads]
         shop['skinsForbiddenInShop'] = [skin for skin in shop['skinsForbiddenInShop'] if skin in on_roads]
-    print(f'boutique : Power cores a {CORES_PRICE} Raritanium, {removed} offres retirees (orbes de heros, plans du fleau)')
-    print(f'boutique : costumes du passe de saison remis dans les offres du jour {freed}')
+    print(f'shop: Power cores at {CORES_PRICE} Raritanium, {removed} offers removed (hero orbs, flail plans)')
+    print(f'shop: season pass costumes back in the daily offers {freed}')
 HEADHUNTER = 11
 HEADHUNTER_OFFER = 'Weapon_Headhunter'
 WEAPON_OFFER_MODEL = 'Blueprints_ScorpionFlail_100'
@@ -479,7 +481,7 @@ def headhunter_offer(config):
     offer['ignoreOfferIfAnyWeaponAlreadyOwned'] = [HEADHUNTER]
     offers.append(offer)
     store(item, shop)
-    print(f"boutique : offre Headhunter desactivee (offre {offer['uniqueID']['_internalPackedID']:#x})")
+    print(f"shop: Headhunter offer off (offer {offer['uniqueID']['_internalPackedID']:#x})")
 HERO_SHEET_PRICE = 750
 
 def hero_sheet_price(config):
@@ -488,7 +490,7 @@ def hero_sheet_price(config):
             if price['costData']['currencyId'] != RARITANIUM:
                 raise SystemExit('prix des heros : monnaie inattendue')
             price['costData']['cost'] = HERO_SHEET_PRICE
-    print(f'heros a acheter sur leur fiche : {HERO_SHEET_PRICE} Raritanium')
+    print(f'heroes for sale on their sheet: {HERO_SHEET_PRICE} Raritanium')
 OWNERLESS_WEAPONS = {106: ('WP_ENFORCER', 'Weapon_Enforcer'), 115: ('WP_PLASMASTRIKER', 'Weapon_PlasmaStriker'), 9: ('WP_SCORPIONFLAIL_DEPRECATED', 'Weapon_ScorpionFlail')}
 OWNERLESS_PRICE = 250
 
@@ -509,7 +511,7 @@ def ownerless_weapon_offers(config):
             offer['contentLoots'] = [loot(WEAPON_UNLOCK, unlockable=weapon)]
             offer['ignoreOfferIfAnyWeaponAlreadyOwned'] = [weapon]
             offers.append(offer)
-    print(f'boutique : armes sans heros {sorted(OWNERLESS_WEAPONS)}')
+    print(f'shop: weapons without a hero {sorted(OWNERLESS_WEAPONS)}')
 QREDITS_PER_RARITANIUM = 40
 QREDIT_PLAN_OFFERS = ('DailyBlueprints_Qredits1', 'DailyBlueprints_Qredits2')
 RARITANIUM_FOR_QREDITS = {25: 1000, 50: 2200, 100: 4800}
@@ -528,7 +530,7 @@ def qredit_plan_offers(config):
                 choice['costData'] = dict(cost, currencyId=CREDITS, cost=cost['cost'] * QREDITS_PER_RARITANIUM)
             offer['costData'] = offer['weightedContentLoots'][0]['costData']
             offers.append(offer)
-    print(f'boutique : 2 offres de plans en Qredits ({QREDITS_PER_RARITANIUM} Qredits le Raritanium)')
+    print(f'shop: 2 plan offers in Qredits ({QREDITS_PER_RARITANIUM} Qredits per Raritanium)')
 
 def raritanium_for_qredits(config):
     with edited(config, 'shopdata') as shop:
@@ -542,14 +544,14 @@ def raritanium_for_qredits(config):
             offer['costData'] = dict(model['costData'], currencyId=CREDITS, cost=price)
             offer['contentLoots'] = [loot(CURRENCY, amount, currency=RARITANIUM)]
             offers.append(offer)
-    print(f'boutique : Raritanium contre Qredits {RARITANIUM_FOR_QREDITS}')
+    print(f'shop: Raritanium for Qredits {RARITANIUM_FOR_QREDITS}')
 
 def exchanges_last(config):
     with edited(config, 'shopdata') as shop:
         offers = shop['shopOffers']
         exchanges = [offer_named(offers, name) for name in EXCHANGE_OFFERS]
         shop['shopOffers'] = [o for o in offers if o['enumName'] not in EXCHANGE_OFFERS] + exchanges
-    print('boutique : echanges Raritanium / Qredits a la fin des ressources')
+    print('shop: Raritanium / Qredits exchanges at the end of the resources')
 RANGER_ROAD_HEROES = {122: 420, 123: 800, 211: 1250, 227: 2700, 119: 4000, 209: 5600, 83: 6200, 160: 8000}
 RANGER_ROAD_ORBS = [(490, 122, 600), (1000, 123, 800), (1800, 211, 600), (3600, 227, 800), (4300, 123, 800), (4500, 119, 800), (5400, 122, 800), (5700, 209, 1000), (6600, 83, 1000), (7000, 209, 1000), (7500, 119, 1000), (7600, 211, 1000), (7900, 227, 1000), (8200, 160, 1000), (9200, 160, 1000)]
 NAKARI_SKIN, NAKARI_PRICE, NAKARI_OFFER = (210, 750, 'Hero_Nakari')
@@ -609,7 +611,7 @@ def ranger_road_weapons(config):
                     added.append({'medalCountRequirement': count, 'loot': loot(WEAPON_UNLOCK, unlockable=weapon)})
         road.extend(added)
         road.sort(key=lambda r: r['medalCountRequirement'])
-    print(f'Ranger Road : {len(added)} armes et gadgets de heros')
+    print(f'Ranger Road: {len(added)} hero weapons and gadgets')
 
 def road_steps(config):
     return [(r['medalCountRequirement'], json.dumps(r['loot'], sort_keys=True)) for r in decoded(config, 'medalrun')['mainRoad']]
@@ -633,7 +635,7 @@ def add_ranger_road(apk, game, config):
     official = road_steps(config)
     ranger_road_heroes(config, {RIVET_SKIN: game.has_model('rivet'), JUYCEE_SKIN: game.has_model('juycee')})
     nakari_offer(config)
-    print(f'Ranger Road : {len(RANGER_ROAD_HEROES)} heros, {len(RANGER_ROAD_ORBS)} orbes ; Nakari a {NAKARI_PRICE} Raritanium')
+    print(f'Ranger Road: {len(RANGER_ROAD_HEROES)} heroes, {len(RANGER_ROAD_ORBS)} orbs; Nakari at {NAKARI_PRICE} Raritanium')
     hero_sheet_price(config)
     with_heroes = road_steps(config)
     ranger_road_weapons(config)
@@ -661,7 +663,7 @@ def added_mode_medal_gains(config):
             if mode not in by_mode and model in by_mode:
                 gains.append(dict(json_copy(by_mode[model]), gameModeHash=mode))
                 added.append(mode)
-    print(f'medailles : gains ajoutes pour les modes {added}')
+    print(f'medals: gains added for modes {added}')
 
 def double_medal_gains(config):
     doubled = 0
@@ -673,14 +675,14 @@ def double_medal_gains(config):
                     if value > 0:
                         values[k] = value * MEDAL_GAIN_FACTOR
                         doubled += 1
-    print(f'medailles : gains x{MEDAL_GAIN_FACTOR} ({doubled} valeurs, pertes inchangees)')
+    print(f'medals: gains x{MEDAL_GAIN_FACTOR} ({doubled} values, losses unchanged)')
 
 def ratchet_medal_road(config):
     with edited(config, 'medalrun') as medals:
         road = medals['medalRoadByCharacterId'][RATCHET_CHARACTER]['Rewards']
         reward = next((r for r in road if r['medalCountRequirement'] == RATCHET_FOR_GOOD_MEDALS))
         reward['loot'] = loot(HERO_UNLOCK, unlockable=RATCHET_SKIN)
-    print(f'Ratchet : lui-meme sur sa ligne de medailles a {RATCHET_FOR_GOOD_MEDALS}')
+    print(f'Ratchet: himself on his medal road at {RATCHET_FOR_GOOD_MEDALS}')
 MOPZ_SKIN = 70
 
 @contextlib.contextmanager
@@ -750,7 +752,7 @@ def add_version(apk):
     if os.environ.get('RR_MAJ_URL'):
         version['url'] = os.environ['RR_MAJ_URL']
     apk.add(OFFLINE + 'version.json', json.dumps(version).encode())
-    print(f"version du jeu : {version['jeu']} (outil {version['outil']})")
+    print(f"game version: {version['jeu']} (launcher {version['outil']})")
 
 def add_offline_data(apk, game, local):
     release = os.environ.get('RR_VERSION', RELEASE)
@@ -802,6 +804,6 @@ def main(rebuilt, patched, dex, local, out):
             apk.close()
     finally:
         game.close()
-    print(f'{len(apk.names)} fichiers, {os.path.getsize(out) / 1048576:.0f} Mo')
+    print(f'{len(apk.names)} files, {os.path.getsize(out) / 1048576:.0f} MB')
 if __name__ == '__main__':
     main(*sys.argv[1:6])

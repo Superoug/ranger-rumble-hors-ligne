@@ -156,7 +156,7 @@ def game_version():
         with open(path, encoding='utf-8') as handle:
             info = json.load(handle)
     except (OSError, ValueError):
-        print('version du jeu introuvable : texte de version laisse tel quel')
+        print('game version not found: version text left as is')
         return None
     return info.get('jeu')
 
@@ -182,7 +182,7 @@ def patch_version_label(data):
     data[cave:cave + len(raw)] = raw
     for index, (call, original) in enumerate(spec['calls']):
         at(data, call, a64.bl(call, original), a64.bl(call, cave + 8 * index))
-    print(f'texte de version du menu : {version}')
+    print(f'main menu version text: {version}')
 
 def patch_polish_code(data):
     if not polish_build():
@@ -217,7 +217,7 @@ def patch_polish_code(data):
     table = spec['system_table']
     at(data, table + 4 * (27 - 9), struct.pack('<i', 0), struct.pack('<i', POLISH_LANGUAGE))
     at(data, table + 4 * (9 - 9), struct.pack('<i', POLISH_LANGUAGE), struct.pack('<i', 0))
-    print(f'polonais : {len(POLISH_LANGUAGES)} langues proposees, telephone polonais -> polonais')
+    print(f'Polish: {len(POLISH_LANGUAGES)} languages offered, Polish phones start in Polish')
 POLISH_FRAMEWORK_TEXTS = data_file('polski_fidelio.json')
 
 def patch_polish_framework(data):
@@ -229,7 +229,7 @@ def patch_polish_framework(data):
         if text is not None:
             entries[index] = (key, localization_entry(key, text))
     data[:] = localization_file(entries, rest)
-    print(f'polonais : {len(polish)} textes du framework')
+    print(f'Polish: {len(polish)} framework texts')
 
 def patch_metadata(data):
     at(data, BUILD['https'], b'https://', b'http://1')
@@ -345,7 +345,7 @@ def patch_ratchet_kept(data):
     if 'ratchet_lock' in BUILD:
         offset, original, skip = BUILD['ratchet_lock']
         at(data, offset, bytes.fromhex(original), a64.b(offset, skip))
-        print("Ratchet : le jeu ne le retire plus seul en fin d'evenement")
+        print('Ratchet: no longer removed by the game when his event ends')
 
 def map_hook_code(cave, start, mode):
     hook = bytes.fromhex('ffc300d1') + bytes.fromhex('e00700a9') + bytes.fromhex('e20f01a9') + bytes.fromhex('fe1300f9') + bytes.fromhex('610000b4') + bytes.fromhex('281040b9') + (bytes.fromhex('48010035') if mode else bytes.fromhex('28010035')) + (bytes.fromhex('e0010010') if mode else bytes.fromhex('c0010010')) + a64.bl(cave + 32, BUILD['string_new']) + bytes.fromhex('e1031faa') + a64.bl(cave + 40, BUILD['prefs_get_string']) + bytes.fromhex('800000b4') + bytes.fromhex('081040b9') + bytes.fromhex('48000034') + bytes.fromhex('e00700f9') + (a64.bl(cave + 60, mode) if mode else b'') + bytes.fromhex('e00740a9') + bytes.fromhex('e20f41a9') + bytes.fromhex('fe1340f9') + bytes.fromhex('ffc30091') + bytes.fromhex('ffc302d1')
@@ -410,18 +410,19 @@ def heavy_tools():
         import UnityPy
         return True
     except ImportError:
-        print("UnityPy, numpy ou Pillow absent : retouches d'images et de modèles laissées de côté")
+        print('UnityPy, numpy or Pillow missing: picture and model edits skipped')
         return False
 
 def artbook_menu(scene):
     try:
+        import bouton_maj
         import menu_artbook
     except ImportError:
         menu_artbook = None
     if menu_artbook is None or not heavy_tools():
-        print('menu : ARTBOOK reste dans Social media')
+        print('menu: ARTBOOK stays in Social media')
         return scene
-    return menu_artbook.artbook_menu(scene)
+    return bouton_maj.update_button(menu_artbook.artbook_menu(scene))
 LEFT_COLUMN_ANCHORS = struct.pack('<4f', 0.0, 0.24577656388282776, 0.0, 0.7400000095367432)
 LEFT_COLUMN_Y, LEFT_COLUMN_NEW_Y = (-12.0, 10.0)
 LEFT_COLUMN_WIDE_SCALE = 1.05
@@ -655,7 +656,7 @@ def controls_tab(scene):
     scene, _ = add_object_copies(scene, menu.table, menu.count, copies, BUILD['difficulty_row']['table'][2])
     objects, table, count, _ = scene_objects(scene)
     grow_objects(scene, table, count, {object_id: (*objects[object_id], change) for object_id, change in changes.items()}, shrink=True)
-    print(f'onglet Commandes : {len(copies)} objets copies')
+    print(f'Controls tab: {len(copies)} objects copied')
     return scene
 
 def key_row_options(action):
@@ -792,7 +793,7 @@ def new_skin_records():
     try:
         import UnityPy
     except ImportError:
-        print('UnityPy absent : pas de nouvelles fiches de costume')
+        print('UnityPy missing: no new costume records')
         return ()
     info = hero_sources()[0]
     return tuple((record for record in NEW_SKIN_RECORDS if record[0] in info))
@@ -849,7 +850,7 @@ def characters_table_change(data, records):
         for character in characters.values():
             if character['equipMeleeWeaponInMenu'] and character['meleeWeaponSpec']['m_PathID'] in empty:
                 character['equipMeleeWeaponInMenu'] = 0
-                print(f"{character['enumName']} : sans arme de melee dans les menus (pas de modele)")
+                print(f"{character['enumName']}: no melee weapon in the menus (no model)")
     return (CHARACTERS_TABLE, (start, table.byte_size, typetree_change(table, edit)))
 
 @functools.lru_cache(None)
@@ -893,11 +894,11 @@ def rivet_hammer_patches():
 
     def patch_weapon(data):
         done = marteau.patch_weapon_bundle(data, wrench)
-        print(f'marteau de Rivet : modele et textures ({done})')
+        print(f"Rivet's hammer: model and textures ({done})")
 
     def patch_database(data):
         marteau.patch_melee_db(data)
-        print('marteau de Rivet : fiche de la cle, donne a Rivet (arme 37)')
+        print("Rivet's hammer: the wrench's record, given to Rivet (weapon 37)")
     patches = {weapon: patch_weapon, database: patch_database}
     effects = asset_pack_path(FX_BUNDLE)
     if effects:
@@ -949,7 +950,7 @@ def patch_two_weapons(data):
     size += place_cave(data, 'deux_armes.s', TWO_WEAPONS_CODE, TWO_WEAPONS_END, TWO_WEAPONS_CAVE_START, targets, TWO_WEAPONS_HOOKS, '_dw_start', 'les deux armes', journal=True, words={'shown': int(TWO_WEAPONS_SHOWN)})
     size += place_cave(data, 'deux_armes_hud.s', TWO_WEAPONS_HUD_CODE, TWO_WEAPONS_HUD_END, TWO_WEAPONS_HUD_CAVE_START, targets, TWO_WEAPONS_HUD_HOOKS, '_dh_start', 'la case de la seconde arme', journal=True)
     size += place_cave(data, 'deux_armes_fiche.s', TWO_WEAPONS_SHEET_CODE, TWO_WEAPONS_SHEET_END, TWO_WEAPONS_SHEET_CAVE_START, dict(targets, **TWO_WEAPONS_SHEET_TARGETS, **two_weapons_entries()), TWO_WEAPONS_SHEET_HOOKS, '_df_start', 'la seconde arme de la fiche du heros')
-    print(f'deux armes : la seconde en combat, son bouton ({size} octets)')
+    print(f'two weapons: the second one in battle, its button ({size} bytes)')
 FLAIL_STRIKE_CODE = 127858740
 FLAIL_STRIKE_END = FLAIL_STRIKE_CODE + 1340
 FLAIL_STRIKE_CAVE_START = 'ff4303d1'
@@ -1006,15 +1007,15 @@ def patch_flail_spin_anim(data):
     if done != len(FLAIL_SPIN_ANIM_STATES) + 1:
         raise SystemExit('animateur des heros : etats de la toupie du fleau introuvables')
     data[:] = env.file.save(packer='lz4')
-    print("fleau : la toupie a ses mouvements de bras dans l'animateur des heros")
+    print("flail: the spin has its arm moves in the heroes' animator")
 
 def patch_flail_strike(data):
     size = place_cave(data, 'fleau_coup.s', FLAIL_STRIKE_CODE, FLAIL_STRIKE_END, FLAIL_STRIKE_CAVE_START, FLAIL_STRIKE_TARGETS, FLAIL_STRIKE_HOOKS, '_fc_start', 'le coup du fleau')
-    print(f'fleau : coup de bras a chaque lancer ({size} octets)')
+    print(f'flail: arm strike on each throw ({size} bytes)')
 
 def patch_hammer_throw(data):
     size = place_cave(data, 'marteau_lance.s', HAMMER_THROW_CODE, HAMMER_THROW_END, HAMMER_THROW_CAVE_START, HAMMER_THROW_TARGETS, HAMMER_THROW_HOOKS, '_mt_start', 'le marteau lance de Rivet')
-    print(f'marteau de Rivet : elle lance son marteau ({size} octets)')
+    print(f"Rivet's hammer: she throws her hammer ({size} bytes)")
 
 def object_table(stream, ids):
     _, data_offset = serialized_sizes(stream)
@@ -1096,7 +1097,7 @@ def patch_fx_hammer(data):
     copies = {made[kind]: (sources[kind].path_id, lambda raw, kind=kind: serialized(sources[kind], trees[kind])) for kind in made}
     stream, added = add_object_copies(stream, table, len(ids), copies, padding)
     replace_bundle_stream(data, stream, grown + added)
-    print("marteau de Rivet : marteau lance dans l'effet de la cle")
+    print("Rivet's hammer: thrown hammer in the wrench's effect")
 RIVET_HERO_SPECS = [('HeroesTable', struct.pack('<iiq', 16, 0, -7414600841294808171), struct.pack('<iiq', 16, 0, -307863333376545080)), ('SimulationHeroesTable', struct.pack('<iq', 16, 1675496277196913591), struct.pack('<iq', 16, 640634350159564227))]
 RIVET_HERO_TEXTS = {'FR': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'UI.WEAPONS.MELEE.RIVET': 'Marteau de Rivet', 'UI.WEAPON_DESCRIPTION.MELEE.RIVET': 'Son marteau : aussi rapide que la clé de Ratchet, en plus lourd.', 'UI.HERO_IMPROVEMENT.NAME.RIVET_SLAM': 'Marteau plongeant', 'UI.HERO_IMPROVEMENT.DESC.RIVET_SLAM': "En l'air, coup de mêlée : Rivet plonge et frappe le sol.", 'CHARACTER.BIO.AVATAR': "Venue d'une autre dimension, Rivet la Lombax fait équipe avec Ratchet et Clank : mêmes armes, même gadget, et un sacré caractère."}, 'EN': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'UI.WEAPONS.MELEE.RIVET': "Rivet's Hammer", 'UI.WEAPON_DESCRIPTION.MELEE.RIVET': "Her hammer: as quick as Ratchet's wrench, and heavier.", 'UI.HERO_IMPROVEMENT.NAME.RIVET_SLAM': 'Hammer Slam', 'UI.HERO_IMPROVEMENT.DESC.RIVET_SLAM': 'Melee in the air: Rivet dives and slams the ground.', 'CHARACTER.BIO.AVATAR': 'From another dimension, Rivet the Lombax teams up with Ratchet and Clank: same weapons, same gadget, and plenty of attitude.'}}
 RATCHET_KIT = ('_defaultWeapon', '_commonFavoriteWeapon', '_rareFavoriteWeapon', '_epicFavoriteWeapon', 'ultimates', 'gadgets', 'meleeWeaponSpec', 'maxHeroImprovementLevel', 'equipMeleeWeaponInMenu', 'menusAnimID', 'specificWinLoseAnimID')
@@ -1176,11 +1177,11 @@ def patch_rivet_portrait(data):
         full_rect_sprite(tree, texture.path_id, *picture.size)
         sprite.save_typetree(tree)
     data[:] = env.file.save(packer='lz4')
-    print(f"portraits de heros : {', '.join((name for name, _ in pictures))}")
+    print(f"hero portraits: {', '.join((name for name, _ in pictures))}")
 WENDY_SKIN = 85
 WENDY_HERO_SPECS = [('HeroesTable', struct.pack('<iiq', 7, 0, 2651809124107139903), struct.pack('<iiq', 7, 0, -307863333376545080)), ('SimulationHeroesTable', struct.pack('<iq', 7, 4109542338586538912), struct.pack('<iq', 7, 640634350159564227))]
 WENDY_PORTRAIT = ('Chance_01', data_file('wendy', 'Wendy_carte.png'))
-WENDY_HERO_TEXTS = {'FR': {'UI.CHARACTER.STEELJAW': 'Wendy', 'SKIN.STEELJAW_00': 'Wendy', 'CHARACTER.BIO.STEELJAW': "Sortie tout droit des cinématiques de la simulation, Wendy rejoint la bagarre avec l'arsenal de Ratchet : mêmes armes, même gadget, même RYNO."}, 'EN': {'UI.CHARACTER.STEELJAW': 'Wendy', 'SKIN.STEELJAW_00': 'Wendy', 'CHARACTER.BIO.STEELJAW': "Straight out of the simulation's cutscenes, Wendy joins the rumble with Ratchet's arsenal: same weapons, same gadget, same RYNO."}}
+WENDY_HERO_TEXTS = {'FR': {'UI.CHARACTER.STEELJAW': 'Wendy', 'SKIN.STEELJAW_00': 'Wendy', 'CHARACTER.BIO.WENDY': "Sortie tout droit des cinématiques de la simulation, Wendy rejoint la bagarre avec l'arsenal de Ratchet : mêmes armes, même gadget, même RYNO."}, 'EN': {'UI.CHARACTER.STEELJAW': 'Wendy', 'SKIN.STEELJAW_00': 'Wendy', 'CHARACTER.BIO.WENDY': "Straight out of the simulation's cutscenes, Wendy joins the rumble with Ratchet's arsenal: same weapons, same gadget, same RYNO."}}
 WENDY_VISIBLE = os.environ.get('RR_WENDY') == '1'
 WENDY_CHARACTER = 7
 CHARACTER_AVAILABLE = 66646448
@@ -1196,6 +1197,7 @@ def wendy_hero(characters, guid):
     take_ratchet_kit(hero, ratchet, 'mainMenuAnimatorOverrideController')
     icon = {'m_AssetGUID': PORTRAIT_GUIDS['ico_dialog_Wendy'], 'm_SubObjectName': 'ico_dialog_Wendy', 'm_SubObjectType': ratchet['thumbnailRef']['m_SubObjectType']}
     hero['thumbnailRef'] = dict(icon)
+    hero['bio'] = {'_value': 'CHARACTER.BIO.WENDY', '_mode': 0}
     hero['visibleInCharactersMenu'] = 1 if WENDY_VISIBLE or wendy_switch() else 0
     hero['wip'] = 0
     hero['canBeUsedByBots'] = 0
@@ -1242,7 +1244,7 @@ def generic_talents(stream):
             raise SystemExit(f'talents inattendus : {name}')
         at = stream.index(before)
         stream[at:at + len(before)] = after
-    print(f"talents : ceux d'une arme deviennent munitions et vie ({len(WEAPON_TALENTS)} heros)")
+    print(f'talents: weapon talents become ammo and health ({len(WEAPON_TALENTS)} heroes)')
 
 def ratchet_hero_specs(stream, changes):
     for name, old, new in changes:
@@ -1253,13 +1255,13 @@ def ratchet_hero_specs(stream, changes):
 JUYCEE_CHARACTER = 23
 JUYCEE_SKIN = 83
 JUYCEE_SKINS = (83, 84, 86, 109, 41)
-JUYCEE_HERO_TEXTS = {'FR': {'UI.CHARACTER.JUYCEE': 'Juycee', 'UI.CHARACTER.23': 'Juycee', 'CHARACTER.BIO.JUYCEE': 'Juycee, la Goon qui ne tient pas en place : jamais sortie, elle débarque enfin dans la simulation avec ses quatre tenues.'}, 'EN': {'UI.CHARACTER.JUYCEE': 'Juycee', 'UI.CHARACTER.23': 'Juycee', 'CHARACTER.BIO.JUYCEE': 'Juycee, the restless Goon: never released, she finally drops into the simulation with her four outfits.'}}
+JUYCEE_HERO_TEXTS = {'FR': {'UI.CHARACTER.JUYCEE': 'Juycee', 'UI.CHARACTER.23': 'Juycee'}, 'EN': {'UI.CHARACTER.JUYCEE': 'Juycee', 'UI.CHARACTER.23': 'Juycee'}}
 
 def juycee_character(chance):
     record = json_copy(chance)
     record['uniqueID'] = {'_proxy': 'JUYCEE', '_index': JUYCEE_CHARACTER, '_value': JUYCEE_CHARACTER}
     record['enumName'] = 'JUYCEE'
-    record['bio'] = {'_value': 'CHARACTER.BIO.JUYCEE', '_mode': 0}
+    record['bio'] = {'_value': 'CHARACTER.BIO.STEELJAW', '_mode': 0}
     record['visibleInCharactersMenu'] = 1
     record['wip'] = 0
     record['canBeUsedByBots'] = 0
@@ -1439,7 +1441,7 @@ def patch_local_data(data):
     changes = {object_id: (start, size, evenements.events_meta)}
     if table_change:
         changes[table_change[0]] = table_change[1]
-        print(f"fiches de costume ajoutees : {', '.join((record[0] for record in records))}")
+        print(f"costume records added: {', '.join((record[0] for record in records))}")
     grown = grow_objects(stream, table, count, changes)
     copies = {old ^ evenements.COPY_KEY: (old, lambda raw, old=old: evenements.card_event04(old, raw)) for old in evenements.CARD_EVENT03_OBJECTS}
     copies.update(zurkon_copies(data))
@@ -1580,7 +1582,7 @@ def zurkon_token_copies(data):
         for name, colour in properties['m_Colors']:
             if name in ('_BaseColor', '_Color'):
                 colour.update(r=1.0, g=1.0, b=1.0, a=1.0)
-    print('jeton de Mme Zurkon au sol : une piece a la forme de son jeton')
+    print("Mrs. Zurkon's ground token: a coin shaped like her token")
     return {go: written('GameObject', game_object), transform: written('Transform', transform_tree), mesh_filter: written('MeshFilter', filter_tree), renderer: written('MeshRenderer', renderer_tree), mesh: written('Mesh', mesh_tree), material: written('Material', material_tree)}
 
 def zurkon_copies(data):
@@ -1606,7 +1608,7 @@ def zurkon_copies(data):
             full_rect_sprite(tree, evenements.CARD_TEXTURE, *card.size)
         copies[evenements.CARD_TEXTURE] = (evenements.TEXTURE_TEMPLATE, rewrite(evenements.TEXTURE_TEMPLATE, card_texture))
         copies[evenements.CARD_SPRITE] = (evenements.SPRITE_TEMPLATE, rewrite(evenements.SPRITE_TEMPLATE, card_sprite))
-        print(f"carte Zurkon : {card.size[0]} x {card.size[1]}, image des jetons d'evenement")
+        print(f'Zurkon card: {card.size[0]} x {card.size[1]}, event token picture')
     for wanted, path, name, texture_id, sprite_id, key in ((evenements.CARD_ART, ZURKON_CARD_ART, 'MsZurkon_Illustration', evenements.CARD_ART_TEXTURE, evenements.CARD_ART_SPRITE, 460213289), (evenements.WEAPON_ART, WEAPON_CARD_ART, 'RandomWeapon_Illustration', evenements.WEAPON_ART_TEXTURE, evenements.WEAPON_ART_SPRITE, 1828956133)):
         if not wanted:
             continue
@@ -1622,7 +1624,7 @@ def zurkon_copies(data):
             full_rect_sprite(tree, texture_id, *art.size)
         copies[texture_id] = (evenements.TEXTURE_TEMPLATE, rewrite(evenements.TEXTURE_TEMPLATE, art_texture))
         copies[sprite_id] = (evenements.SPRITE_TEMPLATE, rewrite(evenements.SPRITE_TEMPLATE, art_sprite))
-        print(f"carte d'evenement {name} : {art.size[0]} x {art.size[1]}")
+        print(f'event card {name}: {art.size[0]} x {art.size[1]}')
     if not evenements.PICTURE:
         return copies
     picture = Image.open(ZURKON_PICTURE).convert('RGBA')
@@ -1668,7 +1670,7 @@ def zurkon_copies(data):
     copies.update({evenements.ZURKON_TEXTURE: (evenements.TEXTURE_TEMPLATE, rewrite(evenements.TEXTURE_TEMPLATE, texture)), evenements.ZURKON_SPRITE: (evenements.SPRITE_TEMPLATE, rewrite(evenements.SPRITE_TEMPLATE, sprite))})
     for old, new in renamed.items():
         copies[new] = (old, illustration(old))
-    print(f'Mme Zurkon : image {width} x {height} et illustration ajoutees')
+    print(f'Mrs. Zurkon: picture {width} x {height} and illustration added')
     return copies
 RENAMED_FILES = {b'CAB-362daa32c55d2edb2ee260b161e8e33f': b'CAB-fefaa237ca08b3d094dadff5db545f76', b'CAB-486da8644fe5dca7369db9153d72fbf6': b'CAB-b00ca7a8a885dc2b23ea44c4388a4105', b'CAB-04de74b3c7c64036e7608340366c745c': b'CAB-6958b85330e8e987f0af28e9b9e03adf', b'CAB-dda31e6215934c6e34e476c72fcd26fa': b'CAB-718bb4c7469902c1c4dcc978dd716d84', b'CAB-aa319b2de83cf7027e416601fb60c3ae': b'CAB-b7bb29c43e97a57482540f25c56a0b03'}
 HERO_MODELS = {'Chance': '966f2d8d9c7f95149a7cb4237fcdfd54', 'Molly': 'adcdb763f80f3894f81c197594889b6e', 'Helen': '777a95af41a038b409cd394e0ffb931d', 'Flare': '102bd3a17a4e39b479d896308773c0a8', 'Nakari': '2904978eddf9d4143befcc2778e457de', 'Terry': 'c52cf61167f55554da126cac604d17b6', 'Crumby': '57cadf1fb1a4aaa43988ed5f816d22d0'}
@@ -1780,7 +1782,7 @@ def patch_localization(language):
             with open(POLISH_TEXTS, encoding='utf-8') as handle:
                 polish = json.load(handle)
             entries = [(key, localization_entry(key, polish[key.decode()]) if polish.get(key.decode()) else raw) for key, raw in entries]
-            print(f'polonais : {sum((1 for key, _ in entries if polish.get(key.decode())))} textes')
+            print(f'Polish: {sum((1 for key, _ in entries if polish.get(key.decode())))} texts')
         entries.sort(key=lambda item: item[0])
         data[:] = localization_file(entries, rest)
     return patch
@@ -3077,7 +3079,7 @@ def patch_weapon_pickup(data):
     tree['m_LocalScale'] = dict(zip('xyz', scale))
     parts['Transform'].save_typetree(tree)
     data[:] = env.file.save(packer='lz4')
-    print("Battle Royale : ramassage d'arme avec l'icone du Blaster")
+    print('Battle Royale: weapon pickup with the Blaster icon')
 KING_CODE = 67942024 + 8
 KING_CODE_END = 67942024 + 2768
 KCC_SURFACE_RESET = 129863956
@@ -3806,8 +3808,8 @@ def patch_bolt_rush_code(data):
     at(data, FFA_END_BIND_CALL, a64.bl(FFA_END_BIND_CALL, GAME_MODE_END_BIND), a64.bl(FFA_END_BIND_CALL, end_screen))
     if available:
         at(data, CHARACTER_AVAILABLE, a64.stp_x_pre(30, 19, a64.SP, -16), a64.b(CHARACTER_AVAILABLE, available))
-        print('Wendy : heroine seulement avec les prototypes du reglage')
-    print(f"tirage des cartes : prototypes ({', '.join(prototype_maps())}) seulement avec le reglage ; partie speciale a 8 joueurs apres {SPECIAL_EVERY} parties de Total Rumble ({', '.join(eight_player_maps())}) ; ecran de fin a 8 joueurs corrige")
+        print('Wendy: hero only with the prototypes setting')
+    print(f"map draw: prototypes ({', '.join(prototype_maps())}) only with the setting; special 8-player match after {SPECIAL_EVERY} Total Rumble matches ({', '.join(eight_player_maps())}); 8-player end screen fixed")
     if rush['switch'] != BOLT_RUSH_SWITCH:
         raise SystemExit('aiguillage de Bolt Rush mal place')
     place(data, RUSH_CODE + 4, code[4:])
@@ -3855,7 +3857,7 @@ def patch_bolt_rush_code(data):
                 at(data, UPDATE_TEXT, bytes.fromhex('fe0f1df8'), a64.b(UPDATE_TEXT, keys_entries['_tk_text']))
                 at(data, ENSURE_HIDDEN, bytes.fromhex('fe0f1ff8'), a64.b(ENSURE_HIDDEN, keys_entries['_tk_hide']))
                 at(data, SELECT_TAB, bytes.fromhex('fe0f1df8'), a64.b(SELECT_TAB, keys_entries['_tk_tab']))
-                print(f'touches du clavier (Mac) : {len(keys)} octets')
+                print(f'keyboard keys (Mac): {len(keys)} bytes')
     patch_bolt_rush_phases(data)
     at(data, KCC_SURFACE_RESET, bytes.fromhex('480440f9'), a64.b(KCC_SURFACE_RESET, king_entries['tick']))
     at(data, BOLT_COUNT_FINISH, bytes.fromhex('01ed40f9'), a64.bl(BOLT_COUNT_FINISH, king_entries['skip']))
@@ -3863,7 +3865,7 @@ def patch_bolt_rush_code(data):
     check_room(KING_TIMER_CODE, timer, KING_TIMER_END, 'le chrono du Roi')
     place_assembled(data, KING_TIMER_CODE, timer, timer_uses, KING_TIMER_TARGETS, None)
     at(data, KING_TIMER_CALL, a64.bl(KING_TIMER_CALL, KING_TIMER_TARGETS['ext_ceil_to_int']), a64.bl(KING_TIMER_CALL, KING_TIMER_CODE + timer_labels['_kt_timer'] - timer_labels['_kt_start']))
-    print(f'chrono du Roi : {len(timer)} octets')
+    print(f"King's timer: {len(timer)} bytes")
     at(data, POWER_VERIFIED_CHECK, bytes.fromhex('c8030034'), a64.NOP)
     at(data, SELECT_RANDOM_MAP_CALL, a64.bl(SELECT_RANDOM_MAP_CALL, SELECT_RANDOM_MAP), a64.bl(SELECT_RANDOM_MAP_CALL, rush['select_map']))
     for function, first, _ in ID_SHORTCUTS:
@@ -3876,7 +3878,7 @@ def patch_bolt_rush_code(data):
     at(data, BR_RANK_CHECK, BR_RANK_CMP, a64.bl(BR_RANK_CHECK, rush['br_rank']))
     weapons, hooks = br_weapons_code(WEAPON_CODE)
     check_room(WEAPON_CODE, weapons, WEAPON_CODE_END, 'les armes du Battle Royale')
-    print(f'armes du Battle Royale : {len(weapons)} octets')
+    print(f'Battle Royale weapons: {len(weapons)} bytes')
     place(data, WEAPON_CODE + 4, weapons[4:])
     at(data, POWERUP_START_CALL, a64.bl(POWERUP_START_CALL, POWERUP_START), a64.bl(POWERUP_START_CALL, hooks['br_powerup']))
     at(data, PREWARM_CALL, a64.bl(PREWARM_CALL, LOADOUT_PREWARM_WEAPON), a64.bl(PREWARM_CALL, hooks['br_prewarm']))
@@ -3892,7 +3894,7 @@ def patch_bolt_rush_code(data):
     check_room(BR_BOTS_CODE, bots, BR_BOTS_END, 'les robots du Battle Royale')
     place_assembled(data, BR_BOTS_CODE, bots, bots_uses, dict(BR_BOTS_TARGETS, ext_string_new=BUILD['string_new'], ext_debug_log=DEBUG_LOG), SEEK_CRATE_EXECUTE + 4)
     at(data, SEEK_CRATE_EXECUTE, bytes.fromhex('fd7bbaa9'), a64.b(SEEK_CRATE_EXECUTE, BR_BOTS_CODE + bots_labels['_bb_seek'] - bots_labels['_bb_start']))
-    print(f'robots du Battle Royale : {len(bots)} octets')
+    print(f'Battle Royale bots: {len(bots)} bytes')
     at(data, 129619716, bytes.fromhex('1f050031'), bytes.fromhex('1f01086b'))
     at(data, TEAM_COUNTER_FLAG, bytes.fromhex('480a00b4'), a64.bl(TEAM_COUNTER_FLAG, rush['team_counter_flag']))
     at(data, 130603664, bytes.fromhex('170100b9'), bytes.fromhex('17290029'))
@@ -4135,7 +4137,7 @@ def gadget_weapon_return(data):
         return a64.branch_target(call, word) if a64.is_bl(word) else None
     main, gadget = (MAIN_WEAPON_RETURN, MAIN_WEAPON_RETURN + 24)
     if target(main - 4) is None or target(main - 4) != target(gadget - 4):
-        print('niveau du gadget : appel introuvable, le gadget garde le niveau du heros')
+        print("gadget level: call not found, the gadget keeps the hero's level")
         return None
     return gadget
 
@@ -4440,7 +4442,7 @@ def gadget_card_pictures(data, pairs):
             tree[field] = value
         weapon.save_typetree(tree)
     data[:] = env.file.save(packer='lz4')
-    print(f"images des cartes de gadget : {', '.join((weapon for weapon, _ in pairs))}")
+    print(f"gadget card pictures: {', '.join((weapon for weapon, _ in pairs))}")
 SHOP_CARDS_BUNDLE = 'shop_offer_widgets_assets_all'
 SHOP_SMALL_CARDS = ('ShopOfferWidget_BaseSmall', 'ShopOfferWidget_Small')
 SHOP_CARD_PICTURE_LAYER = ('Mask', 'Gradient (1)')
@@ -4481,7 +4483,7 @@ def patch_shop_cards(data):
     if sorted(done) != sorted(SHOP_SMALL_CARDS):
         raise SystemExit(f'cartes de boutique : {done}')
     data[:] = env.file.save(packer='lz4')
-    print('boutique : image 3D des petites cartes sous le prix')
+    print('shop: 3D picture of the small cards under the price')
 
 def shop_cards_patches():
     path = asset_pack_path(SHOP_CARDS_BUNDLE)
@@ -4503,7 +4505,7 @@ def patch_hero_specs_bundle(data):
     gadget_lines(data)
     if RIVET_JUMP and heavy_tools() and ('Rivet' in hero_sources()[0]):
         hammer_module().patch_hero_specs(data)
-        print('marteau de Rivet : sa propre fiche de heros, le marteau plongeant en premier talent')
+        print("Rivet's hammer: her own hero record, the diving hammer as first talent")
 HERO_ULTIMATES = {16: 3, 18: 3, 23: 9, 12: 6, 11: 17, 13: 17, 21: 22, 20: 8, 19: 4}
 
 def hero_ultimates(characters):
@@ -4572,7 +4574,7 @@ def patch_weapon_slots(data):
     for address, old, new in GADGET_LEVEL_EDITS:
         at(data, address, bytes.fromhex(old), bytes.fromhex(new))
     count = len(WEAPON_SLOTS_HOOKS) + len(WEAPON_SLOTS_OPEN) + len(GADGET_LEVEL_EDITS) + 3
-    print(f'armes principales et secondaires : {len(code)} octets, {count} retouches')
+    print(f'main and secondary weapons: {len(code)} bytes, {count} edits')
 EVENT_ICON_CODE = 72307776
 EVENT_META_CHECK = 67423364
 EVENT_META_FAIL = 67423880
@@ -4679,7 +4681,7 @@ def patch_rivet_legendary(data):
         raise SystemExit("l'ecran de collecte deborde sur le code de Rivet")
     place(data, RIVET_LEGENDARY_CODE, code)
     hook(data, RIVET_LEGENDARY_HOOKS, entries(RIVET_LEGENDARY_CODE, labels, '_rv_start'))
-    print('Rivet legendaire comme Ratchet')
+    print('Rivet legendary like Ratchet')
 ENEMY_TOKENS_CODE = COLLECT_SCREEN_CODE + 1536
 ENEMY_TOKENS_ADDS = (130602840, 130603140)
 QLIST_ADD = 106550964
@@ -4712,7 +4714,7 @@ def patch_podium_credits(data):
     place_assembled(data, PODIUM_CREDITS_CODE, code, uses, targets, None)
     address, old = PODIUM_CREDITS_HOOK
     at(data, address, bytes.fromhex(old), a64.b(address, PODIUM_CREDITS_CODE + labels['_cp_battle_end'] - labels['_cp_start']))
-    print(f'credits du podium : {len(code)} octets')
+    print(f'podium Qredits: {len(code)} bytes')
 
 def patch_enemy_tokens(data):
     code, uses, labels = assembled_code('jetons_ennemis.s', journal=True)
@@ -4727,7 +4729,7 @@ def patch_enemy_tokens(data):
     at(data, address, bytes.fromhex(old), a64.bl(address, entry['_tk_no_bolt']))
     address, old = ENEMY_TOKENS_REPLACED
     at(data, address, bytes.fromhex(old), a64.b(address, entry['_tk_replaced']))
-    print('jetons de Mme Zurkon aussi sur les heros elimines')
+    print("Mrs. Zurkon's tokens also on eliminated heroes")
 
 def collect_screen_build():
     return EVENTS and VERSION == '1.10.4' and os.path.isfile(OLD_110_XAPK)
@@ -4740,7 +4742,7 @@ def patch_collect_screen(data):
     hook(data, COLLECT_SCREEN_HOOKS, entry)
     address = COLLECT_SCREEN_END_TIME
     at(data, address, a64.bl(address, COLLECT_SCREEN_TARGETS['ext_time_implicit']), a64.bl(address, entry['_ec_end_time']))
-    print(f'ecran de collecte : {len(code)} octets')
+    print(f'collection screen: {len(code)} bytes')
 
 @functools.lru_cache(None)
 def collect_graft():
@@ -5121,7 +5123,7 @@ def weapon_balance_edits(data):
                 edits.append((base + at_values + 12, table(old)[4:], table([raw_fp(v) for v in plan[kind][name]])[4:]))
         done.append(name)
     if done:
-        print(f"equilibrage des armes : {len(done)} fiches ({', '.join(sorted(done)[:3])}...)")
+        print(f"weapon balance: {len(done)} records ({', '.join(sorted(done)[:3])}...)")
     return edits
 GADGET_AMMUNITION = {'Q_DrillDash_MeleeWeapon_WeaponSpec': 245539642024836795, 'Q_LittleSpin_MeleeWeapon': 4229535951622918670}
 WEAPON_ENHANCEMENTS_ADDED = {'Q_MineLauncher_WeaponSpec': [2215773314494608396], 'Q_Gatling_WeaponSpec': [3822661076429632190], 'Q_BlasterRatchet_WeaponSpec': [2173539690631149891], 'Q_Blaster_WeaponSpec': [2173539690631149891]}
@@ -5153,7 +5155,7 @@ def gadget_lines(data):
         done.append(name)
     if done:
         data[:] = env.file.save(packer='lz4')
-        print(f"armes et gadgets : puissance, degats, ameliorations dans l'Arsenal ({', '.join(sorted(done))})")
+        print(f"weapons and gadgets: power, damage, Arsenal upgrades ({', '.join(sorted(done))})")
 
 def patch_weapon_balance(data):
     edits = weapon_balance_edits(data)
@@ -5239,7 +5241,7 @@ def patch_medal_loss(data):
     size = place_cave(data, 'medailles_moins.s', MEDAL_LOSS_CODE, MEDAL_LOSS_END, MEDAL_LOSS_CAVE_START, MEDAL_LOSS_TARGETS, MEDAL_LOSS_HOOKS, '_mm_start', 'les medailles perdues')
     for address, old, new in MEDAL_LOSS_EDITS:
         at(data, address, bytes.fromhex(old), bytes.fromhex(new))
-    print(f'medailles perdues : -N en rouge sur la Ranger Road ({size} octets)')
+    print(f'medals lost: red -N on the Ranger Road ({size} bytes)')
 SHOP_MAX_CODE = 72398280
 SHOP_MAX_END = SHOP_MAX_CODE + 1764
 SHOP_MAX_CAVE_START = 'ff4303d1'
@@ -5248,7 +5250,7 @@ SHOP_MAX_HOOKS = [(64667760, 'fe0f1ff8', '_mx_weapon', 'b'), (64667792, 'fe0f1ff
 
 def patch_shop_max(data):
     size = place_cave(data, 'max_boutique.s', SHOP_MAX_CODE, SHOP_MAX_END, SHOP_MAX_CAVE_START, SHOP_MAX_TARGETS, SHOP_MAX_HOOKS, '_mx_start', 'le tri des offres flash')
-    print(f'offres flash : ni plans ni orbes pour une arme ou un heros au max ; sinon des Qredits ({size} octets)')
+    print(f'flash offers: no plans or orbs for a maxed weapon or hero, Qredits instead ({size} bytes)')
 NAKARI_ICON_CODE = 72346328
 NAKARI_ICON_END = NAKARI_ICON_CODE + 3096
 NAKARI_ICON_CAVE_START = 'ffc301d1'
@@ -5257,7 +5259,7 @@ NAKARI_ICON_HOOKS = [(68360880, 'e10300aa', '_in_hud', 'bl'), (68361500, 'e10300
 
 def patch_nakari_icon_code(data):
     size = place_cave(data, 'icone_nakari.s', NAKARI_ICON_CODE, NAKARI_ICON_END, NAKARI_ICON_CAVE_START, NAKARI_ICON_TARGETS, NAKARI_ICON_HOOKS, '_in_start', "l'icone de Nakari")
-    print(f"icone de Nakari : bouton d'ultime en combat ({size} octets)")
+    print(f'Nakari icon: ultimate button in battle ({size} bytes)')
 ARSENAL_CODE = 67947660
 ARSENAL_END = ARSENAL_CODE + 1328
 ARSENAL_CAVE_START = 'ffc303d1'
@@ -5266,7 +5268,7 @@ ARSENAL_HOOKS = [(130065972, 'f703042a', '_ae_entry', 'b'), (130066452, 'ff09009
 
 def patch_arsenal_enhancements(data):
     size = place_cave(data, 'ameliorations_armes.s', ARSENAL_CODE, ARSENAL_END, ARSENAL_CAVE_START, ARSENAL_TARGETS, ARSENAL_HOOKS, '_ae_start', "les ameliorations de l'Arsenal", journal=True)
-    print(f"ameliorations de l'Arsenal : appliquees en combat ({size} octets)")
+    print(f'Arsenal upgrades: applied in battle ({size} bytes)')
 QUESTS_CODE = 67936848
 QUESTS_END = QUESTS_CODE + 1412
 QUESTS_CAVE_START = 'ffc301d1'
@@ -5274,7 +5276,7 @@ QUESTS_HOOKS = [(64551664, '480340f9', '_qw_draw', 'bl')]
 
 def patch_quests(data):
     size = place_cave(data, 'quetes_sans_wendy.s', QUESTS_CODE, QUESTS_END, QUESTS_CAVE_START, {'ext_string_new': 63431916, 'ext_debug_log': DEBUG_LOG}, QUESTS_HOOKS, '_qw_start', 'les quetes sans Wendy', journal=True)
-    print(f'quetes : jamais avec Wendy ({size} octets)')
+    print(f'quests: never with Wendy ({size} bytes)')
 PLATFORM_CODE = 72391888
 PLATFORM_END = PLATFORM_CODE + 672
 PLATFORM_CAVE_START = 'fe5fbda9'
@@ -5283,7 +5285,7 @@ PLATFORM_HOOKS = [(68336744, '6de30e94', '_pf_tags', 'bl')]
 
 def patch_platform_text(data):
     size = place_cave(data, 'plateforme_ios.s', PLATFORM_CODE, PLATFORM_END, PLATFORM_CAVE_START, PLATFORM_TARGETS, PLATFORM_HOOKS, '_pf_start', 'la plateforme du texte de version')
-    print(f'texte de version : platform/ios dans le jeu iPhone ({size} octets)')
+    print(f'version text: platform/ios in the iPhone game ({size} bytes)')
 
 def patch_library(data):
     patch_code(data)
@@ -5513,7 +5515,7 @@ def kit_backpack(playable, model_file):
         tree['m_AABB'] = copy.deepcopy(aabb)
         tree['m_Enabled'] = 1
         obj.save_typetree(tree)
-    print(f"Kit dans le dos : {len(his)} maillages sur le sac de Clank ({len(set(bones_of['Legacy_Kit_00']))} os du sac pour son corps)")
+    print(f"Kit on the back: {len(his)} meshes on Clank's bag ({len(set(bones_of['Legacy_Kit_00']))} bag bones for her body)")
     return env.file.save(packer='lz4')
 
 def asset_pack():
@@ -5755,7 +5757,7 @@ def cinematic_hero_bundles(key):
         holder.save_typetree(tree)
     rename_asset_bundle(playable.objects, spec['bundle'], ('Character_Ratchet_00_Playable.prefab', f'Character_{key}.prefab'))
     common = len(bones_of[spec['renderers']['Legacy_Ratchet_00']][0]) - sum((1 for n, h in zip(*bones_of[spec['renderers']['Legacy_Ratchet_00']][:2]) if n != h))
-    print(f"{key} : sur le squelette de Ratchet, {common} os en commun, {len(replaced)} rattaches ({', '.join((f'{a}>{b}' for a, b in sorted(replaced.items())))})")
+    print(f"{key}: on Ratchet's skeleton, {common} shared bones, {len(replaced)} reattached ({', '.join((f'{a}>{b}' for a, b in sorted(replaced.items())))})")
     made = [(key, 'assets/aa/Android/' + spec['bundle'], env.file.save(packer='lz4')), (f'{key} (modele)', 'assets/aa/Android/' + spec['model_bundle'], model_env.file.save(packer='lz4'))]
     if kit:
         made.append((f'{key} (Kit)', 'assets/aa/Android/' + KIT_BACKPACK['model_bundle'], kit))
@@ -5827,7 +5829,7 @@ def hero_sources():
         if not any((d.get('own') == DIMENSIONAL_BUNDLE for d in dependencies)):
             dependencies.insert(0, {'own': DIMENSIONAL_BUNDLE, 'hash': DIMENSIONAL_CAB[4:], 'internal': DIMENSIONAL_BUNDLE[:-len('.bundle')]})
     if costumes:
-        print(f"costumes du CDN : {', '.join((skin for skin, _, _ in costumes))}")
+        print(f"CDN costumes: {', '.join((skin for skin, _, _ in costumes))}")
     if VERSION == '1.10.4':
         for key in CINEMATIC_HEROES:
             made = cinematic_hero_bundles(key)
@@ -5851,7 +5853,7 @@ def patch_catalog(data):
         import catalogue_cartes
         files = {bundle['file']: bundle['size'] for bundle in maps['bundles']}
         data[:], added = catalogue_cartes.add_maps(data, maps, files)
-        print(f"cartes de la 1.7.4 : {', '.join(maps['maps'])} ({added} entrees de catalogue)")
+        print(f"1.7.4 maps: {', '.join(maps['maps'])} ({added} catalog entries)")
 MAPS_174_FOLDER = data_file('cartes')
 MAPS_174_STATUS, MAPS_174_POOL = (2, 3)
 MAPS_174_TEMPLATES = {1: 'q_FFA_Ardolis_01', 2: 'q_BB_TorrenIV_01', 3: 'q_BK_Megalopolis_02B'}
@@ -6039,7 +6041,7 @@ def write_part(apk, changes):
     missing = set(changes) - done
     if missing:
         raise SystemExit(f'fichiers non trouves : {missing}')
-    print(f'{apk} : {len(done)} fichier(s) modifie(s)')
+    print(f'{apk}: {len(done)} file(s) changed')
 
 def main():
     os.makedirs(OUTPUT_FOLDER, exist_ok=True)

@@ -68,7 +68,7 @@ def king_crown(bundle_bytes, log=print):
     if objects[text_rt].read_typetree()['m_Children']:
         raise SystemExit('couronne : le grand chiffre a deja des enfants')
     add_crown(f, text_rt, COUNTDOWN_PLACE, {'Hexagon'})
-    log(f'couronne du Roi a cote du grand chiffre ({f.name})')
+    log(f"King's crown beside the big number ({f.name})")
     return env.file.save(packer='lz4')
 
 def mark_crown(bundle_bytes, log=print):
@@ -88,5 +88,5 @@ def mark_crown(bundle_bytes, log=print):
     if len(tree['m_Children']) != MARK_CHILDREN:
         raise SystemExit('couronne : repere de joueur inattendu')
     add_crown(f, root, MARK_PLACE, {'Icon'})
-    log('couronne du Roi au-dessus de sa tete (repere des joueurs)')
+    log("King's crown over his head (players' marker)")
     return env.file.save(packer='lz4')

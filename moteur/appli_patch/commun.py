@@ -1,4 +1,5 @@
 import importlib.util
+import io
 import os
 import re
 import subprocess
@@ -16,6 +17,9 @@ DEFAULT_APK = Path.home() / 'RangerRumble_hors_ligne.apk'
 SAVE_NAME = 'save.msgpack'
 STEP = re.compile('(\\d)/6 ')
 BUILD_STEPS = {1: (0, 20, 8), 2: (20, 78, 20), 3: (78, 82, 2), 4: (82, 93, 4), 5: (93, 99, 2)}
+DETAIL_LINES = {2: 78}
+DETAILS_LISTENER = None
+DETAILS_ECHO = None
 NAME_DATE = re.compile('_(\\d{4})-(\\d{2})-(\\d{2})_(\\d{2})(\\d{2})\\d{2}$')
 SAVE_CHECKS: dict[tuple[str, int], bool] = {}
 
@@ -29,12 +33,40 @@ def start_details() -> None:
 def keep_details(text: str) -> None:
     if not text.strip():
         return
+    append_details(text if text.endswith('\n') else text + '\n')
+
+def append_details(text: str) -> None:
     try:
         BASE.mkdir(parents=True, exist_ok=True)
         with open(DETAILS, 'a', encoding='utf-8') as handle:
-            handle.write(text if text.endswith('\n') else text + '\n')
+            handle.write(text)
     except OSError:
         pass
+
+class LiveDetails(io.TextIOBase):
+    encoding = 'utf-8'
+
+    def __init__(self):
+        super().__init__()
+        self.lines = 0
+        self.pending = ''
+
+    def writable(self) -> bool:
+        return True
+
+    def write(self, text: str) -> int:
+        if text:
+            append_details(text)
+            *done, self.pending = (self.pending + text).split('\n')
+            for line in done:
+                self.lines += 1
+                echo = DETAILS_ECHO
+                if echo and line.strip():
+                    echo(line)
+            listener = DETAILS_LISTENER
+            if done and listener:
+                listener(self.lines)
+        return len(text)
 
 def load_tool():
     spec = importlib.util.spec_from_file_location('sauvegarde_rr', TOOL)

@@ -125,5 +125,5 @@ def artbook_menu(scene_bytes, log=print):
     insta = scene.tree(instagram)
     insta['m_IsActive'] = False
     objects[instagram].save_typetree(insta)
-    log(f'menu : bouton ARTBOOK dans le menu des 3 traits ({len(kept)} objets copies)')
+    log(f'menu: ARTBOOK button in the ☰ menu ({len(kept)} objects copied)')
     return f.save()

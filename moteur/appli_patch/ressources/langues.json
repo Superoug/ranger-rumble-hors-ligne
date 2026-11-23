@@ -4304,13 +4304,6 @@
   "it": "Lo strumento ha bisogno dei suoi componenti: Python e i suoi moduli (circa 300 MB, una sola volta).",
   "pt": "A ferramenta precisa dos seus componentes: Python e os seus módulos (cerca de 300 MB, uma só vez)."
  },
- "Le journal de l'outil apparaît ici.": {
-  "en": "The tool's log shows here.",
-  "es": "El registro de la herramienta aparece aquí.",
-  "de": "Das Protokoll des Tools erscheint hier.",
-  "it": "Il registro dello strumento compare qui.",
-  "pt": "O registro da ferramenta aparece aqui."
- },
  "Mettre l'iPhone sur le même Wi-Fi que cet ordinateur.": {
   "en": "Put the iPhone on the same Wi-Fi as this computer.",
   "es": "Conectar el iPhone a la misma Wi-Fi que este ordenador.",

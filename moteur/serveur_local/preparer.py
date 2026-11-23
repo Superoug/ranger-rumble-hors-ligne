@@ -65,7 +65,7 @@ def force_offline(config_map):
     configured.extend(({'gameModeId': i, 'forceOffline': True, 'noBotFill': False} for i in added))
     item['value'] = json.dumps(settings, separators=(',', ':'), ensure_ascii=False).encode()
     item['hash'] = hashlib.md5(item['value']).hexdigest()[:12]
-    print(f'modes hors ligne : {len(configured)} ({len(added)} ajoutes)')
+    print(f'offline modes: {len(configured)} ({len(added)} added)')
 CHARACTERS = {'SANDY': 2, 'RAIDEN': 3, 'LIL_ANN': 4, 'CELESTE': 5, 'CHIP': 6, 'STEELJAW': 7, 'FUSE': 8, 'LUMP': 9, 'MARKUS': 10, 'CHANCE': 11, 'MOLLY': 12, 'HELEN': 13, 'SPROCKET': 14, 'ZEDONE': 15, 'GRIMSHOT': 17, 'FLARE': 18, 'NAKARI': 19, 'TERRY': 20, 'CRUMBY': 21, 'RATCHET': 22}
 WEAPONS = {'BLASTER': 1, 'GRENADELAUNCHER': 2, 'MINELAUNCHER': 3, 'GATLING': 4, 'SHOTGUN': 5, 'VOIDREPULSER': 6, 'GLOVEOFDOOM': 10, 'COLDSNAP': 64, 'WARMONGER': 65, 'ENFORCER': 106, 'BUZZBLADES': 113, 'PYROCITOR': 127, 'TESLACLAW': 128, 'LAVAGUN': 130, 'RATCHETBLASTER': 232}
 BOT_DIFFICULTY = 100
@@ -83,7 +83,7 @@ def stronger_bots(config_map):
         settings[f'BotExtraPower_{name}']['weight'] = {'RawValue': weight << 16, 'AsLong': weight, 'AsInt': weight, 'AsShort': weight, 'AsFloat': float(weight), 'AsDouble': float(weight)}
     item['value'] = json.dumps(settings, separators=(',', ':'), ensure_ascii=False).encode()
     item['hash'] = hashlib.md5(item['value']).hexdigest()[:12]
-    print(f'bots : difficulte {BOT_DIFFICULTY}, puissance {sorted(BOT_POWER.values())}')
+    print(f'bots: difficulty {BOT_DIFFICULTY}, power {sorted(BOT_POWER.values())}')
 
 def custom_weapons(config_map):
     path = WEAPONS_FILE
@@ -100,7 +100,7 @@ def custom_weapons(config_map):
         table['defaultWeapons'][CHARACTERS[hero]] = WEAPONS[weapon]
     item['value'] = json.dumps(table, separators=(',', ':')).encode()
     item['hash'] = hashlib.md5(item['value']).hexdigest()[:12]
-    print(f'armes personnalisees : {len(chosen)}')
+    print(f'custom weapons: {len(chosen)}')
 
 def reopen_arsenal(config_map):
     item = next((i for i in config_map['items'] if i['key'] == 'raritieseconomydata'))
@@ -112,7 +112,7 @@ def reopen_arsenal(config_map):
             hidden.append(name)
     item['value'] = json.dumps(table, separators=(',', ':'), ensure_ascii=False).encode()
     item['hash'] = hashlib.md5(item['value']).hexdigest()[:12]
-    print(f"armes cachees de l'Arsenal : {hidden}")
+    print(f'weapons hidden from the Arsenal: {hidden}')
 
 def restore_blueprints(config_map):
     item = next((i for i in config_map['items'] if i['key'] == 'lootboxeseconomydata'))
@@ -120,7 +120,7 @@ def restore_blueprints(config_map):
     entries = table['lootDataTable']
     twins = {}
     if any((entry['lootData']['type'] == 5 for entry in entries)):
-        print("plans d'armes deja dans les coffres")
+        print('weapon plans already in the crates')
         return
     for entry in list(entries):
         if entry['lootData']['type'] != 13:
@@ -136,7 +136,7 @@ def restore_blueprints(config_map):
                 box['allDraws'].append({**draw, 'lootID': twins[draw['lootID']]})
     item['value'] = json.dumps(table, separators=(',', ':'), ensure_ascii=False).encode()
     item['hash'] = hashlib.md5(item['value']).hexdigest()[:12]
-    print(f"plans d'armes remis dans les coffres : {len(twins)}")
+    print(f'weapon plans put back in the crates: {len(twins)}')
 
 def reopen_events(config_map):
     item = next((i for i in config_map['items'] if i['key'] == 'eventseconomydata'))
@@ -257,7 +257,7 @@ def remove_paid_offers(config_map):
         offer['disabled'] = True
     item['value'] = json.dumps(table, separators=(',', ':'), ensure_ascii=False).encode()
     item['hash'] = hashlib.md5(item['value']).hexdigest()[:12]
-    print(f'offres payantes retirees : {len(paid)}')
+    print(f'paid offers removed: {len(paid)}')
 
 def build_data(config_raw, vnum, items, login, answers, revenue, user, data_dir):
     os.makedirs(os.path.join(data_dir, 'items'), exist_ok=True)
@@ -300,8 +300,8 @@ def build_data(config_raw, vnum, items, login, answers, revenue, user, data_dir)
     open(os.path.join(data_dir, 'reponses.msgpack'), 'wb').write(pack(responses))
     open(os.path.join(data_dir, 'er.json'), 'wb').write(revenue)
     json.dump({'vnum': vnum, 'user': user}, open(os.path.join(data_dir, 'meta.json'), 'w'), indent=1)
-    print(f"configuration {vnum} : {len(config_map['items'])} elements, {len(items)} fichiers, {len(missing)} manquants")
-    print(f'empreintes verifiees : {hash_ok} sur {len(items)}')
+    print(f"config {vnum}: {len(config_map['items'])} items, {len(items)} files, {len(missing)} missing")
+    print(f'hashes checked: {hash_ok} of {len(items)}')
     return missing
 
 def main():
@@ -329,9 +329,9 @@ def main():
     if reset_save or not os.path.exists(save_path):
         save = latest(f'/users/{user}/save$', 'GET')
         open(save_path, 'wb').write(body(save))
-        print('sauvegarde de depart copiee')
+        print('starting save copied')
     else:
-        print('sauvegarde existante conservee')
-    print('parties de sauvegarde :', len(unpack(open(save_path, 'rb').read())['save']))
+        print('existing save kept')
+    print('save parts:', len(unpack(open(save_path, 'rb').read())['save']))
 if __name__ == '__main__':
     main()

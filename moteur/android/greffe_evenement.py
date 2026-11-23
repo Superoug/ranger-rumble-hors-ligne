@@ -405,7 +405,7 @@ class Graft:
                 if self.old_scripts[script]['m_ClassName'] not in names:
                     self.missing_scripts[script] = self.old_scripts[script]
         models = [self._tree(p)['m_Name'] for p in self.prefabs]
-        self.log(f'greffe : {len(self.chosen)} objets 1.1.0, modeles {models}')
+        self.log(f'graft: {len(self.chosen)} 1.1.0 objects, models {models}')
 
     def _added_sprite(self, key, cab, pid):
         if key not in self.added:
@@ -444,7 +444,7 @@ class Graft:
                 have.add(key)
                 added += 1
         data.save_typetree(tree)
-        self.log(f'greffe : {added} ressources ajoutees au prechargement de la scene')
+        self.log(f"graft: {added} assets added to the scene's preload")
         return f.save()
 
     def _add_sprites(self, f):
@@ -478,7 +478,7 @@ class Graft:
             full_rect_sprite(tree, tid, *picture.size)
             add_copy(f.objects, spr_like, sid, tree)
             self.preload.add((SHARED_CAB, tid))
-            self.log(f'greffe : image {key[1]} {picture.size} ajoutee aux sharedAssets')
+            self.log(f'graft: picture {key[1]} {picture.size} added to sharedAssets')
 
     def patch_monoscripts(self, mono_file_bytes):
         env = UnityPy.load(io.BytesIO(bytes(mono_file_bytes)))
@@ -654,5 +654,5 @@ class _Grafting:
     def report(self):
         log = self.graft.log
         for (_, key), n in sorted(self.unresolved.items(), key=str):
-            log(f'greffe : sans equivalent en 1.10.4 : {key} ({n})')
-        log(f'greffe : {len(self.added_types)} types de scripts ajoutes {sorted(self.added_types)}, {len(self.graft.missing_scripts)} MonoScript a ajouter')
+            log(f'graft: no 1.10.4 equivalent: {key} ({n})')
+        log(f'graft: {len(self.added_types)} script types added {sorted(self.added_types)}, {len(self.graft.missing_scripts)} MonoScript to add')

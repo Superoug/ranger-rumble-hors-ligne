@@ -4,6 +4,8 @@ AUTHORITIES, INIT_ORDER, CLEARTEXT = (16842776, 16842778, 16844012)
 ORIENTATION, CONFIG_CHANGES, SCHEME = (16842782, 16842783, 16842791)
 SENSOR_LANDSCAPE, ROTATION_CHANGES = (6, 1440)
 THEME_FULLSCREEN = 16974122
+THEME_TRANSLUCENT = 16973840
+EXCLUDE_FROM_RECENTS, NO_HISTORY = (16842775, 16843309)
 SPLIT_META = ('com.android.vending.splits.required', 'com.android.vending.splits', 'com.android.vending.derived.apk.id')
 
 def _name(event) -> str | None:
@@ -35,7 +37,8 @@ def _allow_cleartext(doc: Document) -> None:
 def _offline_components() -> list:
     provider = element('provider', [attribute('name', NAME, 'rr.offline.Demarrage'), attribute('authorities', AUTHORITIES, 'com.playstation.rattlesnake.rroffline'), attribute('exported', EXPORTED, False), attribute('initOrder', INIT_ORDER, 1000)])
     gallery = element('activity', [attribute('name', NAME, 'rr.offline.Galerie'), attribute('label', LABEL, 'Artworks'), attribute('exported', EXPORTED, True), attribute('process', PROCESS, ':galerie'), attribute('theme', THEME, THEME_FULLSCREEN, TYPE_REFERENCE), attribute('screenOrientation', ORIENTATION, SENSOR_LANDSCAPE), attribute('configChanges', CONFIG_CHANGES, ROTATION_CHANGES)], [element('intent-filter', [], [element('action', [attribute('name', NAME, 'android.intent.action.VIEW')]), element('category', [attribute('name', NAME, 'android.intent.category.DEFAULT')]), element('category', [attribute('name', NAME, 'android.intent.category.BROWSABLE')]), element('data', [attribute('scheme', SCHEME, 'rrgalerie')])])])
-    return provider + gallery
+    check = element('activity', [attribute('name', NAME, 'rr.offline.Verification'), attribute('exported', EXPORTED, True), attribute('theme', THEME, THEME_TRANSLUCENT, TYPE_REFERENCE), attribute('excludeFromRecents', EXCLUDE_FROM_RECENTS, True), attribute('noHistory', NO_HISTORY, True), attribute('configChanges', CONFIG_CHANGES, ROTATION_CHANGES)], [element('intent-filter', [], [element('action', [attribute('name', NAME, 'android.intent.action.VIEW')]), element('category', [attribute('name', NAME, 'android.intent.category.DEFAULT')]), element('category', [attribute('name', NAME, 'android.intent.category.BROWSABLE')]), element('data', [attribute('scheme', SCHEME, 'rrmaj')])])])
+    return provider + gallery + check
 
 def modify(data: bytes) -> bytes:
     doc = Document(data)

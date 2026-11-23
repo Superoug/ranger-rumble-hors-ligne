@@ -1,7 +1,6 @@
 import argparse
 import contextlib
 import hashlib
-import io
 import os
 import runpy
 import shutil
@@ -85,12 +84,9 @@ def hidden_output(errors_too=False):
     if os.environ.get('RR_DETAILS') == '1':
         yield
         return
-    details = io.StringIO()
-    try:
-        with contextlib.redirect_stdout(details), contextlib.redirect_stderr(details) if errors_too else contextlib.nullcontext():
-            yield
-    finally:
-        commun.keep_details(details.getvalue())
+    details = commun.LiveDetails()
+    with contextlib.redirect_stdout(details), contextlib.redirect_stderr(details) if errors_too else contextlib.nullcontext():
+        yield
 
 def quietly(function, *args):
     with hidden_output():
