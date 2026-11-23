@@ -87,6 +87,11 @@ class Bus:
             for listener in self.listeners:
                 listener.put(event)
 
+    def amend(self, kind: str, **changes) -> None:
+        with self.lock:
+            if kind in self.last:
+                self.last[kind] = {**self.last[kind], **changes}
+
     def listen(self) -> queue.Queue:
         listener = queue.Queue()
         with self.lock:
@@ -674,7 +679,7 @@ def cmd_ordinateur_touches(body):
         raise Erreur(str(problem))
 
 def cmd_iphone_etat(_):
-    return jeu_ios.state(setting('output'))
+    return jeu_ios.state(setting('output'), mises_a_jour.current().get('jeu') or '')
 
 def cmd_iphone_site(_):
     import webbrowser
@@ -686,8 +691,26 @@ def cmd_iphone_preparer(body):
     problem = jeu_ios.missing()
     if problem:
         raise Erreur(problem)
-    output = setting('output')
     mises_a_jour.remember(official=official, artworks=artworks or '', sauvegarde=save or '', nouvelle_partie=new_game)
+    start_iphone(official, save, new_game, artworks)
+    return {}
+
+def cmd_iphone_maj(_):
+    official = setting('official')
+    if not (official and os.path.isfile(official)):
+        raise Erreur(tr("Il faut d'abord choisir le jeu officiel 1.10.4 (Réglages > Jeu et fichiers)."), 'jeu')
+    problem = jeu_ios.missing()
+    if problem:
+        raise Erreur(problem)
+    save = setting('sauvegarde')
+    new_game = bool(setting('nouvelle_partie')) or not (save and commun.is_save(save))
+    artworks = setting('artworks')
+    before = jeu_ios.state(setting('output')).get('infos', {}).get('jeu') or '?'
+    start_iphone(official, None if new_game else save, new_game, artworks if artworks and os.path.isdir(artworks) else None, before)
+    return {}
+
+def start_iphone(official, save, new_game, artworks, update_from: str | None=None):
+    output = setting('output')
     game = mises_a_jour.current().get('jeu') or ''
 
     def work():
@@ -695,12 +718,14 @@ def cmd_iphone_preparer(body):
         ipa.parent.mkdir(parents=True, exist_ok=True)
         folder = work_folder(str(ipa))
         bar(0, 0, 0, tr('Préparation pour iPhone'), 0)
+        if update_from:
+            print(tr('Mise à jour du jeu pour iPhone : {a} → {b}', a=update_from, b=game))
         try:
-            return jeu_ios.prepare(official, save, new_game, artworks, output, folder, game, lambda fraction, text, number: bar(fraction * 100, fraction * 100, 0, text, number))
+            result = jeu_ios.prepare(official, save, new_game, artworks, output, folder, game, lambda fraction, text, number: bar(fraction * 100, fraction * 100, 0, text, number))
         finally:
             shutil.rmtree(folder, ignore_errors=True)
+        return result | {'mise_a_jour': bool(update_from)}
     WORK.start('iphone', work)
-    return {}
 RELEASE = {}
 
 def check_release() -> dict:
@@ -713,7 +738,13 @@ def check_release() -> dict:
         if release and mises_a_jour.newer(release['version'], info['version']):
             RELEASE.update(release)
             game = release.get('jeu')
-            event = {'etat': 'nouvelle', 'version': release['version'], 'jeu': game, 'notes': release['notes'], 'page': release['page'], 'jeu_plus_recent': bool(game and mises_a_jour.newer(game, info.get('jeu') or '0'))}
+            try:
+                news = mises_a_jour.releases_since(info['version'])
+            except Exception:
+                news = []
+            news = news or [{'version': release['version'], 'date': '', **mises_a_jour.release_notes(release['notes'])}]
+            announce = mises_a_jour.settings().get('maj_annoncee') != release['version']
+            event = {'etat': 'nouvelle', 'version': release['version'], 'jeu': game, 'notes': release['notes'], 'nouveautes': news, 'annonce': announce, 'page': release['page'], 'jeu_plus_recent': bool(game and mises_a_jour.newer(game, info.get('jeu') or '0'))}
         else:
             event = {'etat': 'a_jour', 'version': release['version'] if release else None}
     event['verifie'] = datetime.datetime.now().strftime('%H:%M')
@@ -722,6 +753,12 @@ def check_release() -> dict:
 
 def cmd_maj_verifier(_):
     return check_release()
+
+def cmd_maj_annonce_vue(_):
+    if RELEASE.get('version'):
+        mises_a_jour.remember(maj_annoncee=RELEASE['version'])
+    BUS.amend('maj', annonce=False)
+    return {}
 
 def cmd_maj_outil(_):
     if not RELEASE:
@@ -815,6 +852,15 @@ def editor_source(body) -> tuple[bytes, str]:
         return (save.read_bytes(), str(save))
     if source == 'nouvelle':
         return (copie_android.pack(copie_android.new_save()), tr('partie vierge'))
+    if source == 'iphone':
+        found = Path(existing(path))
+        if found.is_dir():
+            found = found / IPHONE_SAVE
+        if not found.is_file():
+            raise Erreur(tr("Il faut choisir le fichier {name} copié depuis l'iPhone.", name=IPHONE_SAVE))
+        local = copies_folder() / f'IPHONE_{em.now_stamp()}.msgpack'
+        shutil.copyfile(found, local)
+        return (local.read_bytes(), tr('iPhone (copie gardée dans {name})', name=local.name))
     if source == 'telephone':
         adb, serial = phone()
         try:
@@ -988,6 +1034,23 @@ def cmd_ed_envoyer(_):
             raise Erreur(str(refus))
         model.mark_saved(str(local))
         return editor_state()
+IPHONE_SENDING = "Pour l'iPhone"
+IPHONE_SAVE = copie_android.EDITOR_SAVE.rsplit('/', 1)[-1]
+IPHONE_IMPORT = copie_android.EDITOR_IMPORT.rsplit('/', 1)[-1]
+
+def cmd_ed_envoyer_iphone(_):
+    with EDIT.lock:
+        model = opened()
+        data = model.save.to_bytes()
+        sv.Save(data)
+        kept = copies_folder() / f'ENVOYEE_{em.now_stamp()}.msgpack'
+        kept.write_bytes(data)
+        folder = copies_folder() / IPHONE_SENDING
+        folder.mkdir(exist_ok=True)
+        target = folder / IPHONE_IMPORT
+        target.write_bytes(data)
+        model.mark_saved(str(kept))
+        return editor_state() | {'fichier': str(target)}
 
 def cmd_ed_annuler(_):
     with EDIT.lock:
@@ -1352,6 +1415,7 @@ def main():
     parser.add_argument('--jeton')
     parser.add_argument('--garder', action='store_true', help="ne pas s'arrêter quand l'entrée standard se ferme")
     args = parser.parse_args()
+    os.chdir(commun.BASE if commun.BASE.is_dir() else Path.home())
     remove_old_mac_app()
     server = new_server(args.port, args.jeton)
     sys.stdout.write(json.dumps({'port': server.server_port, 'jeton': server.key}) + '\n')

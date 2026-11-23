@@ -1,21 +1,4 @@
 .text
-.globl _flail_enh
-_flail_enh:
-    sub  sp, sp, #0x70
-    stp  x19, x20, [sp, #0x10]
-    stp  x21, x22, [sp, #0x20]
-    stp  x23, x24, [sp, #0x30]
-    stp  x25, x26, [sp, #0x40]
-    stp  x29, x30, [sp, #0x60]
-    mov  x19, x0
-    mov  x20, x1
-    mov  x21, x2
-    mov  x22, x3
-    mov  w24, wzr
-    mov  x25, xzr
-    ldr  x9, enh_delay
-    cmp  x22, x9
-    b.lt done
 .macro get_pointer slotname, entity
     adrp x0, \slotname@PAGE
     ldr  x0, [x0, \slotname@PAGEOFF]
@@ -35,6 +18,41 @@ _flail_enh:
     str  xzr, [x2]
     bl   ext_try_get_pointer
 .endm
+.globl _flail_enh
+_flail_enh:
+    sub  sp, sp, #0x70
+    stp  x19, x20, [sp, #0x10]
+    stp  x21, x22, [sp, #0x20]
+    stp  x23, x24, [sp, #0x30]
+    stp  x25, x26, [sp, #0x40]
+    stp  x29, x30, [sp, #0x60]
+    mov  x19, x0
+    mov  x20, x1
+    mov  x21, x2
+    mov  x22, x3
+    mov  w24, wzr
+    mov  x25, xzr
+    get_pointer slot_aoe, x21
+    tbz  w0, #0, 2f
+    ldr  x8, [sp, #0x50]
+    cbz  x8, 2f
+    ldr  w9, [x19, #0x1c]
+    ldr  w10, [x8, #0x4]
+    sub  w9, w9, w10
+    str  w9, [sp, #0x58]
+    ldr  x8, [x19]
+    ldr  x9, [x8, #0x248]
+    ldr  x1, [x8, #0x250]
+    mov  x0, x19
+    blr  x9
+    ldrsw x9, [sp, #0x58]
+    mul  x9, x9, x0
+    add  x9, x9, #0x10, lsl #12
+    ldr  x8, [sp, #0x50]
+    str  x9, [x8, #0x28]
+2:  ldr  x9, enh_delay
+    cmp  x22, x9
+    b.lt done
     get_pointer slot_loadout, x20
     tbz  w0, #0, done
     ldr  x8, [sp, #0x50]

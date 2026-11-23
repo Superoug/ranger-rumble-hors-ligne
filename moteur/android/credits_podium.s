@@ -74,19 +74,14 @@ _cp_battle_end:
     cbz  w9, 9f
     bl   ext_plan_targets
     mov  w22, w1
-    cbz  w0, 8f
-    mov  w3, w0
-    mov  w1, #LOOT_BLUEPRINT
-    mov  w2, w20
-    mov  w4, #0
-    bl   cp_give
-8:  cbz  w22, 6f
-    mov  w3, w22
-    mov  w1, #LOOT_BLUEPRINT
-    mov  w2, w20
-    mov  w4, #0
-    bl   cp_give
-6:  adr  x0, s_plans
+    bl   cp_plans
+    mov  w0, w22
+    bl   cp_plans
+    ldr  w9, second_on
+    cbz  w9, 61f
+    bl   ext_dw_second_uid
+    bl   cp_plans
+61: adr  x0, s_plans
     bl   cp_log
 9:  ldp  x21, x22, [sp, #0xb0]
     ldp  x19, x20, [sp, #0x60]
@@ -97,6 +92,21 @@ _cp_battle_end:
     add  sp, sp, #0xc0
     stp  x29, x30, [sp, #-0x60]!
     b    ext_impl_body
+cp_plans:
+    stp  x29, x30, [sp, #-0x20]!
+    str  w0, [sp, #0x10]
+    cbz  w0, 9f
+    mov  x1, xzr
+    bl   ext_weapon_level
+    cmp  w0, #9
+    b.ge 9f
+    ldr  w3, [sp, #0x10]
+    mov  w1, #LOOT_BLUEPRINT
+    mov  w2, w20
+    mov  w4, #0
+    bl   cp_give
+9:  ldp  x29, x30, [sp], #0x20
+    ret
 cp_give:
     stp  x29, x30, [sp, #-0x80]!
     str  x19, [sp, #0x50]
@@ -328,4 +338,5 @@ ranked_modes:    .word 125, 131, 219, 57, 68, 0
 last_paid_rank:  .word 3
 test_kills:      .word 0
 plan_targets_on: .word 1
+second_on: .word 1
 journal:         .word 0

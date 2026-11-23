@@ -2,6 +2,7 @@ import datetime
 import hashlib
 import json
 import os
+import re
 import shutil
 import tempfile
 import threading
@@ -53,6 +54,67 @@ def latest_release(depot: str | None=None) -> dict | None:
         return None
     archive = next((n for n in (ASSET, *OLD_ASSETS) if assets.get(n) and assets.get(n + '.sha256')), None)
     return {'version': tag, 'jeu': release_game(assets.get('version.json')), 'notes': (release.get('body') or '').strip(), 'page': release.get('html_url'), 'zip': assets[archive] if archive else None, 'sha256': assets[archive + '.sha256'] if archive else None}
+NOTES_SKIPPED_SECTIONS = {'download'}
+NOTES_SKIPPED_LINE = re.compile('^(launcher|tool) \\d[\\d.]*\\b|^fan project\\b', re.IGNORECASE)
+
+def plain(text: str) -> str:
+    text = re.sub('\\[([^\\]]*)\\]\\([^)]*\\)', '\\1', text)
+    return re.sub('`|\\*\\*|__', '', text).strip()
+
+def release_notes(body: str) -> dict:
+    intro, parts, part, current, skipping, game_title = ([], {'outil': [], 'jeu': []}, 'outil', None, False, '')
+    for raw in body.splitlines():
+        line = raw.strip()
+        level = len(line) - len(line.lstrip('#'))
+        if not line or level in (1, 2):
+            continue
+        if level >= 3:
+            title = plain(line.lstrip('#'))
+            name = title.lower()
+            if level == 3 and name.startswith(('launcher', 'game')):
+                part = 'jeu' if name.startswith('game') else 'outil'
+                game_title = title if part == 'jeu' else game_title
+                current, skipping = ({'titre': '', 'lignes': []}, False)
+                parts[part].append(current)
+                continue
+            skipping = name in NOTES_SKIPPED_SECTIONS
+            current = None if skipping else {'titre': title, 'lignes': []}
+            if current:
+                parts[part].append(current)
+            continue
+        if skipping or NOTES_SKIPPED_LINE.match(line):
+            continue
+        lines = current['lignes'] if current else intro
+        if line.startswith(('- ', '* ')):
+            lines.append(plain(line[2:]))
+        elif raw[:1] in (' ', '\t') and lines:
+            lines[-1] += ' ' + plain(line)
+        else:
+            lines.append(plain(line))
+    return {'intro': intro, 'outil': [s for s in parts['outil'] if s['lignes']], 'jeu': [s for s in parts['jeu'] if s['lignes']], 'jeu_titre': game_title}
+
+def releases_since(version: str, depot: str | None=None, limit: int=10) -> list[dict]:
+    depot = depot or current()['depot']
+    with copie_android.url_open(f'https://api.github.com/repos/{depot}/releases?per_page=30', timeout=15) as answer:
+        releases = json.load(answer)
+    found = []
+    for release in releases if isinstance(releases, list) else []:
+        tag = str(release.get('tag_name', '')).lstrip('vV')
+        if release.get('draft') or release.get('prerelease') or (not tag) or (not newer(tag, version)):
+            continue
+        found.append({'version': tag, 'date': str(release.get('published_at') or '')[:10], **release_notes(release.get('body') or '')})
+    found.sort(key=lambda release: parse(release['version']), reverse=True)
+    return found[:limit]
+
+def notes_text(news: list[dict]) -> str:
+    blocks = []
+    for release in news:
+        lines = [release['version'], *release['intro']]
+        for section in release['outil'] + release['jeu']:
+            lines += [section['titre']] if section['titre'] else []
+            lines += [f'• {line}' for line in section['lignes']]
+        blocks.append('\n'.join(lines))
+    return '\n\n'.join(blocks)
 
 def release_game(url: str | None):
     if not url:

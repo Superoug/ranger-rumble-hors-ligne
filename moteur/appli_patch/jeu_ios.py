@@ -41,7 +41,8 @@ def ipa_path(output: str) -> Path:
     folder = Path(output).expanduser().parent if output else Path.home()
     return folder / IPA_NAME
 
-def state(output: str) -> dict:
+def state(output: str, game: str='') -> dict:
+    import mises_a_jour
     ipa = ipa_path(output)
     infos = {}
     try:
@@ -49,7 +50,9 @@ def state(output: str) -> dict:
     except (OSError, ValueError):
         pass
     ready = ipa.is_file()
-    return {'bientot': coming_soon(), 'manque': missing(), 'pret': ready, 'ipa': str(ipa), 'taille': ipa.stat().st_size if ready else 0, 'infos': infos if ready else {}, 'sideloadly': SIDELOADLY}
+    made = infos.get('jeu') if ready else None
+    update = bool(ready and game and (not made or mises_a_jour.newer(game, made)))
+    return {'bientot': coming_soon(), 'manque': missing(), 'pret': ready, 'ipa': str(ipa), 'taille': ipa.stat().st_size if ready else 0, 'infos': infos if ready else {}, 'sideloadly': SIDELOADLY, 'maj': update, 'jeu': game}
 
 def converter():
     spec = importlib.util.spec_from_file_location('elf_vers_macho', CONVERTER)
@@ -120,7 +123,18 @@ def prepare(official: str, save: str | None, new_game: bool, artworks: str | Non
     build_ipa(apk, ipa, Path(work) / 'ios', game_version, step)
     (ipa.parent / INFO_NAME).write_text(json.dumps({'jeu': game_version, 'date': time.strftime('%Y-%m-%d %H:%M'), 'sauvegarde': '' if new_game else os.path.basename(save or ''), 'nouvelle': bool(new_game)}, ensure_ascii=False), encoding='utf-8')
     print(tr("L'IPA est prête : {path}", path=str(ipa)))
-    return state(output)
+    return state(output, game_version)
+IOS_MARK = b'RRPLATEFORME'
+
+def mark_ios(library: Path) -> None:
+    if not library.is_file():
+        return
+    with open(library, 'r+b') as handle:
+        data = handle.read()
+        at = data.find(IOS_MARK)
+        if at >= 0:
+            handle.seek(at + len(IOS_MARK))
+            handle.write(1 .to_bytes(4, 'little'))
 
 def build_ipa(apk: Path, ipa: Path, work: Path, game_version: str, step) -> None:
     convert = converter()
@@ -137,6 +151,7 @@ def build_ipa(apk: Path, ipa: Path, work: Path, game_version: str, step) -> None
         picture = game_icon(archive)
     if not names:
         raise Probleme(tr("Le jeu fabriqué n'a pas ses bibliothèques ARM64."))
+    mark_ios(libraries / 'libil2cpp.so')
     so_files = sorted(libraries.iterdir())
     total, done = (sum((library.stat().st_size for library in so_files)), 0)
     for library in so_files:

@@ -4947,5 +4947,222 @@
   "de": "Details: {path}",
   "it": "Dettagli: {path}",
   "pt": "Detalhes: {path}"
+ },
+ "Version {v}": {
+  "en": "Version {v}",
+  "es": "Versión {v}",
+  "de": "Version {v}",
+  "it": "Versione {v}",
+  "pt": "Versão {v}"
+ },
+ "Jeu {v}": {
+  "en": "Game {v}",
+  "es": "Juego {v}",
+  "de": "Spiel {v}",
+  "it": "Gioco {v}",
+  "pt": "Jogo {v}"
+ },
+ "Nouveautés": {
+  "en": "What's new",
+  "es": "Novedades",
+  "de": "Neuigkeiten",
+  "it": "Novità",
+  "pt": "Novidades"
+ },
+ "Un nouveau jeu arrive avec l'outil {v} : l'installer d'abord dans Réglages > Mises à jour.": {
+  "en": "A new game comes with tool {v}: install it first in Settings > Updates.",
+  "es": "Un juego nuevo llega con la herramienta {v}: instalarla primero en Ajustes > Actualizaciones.",
+  "de": "Ein neues Spiel kommt mit Tool {v}: zuerst in Einstellungen > Updates installieren.",
+  "it": "Un nuovo gioco arriva con lo strumento {v}: installarlo prima in Impostazioni > Aggiornamenti.",
+  "pt": "Um novo jogo chega com a ferramenta {v}: instalá-la primeiro em Ajustes > Atualizações."
+ },
+ "Mettre à jour le jeu": {
+  "en": "Update the game",
+  "es": "Actualizar el juego",
+  "de": "Spiel aktualisieren",
+  "it": "Aggiornare il gioco",
+  "pt": "Atualizar o jogo"
+ },
+ "Mise à jour disponible": {
+  "en": "Update available",
+  "es": "Actualización disponible",
+  "de": "Update verfügbar",
+  "it": "Aggiornamento disponibile",
+  "pt": "Atualização disponível"
+ },
+ "Jeu {a} → {b}": {
+  "en": "Game {a} → {b}",
+  "es": "Juego {a} → {b}",
+  "de": "Spiel {a} → {b}",
+  "it": "Gioco {a} → {b}",
+  "pt": "Jogo {a} → {b}"
+ },
+ "Mise à jour du jeu pour iPhone : {a} → {b}": {
+  "en": "Updating the iPhone game: {a} → {b}",
+  "es": "Actualización del juego para iPhone: {a} → {b}",
+  "de": "Update des iPhone-Spiels: {a} → {b}",
+  "it": "Aggiornamento del gioco per iPhone: {a} → {b}",
+  "pt": "Atualização do jogo para iPhone: {a} → {b}"
+ },
+ "Jeu iPhone mis à jour": {
+  "en": "iPhone game updated",
+  "es": "Juego de iPhone actualizado",
+  "de": "iPhone-Spiel aktualisiert",
+  "it": "Gioco per iPhone aggiornato",
+  "pt": "Jogo do iPhone atualizado"
+ },
+ "À installer par-dessus l'app avec Sideloadly : la progression est gardée.": {
+  "en": "Install it over the app with Sideloadly: progress is kept.",
+  "es": "Instalarlo encima de la app con Sideloadly: el progreso se conserva.",
+  "de": "Mit Sideloadly über die App installieren: Der Fortschritt bleibt.",
+  "it": "Da installare sopra l'app con Sideloadly: i progressi restano.",
+  "pt": "Instalar por cima do app com o Sideloadly: o progresso é mantido."
+ },
+ "Mise à jour du jeu : refaire l'étape 4 avec la nouvelle IPA, par-dessus l'app. La progression est gardée.": {
+  "en": "Game update: do step 4 again with the new IPA, over the app. Progress is kept.",
+  "es": "Actualización del juego: repetir el paso 4 con el nuevo IPA, encima de la app. El progreso se conserva.",
+  "de": "Spiel-Update: Schritt 4 mit der neuen IPA über die App wiederholen. Der Fortschritt bleibt.",
+  "it": "Aggiornamento del gioco: rifare il passo 4 con la nuova IPA, sopra l'app. I progressi restano.",
+  "pt": "Atualização do jogo: refazer a etapa 4 com o novo IPA, por cima do app. O progresso é mantido."
+ },
+ "L'iPhone": {
+  "en": "The iPhone",
+  "es": "El iPhone",
+  "de": "Das iPhone",
+  "it": "L'iPhone",
+  "pt": "O iPhone"
+ },
+ "Envoyer à l'iPhone": {
+  "en": "Send to the iPhone",
+  "es": "Enviar al iPhone",
+  "de": "An das iPhone senden",
+  "it": "Inviare all'iPhone",
+  "pt": "Enviar para o iPhone"
+ },
+ "Utiliser pour l'IPA": {
+  "en": "Use for the IPA",
+  "es": "Usar para el IPA",
+  "de": "Für die IPA verwenden",
+  "it": "Usare per l'IPA",
+  "pt": "Usar para o IPA"
+ },
+ "L'IPA partira de cette sauvegarde.": {
+  "en": "The IPA will start from this save.",
+  "es": "El IPA partirá de esta partida.",
+  "de": "Die IPA startet mit diesem Spielstand.",
+  "it": "L'IPA partirà da questo salvataggio.",
+  "pt": "O IPA partirá deste jogo salvo."
+ },
+ "Lire la sauvegarde de l'iPhone": {
+  "en": "Read the iPhone's save",
+  "es": "Leer la partida del iPhone",
+  "de": "Spielstand des iPhones lesen",
+  "it": "Leggere il salvataggio dell'iPhone",
+  "pt": "Ler o jogo salvo do iPhone"
+ },
+ "Choisir le fichier": {
+  "en": "Choose the file",
+  "es": "Elegir el archivo",
+  "de": "Datei wählen",
+  "it": "Scegliere il file",
+  "pt": "Escolher o arquivo"
+ },
+ "L'IPA est déjà à jour ({v}).": {
+  "en": "The IPA is already up to date ({v}).",
+  "es": "El IPA ya está actualizado ({v}).",
+  "de": "Die IPA ist schon aktuell ({v}).",
+  "it": "L'IPA è già aggiornata ({v}).",
+  "pt": "O IPA já está atualizado ({v})."
+ },
+ "La refaire quand même ?": {
+  "en": "Make it again anyway?",
+  "es": "¿Rehacerlo de todos modos?",
+  "de": "Trotzdem neu erstellen?",
+  "it": "Rifarla comunque?",
+  "pt": "Refazer mesmo assim?"
+ },
+ "Refaire": {
+  "en": "Make again",
+  "es": "Rehacer",
+  "de": "Neu erstellen",
+  "it": "Rifare",
+  "pt": "Refazer"
+ },
+ "Le jeu complet, sans serveur, installé avec Sideloadly.": {
+  "en": "The full game, no server, installed with Sideloadly.",
+  "es": "El juego completo, sin servidor, instalado con Sideloadly.",
+  "de": "Das ganze Spiel, ohne Server, mit Sideloadly installiert.",
+  "it": "Il gioco completo, senza server, installato con Sideloadly.",
+  "pt": "O jogo completo, sem servidor, instalado com o Sideloadly."
+ },
+ "Le jeu de l'iPhone": {
+  "en": "The iPhone game",
+  "es": "El juego del iPhone",
+  "de": "Das Spiel des iPhones",
+  "it": "Il gioco dell'iPhone",
+  "pt": "O jogo do iPhone"
+ },
+ "Pas encore d'IPA : la préparer dans « Fabriquer et installer ».": {
+  "en": "No IPA yet: prepare it in “Build and install”.",
+  "es": "Aún no hay IPA: prepararlo en «Crear e instalar».",
+  "de": "Noch keine IPA: unter „Erstellen und installieren“ vorbereiten.",
+  "it": "Nessuna IPA per ora: prepararla in «Crea e installa».",
+  "pt": "Ainda sem IPA: prepará-lo em “Criar e instalar”."
+ },
+ "IPA du jeu {a} : la mise à jour vers {b} est disponible.": {
+  "en": "IPA of game {a}: the update to {b} is available.",
+  "es": "IPA del juego {a}: la actualización a {b} está disponible.",
+  "de": "IPA von Spiel {a}: Das Update auf {b} ist verfügbar.",
+  "it": "IPA del gioco {a}: l'aggiornamento a {b} è disponibile.",
+  "pt": "IPA do jogo {a}: a atualização para {b} está disponível."
+ },
+ "IPA du jeu {v} : à jour.": {
+  "en": "IPA of game {v}: up to date.",
+  "es": "IPA del juego {v}: actualizado.",
+  "de": "IPA von Spiel {v}: aktuell.",
+  "it": "IPA del gioco {v}: aggiornata.",
+  "pt": "IPA do jogo {v}: atualizado."
+ },
+ "Il faut choisir le fichier {name} copié depuis l'iPhone.": {
+  "en": "Choose the {name} file copied from the iPhone.",
+  "es": "Hay que elegir el archivo {name} copiado del iPhone.",
+  "de": "Die vom iPhone kopierte Datei {name} wählen.",
+  "it": "Scegliere il file {name} copiato dall'iPhone.",
+  "pt": "É preciso escolher o arquivo {name} copiado do iPhone."
+ },
+ "iPhone (copie gardée dans {name})": {
+  "en": "iPhone (copy kept in {name})",
+  "es": "iPhone (copia guardada en {name})",
+  "de": "iPhone (Kopie in {name} behalten)",
+  "it": "iPhone (copia tenuta in {name})",
+  "pt": "iPhone (cópia guardada em {name})"
+ },
+ "1. Ouvrir Ranger Rumble une fois sur l'iPhone, puis le fermer.\n2. Brancher l'iPhone. Mac : Finder > l'iPhone > Fichiers. Windows : app Appareils Apple > l'iPhone > Fichiers.\n3. Ouvrir Ranger Rumble et glisser sauvegarde_actuelle.msgpack sur cet ordinateur.\n4. « Choisir le fichier » : ce fichier.": {
+  "en": "1. Open Ranger Rumble once on the iPhone, then close it.\n2. Plug in the iPhone. Mac: Finder > the iPhone > Files. Windows: Apple Devices app > the iPhone > Files.\n3. Open Ranger Rumble and drag sauvegarde_actuelle.msgpack to this computer.\n4. “Choose the file”: that file.",
+  "es": "1. Abrir Ranger Rumble una vez en el iPhone y luego cerrarlo.\n2. Conectar el iPhone. Mac: Finder > el iPhone > Archivos. Windows: app Dispositivos Apple > el iPhone > Archivos.\n3. Abrir Ranger Rumble y arrastrar sauvegarde_actuelle.msgpack a este ordenador.\n4. «Elegir el archivo»: ese archivo.",
+  "de": "1. Ranger Rumble einmal auf dem iPhone öffnen, dann schließen.\n2. Das iPhone anschließen. Mac: Finder > das iPhone > Dateien. Windows: App Apple-Geräte > das iPhone > Dateien.\n3. Ranger Rumble öffnen und sauvegarde_actuelle.msgpack auf diesen Computer ziehen.\n4. „Datei wählen“: diese Datei.",
+  "it": "1. Aprire Ranger Rumble una volta sull'iPhone, poi chiuderlo.\n2. Collegare l'iPhone. Mac: Finder > l'iPhone > File. Windows: app Dispositivi Apple > l'iPhone > File.\n3. Aprire Ranger Rumble e trascinare sauvegarde_actuelle.msgpack su questo computer.\n4. «Scegliere il file»: quel file.",
+  "pt": "1. Abrir o Ranger Rumble uma vez no iPhone e depois fechá-lo.\n2. Conectar o iPhone. Mac: Finder > o iPhone > Arquivos. Windows: app Dispositivos Apple > o iPhone > Arquivos.\n3. Abrir o Ranger Rumble e arrastar sauvegarde_actuelle.msgpack para este computador.\n4. “Escolher o arquivo”: esse arquivo."
+ },
+ "Le fichier a_importer.msgpack est affiché sur cet ordinateur.\n1. Fermer Ranger Rumble sur l'iPhone.\n2. Brancher l'iPhone ou l'iPad avec un câble, puis le déverrouiller.\n3. Mac : dans le Finder, cliquer sur l'iPhone ou l'iPad dans la barre latérale. Windows : ouvrir l'app Appareils Apple, puis l'iPhone ou l'iPad.\n4. Ouvrir l'onglet « Fichiers » et chercher Ranger Rumble.\n5. Déplier Ranger Rumble et supprimer le fichier .msgpack qui s'y trouve (sauvegarde_actuelle.msgpack).\n6. Glisser a_importer.msgpack (la nouvelle sauvegarde) dans Ranger Rumble.\n7. Ouvrir le jeu.": {
+  "en": "The file a_importer.msgpack is shown on this computer.\n1. Close Ranger Rumble on the iPhone.\n2. Plug in the iPhone or iPad with a cable, then unlock it.\n3. Mac: in the Finder, click the iPhone or iPad in the sidebar. Windows: open the Apple Devices app, then the iPhone or iPad.\n4. Open the “Files” tab and find Ranger Rumble.\n5. Expand Ranger Rumble and delete the .msgpack file in it (sauvegarde_actuelle.msgpack).\n6. Drag a_importer.msgpack (the new save) into Ranger Rumble.\n7. Open the game.",
+  "es": "El archivo a_importer.msgpack se muestra en este ordenador.\n1. Cerrar Ranger Rumble en el iPhone.\n2. Conectar el iPhone o el iPad con un cable y desbloquearlo.\n3. Mac: en el Finder, hacer clic en el iPhone o el iPad en la barra lateral. Windows: abrir la app Dispositivos Apple y luego el iPhone o el iPad.\n4. Abrir la pestaña «Archivos» y buscar Ranger Rumble.\n5. Desplegar Ranger Rumble y eliminar el archivo .msgpack que contiene (sauvegarde_actuelle.msgpack).\n6. Arrastrar a_importer.msgpack (la nueva partida) a Ranger Rumble.\n7. Abrir el juego.",
+  "de": "Die Datei a_importer.msgpack wird auf diesem Computer angezeigt.\n1. Ranger Rumble auf dem iPhone schließen.\n2. Das iPhone oder iPad per Kabel anschließen und entsperren.\n3. Mac: Im Finder in der Seitenleiste auf das iPhone oder iPad klicken. Windows: Die App Apple-Geräte öffnen, dann das iPhone oder iPad.\n4. Den Tab „Dateien“ öffnen und Ranger Rumble suchen.\n5. Ranger Rumble aufklappen und die .msgpack-Datei darin löschen (sauvegarde_actuelle.msgpack).\n6. a_importer.msgpack (den neuen Spielstand) in Ranger Rumble ziehen.\n7. Das Spiel öffnen.",
+  "it": "Il file a_importer.msgpack è mostrato su questo computer.\n1. Chiudere Ranger Rumble sull'iPhone.\n2. Collegare l'iPhone o l'iPad con un cavo, poi sbloccarlo.\n3. Mac: nel Finder, fare clic sull'iPhone o sull'iPad nella barra laterale. Windows: aprire l'app Dispositivi Apple, poi l'iPhone o l'iPad.\n4. Aprire la scheda «File» e cercare Ranger Rumble.\n5. Espandere Ranger Rumble ed eliminare il file .msgpack che contiene (sauvegarde_actuelle.msgpack).\n6. Trascinare a_importer.msgpack (il nuovo salvataggio) in Ranger Rumble.\n7. Aprire il gioco.",
+  "pt": "O arquivo a_importer.msgpack aparece neste computador.\n1. Fechar o Ranger Rumble no iPhone.\n2. Conectar o iPhone ou o iPad com um cabo e desbloqueá-lo.\n3. Mac: no Finder, clicar no iPhone ou no iPad na barra lateral. Windows: abrir o app Dispositivos Apple e depois o iPhone ou o iPad.\n4. Abrir a aba “Arquivos” e procurar Ranger Rumble.\n5. Expandir o Ranger Rumble e apagar o arquivo .msgpack que está nele (sauvegarde_actuelle.msgpack).\n6. Arrastar a_importer.msgpack (o novo jogo salvo) para o Ranger Rumble.\n7. Abrir o jogo."
+ },
+ "Dossier…": {
+  "en": "Folder…",
+  "es": "Carpeta…",
+  "de": "Ordner…",
+  "it": "Cartella…",
+  "pt": "Pasta…"
+ },
+ "Jeu officiel 1.10.4 (APK ou XAPK)": {
+  "en": "Official game 1.10.4 (APK or XAPK)",
+  "es": "Juego oficial 1.10.4 (APK o XAPK)",
+  "de": "Offizielles Spiel 1.10.4 (APK oder XAPK)",
+  "it": "Gioco ufficiale 1.10.4 (APK o XAPK)",
+  "pt": "Jogo oficial 1.10.4 (APK ou XAPK)"
  }
 }

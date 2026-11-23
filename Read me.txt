@@ -15,6 +15,7 @@ WHAT YOU NEED
 - A 64-bit Android phone or tablet (Android 7.1 or newer) and a USB data cable.
 - To copy a save: the iPhone or iPad with the game, on the same Wi-Fi as the computer,
   before May 1, 2027.
+- To play on iPhone or iPad (trial): Sideloadly and an Apple Account (a free one works).
 
 
 START THE TOOL
@@ -85,6 +86,39 @@ open "The phone", then "Save as…", and keep the file somewhere safe.
 - The game is signed with a key made on this computer (".sauvegarde-rr" folder in the
   home folder). Keep this folder. A game built on another computer must be reinstalled:
   the launcher offers it, progress is kept, the game's settings go back to default.
+
+
+IPHONE AND IPAD (trial)
+-----------------------
+In the launcher, choose "iOS". It has the same four tools as Android: only the install
+and the access to the iPhone's save change. You need Sideloadly (free, sideloadly.io),
+an Apple Account (a free one works) and a USB cable.
+
+Copy the iPhone save: as in part 1.
+
+Build and install:
+1. Choose the official game 1.10.4 and a save (or "New game"), then "Prepare for
+   iPhone". The IPA is made next to the Android APK.
+2. Install Sideloadly. Plug the iPhone in, unlock it, then tap "Trust".
+3. On the iPhone: Settings > Privacy & Security > Developer Mode: turn on, then restart.
+4. In Sideloadly: drop the IPA, choose the iPhone, enter your Apple Account, then Start.
+5. On the iPhone: Settings > General > VPN & Device Management > your Apple Account >
+   Trust.
+6. Open Ranger Rumble. Everything runs on the iPhone, offline.
+
+With a free Apple Account, the app stops after 7 days: do step 4 again. Progress is
+kept.
+
+Edit the iPhone's save:
+1. Open the game once, then close it. Plug the iPhone in.
+2. Finder (Mac) or the Apple Devices app (Windows) > the iPhone > Files > Ranger Rumble:
+   drag "sauvegarde_actuelle.msgpack" to the computer.
+3. "Edit a save" > "The iPhone" > "Choose the file", then make your changes.
+4. "Send to the iPhone": close the game. In the same Files tab, expand Ranger Rumble, delete
+   the .msgpack file in it, then drag in the file the launcher shows ("a_importer.msgpack").
+   Open the game.
+
+Update the game: "Updates" > "Update the game", then step 4 again. Progress is kept.
 
 
 PLAYING TOGETHER

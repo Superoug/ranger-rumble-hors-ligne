@@ -692,6 +692,11 @@ class Application:
             release = mises_a_jour.latest_release()
         except Exception:
             release = False
+        if release and mises_a_jour.newer(release['version'], self.version):
+            try:
+                release['notes'] = mises_a_jour.notes_text(mises_a_jour.releases_since(self.version)) or release['notes']
+            except Exception:
+                pass
         self.later(self.release_found, release, asked)
 
     def release_found(self, release, asked):

@@ -247,6 +247,8 @@ _ws_equip_weapon:
     mov  w20, w1
     mov  w21, w2
     mov  x22, x3
+    cmp  w20, #2
+    b.eq 10f
     cbnz w20, 5f
     bl   secondary_mode
     cbz  w0, 4f
@@ -274,7 +276,10 @@ _ws_equip_weapon:
     b    9f
 7:  mov  w0, #0
     b    9f
-4:  mov  x0, x19
+4:  bl   second_mode
+    cbnz w0, 10f
+    bl   keep_apart
+    mov  x0, x19
     mov  w1, w20
     mov  w2, w21
     mov  x3, x22
@@ -293,6 +298,21 @@ _ws_equip_weapon:
     mov  w2, w21
     mov  x3, x22
     bl   equip_weapon_raw
+    b    9f
+10: mov  w0, w21
+    mov  x1, xzr
+    bl   ext_weapon_is_unlocked
+    tbz  w0, #0, 7b
+    bl   main_uid
+    cmp  w0, w21
+    b.eq 7b
+    mov  w0, w21
+    bl   set_second
+    mov  w0, #'x'
+    mov  w1, #ALL_HEROES
+    mov  w2, #0
+    bl   set_pref
+    b    3b
 9:  ldr  x23, [sp, #0x30]
     ldp  x21, x22, [sp, #0x20]
     ldp  x19, x20, [sp, #0x10]
@@ -301,6 +321,57 @@ _ws_equip_weapon:
 equip_weapon_raw:
     sub  sp, sp, #0x40
     b    ext_equip_weapon_body
+main_uid:
+    stp  x29, x30, [sp, #-0x20]!
+    mov  x0, xzr
+    bl   ext_user_instance
+    cbz  x0, 1f
+    ldr  x8, [x0, #0x190]
+    str  x8, [sp, #0x18]
+    add  x0, sp, #0x18
+    mov  w1, wzr
+    mov  x2, xzr
+    bl   ext_get_at_slot
+1:  ldp  x29, x30, [sp], #0x20
+    ret
+set_second:
+    stp  x29, x30, [sp, #-0x10]!
+    mov  x1, xzr
+    bl   ext_weapon_id
+    mov  w2, w0
+    mov  w0, #'v'
+    mov  w1, #ALL_HEROES
+    bl   set_pref
+    ldp  x29, x30, [sp], #0x10
+    ret
+keep_apart:
+    stp  x29, x30, [sp, #-0x10]!
+    bl   ext_dw_second_uid
+    cbz  w0, 9f
+    cmp  w0, w21
+    b.ne 9f
+    bl   main_uid
+    cbz  w0, 9f
+    bl   set_second
+9:  ldp  x29, x30, [sp], #0x10
+    ret
+second_mode:
+    stp  x29, x30, [sp, #-0x10]!
+    mov  w0, #'x'
+    mov  w1, #ALL_HEROES
+    mov  w2, #0
+    bl   get_pref
+    cbz  w0, 1f
+    bl   ext_dw_option
+1:  ldp  x29, x30, [sp], #0x10
+    ret
+set_mode:
+    ldr  w8, [x19, #0x58]
+    cmp  w8, #2
+    cset w2, eq
+    mov  w0, #'x'
+    mov  w1, #ALL_HEROES
+    b    set_pref
 .globl _ws_equip_skin
 _ws_equip_skin:
     stp  x29, x30, [sp, #-0x40]!
@@ -531,15 +602,19 @@ secondary_weapon:
 9:  ldr  x19, [sp, #0x10]
     ldp  x29, x30, [sp], #0x20
     ret
+slot_weapon:
+    ldr  w8, [x19, #0x58]
+    cmp  w8, #2
+    b.ne secondary_weapon
+    b    ext_dw_second
 .globl _ws_slot_refresh
 _ws_slot_refresh:
     ldr  w8, [x0, #0x58]
-    cmp  w8, #1
-    b.ne 1f
+    cbz  w8, 1f
     stp  x29, x30, [sp, #-0x20]!
     str  x19, [sp, #0x10]
     mov  x19, x0
-    bl   secondary_weapon
+    bl   slot_weapon
     mov  w1, w0
     mov  x0, x19
     mov  x2, xzr
@@ -548,6 +623,8 @@ _ws_slot_refresh:
     b    ext_bin_weapon
 1:  str  x30, [sp, #-0x40]!
     b    ext_refresh_body
+s_animator: .asciz "Animator"
+    .p2align 2
 slot_glow:
     stp  x29, x30, [sp, #-0x30]!
     stp  x19, x20, [sp, #0x10]
@@ -568,10 +645,23 @@ slot_glow:
     ldrsw x9, [x19, #0x58]
     ldr  w10, [x8, #0x18]
     cmp  w9, w10
-    b.hs 9f
+    b.hs 5f
     add  x8, x8, #0x20
     ldr  x21, [x8, x9, lsl #3]
-    cbz  x21, 9f
+    b    6f
+5:  mov  x0, x19
+    mov  x1, xzr
+    bl   ext_get_gameobject
+    cbz  x0, 9f
+    mov  x21, x0
+    adr  x0, s_animator
+    bl   ext_string_new
+    mov  x1, x0
+    mov  x0, x21
+    mov  x2, xzr
+    bl   ext_component_by_name
+    mov  x21, x0
+6:  cbz  x21, 9f
     adrp x0, slot_highlight_name@PAGE
     ldr  x0, [x0, slot_highlight_name@PAGEOFF]
     mov  x19, x0
@@ -592,9 +682,8 @@ _ws_slot_refresh_if:
     mov  x19, x0
     bl   slot_glow
     ldr  w8, [x19, #0x58]
-    cmp  w8, #1
-    b.ne 2f
-    bl   secondary_weapon
+    cbz  w8, 2f
+    bl   slot_weapon
     ldr  w8, [x19, #0x98]
     cmp  w8, w0
     b.eq 1f
@@ -625,9 +714,11 @@ _ws_slot_clicked:
     mov  x2, xzr
     bl   ext_loadout_in_state
     tbz  w0, #0, 7f
+    bl   set_mode
     ldr  w8, [x19, #0x58]
     mov  w21, #0
-    cbnz w8, 4f
+    cmp  w8, #1
+    b.eq 4f
     bl   secondary_mode
     cbz  w0, 6f
     mov  w21, #4
@@ -640,9 +731,11 @@ _ws_slot_clicked:
     ldp  x19, x20, [sp, #0x10]
     ldp  x29, x30, [sp], #0x30
     ret
-7:  ldr  w8, [x19, #0x58]
+7:  bl   set_mode
+    ldr  w8, [x19, #0x58]
     mov  w21, #0
-    cbnz w8, 5f
+    cmp  w8, #1
+    b.eq 5f
     bl   secondary_mode
     cbz  w0, 8f
     mov  w21, #4
@@ -662,37 +755,12 @@ _ws_slot_clicked:
 _ws_plan_targets:
     stp  x29, x30, [sp, #-0x30]!
     stp  x19, x20, [sp, #0x10]
-    mov  w19, #0
     mov  w20, #0
-    mov  x0, xzr
-    bl   ext_user_instance
-    cbz  x0, 1f
-    ldr  x8, [x0, #0x190]
-    str  x8, [sp, #0x20]
-    add  x0, sp, #0x20
-    mov  w1, wzr
-    mov  x2, xzr
-    bl   ext_get_at_slot
+    bl   main_uid
     mov  w19, w0
-1:  mov  w0, #'g'
-    mov  w1, #ALL_HEROES
-    mov  w2, #0
-    bl   get_pref
-    cbnz w0, 4f
-    bl   current_hero
-    tbnz w0, #31, 5f
-    adr  x9, gadget_owners
-    mov  w10, #0
-2:  ldr  w11, [x9, w10, uxtw #2]
-    cmp  w11, w0
-    b.eq 3f
-    add  w10, w10, #1
-    cmp  w10, #GADGET_COUNT
-    b.lt 2b
-    b    5f
-3:  adr  x9, gadget_ids
-    ldr  w0, [x9, w10, uxtw #2]
-4:  mov  x1, xzr
+    bl   secondary_weapon
+    cbz  w0, 5f
+    mov  x1, xzr
     bl   ext_weapon_uid
     mov  w20, w0
 5:  mov  w0, w19
@@ -708,17 +776,16 @@ _ws_shown_weapon:
     mov  x1, xzr
     bl   ext_default_weapon_uid
     mov  w19, w0
-    mov  x0, xzr
-    bl   ext_user_instance
-    cbz  x0, 1f
-    ldr  x8, [x0, #0x190]
-    str  x8, [sp, #0x18]
-    add  x0, sp, #0x18
-    mov  w1, wzr
-    mov  x2, xzr
-    bl   ext_get_at_slot
+    mov  w0, #'s'
+    mov  w1, #ALL_HEROES
+    mov  w2, #0
+    bl   get_pref
+    cbz  w0, 2f
+    bl   ext_dw_second_uid
+    cbnz w0, 3f
+2:  bl   main_uid
     cbz  w0, 1f
-    mov  w19, w0
+3:  mov  w19, w0
 1:  mov  w0, w19
     ldr  x19, [sp, #0x10]
     ldp  x29, x30, [sp], #0x20
@@ -748,7 +815,8 @@ popup_levels:
     mov  w22, w0
     mov  x1, xzr
     bl   ext_weapon_upgrade_qlevel
-    mov  w21, w0
+    cmp  w0, #1
+    csinc w21, w0, wzr, ge
     mov  w1, w0
     cmp  w22, w23
     b.ne 9f

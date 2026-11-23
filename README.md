@@ -12,20 +12,24 @@ Windows and macOS, in English, French, Spanish, German, Italian and Portuguese.
 ## iPhone and Android
 
 - **The save copy works on iPhone or iPad only.**
-- **The offline game runs on Android only.**
-- **An iPhone copy carries on in the Android game.**
+- **The offline game runs on Android, and on iPhone and iPad (trial).**
+- **A save copied from the iPhone carries on in the offline game.**
 
 ## What the tool does
+
+The launcher has an **Android** section and an **iOS** section, with the same four tools:
 
 1. **Copy the save** (iPhone and iPad, before May 1, 2027): scan a QR code, install a profile, open
    the game. The tool keeps your save and the game's data. On Android there is nothing to copy:
    the game starts from a new game.
-2. **Install the game** (Android): builds the offline game from your official 1.10.4 game, with
-   your iPhone save or a new game, then installs it on the phone by cable.
-3. **Edit a save**: heroes, levels, weapons, skins, medals, currencies, stats. From a file, a copy
-   or straight on the phone.
-4. **Update**: the tool and the phone's game, by cable, without losing progress. The offline game
-   announces new versions in its Inbox.
+2. **Build and install**: builds the offline game from your official 1.10.4 game, with your save or a
+   new game. Android: installed by cable. iOS: an IPA installed with Sideloadly.
+3. **Edit a save**: heroes, levels, weapons, skins, medals, currencies, stats. From a file, a copy or
+   the phone itself.
+4. **Update the game**: a new game version over the old one, without losing progress. The offline
+   game announces new versions in its Inbox.
+
+The launcher itself updates from **Settings > Updates**.
 
 Deleting the game also deletes its save.
 
@@ -87,7 +91,37 @@ The whole game works offline: shop, missions, events, Ranger Road, friends.
 **Installing Python 3.15 beforehand is recommended.**
 
 You also need the official 1.10.4 game (`.xapk`, `.apkm` or a complete `.apk`), 5 GB free, and a
-64-bit Android phone or tablet (Android 7.1 or newer).
+64-bit Android phone or tablet (Android 7.1 or newer), or an iPhone or iPad.
+
+## iPhone and iPad (trial)
+
+Same tools as Android, in the launcher's **iOS** section. Only the install and the access to the
+phone's save change.
+
+You need: [Sideloadly](https://sideloadly.io) (free), an Apple Account (a free one works) and a USB
+cable.
+
+**Build and install**
+1. iOS > **Build and install**: choose the official game 1.10.4 and a save (or **New game**), then
+   **Prepare for iPhone**. The IPA is made next to the Android APK.
+2. Install Sideloadly. Plug the iPhone in, unlock it, then tap **Trust**.
+3. On the iPhone: Settings > Privacy & Security > **Developer Mode**: turn on, then restart.
+4. In Sideloadly: drop the IPA, choose the iPhone, enter your Apple Account, then **Start**.
+5. On the iPhone: Settings > General > VPN & Device Management > your Apple Account > **Trust**.
+6. Open Ranger Rumble. Everything runs on the iPhone, offline.
+
+With a free Apple Account, the app stops after 7 days: do step 4 again. Progress is kept.
+
+**Edit the iPhone's save**
+1. Open the game once, then close it. Plug the iPhone in.
+2. Finder (Mac) or the Apple Devices app (Windows) > the iPhone > **Files** > Ranger Rumble: drag
+   `sauvegarde_actuelle.msgpack` to the computer.
+3. iOS > **Edit a save** > **The iPhone** > **Choose the file**, then make your changes.
+4. **Send to the iPhone**: close the game. In the same Files tab, expand Ranger Rumble, delete the
+   `.msgpack` file in it, then drag in the file the launcher shows (`a_importer.msgpack`). Open the game.
+
+**Update the game**
+iOS > **Updates** > **Update the game**, then step 4 again. Progress is kept.
 
 ## The official game
 

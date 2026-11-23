@@ -108,6 +108,9 @@ function tr(texte, valeurs = {}) {
 const nomTache = (nom) => (NOMS_TACHES[nom] ? tr(NOMS_TACHES[nom]) : nom);
 const titrePage = (page) => tr(PAGES[page].titre);
 const pageDeTache = (tache) => Object.keys(PAGES).find((page) => PAGES[page].taches.includes(tache)) || "fabrication";
+// The iOS section has the same four tools; its build and its updates are the « iphone » task.
+const TACHES_IOS = { copie: ["copie"], fabrication: ["iphone"], editeur: [], majs: ["iphone"] };
+const avecOutils = (section) => section === "android" || section === "ios";
 const telephone = () => E.telephones.find((t) => t.etat === "device");
 const majDisponible = () => E.maj.etat === "nouvelle";
 const texteJournal = () => E.journal.map((l) => l.texte).join("\n");
@@ -188,7 +191,10 @@ function recevoir(ev) {
     case "copie": recevoirCopie(ev); break;
     case "copie_qr": E.qr = ev.url; E.qrSvg = ev.svg; break;
     case "telephones": E.adb = ev.adb; E.telephones = ev.telephones || []; break;
-    case "maj": E.maj = ev; break;
+    case "maj":
+      E.maj = ev;
+      if (ev.etat === "nouvelle" && ev.annonce) annoncerMaj();
+      break;
     case "pare_feu":
       question(tr("Pare-feu"), tr("Le pare-feu de Windows bloque l'iPhone."), [
         { titre: tr("Autoriser"), action: () => api("pare_feu_regler") }, { titre: tr("Plus tard"), annuler: true }]);
@@ -250,6 +256,8 @@ function recevoirTache(ev) {
     if (resultat.gardee) texte += "\n" + tr("Ancienne sauvegarde gardée : {name}", { name: nomFichier(resultat.gardee) });
     toast(ev.nom === "maj_telephone" ? tr("Téléphone à jour") : tr("Jeu installé"), texte, "succes");
     api("telephones", { rafraichir: true });
+  } else if (ev.nom === "iphone" && resultat.mise_a_jour) {
+    toast(tr("Jeu iPhone mis à jour"), tr("À installer par-dessus l'app avec Sideloadly : la progression est gardée."), "succes");
   } else if (ev.nom === "iphone") {
     toast(tr("L'IPA est prête"), tr("À installer avec Sideloadly."), "succes");
   } else if (ev.nom === "copie" && resultat.sauvegarde) {
@@ -440,7 +448,7 @@ async function verifierMaj() {
 // Navigation and drawing -------------------------------------------------------------------------------
 function aller(section, page = null) {
   E.section = section;
-  E.page = section === "android" ? page : null;
+  E.page = avecOutils(section) ? page : null;
   rendreBarre();
   rendre();
   if (section !== "reglages" && E.reglages.derniere_page !== section) {
@@ -476,7 +484,7 @@ function rendre() {
 }
 
 function vue() {
-  if (E.section === "ios") return E.iphone.bientot === false ? pageIphone() : prochainement("ios");
+  if (E.section === "ios") return E.iphone.bientot !== false ? prochainement("ios") : E.page ? pageOutil(E.page) : accueilIphone();
   if (E.section === "ordinateur") return prochainement("ordinateur");
   if (E.section === "reglages") return reglages();
   return E.page ? pageOutil(E.page) : accueil();
@@ -517,8 +525,7 @@ function apresRendu() {
   if (window.imagesCassees?.size) for (const img of $$("img:not(.cassee)")) if (imagesCassees.has(img.src)) img.classList.add("cassee");
   placerIndicateurs();
   retrouverBulle();
-  if (E.section === "ios" && E.iphone.bientot === false && E.libre === null) lireEspaceLibre();
-  if (E.section !== "android") return;
+  if (!avecOutils(E.section) || (E.section === "ios" && E.iphone.bientot !== false)) return;
   if (E.page === "editeur" && E.editeur.ouvert) chargerEditeur();
   if (E.page === "fabrication" && E.libre === null) lireEspaceLibre();
 }
@@ -646,7 +653,7 @@ function rendreBarre() {
   const detailAndroid = E.tache ? tr("En cours : {t}", { t: nomTache(E.tache) }) : t ? t.modele : tr("Disponible");
   const iosBientot = E.iphone.bientot !== false;
   const detailIos = iosBientot ? tr("Prochainement") : E.tache === "iphone" ? tr("En cours : {t}", { t: nomTache("iphone") })
-    : E.iphone.pret ? tr("IPA prête") : tr("Disponible");
+    : E.iphone.maj ? tr("Mise à jour disponible") : E.iphone.pret ? tr("IPA prête") : tr("Disponible");
   $("#tuiles").innerHTML = tuile("android", "android", "Android", detailAndroid)
     + tuile("ios", "apple", "iOS", detailIos, iosBientot)
     + tuile("ordinateur", "ordinateur", tr("Ordinateur"), tr("Prochainement"), true);
@@ -658,14 +665,19 @@ function rendreBarre() {
 
 // Android: home ----------------------------------------------------------------------------------------
 function accueil() {
-  const cartes = Object.entries(PAGES).map(([page, { image, icone: nomIcone, taches }]) => `
+  return `${banniere()}${grilleOutils((page) => PAGES[page].taches)}`;
+}
+
+// The four tools' cards; taches(page): the tasks that show a card as running.
+function grilleOutils(taches) {
+  const cartes = Object.entries(PAGES).map(([page, { image, icone: nomIcone }]) => `
     <button class="carte-outil" data-action="page" data-page="${page}">
       <div class="img"><img src="/ressources/lanceur/${image}.png" alt=""></div>
       <span class="badge">${SVG[nomIcone]}</span>
       <div class="corps"><h3 class="jeu">${h(titrePage(page))}</h3>
-      ${taches.includes(E.tache) ? `<span class="puce" style="--c:var(--a1)">${SVG.sablier} ${h(tr("En cours"))}</span>` : ""}</div>
+      ${taches(page).includes(E.tache) ? `<span class="puce" style="--c:var(--a1)">${SVG.sablier} ${h(tr("En cours"))}</span>` : ""}</div>
     </button>`).join("");
-  return `${banniere()}<div class="section"><div class="titre-section">${h(tr("OUTILS"))}</div><div class="grille">${cartes}</div></div>`;
+  return `<div class="section"><div class="titre-section">${h(tr("OUTILS"))}</div><div class="grille">${cartes}</div></div>`;
 }
 
 // The banner shows its pictures in turn; a redraw keeps the same elements (garderEtat), so the turn goes on.
@@ -696,7 +708,7 @@ function tournerBanniere() {
 function boutonPrincipal() {
   const t = telephone();
   if (E.tache) {
-    const vers = E.tache === "iphone" ? 'data-action="section" data-section="ios"' : `data-action="page" data-page="${pageDeTache(E.tache)}"`;
+    const vers = E.tache === "iphone" ? 'data-action="page-ios" data-page="fabrication"' : `data-action="page" data-page="${pageDeTache(E.tache)}"`;
     return `<button class="principal grand jeu" ${vers}>${SVG.sablier} ${h(tr("En cours : {t}", { t: nomTache(E.tache) }))}</button>`;
   }
   if (t && t.jeu && t.origine !== "officiel" && t.version && plusAncien(t.version, E.jeu)) {
@@ -724,7 +736,9 @@ function boutonAideTelephone() {
 // Android: tool pages ----------------------------------------------------------------------------------
 // Only the copy's header has a line under its title: the deadline.
 function pageOutil(page) {
-  const corps = { copie: pageCopie, fabrication: pageFabrication, editeur: pageEditeur, majs: pageMajs }[page]();
+  const corps = (E.section === "ios"
+    ? { copie: pageCopie, fabrication: pageIphoneFabrication, editeur: pageEditeur, majs: pageIphoneMajs }
+    : { copie: pageCopie, fabrication: pageFabrication, editeur: pageEditeur, majs: pageMajs })[page]();
   return `<div class="entete"><img class="fond" src="/ressources/lanceur/${PAGES[page].image}.png" alt="">
     <div class="ligne"><button class="retour" data-action="retour">${SVG.retour}</button>
     <span class="badge">${SVG[PAGES[page].icone]}</span>
@@ -806,11 +820,12 @@ const espaceLibre = () => (E.libre ? `<div class="libre ${E.libre < 5e9 ? "peu" 
 function champsJeu() {
   const nouvelle = !!E.reglages.nouvelle_partie;
   const options = E.sauvegardes.map((s) => `<option value="${h(s.chemin)}" ${s.chemin === E.reglages.sauvegarde ? "selected" : ""}>${h(s.libelle)}</option>`).join("");
-  return `${champ("official", tr("Jeu officiel 1.10.4"), "doc", tr("Le fichier .xapk, .apkm ou .apk complet"), "choisir-jeu")}
+  return `${champ("official", tr("Jeu officiel 1.10.4 (APK ou XAPK)"), "doc", tr("Le fichier .xapk, .apkm ou .apk complet"), "choisir-jeu")}
       <div class="champ">${SVG.personne}<div class="quoi"><small>${h(tr("Progression"))}</small>
         <div class="boutons">
           <select class="choix" id="choix-sauvegarde" data-change="sauvegarde" ${nouvelle ? "disabled" : ""}>
             <option value="">${h(tr("Choisir une sauvegarde"))}</option>${options}</select>
+          <button class="secondaire" data-action="dossier-sauvegardes">${h(tr("Dossier…"))}</button>
           <button class="secondaire" data-action="autre-sauvegarde">${h(tr("Autre fichier…"))}</button>
           ${bascule(nouvelle, 'data-change="nouvelle"')}
           <span class="petit">${h(tr("Nouvelle partie"))}</span>
@@ -836,29 +851,67 @@ function pageFabrication() {
     ${boiteJournal(["fabrication", "installation", "adb"])}</div>`;
 }
 
+// The release notes of the new versions (the engine's "nouveautes"), newest first.
+function dateNote(iso) {
+  const jour = iso ? new Date(`${iso}T12:00:00`) : null;
+  return jour && !isNaN(jour) ? jour.toLocaleDateString(E.langue, { day: "numeric", month: "long", year: "numeric" }) : "";
+}
+
+function blocSections(sections) {
+  return sections.map((s) => `${s.titre ? `<h6 class="jeu">${h(s.titre)}</h6>` : ""}<ul>${s.lignes.map((ligne) => `<li>${h(ligne)}</li>`).join("")}</ul>`).join("");
+}
+
+// partie: "outil" (the tool's card) or "jeu" (the phone game's card); none: both, as the announcement shows them.
+function nouveautes(partie = null) {
+  const versions = (E.maj.nouveautes || []).filter((v) => !partie || v[partie].length || (partie === "outil" && v.intro.length));
+  if (!versions.length) return partie !== "jeu" && E.maj.notes && !E.maj.nouveautes ? `<div class="journal notes">${h(E.maj.notes)}</div>` : "";
+  const titre = (v) => {
+    const jeu = partie === "jeu" && (v.jeu_titre.match(/\d[\d.]*/) || [])[0];
+    return jeu ? tr("Jeu {v}", { v: jeu }) : tr("Version {v}", { v: v.version });
+  };
+  const groupe = (nom, sections) => sections.length ? `<h6 class="jeu groupe">${h(nom)}</h6>${blocSections(sections)}` : "";
+  return `<div class="nouveautes">${versions.map((v) => `<section class="note-version">
+    <div class="tete"><h5 class="jeu">${h(titre(v))}</h5><span>${h(dateNote(v.date))}</span></div>
+    ${partie === "jeu" ? "" : v.intro.map((ligne) => `<p>${h(ligne)}</p>`).join("")}
+    ${partie ? blocSections(v[partie]) : groupe(tr("L'outil"), v.outil) + groupe(tr("Le jeu du téléphone"), v.jeu)}
+    </section>`).join("")}</div>`;
+}
+
+function annoncerMaj() {
+  $("#annonce-maj")?.remove();
+  const fond = document.createElement("div");
+  fond.id = "annonce-maj";
+  fond.innerHTML = `<div class="boite"><h3 class="jeu">${h(tr("La version {v} est disponible.", { v: E.maj.version }))}</h3>
+    ${nouveautes()}
+    <div class="boutons"><button class="secondaire" data-action="fermer-annonce">${h(tr("Plus tard"))}</button>
+    <button class="principal jeu" data-action="installer-annonce">${h(tr("Installer la version {v}", { v: E.maj.version }))}</button></div></div>`;
+  document.body.append(fond);
+  api("maj_annonce_vue");
+}
+
 function pageMajs() {
   const t = telephone();
-  const etatOutil = { nouvelle: tr("La version {v} est disponible.", { v: E.maj.version || "" }), a_jour: tr("À jour."),
-    impossible: tr("Vérification impossible (pas de connexion ?).") }[E.maj.etat] || tr("Pas encore vérifié.");
   let etatTel = tr("Aucun téléphone branché.");
   if (t) etatTel = !t.jeu ? tr("{m} : pas de Ranger Rumble.", { m: t.modele }) : t.origine === "officiel" ? tr("{m} : jeu officiel.", { m: t.modele })
     : tr("{m} : jeu hors ligne {v}.", { m: t.modele, v: t.version || "?" });
   const tete = (titre, version, etat) => `<h4 class="jeu avec-puce">${h(titre)}<span class="espace"></span><span class="puce" style="--c:var(--a1)">${h(version)}</span></h4>
       <p class="etat">${h(etat)}</p>`;
+  // A newer game comes with a newer tool, installed from the Settings first.
+  const jeuAVenir = majDisponible() ? nouveautes("jeu") : "";
   return `<div class="colonne"><div class="rangee">
-    <div class="carte">${tete(tr("L'outil"), E.version, etatOutil)}
-      ${majDisponible() && E.maj.notes ? `<div class="journal notes">${h(E.maj.notes)}</div>` : ""}
-      <div class="boutons"><button class="secondaire" data-action="maj-verifier">${h(tr("Vérifier maintenant"))}</button>
-      ${majDisponible() ? `<button class="principal jeu" data-action="maj-outil" ${E.tache ? "disabled" : ""}>${h(tr("Installer la version {v}", { v: E.maj.version }))}</button>` : ""}</div></div>
     <div class="carte">${tete(tr("Le jeu du téléphone"), E.jeu, etatTel)}
+      ${jeuAVenir ? `<p class="etat">${h(tr("Un nouveau jeu arrive avec l'outil {v} : l'installer d'abord dans Réglages > Mises à jour.", { v: E.maj.version }))}</p>${jeuAVenir}` : ""}
       <button class="principal jeu" data-action="maj-telephone" ${E.tache || !t ? "disabled" : ""}>${SVG.sortie} ${h(tr("Mettre à jour le téléphone"))}</button></div>
-    </div>${progression(TACHES_MAJ)}${boiteJournal(["maj_telephone", "maj_outil", "installation"])}</div>`;
+    </div>${progression(["maj_telephone", "installation"])}${boiteJournal(["maj_telephone", "installation"])}</div>`;
 }
 
 // Android: the editor ----------------------------------------------------------------------------------
 function pageEditeur() {
+  const ios = E.section === "ios";
+  const appareil = ios ? `<button class="secondaire" data-action="ed-ouvrir-iphone">${SVG.cable} ${h(tr("L'iPhone"))}</button>`
+    : `<button class="secondaire" data-action="ed-ouvrir" data-source="telephone">${SVG.cable} ${h(tr("Le téléphone"))}</button>`;
   const ouvrir = `<div class="boutons"><span class="intitule">${h(tr("Ouvrir :"))}</span>
-    <button class="secondaire" data-action="ed-ouvrir" data-source="telephone">${SVG.cable} ${h(tr("Le téléphone"))}</button>
+    ${appareil}
     <button class="secondaire" data-action="ed-ouvrir" data-source="fichier">${SVG.doc} ${h(tr("Un fichier…"))}</button>
     <button class="secondaire" data-action="ed-ouvrir" data-source="copie">${SVG.dossier} ${h(tr("Une copie…"))}</button>
     <button class="secondaire" data-action="ed-ouvrir" data-source="nouvelle">${SVG.etoile} ${h(tr("Partie vierge"))}</button></div>`;
@@ -878,9 +931,9 @@ function pageEditeur() {
     <div class="onglets"><span class="indic"></span>${onglets}</div>
     ${E.onglet === "tout" ? arbre() : tableau()}
     <div class="boutons">
-      <button class="principal jeu" data-action="ed-envoyer">${SVG.avion} ${h(tr("Envoyer au téléphone"))}</button>
+      <button class="principal jeu" data-action="${ios ? "ed-envoyer-iphone" : "ed-envoyer"}">${SVG.avion} ${h(ios ? tr("Envoyer à l'iPhone") : tr("Envoyer au téléphone"))}</button>
       <button class="secondaire" data-action="ed-enregistrer">${SVG.disquette} ${h(tr("Enregistrer sous…"))}</button>
-      <button class="secondaire" data-action="ed-pour-apk">${SVG.boite} ${h(tr("Utiliser pour l'APK"))}</button>
+      <button class="secondaire" data-action="ed-pour-apk">${SVG.boite} ${h(ios ? tr("Utiliser pour l'IPA") : tr("Utiliser pour l'APK"))}</button>
       <span class="espace"></span>
       <button class="secondaire" data-action="ed-annuler" ${changements ? "" : "disabled"}>${SVG.annuler} ${h(tr("Annuler les changements"))}</button></div></div>`;
 }
@@ -973,40 +1026,82 @@ async function toucherNoeud(cle) {
   }
 }
 
-// iPhone and iPad: an .ipa made from the official file, installed with Sideloadly ----------------------------
-function pageIphone() {
-  const I = E.iphone, pret = !!I.pret, marche = E.tache === "iphone";
-  let etat;
-  if (I.manque) etat = ["", tr("Impossible"), I.manque];
-  else if (pret) etat = ["on", tr("IPA prête"), tr("Préparée le {d}, {n} Go", { d: I.infos?.date || "?", n: ((I.taille || 0) / 1e9).toFixed(1) })];
-  else etat = ["", tr("À préparer"), tr("Quelques minutes, une seule fois")];
-  const preparer = `data-action="iphone-preparer" ${E.tache || I.manque ? "disabled" : ""}`;
-  const principal = marche
-    ? `<button class="principal grand jeu" disabled>${SVG.sablier} ${h(tr("En cours : {t}", { t: nomTache("iphone") }))}</button>`
-    : pret ? `<button class="principal grand jeu" data-action="montrer" data-chemin="${h(I.ipa)}">${SVG.dossier} ${h(tr("Afficher l'IPA"))}</button>`
-      : `<button class="principal grand jeu" ${preparer}>${SVG.marteau} ${h(tr("Préparer pour iPhone"))}</button>`;
+// iOS: the same four tools as Android; the game is an .ipa installed with Sideloadly -----------------------------
+// The editor's way to and from the iPhone: the app's files, by cable, in Finder (Mac) or Apple Devices (Windows).
+const ETAPES_LIRE_IPHONE = "1. Ouvrir Ranger Rumble une fois sur l'iPhone, puis le fermer.\n2. Brancher l'iPhone. Mac : Finder > l'iPhone > Fichiers. Windows : app Appareils Apple > l'iPhone > Fichiers.\n3. Ouvrir Ranger Rumble et glisser sauvegarde_actuelle.msgpack sur cet ordinateur.\n4. « Choisir le fichier » : ce fichier.";
+const ETAPES_ENVOYER_IPHONE = "Le fichier a_importer.msgpack est affiché sur cet ordinateur.\n1. Fermer Ranger Rumble sur l'iPhone.\n2. Brancher l'iPhone ou l'iPad avec un câble, puis le déverrouiller.\n3. Mac : dans le Finder, cliquer sur l'iPhone ou l'iPad dans la barre latérale. Windows : ouvrir l'app Appareils Apple, puis l'iPhone ou l'iPad.\n4. Ouvrir l'onglet « Fichiers » et chercher Ranger Rumble.\n5. Déplier Ranger Rumble et supprimer le fichier .msgpack qui s'y trouve (sauvegarde_actuelle.msgpack).\n6. Glisser a_importer.msgpack (la nouvelle sauvegarde) dans Ranger Rumble.\n7. Ouvrir le jeu.";
+
+function accueilIphone() {
+  return `${banniereIphone()}${grilleOutils((page) => TACHES_IOS[page])}`;
+}
+
+function banniereIphone() {
   return `<div class="banniere"><div class="images"><img src="/ressources/lanceur/fond_6.png" alt="" class="vue-img"></div>
     <div class="texte">
       <div class="puces"><span class="puce" style="--c:#8ab4ff">${SVG.apple} IPHONE · IPAD</span>
       <span class="puce" style="--c:var(--a1)">${h(tr("Jeu {g}", { g: E.jeu }))}</span>
       <span class="puce" style="--c:var(--orange)">${h(tr("Essai"))}</span></div>
       <h1 class="jeu">${h(tr("Ranger Rumble hors ligne"))}</h1>
-      <div class="actions">${principal}
-        <div class="verre"><span class="dot ${etat[0]}"></span><span><b>${h(etat[1])}</b><small>${h(etat[2])}</small></span></div></div>
-    </div></div>
-    <div class="section"><div class="titre-section">${h(tr("PRÉPARATION"))}</div>
-    <div class="colonne">
-      <div class="carte champs">${champsJeu()}${espaceLibre()}</div>
-      <div class="boutons">
-        <button class="secondaire" ${preparer}>${SVG.marteau} ${h(pret ? tr("Préparer à nouveau") : tr("Préparer pour iPhone"))}</button>
-        <span class="espace"></span>
-        ${pret ? `<button class="secondaire" data-action="montrer" data-chemin="${h(I.ipa)}">${h(tr("Afficher l'IPA"))}</button>` : ""}
-      </div>
-      ${progression(["iphone"], etapesIphone())}
-      ${marche || E.journal.some((l) => l.tache === "iphone") ? boiteJournal(["iphone"]) : ""}
+      <p>${h(tr("Le jeu complet, sans serveur, installé avec Sideloadly."))}</p>
+      <div class="actions">${boutonPrincipalIphone()}${etatIpa()}</div>
+    </div></div>`;
+}
+
+// What the player most likely wants now: the running task, the game's update, else its preparation.
+function boutonPrincipalIphone() {
+  const I = E.iphone;
+  if (E.tache) {
+    const page = E.tache === "copie" ? "copie" : "fabrication";
+    return `<button class="principal grand jeu" data-action="page-ios" data-page="${page}">${SVG.sablier} ${h(tr("En cours : {t}", { t: nomTache(E.tache) }))}</button>`;
+  }
+  if (I.maj && !I.manque) {
+    return `<button class="principal grand jeu" data-action="iphone-maj">${SVG.synchro} ${h(tr("Mettre à jour le jeu"))}</button>`;
+  }
+  return `<button class="principal grand jeu" data-action="page-ios" data-page="fabrication">${SVG.marteau} ${h(tr("Préparer pour iPhone"))}</button>`;
+}
+
+// The IPA in a few words: missing parts, an update, ready, or still to make.
+function etatIpa() {
+  const I = E.iphone;
+  let etat;
+  if (I.manque) etat = ["", tr("Impossible"), I.manque];
+  else if (I.maj) etat = ["", tr("Mise à jour disponible"), tr("Jeu {a} → {b}", { a: I.infos?.jeu || "?", b: I.jeu || E.jeu })];
+  else if (I.pret) etat = ["on", tr("IPA prête"), tr("Préparée le {d}, {n} Go", { d: I.infos?.date || "?", n: ((I.taille || 0) / 1e9).toFixed(1) })];
+  else etat = ["", tr("À préparer"), tr("Quelques minutes, une seule fois")];
+  return `<div class="verre"><span class="dot ${etat[0]}"></span><span><b>${h(etat[1])}</b><small>${h(etat[2])}</small></span></div>`;
+}
+
+function pageIphoneFabrication() {
+  const I = E.iphone, pret = !!I.pret;
+  return `<div class="colonne">
+    <div class="carte champs">${champsJeu()}${espaceLibre()}</div>
+    <div class="boutons">
+      <button class="principal grand jeu" data-action="iphone-preparer" ${E.tache || I.manque ? "disabled" : ""}>${SVG.marteau} ${h(pret ? tr("Préparer à nouveau") : tr("Préparer pour iPhone"))}</button>
+      ${pret ? `<button class="secondaire" data-action="montrer" data-chemin="${h(I.ipa)}">${SVG.dossier} ${h(tr("Afficher l'IPA"))}</button>` : ""}
+      <span class="espace"></span>${etatIpa()}
     </div>
+    ${progression(["iphone"], etapesIphone())}
+    ${boiteJournal(["iphone"])}
     <div class="titre-section">${h(tr("INSTALLATION AVEC SIDELOADLY"))}</div>
     ${etapesSideloadly(pret ? I.ipa : null)}</div>`;
+}
+
+// The iPhone's game only: the IPA's version, its update with this tool's game. The tool's own updates stay in
+// the Settings.
+function pageIphoneMajs() {
+  const I = E.iphone;
+  const etat = !I.pret ? tr("Pas encore d'IPA : la préparer dans « Fabriquer et installer ».")
+    : I.maj ? tr("IPA du jeu {a} : la mise à jour vers {b} est disponible.", { a: I.infos?.jeu || "?", b: E.jeu })
+      : tr("IPA du jeu {v} : à jour.", { v: I.infos?.jeu || E.jeu });
+  const jeuAVenir = majDisponible() ? nouveautes("jeu") : "";
+  return `<div class="colonne"><div class="rangee">
+    <div class="carte"><h4 class="jeu avec-puce">${h(tr("Le jeu de l'iPhone"))}<span class="espace"></span><span class="puce" style="--c:var(--a1)">${h(E.jeu)}</span></h4>
+      <p class="etat">${h(etat)}</p>
+      ${jeuAVenir ? `<p class="etat">${h(tr("Un nouveau jeu arrive avec l'outil {v} : l'installer d'abord dans Réglages > Mises à jour.", { v: E.maj.version }))}</p>${jeuAVenir}` : ""}
+      <p class="etat">${h(tr("Mise à jour du jeu : refaire l'étape 4 avec la nouvelle IPA, par-dessus l'app. La progression est gardée."))}</p>
+      <div class="boutons"><button class="principal jeu" data-action="iphone-maj" ${E.tache || !I.pret || I.manque ? "disabled" : ""}>${SVG.sortie} ${h(tr("Mettre à jour le jeu"))}</button>
+      ${I.pret ? `<button class="secondaire" data-action="montrer" data-chemin="${h(I.ipa)}">${SVG.dossier} ${h(tr("Afficher l'IPA"))}</button>` : ""}</div></div>
+    </div>${progression(["iphone"], etapesIphone())}${boiteJournal(["iphone"])}</div>`;
 }
 
 // What to do with the IPA: Sideloadly, the iPhone's settings, every 7 days.
@@ -1020,6 +1115,7 @@ function etapesSideloadly(ipa) {
     ${etape(5, tr("Sur l'iPhone : Réglages > Général > VPN et gestion de l'appareil > son identifiant Apple > Faire confiance."))}
     ${etape(6, tr("Ouvrir Ranger Rumble."))}
     <div class="message note">${SVG.synchro} ${h(tr("Avec un compte Apple gratuit, l'app s'arrête au bout de 7 jours : refaire l'étape 4. La progression est gardée."))}</div>
+    <div class="message note">${SVG.sortie} ${h(tr("Mise à jour du jeu : refaire l'étape 4 avec la nouvelle IPA, par-dessus l'app. La progression est gardée."))}</div>
     <div class="boutons">
       <button class="secondaire" data-action="iphone-site">${h(tr("Site de Sideloadly"))}</button>
       ${ipa ? `<button class="secondaire" data-action="montrer" data-chemin="${h(ipa)}">${h(tr("Afficher l'IPA"))}</button>` : ""}
@@ -1054,7 +1150,7 @@ const info = (nom, cle) => { const v = E.infos[nom]?.[cle]; return v === null ||
 // vue (its controls), note (what it does, in the « i ») }. The search looks through all of them.
 function listeReglages() {
   const liste = [];
-  const ajouter = (section, titre, detail, vue, note = "") => liste.push({ section, titre, detail, vue, note });
+  const ajouter = (section, titre, detail, vue, note = "", bloc = "") => liste.push({ section, titre, detail, vue, note, bloc });
   const chemin = (cle, vide) => E.reglages[cle] || vide;
   const choisirChemin = (cle, dossier, effacer) => boutons(bouton(dossier ? "choisir-dossier" : "choisir-jeu", tr("Choisir…"), `data-cle="${cle}"`),
     effacer && E.reglages[cle] ? bouton("effacer", tr("Retirer"), `data-cle="${cle}"`) : "");
@@ -1100,6 +1196,8 @@ function listeReglages() {
   const versions = tr("Outil {v} · Jeu {g}", { v: E.version, g: E.jeu });
   ajouter("majs", tr("Versions"), versions,
     boutons(bouton("maj-verifier", tr("Vérifier maintenant")), majDisponible() ? `<button class="principal jeu" data-action="maj-outil">${h(tr("Installer la version {v}", { v: E.maj.version }))}</button>` : ""));
+  const notesOutil = majDisponible() ? nouveautes("outil") : "";
+  if (notesOutil) ajouter("majs", tr("Nouveautés"), tr("La version {v} est disponible.", { v: E.maj.version }), "", "", notesOutil);
 
   const composants = E.infos.composants || {};
   ajouter("composants", "Python", `${info("composants", "python")} · ${info("composants", "chemin")}`,
@@ -1127,7 +1225,7 @@ function reglages() {
   const tous = listeReglages();
   const titreSection = (cle) => tr(SECTIONS.find(([c]) => c === cle)[1]);
   const groupe = (cle, liste) => `<div class="groupe apparait"><h3 class="jeu">${SVG[SECTIONS.find(([c]) => c === cle)[2]]}${h(titreSection(cle))}</h3>
-    <div class="carte">${liste.map((g) => `<div class="reglage"><div class="quoi"><b>${bulleAvec(h(g.titre), g.note)}</b>${g.detail ? `<small>${h(g.detail)}</small>` : ""}</div>${g.vue}</div>`).join("")}</div></div>`;
+    <div class="carte">${liste.map((g) => `<div class="reglage ${g.bloc ? "bloc" : ""}"><div class="quoi"><b>${bulleAvec(h(g.titre), g.note)}</b>${g.detail ? `<small>${h(g.detail)}</small>` : ""}</div>${g.vue}${g.bloc}</div>`).join("")}</div></div>`;
   let droite;
   if (E.recherche) {
     const cherche = plier(E.recherche);
@@ -1194,9 +1292,10 @@ function animerBarre() {
 const ACTIONS = {
   // where to go
   section: (el) => aller(el.dataset.section),
-  page: (el) => aller("android", el.dataset.page),
-  retour: () => aller("android", null),
-  "page-majs": () => aller("android", "majs"),
+  page: (el) => aller(E.section === "ios" ? "ios" : "android", el.dataset.page),
+  "page-ios": (el) => aller("ios", el.dataset.page),
+  retour: () => aller(E.section === "ios" ? "ios" : "android", null),
+  "page-majs": () => aller("reglages", "majs"),
   "section-reglages": (el) => { E.recherche = ""; E.sectionReglages = el.dataset.cle; rendre(); },
   onglet: (el) => { E.onglet = el.dataset.onglet; rendre(); },
 
@@ -1230,6 +1329,17 @@ const ACTIONS = {
     await ecrire({ [el.dataset.cle]: "" });
     if (el.dataset.cle === "dossier_sauvegardes") lister();
   },
+  // A folder of saves (or one copy): it becomes the saves' folder and its newest save is chosen.
+  "dossier-sauvegardes": async () => {
+    const chemin = await choisir({ dossier: true, depart: E.reglages.dossier_sauvegardes });
+    if (!chemin) return;
+    await ecrire({ dossier_sauvegardes: chemin });
+    await lister();
+    const dedans = chemin + (chemin.includes("\\") ? "\\" : "/");
+    const premiere = E.sauvegardes.find((s) => s.chemin.startsWith(dedans));
+    if (premiere) await ecrire({ sauvegarde: premiere.chemin, nouvelle_partie: false });
+    else toast(tr("Aucune sauvegarde dans ce dossier."), chemin, "erreur");
+  },
   "autre-sauvegarde": async () => {
     const chemin = await choisir({ types: ["msgpack"] });
     if (!chemin) return;
@@ -1246,9 +1356,16 @@ const ACTIONS = {
   "iphone-preparer": () => api("iphone_preparer", { jeu: E.reglages.official, sauvegarde: E.reglages.sauvegarde,
     nouvelle: !!E.reglages.nouvelle_partie, images: E.reglages.artworks }),
   "iphone-site": () => api("iphone_site"),
+  "iphone-maj": () => {
+    if (E.iphone.maj || !E.iphone.pret) { api("iphone_maj"); return; }
+    question(tr("L'IPA est déjà à jour ({v}).", { v: E.iphone.infos?.jeu || E.jeu }), tr("La refaire quand même ?"), [
+      { titre: tr("Refaire"), action: () => api("iphone_maj") }, { titre: tr("Annuler"), annuler: true }]);
+  },
   "maj-telephone": () => mettreAJourTelephone(),
   "maj-verifier": () => verifierMaj(),
   "maj-outil": () => api("maj_outil"),
+  "fermer-annonce": () => $("#annonce-maj")?.remove(),
+  "installer-annonce": () => { $("#annonce-maj")?.remove(); api("maj_outil"); },
   adb: () => demanderAdb(),
   actualiser: () => api("telephones", { rafraichir: true }),
 
@@ -1270,6 +1387,19 @@ const ACTIONS = {
     editer("ed_action", corps);
   },
   "ed-envoyer": () => editer("ed_envoyer"),
+  "ed-ouvrir-iphone": () => question(tr("Lire la sauvegarde de l'iPhone"), tr(ETAPES_LIRE_IPHONE), [
+    { titre: tr("Choisir le fichier"), action: async () => {
+      const chemin = await choisir({ types: ["msgpack"] });
+      if (chemin) ouvrirSauvegarde("iphone", chemin);
+    } },
+    { titre: tr("Annuler"), annuler: true }]),
+  "ed-envoyer-iphone": async () => {
+    const [reponse] = await api("ed_envoyer_iphone");
+    if (!reponse) return;
+    majEditeur(reponse);
+    demander("montrer", { chemin: reponse.fichier });
+    question(tr("Envoyer à l'iPhone"), tr(ETAPES_ENVOYER_IPHONE), [{ titre: tr("OK") }]);
+  },
   "ed-enregistrer": async () => {
     const chemin = await demander("enregistrer", { nom: "RangerRumble_sauvegarde.msgpack", types: ["msgpack"] });
     if (chemin) editer("ed_enregistrer", { chemin });
@@ -1277,7 +1407,7 @@ const ACTIONS = {
   "ed-pour-apk": async () => {
     const chemin = await demander("enregistrer", { nom: "RangerRumble_sauvegarde.msgpack", types: ["msgpack"] });
     if (!chemin || !(await editer("ed_enregistrer", { chemin, pour_apk: true }))) return;
-    toast(tr("C'est fait"), tr("L'APK partira de cette sauvegarde."), "succes");
+    toast(tr("C'est fait"), E.section === "ios" ? tr("L'IPA partira de cette sauvegarde.") : tr("L'APK partira de cette sauvegarde."), "succes");
     lister();
   },
   "ed-annuler": () => editer("ed_annuler"),
@@ -1388,7 +1518,7 @@ function ouvrirPageDemandee() {
   const [section, page] = (PARAMETRES.get("page") || "").split("/");
   if (!["android", "ios", "ordinateur", "reglages"].includes(section)) return;
   E.section = section;
-  if (section === "android") E.page = PAGES[page] ? page : null;
+  if (avecOutils(section)) E.page = PAGES[page] ? page : null;
   if (section === "reglages" && SECTIONS.some(([cle]) => cle === page)) E.sectionReglages = page;
 }
 

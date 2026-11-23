@@ -215,6 +215,10 @@ def assemble(work, data, save, artworks, unsigned):
     run_script(os.path.join(ANDROID, 'assembler_apk.py'), [os.path.join(work, 'base.apk'), os.path.join(work, 'patched'), os.path.join(HERE, 'ressources', 'serveur.dex'), server, unsigned], {'RR_ALIGNE': '1', 'RR_SAUVEGARDE': os.path.abspath(save), 'RR_VERSION': GAME_VERSION, 'RR_ARTWORKS': os.path.abspath(artworks) if artworks else '', 'RR_ARTBOOK': artbook})
 
 def build(official, out, data=None, save=None, copy=None, key_store=None, password=None, work=None, new_game=False, artworks=None, mac=False):
+    try:
+        os.getcwd()
+    except OSError:
+        os.chdir(os.path.expanduser('~'))
     commun.start_details()
     pictures_without_native_extras()
     work = work or tempfile.mkdtemp(prefix='rr_patch_', dir=os.path.dirname(os.path.abspath(out)))

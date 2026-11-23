@@ -31,7 +31,7 @@ ZERO_W0 = bytes.fromhex('00008052')
 ZERO_W1 = bytes.fromhex('e1031f2a')
 ZERO_W2 = bytes.fromhex('e2031f2a')
 ARSENAL_NAME = b'\x16\x00\x00\x00FeatureEnabler_Arsenal'
-BUILDS = {'1.10.4': {'https': 1049769, 'wss': 1119405, 'play_available': 72762232, 'play_autologin': 72761948, 'reachability': (142385556, 'fe4fbfa9137b00b0'), 'disable_feature': 64584032, 'ensure_weapon': 64583824, 'equip_button': 67155712, 'equip_selected': 67155880, 'try_button': 67156812, 'free_code': (64583828, 'f44f01a9d4cb02d0f30300aa88a6483988010037209e0290007046f9'), 'log_handler': 142824912, 'debug_log': 74693004, 'offline_game': (69183428, '487b02f0', 69183536), 'wander_tries': [(130818588, '1b018052', '1b088052'), (130818700, 'a0040036', '80040036'), (130818744, '40030037', '20030037'), (130818796, 'ad010054', '8d010054'), (130818836, '60000036', '40000036')], 'crc_getter': 140539672, 'crc_local': 140548552, 'crc_web': 140541016, 'crc_web_cached': 140541224, 'show_wip_heroes': None, 'map_pool_check': (66656456, '01fdff54'), 'ratchet_lock': (64500552, '99070037', 64500792), 'version_label': {'calls': [(68335168, 73591552), (68336644, 123993588)], 'cave': 72360748 + 256}, 'polish': {'cctor': (68198356, 'c00240f9', 68198384), 'cave': 72360748, 'new_array': 63400676, 'system_table': 25544560}, 'try_weapon': True, 'select_map': 66499712, 'string_new': 63431916, 'prefs_get_string': 142892992, 'free_code_map': (64584036, 'f65701a9f44f02a9d5cb02d0369e02d0f403012aa8aa4839d61e41f9f30300aa88010037209e02b000cc43f91a7cfb97209e02d0002041f9177cfb97209e02d0001c41f9147cfb9728008052a8aa0839c00240f9b67cfb97e1031faa'), 'heroes_bundle': 'assets/aa/Android/local_data_managers_assets_all_6ff0f696e005a7c20b7fe29b1123faca.bundle', 'heroes_without_ultimate': [2485100, 2487772, 2488572], 'sandy_ultimate': (29, 2773052598463922984), 'heroes_in_progress': [2484604, 2485408, 2488080, 2499728, 2500528, 2501332, 2503536], 'skins_without_model': [2486008, 2486476, 2486944], 'hero_models': True, 'hero_specs_bundle': 'assets/aa/Android/quantum_db_heroes_assets_all_30f4bf696fe07bd88d3fe14d4cbf42da.bundle', 'hero_specs_table': (147764, 91), 'levels': [(1051184, 0, b'q_FFA_Sargasso_02'), (1053304, 0, b'q_EL_Prototype_01'), (1054064, 0, b'q_EL_TorrenIV_01B'), (1054648, 0, b'q_EL_Ardolis_01B'), (1050584, 0, b'q_FFA_TorrenIV_01B'), (1051036, 0, b'q_FFA_Sargasso_01B'), (1051476, 0, b'q_FFA_Ardolis_01B'), (1049080, 0, b'q_BK_TorrenIV_02B')], 'menu_bundle': 'assets/aa/Android/scene_mainmenu_landscape_scenes_all_8205e1f604aef6bc7603d040c2571063.bundle', 'gallery_label': (20923708, b'\t\x00\x00\x00INSTAGRAM', b'\t\x00\x00\x00 ARTBOOK '), 'arsenal_flag': 9994702, 'flail_tables': [(66168456, 120384924, True), (74993060, 94813676, False), (74996044, 119976552, True)], 'flail_cave': 64584132, 'flail_spec': ('assets/aa/Android/quantum_db_weapons_assets_all_3550076b9943b3b450be7dd2d2396dbf.bundle', 1608828), 'flail_sprites': (1609220, 1609244, 1609268), 'flail_reload': 1609740, 'flail_ammo': 1609780, 'flail_fire_button': 1609516, 'flail_autoshoot': 1609856, 'plasma_release': 1446864, 'flail_fire_rate': 1609656, 'flail_projectile_speed': 1309624, 'flail_homing': 1311404, 'flail_anticipation': 1310164, 'flail_spin': (129922376, 72330704), 'flail_view': (66140112, 72330704 + 768), 'flail_auto': (67379356, 66260628, 72330704 + 2048, 72330704 + 5660, 142999140, 240), 'try_fix': (67156092, 67156128, 72330704 + 2560), 'difficulty': (70252920, 70252592), 'ultra_bots': {'talent_store': 129640332, 'runtime_config': 880, 'bots_power': 340}, 'difficulty_row_code': {'get_calls': (66621724, 66621760), 'get': 67818320, 'set_call': 66622004, 'set': 67818556, 'done': 66622256, 'set_string': 142892132, 'save': 142893956}, 'difficulty_row': {'scene': (6513924, 19204924), 'table': (1052044, 100066, 1), 'rows': [{'grid': 70831, 'objects': (399, 1157, 2448, 4259, 4591, 7337, 7727, 8355, 11355, 17241, 24370, 31572, 32005, 37290, 38882, 41623, 45953, 46173, 46762, 46879, 47399, 51201, 51948, 55076, 55434, 56953, 59255, 59402, 65328, 67404, 70347, 70831, 72352, 72593, 73985, 74412, 76459, 76675, 77652, 82191, 82766, 84478, 88904, 89034, 92003, 94372, 94923, 97534, 97572, 98605, 98873, 99520, 99970), 'content': (50699, 8264368, 228, 10), 'options': 98605, 'title': 76675, 'title_text': 73985, 'value': 76459, 'names': {4259: ('FOVGrid', 'DifficultyGrid'), 4591: ('CamFOVSelection', 'DifficultySelection')}}, {'grid': 68819, 'objects': (372, 1728, 2487, 4895, 5219, 7833, 7958, 8244, 10780, 16293, 22249, 29780, 33930, 37679, 40757, 43219, 45570, 46230, 46358, 47675, 47750, 49264, 54262, 54959, 55984, 56008, 57453, 58329, 62987, 66527, 68819, 69499, 72391, 72542, 74054, 74304, 76435, 76654, 79498, 79846, 83964, 85029, 91009, 91252, 92971, 96690, 96915, 97155, 97593, 97972, 98055, 99893, 99940), 'content': (48763, 8022224, 228, 10), 'options': 98055, 'title': 76654, 'title_text': 74054, 'value': 76435, 'names': {4895: ('FOVGrid', 'DifficultyGrid'), 5219: ('CamFOVSelection', 'DifficultySelection')}}]}, 'outline_silhouette': (65782180, '0910221e', '0910241e'), 'flail_blueprint': (67707376, 72330704 + 2688), 'flail_spin_aoe': (1449860, 1449956, 1450012, 1450016), 'flail_enhancements': {'table': (707152, 1850), 'weapon_spec': (5078801867238120315, 850512, 1328), 'mega': (-1977668264896138770, 335280, 352, 1237732778874375369), 'torque': (2311922125797020701, 659936, 340, 613788347279680364), 'spin_pusher': (-7802969303589263528, 153952, 412), 'torque_pusher': (-4648941861449245640, 265120, 356, 2339062322271808208), 'pusher_type': (49, 7505018460637316183), 'limit_scale': 1450064}, 'flail_damage': [(1546884, 1546928), (1633360, 1633404)]}, '1.10.3': {'https': 1050567, 'play_available': 72698364, 'play_autologin': 72698080, 'reachability': (142264064, 'fe4fbfa9137b00f0'), 'disable_feature': 64532484, 'ensure_weapon': 64532276, 'equip_button': 67080908, 'equip_selected': 67086228, 'try_button': 67114288, 'free_code': (64532280, 'f44f01a954cb02d0f30300aa885e713988010037809d02b000f447f9'), 'log_handler': 142702924, 'crc_getter': 140418112, 'crc_local': 140426992, 'crc_web': 140419456, 'crc_web_cached': 140419664, 'show_wip_heroes': 128633152, 'internet_check': (72154980, '00004239c0035fd6'), 'training_weapon': (66429744, 'e4179f1a'), 'heroes_bundle': 'assets/aa/Android/local_data_managers_assets_all_d9364b77f6fa2468ad69bcc67c4d7850.bundle', 'heroes_without_ultimate': [2472544, 2483276, 2486108, 2486940], 'sandy_ultimate': (30, 2773052598463922984), 'menu_bundle': 'assets/aa/Android/scene_mainmenu_landscape_scenes_all_75fdd8147a3f4d8dd07e67cb50f343ac.bundle', 'arsenal_flag': 9707534, 'init_bundle': 'assets/aa/Android/scene_init_scenes_all_0fa6525925f9632ff7f78218fb284673.bundle', 'init_host': 180212, 'flail_tables': [(66117716, 120162504, True), (74870060, 94713444, False), (74873044, 119756860, True)], 'flail_cave': 64532488, 'string_new': 63382176, 'flail_spec': ('assets/aa/Android/quantum_db_weapons_assets_all_364571c451faf8437afda9a6cf9d7419.bundle', 1642300), 'flail_sprites': (1642696, 1642720, 1642744), 'flail_reload': 1643200, 'flail_ammo': 1643240, 'flail_fire_button': 1642976, 'flail_autoshoot': 1643316, 'flail_auto': (None, 66209336, 72276792 + 8, 72276792 + 5660, 142876756, 224), 'flail_damage': [(1580356, 1580400), (1668880, 1668924)], 'flail_spin_spec': 1301860}}
+BUILDS = {'1.10.4': {'https': 1049769, 'wss': 1119405, 'play_available': 72762232, 'play_autologin': 72761948, 'reachability': (142385556, 'fe4fbfa9137b00b0'), 'disable_feature': 64584032, 'ensure_weapon': 64583824, 'equip_button': 67155712, 'equip_selected': 67155880, 'try_button': 67156812, 'free_code': (64583828, 'f44f01a9d4cb02d0f30300aa88a6483988010037209e0290007046f9'), 'log_handler': 142824912, 'debug_log': 74693004, 'offline_game': (69183428, '487b02f0', 69183536), 'wander_tries': [(130818588, '1b018052', '1b088052'), (130818700, 'a0040036', '80040036'), (130818744, '40030037', '20030037'), (130818796, 'ad010054', '8d010054'), (130818836, '60000036', '40000036')], 'crc_getter': 140539672, 'crc_local': 140548552, 'crc_web': 140541016, 'crc_web_cached': 140541224, 'show_wip_heroes': None, 'map_pool_check': (66656456, '01fdff54'), 'ratchet_lock': (64500552, '99070037', 64500792), 'version_label': {'calls': [(68335168, 73591552), (68336644, 123993588)], 'cave': 72360748 + 256}, 'polish': {'cctor': (68198356, 'c00240f9', 68198384), 'cave': 72360748, 'new_array': 63400676, 'system_table': 25544560}, 'try_weapon': True, 'select_map': 66499712, 'string_new': 63431916, 'prefs_get_string': 142892992, 'free_code_map': (64584036, 'f65701a9f44f02a9d5cb02d0369e02d0f403012aa8aa4839d61e41f9f30300aa88010037209e02b000cc43f91a7cfb97209e02d0002041f9177cfb97209e02d0001c41f9147cfb9728008052a8aa0839c00240f9b67cfb97e1031faa'), 'heroes_bundle': 'assets/aa/Android/local_data_managers_assets_all_6ff0f696e005a7c20b7fe29b1123faca.bundle', 'heroes_without_ultimate': [2485100, 2487772, 2488572], 'sandy_ultimate': (29, 2773052598463922984), 'heroes_in_progress': [2484604, 2485408, 2488080, 2499728, 2500528, 2501332, 2503536], 'skins_without_model': [2486008, 2486476, 2486944], 'hero_models': True, 'hero_specs_bundle': 'assets/aa/Android/quantum_db_heroes_assets_all_30f4bf696fe07bd88d3fe14d4cbf42da.bundle', 'hero_specs_table': (147764, 91), 'levels': [(1051184, 0, b'q_FFA_Sargasso_02'), (1053304, 0, b'q_EL_Prototype_01'), (1054064, 0, b'q_EL_TorrenIV_01B'), (1054648, 0, b'q_EL_Ardolis_01B'), (1050584, 0, b'q_FFA_TorrenIV_01B'), (1051036, 0, b'q_FFA_Sargasso_01B'), (1051476, 0, b'q_FFA_Ardolis_01B'), (1049080, 0, b'q_BK_TorrenIV_02B')], 'menu_bundle': 'assets/aa/Android/scene_mainmenu_landscape_scenes_all_8205e1f604aef6bc7603d040c2571063.bundle', 'gallery_label': (20923708, b'\t\x00\x00\x00INSTAGRAM', b'\t\x00\x00\x00 ARTBOOK '), 'arsenal_flag': 9994702, 'flail_tables': [(66168456, 120384924, True), (74993060, 94813676, False), (74996044, 119976552, True)], 'flail_cave': 64584132, 'flail_spec': ('assets/aa/Android/quantum_db_weapons_assets_all_3550076b9943b3b450be7dd2d2396dbf.bundle', 1608828), 'flail_sprites': (1609220, 1609244, 1609268), 'flail_reload': 1609740, 'flail_ammo': 1609780, 'flail_fire_button': 1609516, 'flail_autoshoot': 1609856, 'plasma_release': 1446864, 'flail_fire_rate': 1609656, 'flail_projectile_speed': 1309624, 'flail_homing': 1311404, 'flail_anticipation': 1310164, 'flail_spin': (129922376, 72330704), 'flail_view': (66140112, 72339944, 72339944 + 1868), 'flail_auto': (67379356, 66260628, 72330704 + 2048, 72330704 + 5660, 142999140, 240), 'try_fix': (67156092, 67156128, 72330704 + 2560), 'difficulty': (70252920, 70252592), 'ultra_bots': {'talent_store': 129640332, 'runtime_config': 880, 'bots_power': 340}, 'difficulty_row_code': {'get_calls': (66621724, 66621760), 'get': 67818320, 'set_call': 66622004, 'set': 67818556, 'done': 66622256, 'set_string': 142892132, 'save': 142893956}, 'difficulty_row': {'scene': (6513924, 19204924), 'table': (1052044, 100066, 1), 'rows': [{'grid': 70831, 'objects': (399, 1157, 2448, 4259, 4591, 7337, 7727, 8355, 11355, 17241, 24370, 31572, 32005, 37290, 38882, 41623, 45953, 46173, 46762, 46879, 47399, 51201, 51948, 55076, 55434, 56953, 59255, 59402, 65328, 67404, 70347, 70831, 72352, 72593, 73985, 74412, 76459, 76675, 77652, 82191, 82766, 84478, 88904, 89034, 92003, 94372, 94923, 97534, 97572, 98605, 98873, 99520, 99970), 'content': (50699, 8264368, 228, 10), 'options': 98605, 'title': 76675, 'title_text': 73985, 'value': 76459, 'names': {4259: ('FOVGrid', 'DifficultyGrid'), 4591: ('CamFOVSelection', 'DifficultySelection')}}, {'grid': 68819, 'objects': (372, 1728, 2487, 4895, 5219, 7833, 7958, 8244, 10780, 16293, 22249, 29780, 33930, 37679, 40757, 43219, 45570, 46230, 46358, 47675, 47750, 49264, 54262, 54959, 55984, 56008, 57453, 58329, 62987, 66527, 68819, 69499, 72391, 72542, 74054, 74304, 76435, 76654, 79498, 79846, 83964, 85029, 91009, 91252, 92971, 96690, 96915, 97155, 97593, 97972, 98055, 99893, 99940), 'content': (48763, 8022224, 228, 10), 'options': 98055, 'title': 76654, 'title_text': 74054, 'value': 76435, 'names': {4895: ('FOVGrid', 'DifficultyGrid'), 5219: ('CamFOVSelection', 'DifficultySelection')}}]}, 'outline_silhouette': (65782180, '0910221e', '0910241e'), 'flail_blueprint': (67707376, 72330704 + 2688), 'flail_spin_aoe': (1449860, 1449956, 1450012, 1450016), 'flail_enhancements': {'table': (707152, 1850), 'weapon_spec': (5078801867238120315, 850512, 1328), 'mega': (-1977668264896138770, 335280, 352, 1237732778874375369), 'torque': (2311922125797020701, 659936, 340, 613788347279680364), 'spin_pusher': (-7802969303589263528, 153952, 412), 'torque_pusher': (-4648941861449245640, 265120, 356, 2339062322271808208), 'pusher_type': (49, 7505018460637316183), 'limit_scale': 1450064}, 'flail_damage': [(1546884, 1546928), (1633360, 1633404)]}, '1.10.3': {'https': 1050567, 'play_available': 72698364, 'play_autologin': 72698080, 'reachability': (142264064, 'fe4fbfa9137b00f0'), 'disable_feature': 64532484, 'ensure_weapon': 64532276, 'equip_button': 67080908, 'equip_selected': 67086228, 'try_button': 67114288, 'free_code': (64532280, 'f44f01a954cb02d0f30300aa885e713988010037809d02b000f447f9'), 'log_handler': 142702924, 'crc_getter': 140418112, 'crc_local': 140426992, 'crc_web': 140419456, 'crc_web_cached': 140419664, 'show_wip_heroes': 128633152, 'internet_check': (72154980, '00004239c0035fd6'), 'training_weapon': (66429744, 'e4179f1a'), 'heroes_bundle': 'assets/aa/Android/local_data_managers_assets_all_d9364b77f6fa2468ad69bcc67c4d7850.bundle', 'heroes_without_ultimate': [2472544, 2483276, 2486108, 2486940], 'sandy_ultimate': (30, 2773052598463922984), 'menu_bundle': 'assets/aa/Android/scene_mainmenu_landscape_scenes_all_75fdd8147a3f4d8dd07e67cb50f343ac.bundle', 'arsenal_flag': 9707534, 'init_bundle': 'assets/aa/Android/scene_init_scenes_all_0fa6525925f9632ff7f78218fb284673.bundle', 'init_host': 180212, 'flail_tables': [(66117716, 120162504, True), (74870060, 94713444, False), (74873044, 119756860, True)], 'flail_cave': 64532488, 'string_new': 63382176, 'flail_spec': ('assets/aa/Android/quantum_db_weapons_assets_all_364571c451faf8437afda9a6cf9d7419.bundle', 1642300), 'flail_sprites': (1642696, 1642720, 1642744), 'flail_reload': 1643200, 'flail_ammo': 1643240, 'flail_fire_button': 1642976, 'flail_autoshoot': 1643316, 'flail_auto': (None, 66209336, 72276792 + 8, 72276792 + 5660, 142876756, 224), 'flail_damage': [(1580356, 1580400), (1668880, 1668924)], 'flail_spin_spec': 1301860}}
 VERSION = os.environ.get('RR_VERSION', '1.10.4')
 BUILD = BUILDS[VERSION]
 GROUPE = os.environ.get('RR_GROUPE', '1') == '1' and 'offline_game' in BUILD
@@ -475,7 +475,14 @@ DIFFICULTY_TEXTS = {'EN': ('Difficulty', 'Easy', 'Normal', 'Hard', 'Ultra hard')
 PROTOTYPES_ROW_TITLE = 'RR.SETTINGS.PROTOTYPES'
 PROTOTYPES_ROW_KEYS = ('RR.PROTOTYPES.NO', 'RR.PROTOTYPES.YES')
 PROTOTYPES_TEXTS = {'EN': ('Prototype maps and modes', 'Off', 'On'), 'FR': ('Cartes et modes prototypes', 'Non', 'Oui'), 'DE': ('Prototyp-Karten und -Modi', 'Aus', 'An'), 'ES': ('Mapas y modos prototipo', 'No', 'Sí'), 'IT': ('Mappe e modalità prototipo', 'No', 'Sì'), 'BR': ('Mapas e modos protótipo', 'Não', 'Sim'), 'NL': ('Mapy i tryby prototypowe', 'Nie', 'Tak'), 'RU': ('Прототипы карт и режимов', 'Выкл.', 'Вкл.'), 'TR': ('Prototip haritalar ve modlar', 'Kapalı', 'Açık'), 'JP': ('試作マップとモード', 'オフ', 'オン'), 'KR': ('프로토타입 맵과 모드', '끔', '켬'), 'CN': ('原型地图和模式', '关', '开'), 'TW': ('原型地圖和模式', '關', '開')}
+TWO_WEAPONS_SHOWN = False
+TWO_WEAPONS_ROW_TITLE = 'RR.SETTINGS.TWO_WEAPONS'
+TWO_WEAPONS_ROW_KEYS = ('RR.TWO_WEAPONS.NO', 'RR.TWO_WEAPONS.YES')
+TWO_WEAPONS_KEY = b'rr_deux_armes'
+TWO_WEAPONS_TEXTS = {'EN': ('Two main weapons', 'Off', 'On'), 'FR': ('Deux armes principales', 'Non', 'Oui'), 'DE': ('Zwei Hauptwaffen', 'Aus', 'An'), 'ES': ('Dos armas principales', 'No', 'Sí'), 'IT': ('Due armi principali', 'No', 'Sì'), 'BR': ('Duas armas principais', 'Não', 'Sim'), 'NL': ('Dwie bronie główne', 'Nie', 'Tak'), 'RU': ('Два основных оружия', 'Выкл.', 'Вкл.'), 'TR': ('İki ana silah', 'Kapalı', 'Açık'), 'JP': ('メイン武器を2つ', 'オフ', 'オン'), 'KR': ('주 무기 2개', '끔', '켬'), 'CN': ('两把主武器', '关', '开'), 'TW': ('兩把主武器', '關', '開')}
 SETTINGS_ROWS = ((DIFFICULTY_ROW_TITLE, DIFFICULTY_ROW_KEYS, DIFFICULTY_TEXTS['EN'][0], 1, ('DifficultyGrid', 'DifficultySelection')), (PROTOTYPES_ROW_TITLE, PROTOTYPES_ROW_KEYS, PROTOTYPES_TEXTS['EN'][0], 0, ('PrototypesGrid', 'PrototypesSelection')))
+if TWO_WEAPONS_SHOWN:
+    SETTINGS_ROWS += ((TWO_WEAPONS_ROW_TITLE, TWO_WEAPONS_ROW_KEYS, TWO_WEAPONS_TEXTS['EN'][0], 0, ('TwoWeaponsGrid', 'TwoWeaponsSelection')),)
 KEY_ROW_TITLES = ('RR.KEYS.UP', 'RR.KEYS.DOWN', 'RR.KEYS.LEFT', 'RR.KEYS.RIGHT', 'UI.SETTINGS.CONTROLLER_MAPPING.JUMP', 'UI.SETTINGS.CONTROLLER_MAPPING.GADGET', 'UI.MELEE_WEAPON', 'UI.TOOLTIPS.DASH.TITLE', 'UI.ULTIMATE_WEAPON')
 KEY_ROW_ENGLISH = ('Keyboard: forward', 'Keyboard: back', 'Keyboard: left', 'Keyboard: right', 'Jump', 'Gadget', 'Melee', 'Dash', 'Ultimate')
 KEYS_TEXTS = {'EN': ('Keyboard: forward', 'Keyboard: back', 'Keyboard: left', 'Keyboard: right'), 'FR': ('Clavier : avancer', 'Clavier : reculer', 'Clavier : gauche', 'Clavier : droite'), 'DE': ('Tastatur: vorwärts', 'Tastatur: rückwärts', 'Tastatur: links', 'Tastatur: rechts'), 'ES': ('Teclado: avanzar', 'Teclado: retroceder', 'Teclado: izquierda', 'Teclado: derecha'), 'IT': ('Tastiera: avanti', 'Tastiera: indietro', 'Tastiera: sinistra', 'Tastiera: destra'), 'BR': ('Teclado: avançar', 'Teclado: recuar', 'Teclado: esquerda', 'Teclado: direita'), 'NL': ('Klawiatura: do przodu', 'Klawiatura: do tyłu', 'Klawiatura: w lewo', 'Klawiatura: w prawo'), 'RU': ('Клавиатура: вперёд', 'Клавиатура: назад', 'Клавиатура: влево', 'Клавиатура: вправо'), 'TR': ('Klavye: ileri', 'Klavye: geri', 'Klavye: sol', 'Klavye: sağ'), 'JP': ('キーボード：前進', 'キーボード：後退', 'キーボード：左', 'キーボード：右'), 'KR': ('키보드: 앞으로', '키보드: 뒤로', '키보드: 왼쪽', '키보드: 오른쪽'), 'CN': ('键盘：前进', '键盘：后退', '键盘：向左', '键盘：向右'), 'TW': ('鍵盤：前進', '鍵盤：後退', '鍵盤：向左', '鍵盤：向右')}
@@ -664,7 +671,8 @@ if MAC:
 def difficulty_texts(language):
     title, *levels = in_language(DIFFICULTY_TEXTS, language)
     proto_title, *choices = in_language(PROTOTYPES_TEXTS, language)
-    texts = {DIFFICULTY_ROW_TITLE: title, **dict(zip(DIFFICULTY_ROW_KEYS, levels)), PROTOTYPES_ROW_TITLE: proto_title, **dict(zip(PROTOTYPES_ROW_KEYS, choices))}
+    two_title, *two_choices = in_language(TWO_WEAPONS_TEXTS, language)
+    texts = {DIFFICULTY_ROW_TITLE: title, **dict(zip(DIFFICULTY_ROW_KEYS, levels)), PROTOTYPES_ROW_TITLE: proto_title, **dict(zip(PROTOTYPES_ROW_KEYS, choices)), TWO_WEAPONS_ROW_TITLE: two_title, **dict(zip(TWO_WEAPONS_ROW_KEYS, two_choices))}
     if MAC:
         texts[CONTROLS_TAB_TITLE] = in_language(CONTROLS_TAB_TEXTS, language)
         texts[GRAPHICS_TAB_TITLE] = in_language(GRAPHICS_TAB_TEXTS, language)
@@ -890,7 +898,205 @@ def rivet_hammer_patches():
     def patch_database(data):
         marteau.patch_melee_db(data)
         print('marteau de Rivet : fiche de la cle, donne a Rivet (arme 37)')
-    return {weapon: patch_weapon, database: patch_database}
+    patches = {weapon: patch_weapon, database: patch_database}
+    effects = asset_pack_path(FX_BUNDLE)
+    if effects:
+        patches[effects] = patch_fx_hammer
+    return patches
+FX_BUNDLE = 'fxmanager_assets_all'
+FX_WRENCH = -108372677862122532
+FX_WRENCH_MESH, FX_WRENCH_MATERIAL = (5698422275554249719, -49797063059753011)
+FX_WRENCH_TEXTURE = 7412882358584025671
+FX_HAMMER_NAME = 'Hammer_MeshRenderer'
+FX_HAMMER_SCALE = 0.9
+FX_HAMMER_TEXTURE_SIZE = 256
+HAMMER_THROW_CODE = 72364260
+HAMMER_THROW_END = HAMMER_THROW_CODE + 760
+HAMMER_THROW_CAVE_START = 'ffc301d1'
+HAMMER_THROW_TARGETS = {'ext_init_metadata': 63400440, 'ext_init_rgctx': 63636616, 'ext_try_get_projectile': 82763868, 'slot_projectile': 152467568, 'ext_actor_pointer': 70618696, 'slot_actor': 152669912, 'ext_go_transform': 142941904, 'ext_string_new': 63431916, 'ext_find': 143030524, 'ext_get_gameobject': 142923916, 'ext_set_active': 142943076}
+HAMMER_THROW_HOOKS = [(66109684, '758e40f9', '_mt_awake', 'bl'), (66182024, '155900b9', '_mt_spawned', 'bl')]
+TWO_WEAPONS_CODE = 72402644
+TWO_WEAPONS_END = TWO_WEAPONS_CODE + 1760
+TWO_WEAPONS_CAVE_START = 'ff8301d1'
+TWO_WEAPONS_TARGETS = {'ext_init_metadata': 63400440, 'ext_init_rgctx': 63636616, 'ext_class_init': 63400820, 'ext_string_new': 63431916, 'ext_get_int': 142891136, 'ext_get_string': 142892992, 'ext_unlockable_of': 66149436, 'ext_upgrade_level': 69517804, 'ext_enhancement_level': 69497136, 'ext_switch_to_weapon': 130003812, 'ext_player_data': 130479552, 'ext_find_asset': 82740980, 'slot_table': 153008272, 'ext_entity_valid': 130996824, 'ext_destroy': 82413244, 'slot_destroy': 153009416, 'ext_init_slot': 130015784, 'ext_prewarm': 130016120, 'ext_set_button_down': 66248824, 'slot_qm': 152465984, 'ext_main_game': 66468776, 'ext_local_player': 66466828, 'slot_cmd': 153003304, 'ext_object_new': 63401104, 'ext_cmd_ctor': 130029972, 'ext_send_command': 130685276, 'slot_actor': 152669912, 'ext_actor_pointer': 70618696, 'slot_loadout': 153006760, 'ext_try_get_pointer': 86994632, 'ext_get_transform': 142923708, 'ext_get_parent': 143014208, 'ext_find': 143030524, 'ext_get_gameobject': 142923916, 'ext_go_transform': 142941904, 'ext_instantiate': 142973376, 'ext_set_name': 142970672, 'ext_component_by_name': 142935700, 'ext_set_enabled': 142921648, 'ext_set_active': 142943076, 'ext_wbarrier': 63400356, 'ext_get_anchored': 143008448, 'ext_set_anchored': 143008644, 'ext_set_scale': 143018188, 'ext_weapon_table': 67131684, 'ext_weapon_spec': 66147760, 'ext_set_sprite': 144176752, 'ext_get_alpha': 146271000, 'ext_set_alpha': 146271180, 'ext_bind_body': 67842228 + 4}
+TWO_WEAPONS_HOOKS = [(67842228, 'ffc301d1', '_dw_profile', 'b'), (69495916, '986600a9', '_dw_load', 'bl'), (130026236, '1aeaff97', '_dw_command', 'bl'), (66262460, 'aff2ff97', '_dw_button', 'bl')]
+TWO_WEAPONS_HUD_CODE = 72179024
+TWO_WEAPONS_HUD_END = TWO_WEAPONS_HUD_CODE + 1464
+TWO_WEAPONS_HUD_CAVE_START = 'ff8301d1'
+TWO_WEAPONS_HUD_HOOKS = [(68347760, 'f40300aa', '_dw_hud', 'bl')]
+TWO_WEAPONS_SHEET_CODE = 72374256
+TWO_WEAPONS_SHEET_END = TWO_WEAPONS_SHEET_CODE + 1364
+TWO_WEAPONS_SHEET_CAVE_START = 'ff8304d1'
+TWO_WEAPONS_SHEET_HOOKS = [(67270736, 'ff0301d1', '_df_refresh', 'b')]
+TWO_WEAPONS_SHEET_TARGETS = {'ext_refresh_body': 67270736 + 4, 'ext_get_sibling': 143029764, 'ext_set_sibling': 143029312, 'ext_get_size': 143008836, 'ext_set_size': 143009032, 'ext_loc_text': 131608028, 'ext_set_int': 142891048}
+TWO_WEAPONS_AMMO_CODE = 72385148
+TWO_WEAPONS_AMMO_END = TWO_WEAPONS_AMMO_CODE + 1312
+TWO_WEAPONS_AMMO_CAVE_START = 'ff4301d1'
+TWO_WEAPONS_AMMO_TARGETS = {'slot_weapon': 152985648 + 16384, 'ext_weapon_pointer': 87024380, 'ext_max_ammo': 130067848, 'ext_anim_event_body': 70394296 + 4}
+TWO_WEAPONS_AMMO_HOOKS = [(70394296, 'fe0f1df8', '_dm_anim_event', 'b')]
+
+def ammo_entries():
+    _, _, labels = assemble_source('deux_armes_munitions.s')
+    return {f'ext{name}': TWO_WEAPONS_AMMO_CODE + labels[name] - labels['_dm_start'] for name in ('_dm_ammo_of', '_dm_set_ammo', '_dm_layout', '_dm_hud_ammo')}
+
+def two_weapons_entries():
+    _, _, labels = assemble_source('deux_armes.s')
+    return {f'ext{name}': TWO_WEAPONS_CODE + labels[name] - labels['_dw_start'] for name in ('_dw_option', '_dw_second', '_dw_second_uid')}
+
+def patch_two_weapons(data):
+    targets = dict(TWO_WEAPONS_TARGETS, ext_debug_log=DEBUG_LOG, **ammo_entries())
+    size = place_cave(data, 'deux_armes_munitions.s', TWO_WEAPONS_AMMO_CODE, TWO_WEAPONS_AMMO_END, TWO_WEAPONS_AMMO_CAVE_START, dict(targets, **TWO_WEAPONS_AMMO_TARGETS), TWO_WEAPONS_AMMO_HOOKS, '_dm_start', 'les munitions des deux armes')
+    size += place_cave(data, 'deux_armes.s', TWO_WEAPONS_CODE, TWO_WEAPONS_END, TWO_WEAPONS_CAVE_START, targets, TWO_WEAPONS_HOOKS, '_dw_start', 'les deux armes', journal=True, words={'shown': int(TWO_WEAPONS_SHOWN)})
+    size += place_cave(data, 'deux_armes_hud.s', TWO_WEAPONS_HUD_CODE, TWO_WEAPONS_HUD_END, TWO_WEAPONS_HUD_CAVE_START, targets, TWO_WEAPONS_HUD_HOOKS, '_dh_start', 'la case de la seconde arme', journal=True)
+    size += place_cave(data, 'deux_armes_fiche.s', TWO_WEAPONS_SHEET_CODE, TWO_WEAPONS_SHEET_END, TWO_WEAPONS_SHEET_CAVE_START, dict(targets, **TWO_WEAPONS_SHEET_TARGETS, **two_weapons_entries()), TWO_WEAPONS_SHEET_HOOKS, '_df_start', 'la seconde arme de la fiche du heros')
+    print(f'deux armes : la seconde en combat, son bouton ({size} octets)')
+FLAIL_STRIKE_CODE = 127858740
+FLAIL_STRIKE_END = FLAIL_STRIKE_CODE + 1340
+FLAIL_STRIKE_CAVE_START = 'ff4303d1'
+FLAIL_STRIKE_HOOKS = [(66992504, '593140b9', '_fc_trigger', 'bl')]
+FLAIL_STRIKE_TARGETS = {'ext_init_metadata': 63400440, 'ext_class_init': 63400820, 'slot_anim_bool': 152449144 + 16384, 'slot_anim_trigger': 152449192 + 16384, 'ext_get_bool': 142218036, 'ext_set_bool': 65810168, 'ext_set_trigger': 65810328, 'ext_reset_trigger': 65810480}
+
+def flail_spin_entry():
+    _, _, labels = assemble_source('fleau_coup.s')
+    return FLAIL_STRIKE_CODE + labels['_fc_spin'] - labels['_fc_start']
+FLAIL_SPIN_ANIM_BUNDLE = 'heroes_anim_controllers_group_assets_all'
+FLAIL_SPIN_STRIKE = 'Base Layer.Wrench.MeleeAttack.Melee Attack Combo 1'
+FLAIL_SPIN_ANIM_STATES = {'UpperBody.Flail.Start_SpinFlail': (FLAIL_SPIN_STRIKE, 1.5), 'UpperBody.Flail.Loop_SpinFlail': (FLAIL_SPIN_STRIKE, 1.5)}
+IF, IF_NOT = (1, 2)
+
+def patch_flail_spin_anim(data):
+    if not heavy_tools():
+        return
+    import UnityPy
+    env = UnityPy.load(bytes(data))
+    done = 0
+    for obj in env.objects:
+        if obj.type.name != 'AnimatorController' or obj.peek_name() != 'MASTER_AC_PLAYER_NEW':
+            continue
+        tree = obj.read_typetree()
+        ids = {name: key for key, name in tree['m_TOS']}
+        states = {state['data']['m_FullPathID']: state['data'] for machine in tree['m_Controller']['m_StateMachineArray'] for state in machine['data']['m_StateConstantArray']}
+        for target, (source, speed) in FLAIL_SPIN_ANIM_STATES.items():
+            to, of = (states[ids[target]], states[ids[source]])
+            if to['m_BlendTreeConstantArray']:
+                raise SystemExit(f'animateur des heros : {target} a deja un mouvement')
+            to['m_BlendTreeConstantIndexArray'] = copy.deepcopy(of['m_BlendTreeConstantIndexArray'])
+            to['m_BlendTreeConstantArray'] = copy.deepcopy(of['m_BlendTreeConstantArray'])
+            to['m_Speed'] = speed
+            done += 1
+        start_state = states[ids['UpperBody.Flail.Start_SpinFlail']]
+        loop_state, use, active = (states[ids['UpperBody.Flail.Loop_SpinFlail']], ids['Use'], ids['SpinFlailActive'])
+        off = None
+        for transition in loop_state['m_TransitionConstantArray']:
+            conditions = transition['data']['m_ConditionConstantArray']
+            kept = [c for c in conditions if c['data']['m_EventID'] != use]
+            if len(kept) != len(conditions):
+                transition['data']['m_ConditionConstantArray'] = kept
+                off = kept
+                done += 1
+        machine = next((m['data'] for m in tree['m_Controller']['m_StateMachineArray'] if any((s['data'] is start_state for s in m['data']['m_StateConstantArray']))))
+        start_index = next((i for i, s in enumerate(machine['m_StateConstantArray']) if s['data'] is start_state))
+        again = copy.deepcopy(start_state['m_TransitionConstantArray'][0])
+        again['data']['m_DestinationState'] = start_index
+        condition = copy.deepcopy(next((c for c in off if c['data']['m_EventID'] == active)))
+        condition['data']['m_ConditionMode'] = IF
+        again['data']['m_ConditionConstantArray'] = [condition]
+        loop_state['m_TransitionConstantArray'].insert(0, again)
+        obj.save_typetree(tree)
+    if done != len(FLAIL_SPIN_ANIM_STATES) + 1:
+        raise SystemExit('animateur des heros : etats de la toupie du fleau introuvables')
+    data[:] = env.file.save(packer='lz4')
+    print("fleau : la toupie a ses mouvements de bras dans l'animateur des heros")
+
+def patch_flail_strike(data):
+    size = place_cave(data, 'fleau_coup.s', FLAIL_STRIKE_CODE, FLAIL_STRIKE_END, FLAIL_STRIKE_CAVE_START, FLAIL_STRIKE_TARGETS, FLAIL_STRIKE_HOOKS, '_fc_start', 'le coup du fleau')
+    print(f'fleau : coup de bras a chaque lancer ({size} octets)')
+
+def patch_hammer_throw(data):
+    size = place_cave(data, 'marteau_lance.s', HAMMER_THROW_CODE, HAMMER_THROW_END, HAMMER_THROW_CAVE_START, HAMMER_THROW_TARGETS, HAMMER_THROW_HOOKS, '_mt_start', 'le marteau lance de Rivet')
+    print(f'marteau de Rivet : elle lance son marteau ({size} octets)')
+
+def object_table(stream, ids):
+    _, data_offset = serialized_sizes(stream)
+    first, second = (struct.pack('<q', i) for i in ids[:2])
+    position = stream.find(first)
+    while 0 <= position < data_offset:
+        if stream[position + OBJECT_ENTRY.size:position + OBJECT_ENTRY.size + 8] == second:
+            for padding in range(4):
+                if stream[position - 4 - padding:position - padding] == struct.pack('<i', len(ids)):
+                    return (position, padding)
+        position = stream.find(first, position + 1)
+    raise SystemExit("table d'objets introuvable")
+
+def patch_fx_hammer(data):
+    import UnityPy
+    import numpy as np
+    from UnityPy.helpers import TypeTreeHelper
+    from UnityPy.streams import EndianBinaryWriter
+    marteau = hammer_module()
+    env = UnityPy.load(bytes(data))
+    objects = {o.path_id: o for o in env.objects}
+    stream = bytearray(bundle_stream(bytes(data)))
+    ids = sorted(objects)
+    table, padding = object_table(stream, ids)
+
+    def serialized(template, tree):
+        writer = EndianBinaryWriter(endian='<')
+        TypeTreeHelper.write_typetree(tree, template._get_typetree_node(), writer, template.assets_file)
+        return writer.bytes
+
+    def new_id(name):
+        found = int.from_bytes(hashlib.sha256(f'{FX_HAMMER_NAME}/{name}'.encode()).digest()[:8], 'little', signed=True)
+        if found in objects:
+            raise SystemExit('marteau lance : identifiant deja pris')
+        return found
+    wrench = objects[FX_WRENCH].read_typetree()
+    parts = [objects[c['component']['m_PathID']] for c in wrench['m_Component']]
+    if [p.type.name for p in parts] != ['Transform', 'MeshFilter', 'MeshRenderer', 'MonoBehaviour']:
+        raise SystemExit('marteau lance : effet de la cle inattendu')
+    made = {kind: new_id(kind) for kind in ('GameObject', 'Transform', 'MeshFilter', 'MeshRenderer', 'MonoBehaviour', 'Mesh', 'Material', 'Texture2D')}
+    trees = {'GameObject': wrench}
+    trees.update({p.type.name: p.read_typetree() for p in parts})
+    sources = {'GameObject': objects[FX_WRENCH], **{p.type.name: p for p in parts}, 'Mesh': objects[FX_WRENCH_MESH], 'Material': objects[FX_WRENCH_MATERIAL], 'Texture2D': objects[FX_WRENCH_TEXTURE]}
+    for kind in ('Mesh', 'Material', 'Texture2D'):
+        trees[kind] = sources[kind].read_typetree()
+    if trees['MeshFilter']['m_Mesh']['m_PathID'] != FX_WRENCH_MESH:
+        raise SystemExit('marteau lance : maillage de la cle inattendu')
+    trees['GameObject'].update(m_Name=FX_HAMMER_NAME, m_IsActive=0, m_Component=[{'component': local_ref(made[p.type.name])} for p in parts])
+    father = trees['Transform']['m_Father']['m_PathID']
+    trees['Transform'].update(m_GameObject=local_ref(made['GameObject']), m_Children=[])
+    trees['MeshFilter'].update(m_GameObject=local_ref(made['GameObject']), m_Mesh=local_ref(made['Mesh']))
+    trees['MeshRenderer'].update(m_GameObject=local_ref(made['GameObject']), m_Materials=[local_ref(made['Material'])])
+    trees['MonoBehaviour'].update(m_GameObject=local_ref(made['GameObject']))
+    geometry, images = marteau.build()
+    turn = np.array([[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, -1.0, 0.0]])
+    geometry = dict(geometry)
+    geometry['vertices'] = (geometry['vertices'] @ turn.T * FX_HAMMER_SCALE).astype(np.float32)
+    geometry['normals'] = (geometry['normals'] @ turn.T).astype(np.float32)
+    tangents = np.array(geometry['tangents'], dtype=np.float32)
+    tangents[:, :3] = tangents[:, :3] @ turn.T
+    geometry['tangents'] = tangents
+    trees['Mesh'] = marteau.unity_mesh(trees['Mesh'], geometry)
+    trees['Mesh']['m_Name'] = 'MSH_Rivet_Hammer'
+    trees['Material']['m_Name'] = 'MAT_Rivet_Hammer_FX'
+    for name, slot in trees['Material']['m_SavedProperties']['m_TexEnvs']:
+        if name == '_MainTex':
+            slot['m_Texture'] = local_ref(made['Texture2D'])
+    size = FX_HAMMER_TEXTURE_SIZE
+    picture = images['ALB'].convert('RGBA').resize((size, size)).transpose(1)
+    texture = trees['Texture2D']
+    texture.update(m_Name='TEX_Rivet_Hammer_ALB', m_Width=size, m_Height=size, m_CompleteImageSize=size * size * 4, m_TextureFormat=4, m_MipCount=1, m_ImageCount=1, m_StreamData={'offset': 0, 'size': 0, 'path': ''})
+    texture['image data'] = picture.tobytes()
+    entries = {e[0]: e for e in object_entries(stream, table, len(ids))}
+    parent = objects[father]
+    parent_tree = parent.read_typetree()
+    parent_tree['m_Children'].append(local_ref(made['Transform']))
+    _, start, size_before, _ = entries[father]
+    grown = grow_objects(stream, table, len(ids), {father: (start, size_before, lambda old: serialized(parent, parent_tree))})
+    copies = {made[kind]: (sources[kind].path_id, lambda raw, kind=kind: serialized(sources[kind], trees[kind])) for kind in made}
+    stream, added = add_object_copies(stream, table, len(ids), copies, padding)
+    replace_bundle_stream(data, stream, grown + added)
+    print("marteau de Rivet : marteau lance dans l'effet de la cle")
 RIVET_HERO_SPECS = [('HeroesTable', struct.pack('<iiq', 16, 0, -7414600841294808171), struct.pack('<iiq', 16, 0, -307863333376545080)), ('SimulationHeroesTable', struct.pack('<iq', 16, 1675496277196913591), struct.pack('<iq', 16, 640634350159564227))]
 RIVET_HERO_TEXTS = {'FR': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'UI.WEAPONS.MELEE.RIVET': 'Marteau de Rivet', 'UI.WEAPON_DESCRIPTION.MELEE.RIVET': 'Son marteau : aussi rapide que la clé de Ratchet, en plus lourd.', 'UI.HERO_IMPROVEMENT.NAME.RIVET_SLAM': 'Marteau plongeant', 'UI.HERO_IMPROVEMENT.DESC.RIVET_SLAM': "En l'air, coup de mêlée : Rivet plonge et frappe le sol.", 'CHARACTER.BIO.AVATAR': "Venue d'une autre dimension, Rivet la Lombax fait équipe avec Ratchet et Clank : mêmes armes, même gadget, et un sacré caractère."}, 'EN': {'UI.CHARACTER.AVATAR': 'Rivet', 'SKIN.AVATAR_00': 'Rivet', 'UI.WEAPONS.MELEE.RIVET': "Rivet's Hammer", 'UI.WEAPON_DESCRIPTION.MELEE.RIVET': "Her hammer: as quick as Ratchet's wrench, and heavier.", 'UI.HERO_IMPROVEMENT.NAME.RIVET_SLAM': 'Hammer Slam', 'UI.HERO_IMPROVEMENT.DESC.RIVET_SLAM': 'Melee in the air: Rivet dives and slams the ground.', 'CHARACTER.BIO.AVATAR': 'From another dimension, Rivet the Lombax teams up with Ratchet and Clank: same weapons, same gadget, and plenty of attitude.'}}
 RATCHET_KIT = ('_defaultWeapon', '_commonFavoriteWeapon', '_rareFavoriteWeapon', '_epicFavoriteWeapon', 'ultimates', 'gadgets', 'meleeWeaponSpec', 'maxHeroImprovementLevel', 'equipMeleeWeaponInMenu', 'menusAnimID', 'specificWinLoseAnimID')
@@ -2065,7 +2271,7 @@ def coop_battle_code(at_address):
     return (c.build(), {name: at_address + c.labels[name] for name in ('is_coop', 'own_bolts', 'team_flag', 'result', 'row', 'team_split', 'item_color', 'max_key', 'max_text')})
 PROTOTYPES_KEY = b'rr_prototypes'
 WENDY_KEY = b'rr_wendy'
-PROTOTYPE_LEVELS = ['q_EL_Prototype_01', 'q_FFA_Sargasso_01B', 'q_FFA_TorrenIV_01B', 'q_BK_TorrenIV_02B']
+PROTOTYPE_LEVELS = ['q_EL_Prototype_01', 'q_FFA_Sargasso_01B', 'q_FFA_TorrenIV_01B', 'q_BK_TorrenIV_02B', 'q_FFA_Sargasso_02']
 
 def prototype_maps():
     maps = list(PROTOTYPE_LEVELS)
@@ -3340,10 +3546,13 @@ def difficulty_code(at_address):
             c.emit(a64.cmp_w_imm(10, ord('R')))
             c.jump('b.ne', fail)
 
-        def is_prototypes(label):
+        def is_prototypes(label, two_label=None):
             c.emit(w32(2034251050))
             c.emit(a64.cmp_w_imm(10, ord('P')))
             c.jump('b.eq', label)
+            if two_label:
+                c.emit(a64.cmp_w_imm(10, ord('T')))
+                c.jump('b.eq', two_label)
         keys = keys_code()[2] if MAC else {}
 
         def is_keys(entry, other):
@@ -3359,11 +3568,15 @@ def difficulty_code(at_address):
             c.emit(w32(2034251050))
             c.emit(a64.cmp_w_imm(10, ord('F')))
             c.jump('b.eq', 'full_get')
-        is_prototypes('proto_get')
+        is_prototypes('proto_get', 'two_get')
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
         c.jump('bl', 'level')
         c.emit(a64.ldp_x_post(29, 30, a64.SP, 16))
         c.emit(a64.RET)
+        c.label('two_get')
+        c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
+        c.jump('adr', 'two_key', 0)
+        c.jump('b', 'flag_get')
         c.label('full_get')
         c.emit(a64.stp_x_pre(29, 30, a64.SP, -16))
         c.jump('adr', 'full_key', 0)
@@ -3405,6 +3618,11 @@ def difficulty_code(at_address):
         c.jump('b.ne', 'not_proto_set')
         c.jump('adr', 'proto_key', 0)
         c.label('not_proto_set')
+        c.emit(a64.cmp_w_imm(20, ord('T')))
+        c.jump('b.ne', 'not_two_set')
+        c.jump('adr', 'two_key', 0)
+        c.jump('b', 'set_key')
+        c.label('not_two_set')
         c.emit(a64.cmp_w_imm(20, ord('F')))
         c.jump('b.ne', 'set_key')
         c.jump('adr', 'full_key', 0)
@@ -3438,6 +3656,8 @@ def difficulty_code(at_address):
     c.emit(PROTOTYPES_KEY + b'\x00\x00\x00')
     c.label('full_key')
     c.emit(FULLSCREEN_KEY + b'\x00\x00')
+    c.label('two_key')
+    c.emit(TWO_WEAPONS_KEY + b'\x00\x00\x00')
     c.label('medals')
     c.emit(struct.pack(f'<{len(DIFFICULTY_MEDALS)}I', *DIFFICULTY_MEDALS.values()))
     c.label('power_offsets')
@@ -4169,7 +4389,7 @@ def events_code(at_address):
 WEAPON_SLOTS_CODE = 72180780
 WEAPON_SLOTS_END = WEAPON_SLOTS_CODE + 4632
 SECONDARY_GADGETS = [(51, 2), (52, 3), (53, 4), (41, 5), (10, 6), (3, 8), (26, 9), (6, 10), (16, 14), (22, 15), (23, 17), (56, 22)]
-WEAPON_SLOTS_TARGETS = {'ext_string_new': 63431916, 'ext_get_int': 142891136, 'ext_set_int': 142891048, 'ext_save': 142893956, 'slot_filter_key': 152488048 + 16384, 'ext_init_metadata': 63400440, 'ext_user_instance': 69480108, 'ext_get_at_slot': 75099120, 'ext_char_of_skin': 75046628, 'ext_weapon_uid': 66149436, 'ext_is_human': 130379140, 'ext_player_data': 130479552, 'ext_equip_weapon_body': 69489000 + 4, 'ext_equip_skin_body': 69488712 + 4, 'ext_get_economy': 68364052, 'ext_char_def_by_skin': 66636884, 'ext_default_weapon_uid': 66646824, 'ext_char_def_by_id': 66635828, 'ext_gadget_weapon_at': 66644204, 'ext_weapon_qlevel': 69496756, 'ext_weapon_upgrade_qlevel': 69517804, 'ext_weapon_power_body': 67271220 + 4, 'ext_weapon_damage_body': 67270176 + 4, 'ext_is_available': 66150176, 'ext_is_ultimate': 66149824, 'ext_is_melee': 66150000, 'ext_slots_create': 67107728, 'ext_slots_null': 67109132, 'ext_slots_next': 67108512, 'ext_create_slots': 67106480, 'ext_refresh_slots': 67113108, 'ext_can_equip_skin': 69488604, 'ext_equip_skin': 69488712, 'ext_fsm_instance': 70336780, 'ext_weapon_is_unlocked': 69524776, 'ext_bin_weapon': 67125492, 'ext_refresh_body': 67126424 + 4, 'ext_refresh_if_body': 67126800 + 4, 'ext_slot_clicked_body': 67127028 + 4, 'ext_loadout_screen': 67125364, 'ext_loadout_in_state': 67116788, 'ext_dropdown_set_value': 140805172, 'slot_main_menu': 152460616 + 16384, 'ext_mono_instance': 103153532, 'slot_highlight_name': 152501432 + 16384, 'ext_animator_set_bool': 142218168}
+WEAPON_SLOTS_TARGETS = {'ext_string_new': 63431916, 'ext_get_int': 142891136, 'ext_set_int': 142891048, 'ext_save': 142893956, 'slot_filter_key': 152488048 + 16384, 'ext_init_metadata': 63400440, 'ext_user_instance': 69480108, 'ext_get_at_slot': 75099120, 'ext_char_of_skin': 75046628, 'ext_weapon_uid': 66149436, 'ext_is_human': 130379140, 'ext_player_data': 130479552, 'ext_equip_weapon_body': 69489000 + 4, 'ext_equip_skin_body': 69488712 + 4, 'ext_get_economy': 68364052, 'ext_char_def_by_skin': 66636884, 'ext_default_weapon_uid': 66646824, 'ext_char_def_by_id': 66635828, 'ext_gadget_weapon_at': 66644204, 'ext_weapon_qlevel': 69496756, 'ext_weapon_upgrade_qlevel': 69517804, 'ext_weapon_power_body': 67271220 + 4, 'ext_weapon_damage_body': 67270176 + 4, 'ext_is_available': 66150176, 'ext_is_ultimate': 66149824, 'ext_is_melee': 66150000, 'ext_slots_create': 67107728, 'ext_slots_null': 67109132, 'ext_slots_next': 67108512, 'ext_create_slots': 67106480, 'ext_refresh_slots': 67113108, 'ext_can_equip_skin': 69488604, 'ext_equip_skin': 69488712, 'ext_fsm_instance': 70336780, 'ext_weapon_is_unlocked': 69524776, 'ext_bin_weapon': 67125492, 'ext_refresh_body': 67126424 + 4, 'ext_refresh_if_body': 67126800 + 4, 'ext_slot_clicked_body': 67127028 + 4, 'ext_loadout_screen': 67125364, 'ext_loadout_in_state': 67116788, 'ext_dropdown_set_value': 140805172, 'slot_main_menu': 152460616 + 16384, 'ext_mono_instance': 103153532, 'slot_highlight_name': 152501432 + 16384, 'ext_animator_set_bool': 142218168, 'ext_get_gameobject': 142923916, 'ext_component_by_name': 142935700}
 WEAPON_SLOTS_HOOKS = [(69489000, 'ff0301d1', '_ws_equip_weapon', 'b'), (69488712, 'ff0301d1', '_ws_equip_skin', 'b'), (69495296, 'f60300aa', '_ws_loadout_gadget', 'bl'), (67253876, '002c40f9', '_ws_sheet_gadget', 'bl'), (130011492, '610e40b9', '_ws_sim_key', 'bl'), (130058876, '610e40b9', '_ws_ultimate_key', 'bl'), (67107512, 'e00314aa', '_ws_slots_candidate', 'bl'), (67107724, '1a2c00b4', '_ws_slots_mode', 'b'), (67116012, 'c00240f9', '_ws_filter_changed', 'b'), (67516864, 'fe0f1df8', '_ws_open_secondary', 'b'), (67270832, '9e9efd97', '_ws_shown_weapon', 'bl'), (67271288, '2c9efd97', '_ws_shown_weapon', 'bl'), (67269812, '9d9ffd97', '_ws_shown_weapon', 'bl'), (67271220, 'fe5fbda9', '_ws_popup_weapon_power', 'b'), (67270176, 'ffc301d1', '_ws_popup_weapon_damage', 'b'), (130011680, 'f5630091', '_ws_gadget_level', 'bl'), (67254352, 'f403012a', '_ws_gadget_power_level', 'bl'), (67253168, 'f403002a', '_ws_gadget_cooldown_level', 'bl'), (67254420, '002c40f9', '_ws_sheet_gadget', 'bl'), (67253224, '002c40f9', '_ws_sheet_gadget', 'bl'), (67126424, 'fe0f1cf8', '_ws_slot_refresh', 'b'), (67126800, 'fe57bea9', '_ws_slot_refresh_if', 'b'), (67127028, 'ff8301d1', '_ws_slot_clicked', 'b')]
 WEAPON_SLOTS_OPEN = [(67125664, 'd71c0994'), (67126484, '0a1c0994'), (67127232, '4f1b0994')]
 MOV_W0_1 = bytes.fromhex('20008052')
@@ -4341,7 +4561,7 @@ def patch_weapon_slots(data):
     owners = struct.unpack('<12I', code[labels['_ws_gadget_ids'] + 48:labels['_ws_gadget_ids'] + 96])
     if list(zip(ids, owners)) != SECONDARY_GADGETS:
         raise SystemExit("armes_secondaires.s et SECONDARY_GADGETS ne sont plus d'accord")
-    place_assembled(data, WEAPON_SLOTS_CODE, code, uses, WEAPON_SLOTS_TARGETS, None)
+    place_assembled(data, WEAPON_SLOTS_CODE, code, uses, dict(WEAPON_SLOTS_TARGETS, ext_weapon_id=GET_WEAPON_ID, **two_weapons_entries()), None)
     entry = entries(WEAPON_SLOTS_CODE, labels, '_ws_start')
     hook(data, WEAPON_SLOTS_HOOKS, entry)
     at(data, 67107516, bytes.fromhex('e103172a'), w32(905969664 | (67108512 - 67107516 >> 2 & 16383) << 5))
@@ -4469,7 +4689,7 @@ ENEMY_TOKENS_TARGETS = {'ext_qlist_add': QLIST_ADD, 'ext_try_get_pointer': 87003
 PODIUM_CREDITS_CODE = 72365488
 PODIUM_CREDITS_END = 72365488 + 2248
 PODIUM_CREDITS_HOOK = (64480916, 'fd7bbaa9')
-PODIUM_CREDITS_TARGETS = {'ext_init_metadata': 63400440, 'slot_modify_pending': 152419288 + 16384, 'ext_ctx_modify': 79648976, 'ext_push_pending': 64542240, 'ext_impl_body': 64480916 + 4, 'ext_string_new': 63431916}
+PODIUM_CREDITS_TARGETS = {'ext_init_metadata': 63400440, 'slot_modify_pending': 152419288 + 16384, 'ext_ctx_modify': 79648976, 'ext_push_pending': 64542240, 'ext_impl_body': 64480916 + 4, 'ext_string_new': 63431916, 'ext_weapon_level': 69517616}
 
 def patch_podium_credits(data):
     code, uses, labels = assembled_code('credits_podium.s', journal=True)
@@ -4483,7 +4703,12 @@ def patch_podium_credits(data):
     else:
         set_word(code, labels, 'plan_targets_on', 0)
         plan_targets = PODIUM_CREDITS_CODE
-    targets = dict(PODIUM_CREDITS_TARGETS, ext_debug_log=DEBUG_LOG, ext_plan_targets=plan_targets)
+    if VERSION == '1.10.4':
+        second_uid = two_weapons_entries()['ext_dw_second_uid']
+    else:
+        set_word(code, labels, 'second_on', 0)
+        second_uid = PODIUM_CREDITS_CODE
+    targets = dict(PODIUM_CREDITS_TARGETS, ext_debug_log=DEBUG_LOG, ext_plan_targets=plan_targets, ext_dw_second_uid=second_uid)
     place_assembled(data, PODIUM_CREDITS_CODE, code, uses, targets, None)
     address, old = PODIUM_CREDITS_HOOK
     at(data, address, bytes.fromhex(old), a64.b(address, PODIUM_CREDITS_CODE + labels['_cp_battle_end'] - labels['_cp_start']))
@@ -4536,7 +4761,7 @@ def patch_monoscripts(data):
     stream = bundle_stream(bytes(data))
     new = collect_graft().patch_monoscripts(stream)
     replace_bundle_stream(data, new)
-FLAIL_VIEW_TARGETS = {'ext_get_transform': 142923708, 'ext_string_new': 63431916, 'ext_find': 143030524, 'ext_get_gameobject': 142923916, 'ext_get_component_by_name': 142935700, 'ext_get_position': 143014424, 'ext_observed_game': 66468604, 'ext_init_metadata': 63400440, 'ext_init_rgctx': 63636616, 'ext_try_get_pointer': 87024380, 'slot': 153002032, 'ext_get_entity_view': 66468228, 'ext_time': 142998892, 'ext_cos': 142867152, 'ext_sin': 142867052, 'ext_set_position_count': 142549188, 'ext_line_set_position': 142552548, 'ext_set_active': 142943076, 'ext_set_rotation': 143015944, 'ext_set_position': 143014636, 'ext_set_local_position': 143009856, 'ext_set_local_rotation': 143016380, 'ext_get_material': 142570704, 'ext_set_color': 142635424}
+FLAIL_VIEW_TARGETS = {'ext_get_transform': 142923708, 'ext_string_new': 63431916, 'ext_find': 143030524, 'ext_get_gameobject': 142923916, 'ext_get_component_by_name': 142935700, 'ext_get_position': 143014424, 'ext_observed_game': 66468604, 'ext_init_metadata': 63400440, 'ext_init_rgctx': 63636616, 'ext_try_get_pointer': 87024380, 'slot': 153002032, 'ext_get_entity_view': 66468228, 'ext_time': 142998892, 'ext_camera_main': 142427164, 'ext_cos': 142867152, 'ext_sin': 142867052, 'ext_set_position_count': 142549188, 'ext_line_set_position': 142552548, 'ext_set_active': 142943076, 'ext_set_rotation': 143015944, 'ext_set_position': 143014636, 'ext_set_local_position': 143009856, 'ext_set_local_rotation': 143016380, 'ext_get_material': 142570704, 'ext_set_color': 142635424}
 FLAIL_ENHANCEMENTS_CODE = 72330704 + 4864
 FLAIL_ENHANCEMENTS_END = 72330704 + 5660
 FLAIL_ENHANCEMENTS_TARGETS = {'ext_init_metadata': 63400440, 'ext_init_rgctx': 63636616, 'ext_try_get_pointer': 86994632, 'slot_loadout': 153006760, 'slot_aoe': 153007576, 'slot_pusher': 153007680}
@@ -4549,14 +4774,19 @@ def patch_flail_spin(data):
     code[labels['mega_gain']:labels['mega_gain'] + 8] = fp(FLAIL_MEGASPIN_RADIUS / FLAIL_SPIN_RANGE)
     code[labels['torque_pusher']:labels['torque_pusher'] + 8] = struct.pack('<q', BUILD['flail_enhancements']['torque_pusher'][3])
     place_assembled(data, FLAIL_ENHANCEMENTS_CODE, code, uses, dict(FLAIL_ENHANCEMENTS_TARGETS, ext_string_new=BUILD['string_new'], ext_debug_log=DEBUG_LOG), None)
-    code, uses, _ = assemble_source('fleau_toupie.s')
-    check_room(cave, code, BUILD['flail_view'][1], 'le tourbillon du fleau')
-    place_assembled(data, cave, code, uses, FLAIL_SPIN_TARGETS, hook + 4)
+    code, uses, labels = assembled_code('fleau_toupie.s', journal=True)
+    check_room(cave, code, BUILD['flail_auto'][2], 'le tourbillon du fleau')
+    spin_up = bytes(code[labels['spin_up']:labels['spin_up'] + 8])
+    place_assembled(data, cave, code, uses, dict(FLAIL_SPIN_TARGETS, ext9_string_new=BUILD['string_new'], ext10_debug_log=DEBUG_LOG), hook + 4)
     at(data, hook, bytes.fromhex('ffc301d1'), a64.b(hook, cave))
-    view_hook, view_cave = BUILD['flail_view']
-    code, uses, _ = assemble_source('fleau_vue.s')
-    check_room(view_cave, code, BUILD['flail_auto'][2], 'la vue du fleau')
-    place_assembled(data, view_cave, code, uses, dict(FLAIL_VIEW_TARGETS, slot_aoe=FLAIL_ENHANCEMENTS_TARGETS['slot_aoe']), view_hook + 4)
+    view_hook, view_cave, view_end = BUILD['flail_view']
+    code, uses, labels = assemble_source('fleau_vue.s')
+    code = bytearray(code)
+    code[labels['spin_up']:labels['spin_up'] + 8] = spin_up
+    check_room(view_cave, code, view_end, 'la vue du fleau')
+    if bytes(data[view_cave:view_cave + 4]) != bytes.fromhex('ffc301d1'):
+        raise SystemExit('la cave pour la vue du fleau est deja prise')
+    place_assembled(data, view_cave, code, uses, dict(FLAIL_VIEW_TARGETS, slot_aoe=FLAIL_ENHANCEMENTS_TARGETS['slot_aoe'], ext_flail_spin_anim=flail_spin_entry()), view_hook + 4)
     at(data, view_hook, bytes.fromhex('08284439'), a64.b(view_hook, view_cave))
 
 def try_fix_code(at_address, back, skip):
@@ -4894,7 +5124,7 @@ def weapon_balance_edits(data):
         print(f"equilibrage des armes : {len(done)} fiches ({', '.join(sorted(done)[:3])}...)")
     return edits
 GADGET_AMMUNITION = {'Q_DrillDash_MeleeWeapon_WeaponSpec': 245539642024836795, 'Q_LittleSpin_MeleeWeapon': 4229535951622918670}
-WEAPON_ENHANCEMENTS_ADDED = {'Q_MineLauncher_WeaponSpec': [2215773314494608396], 'Q_Gatling_WeaponSpec': [3822661076429632190], 'Q_BlasterRatchet_WeaponSpec': [2173539690631149891]}
+WEAPON_ENHANCEMENTS_ADDED = {'Q_MineLauncher_WeaponSpec': [2215773314494608396], 'Q_Gatling_WeaponSpec': [3822661076429632190], 'Q_BlasterRatchet_WeaponSpec': [2173539690631149891], 'Q_Blaster_WeaponSpec': [2173539690631149891]}
 
 def gadget_lines(data):
     if not heavy_tools() or not os.path.isfile(WEAPON_BALANCE):
@@ -4992,8 +5222,10 @@ MEDAL_LOSS_TARGETS = {'ext_string_new': 63431916}
 MEDAL_LOSS_EDITS = [(66378004, '9f060071', '9f020071'), (66378008, '2b040054', '20040054')]
 MEDAL_LOSS_HOOKS = [(66378064, '080140f9', '_mm_format', 'bl')]
 
-def place_cave(data, source, start, end, cave_start, targets, hooks, start_label, what, journal=False):
+def place_cave(data, source, start, end, cave_start, targets, hooks, start_label, what, journal=False, words=None):
     code, uses, labels = assembled_code(source, journal)
+    for name, value in (words or {}).items():
+        set_word(code, labels, name, value)
     check_room(start, code, end, what)
     if bytes(code[:4]) != RETURN_NOW:
         raise SystemExit(f'{source} doit commencer par ret')
@@ -5035,6 +5267,23 @@ ARSENAL_HOOKS = [(130065972, 'f703042a', '_ae_entry', 'b'), (130066452, 'ff09009
 def patch_arsenal_enhancements(data):
     size = place_cave(data, 'ameliorations_armes.s', ARSENAL_CODE, ARSENAL_END, ARSENAL_CAVE_START, ARSENAL_TARGETS, ARSENAL_HOOKS, '_ae_start', "les ameliorations de l'Arsenal", journal=True)
     print(f"ameliorations de l'Arsenal : appliquees en combat ({size} octets)")
+QUESTS_CODE = 67936848
+QUESTS_END = QUESTS_CODE + 1412
+QUESTS_CAVE_START = 'ffc301d1'
+QUESTS_HOOKS = [(64551664, '480340f9', '_qw_draw', 'bl')]
+
+def patch_quests(data):
+    size = place_cave(data, 'quetes_sans_wendy.s', QUESTS_CODE, QUESTS_END, QUESTS_CAVE_START, {'ext_string_new': 63431916, 'ext_debug_log': DEBUG_LOG}, QUESTS_HOOKS, '_qw_start', 'les quetes sans Wendy', journal=True)
+    print(f'quetes : jamais avec Wendy ({size} octets)')
+PLATFORM_CODE = 72391888
+PLATFORM_END = PLATFORM_CODE + 672
+PLATFORM_CAVE_START = 'fe5fbda9'
+PLATFORM_TARGETS = {'ext_tags_string': 72239644, 'ext_string_new': 63431916, 'ext_string_replace': 124057532}
+PLATFORM_HOOKS = [(68336744, '6de30e94', '_pf_tags', 'bl')]
+
+def patch_platform_text(data):
+    size = place_cave(data, 'plateforme_ios.s', PLATFORM_CODE, PLATFORM_END, PLATFORM_CAVE_START, PLATFORM_TARGETS, PLATFORM_HOOKS, '_pf_start', 'la plateforme du texte de version')
+    print(f'texte de version : platform/ios dans le jeu iPhone ({size} octets)')
 
 def patch_library(data):
     patch_code(data)
@@ -5069,6 +5318,12 @@ def patch_library(data):
         patch_medal_loss(data)
         patch_shop_max(data)
         patch_arsenal_enhancements(data)
+        patch_quests(data)
+        patch_platform_text(data)
+        if RIVET_HAMMER:
+            patch_hammer_throw(data)
+        patch_two_weapons(data)
+        patch_flail_strike(data)
     if VERSION == '1.10.4' and nakari_icon():
         patch_nakari_icon_code(data)
 HEROES_RESOURCES = os.environ.get('RR_HEROS_DOSSIER') or data_file('..', 'appli_patch', 'ressources', 'heros')
@@ -5732,7 +5987,7 @@ def patch_photon_settings(data):
 
 def game_patches():
     assert set(BOLT_RUSH_EDITS) <= set(RUSH_MAP_POINTS) | {GAME_MODES_BUNDLE}
-    patches = {BASE_PART: {'assets/bin/Data/Managed/Metadata/global-metadata.dat': patch_metadata, 'assets/bin/Data/globalgamemanagers': patch_player_settings}, ASSET_PACK_PART: {'assets/bin/Data/1bf6573aa4de63f4ab5f6bce63d9c51e': patch_host, **({PHOTON_SETTINGS: patch_photon_settings} if os.environ.get('RR_PHOTON') else {}), BUILD['menu_bundle']: patch_main_menu, **({BUILD['init_bundle']: patch_init_scene} if 'init_bundle' in BUILD else {}), **({BUILD['heroes_bundle']: patch_local_data_and_maps} if 'heroes_bundle' in BUILD else {}), **({BUILD['flail_spec'][0]: patch_flail_spec} if 'flail_spec' in BUILD else {}), **({'assets/aa/catalog.bin': patch_catalog} if 'hero_models' in BUILD else {}), **({BUILD['hero_specs_bundle']: patch_hero_specs_bundle} if 'hero_specs_bundle' in BUILD else {}), **({gadget_db_bundle(): patch_gadget_db} if gadget_db_bundle() else {}), **shop_cards_patches(), **rivet_hammer_patches(), **({MONOSCRIPTS_BUNDLE: patch_monoscripts} if collect_screen_build() else {}), **({PORTRAITS_BUNDLE: patch_rivet_portrait} if 'hero_models' in BUILD and VERSION == '1.10.4' else {}), **nakari_icon_patches(), **({path: rush_map(path) for path in RUSH_MAP_POINTS} if BOLT_RUSH else {}), **({GAME_MODES_BUNDLE: patch_game_modes} if BOLT_RUSH else {}), **({asset_pack_path(KING_LINES_BUNDLE): patch_king_lines} if BOLT_RUSH and asset_pack_path(KING_LINES_BUNDLE) else {}), **king_crown_patches(), **({asset_pack_path(WEAPON_PICKUP_BUNDLE): patch_weapon_pickup} if BOLT_RUSH and asset_pack_path(WEAPON_PICKUP_BUNDLE) else {}), **({LEVEL_DESIGN_BUNDLE: patch_level_design} if BOLT_RUSH else {}), **({'assets/Data/Localization/NL/FidelioFramework.protobd': patch_polish_framework} if polish_build() else {}), **({LOCALIZATION_FILE.format(lang): patch_localization(lang) for lang in LANGUAGES} if BOLT_RUSH or 'difficulty_row' in BUILD or 'hero_models' in BUILD else {})}, LIBRARY_PART: {'lib/arm64-v8a/libil2cpp.so': patch_library}}
+    patches = {BASE_PART: {'assets/bin/Data/Managed/Metadata/global-metadata.dat': patch_metadata, 'assets/bin/Data/globalgamemanagers': patch_player_settings}, ASSET_PACK_PART: {'assets/bin/Data/1bf6573aa4de63f4ab5f6bce63d9c51e': patch_host, **({PHOTON_SETTINGS: patch_photon_settings} if os.environ.get('RR_PHOTON') else {}), BUILD['menu_bundle']: patch_main_menu, **({BUILD['init_bundle']: patch_init_scene} if 'init_bundle' in BUILD else {}), **({BUILD['heroes_bundle']: patch_local_data_and_maps} if 'heroes_bundle' in BUILD else {}), **({BUILD['flail_spec'][0]: patch_flail_spec} if 'flail_spec' in BUILD else {}), **({'assets/aa/catalog.bin': patch_catalog} if 'hero_models' in BUILD else {}), **({BUILD['hero_specs_bundle']: patch_hero_specs_bundle} if 'hero_specs_bundle' in BUILD else {}), **({gadget_db_bundle(): patch_gadget_db} if gadget_db_bundle() else {}), **shop_cards_patches(), **rivet_hammer_patches(), **({MONOSCRIPTS_BUNDLE: patch_monoscripts} if collect_screen_build() else {}), **({PORTRAITS_BUNDLE: patch_rivet_portrait} if 'hero_models' in BUILD and VERSION == '1.10.4' else {}), **nakari_icon_patches(), **({path: rush_map(path) for path in RUSH_MAP_POINTS} if BOLT_RUSH else {}), **({GAME_MODES_BUNDLE: patch_game_modes} if BOLT_RUSH else {}), **({asset_pack_path(KING_LINES_BUNDLE): patch_king_lines} if BOLT_RUSH and asset_pack_path(KING_LINES_BUNDLE) else {}), **king_crown_patches(), **({asset_pack_path(WEAPON_PICKUP_BUNDLE): patch_weapon_pickup} if BOLT_RUSH and asset_pack_path(WEAPON_PICKUP_BUNDLE) else {}), **({LEVEL_DESIGN_BUNDLE: patch_level_design} if BOLT_RUSH else {}), **({asset_pack_path(FLAIL_SPIN_ANIM_BUNDLE): patch_flail_spin_anim} if VERSION == '1.10.4' and asset_pack_path(FLAIL_SPIN_ANIM_BUNDLE) else {}), **({'assets/Data/Localization/NL/FidelioFramework.protobd': patch_polish_framework} if polish_build() else {}), **({LOCALIZATION_FILE.format(lang): patch_localization(lang) for lang in LANGUAGES} if BOLT_RUSH or 'difficulty_row' in BUILD or 'hero_models' in BUILD else {})}, LIBRARY_PART: {'lib/arm64-v8a/libil2cpp.so': patch_library}}
     pack = patches[ASSET_PACK_PART]
     for path, edit in edited_map_patches().items():
         pack[path] = then(pack.get(path), edit)

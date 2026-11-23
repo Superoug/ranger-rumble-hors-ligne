@@ -118,6 +118,12 @@ spawn:
     mov  x1, x25
     add  x2, sp, #0x48
     bl   ext5_set_hierarchy
+    ldr  w8, journal
+    cbz  w8, out
+    adr  x0, log_spawn
+    bl   ext9_string_new
+    mov  x1, xzr
+    bl   ext10_debug_log
     b    out
 stop:
     str  wzr, [x23]
@@ -159,3 +165,6 @@ valid_end:
 flail_guid: .quad 3873562517302156309
 spin_guid:  .quad 2021436754639239773
 spin_up:    .quad 7864
+log_spawn:  .asciz "RR fleau: tourbillon cree"
+    .p2align 2
+journal:    .word 0

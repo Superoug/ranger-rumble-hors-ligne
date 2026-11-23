@@ -12,21 +12,25 @@ Pour continuer à jouer à *Ratchet & Clank: Ranger Rumble* après la fermeture 
 ## iPhone et Android
 
 - **La copie de sauvegarde se fait uniquement sur iPhone ou iPad.**
-- **Le jeu hors ligne est uniquement pour Android.**
-- **Une copie faite sur iPhone continue dans le jeu Android.**
+- **Le jeu hors ligne marche sur Android, et sur iPhone et iPad (essai).**
+- **Une sauvegarde copiée depuis l'iPhone continue dans le jeu hors ligne.**
 
 ## Ce que fait l'outil
+
+Le launcher a une section **Android** et une section **iOS**, avec les quatre mêmes outils :
 
 1. **Copier la sauvegarde** (iPhone et iPad, avant le 1er mai 2027) : scanner un QR code, installer
    un profil, ouvrir le jeu. L'outil garde la sauvegarde et les données du jeu. Sur Android, rien à
    copier : le jeu part d'une nouvelle partie.
-2. **Installer le jeu** (Android) : l'outil fabrique le jeu hors ligne à partir du jeu officiel
-   1.10.4, avec la sauvegarde iPhone ou une nouvelle partie, puis l'installe sur le téléphone par
-   le câble.
+2. **Fabriquer et installer** : l'outil fabrique le jeu hors ligne à partir du jeu officiel 1.10.4,
+   avec la sauvegarde ou une nouvelle partie. Android : installé par le câble. iOS : une IPA
+   installée avec Sideloadly.
 3. **Éditer une sauvegarde** : héros, niveaux, armes, costumes, médailles, monnaies, statistiques.
-   Depuis un fichier, une copie ou directement sur le téléphone.
-4. **Mises à jour** : l'outil et le jeu du téléphone, par le câble, sans perdre la progression. Le
-   jeu hors ligne annonce les nouvelles versions dans sa boîte de réception.
+   Depuis un fichier, une copie ou le téléphone lui-même.
+4. **Mettre à jour le jeu** : une nouvelle version du jeu par-dessus l'ancienne, sans perdre la
+   progression. Le jeu hors ligne annonce les nouvelles versions dans sa boîte de réception.
+
+Le launcher lui-même se met à jour dans **Réglages > Mises à jour**.
 
 Supprimer le jeu supprime aussi sa sauvegarde.
 
@@ -89,7 +93,42 @@ Tout le jeu marche sans serveur : boutique, missions, événements, Voie du Rang
 **Il est recommandé d'installer Python 3.15 avant.**
 
 Il faut aussi le jeu officiel 1.10.4 (`.xapk`, `.apkm` ou `.apk` complet), 5 Go libres, et un
-téléphone ou une tablette Android 64 bits (Android 7.1 ou plus récent).
+téléphone ou une tablette Android 64 bits (Android 7.1 ou plus récent), ou un iPhone ou un iPad.
+
+## iPhone et iPad (essai)
+
+Les mêmes outils qu'Android, dans la section **iOS** du launcher. Seuls l'installation et l'accès à
+la sauvegarde du téléphone changent.
+
+Il faut : [Sideloadly](https://sideloadly.io) (gratuit), un compte Apple (un compte gratuit suffit)
+et un câble USB.
+
+**Fabriquer et installer**
+1. iOS > **Fabriquer et installer** : choisir le jeu officiel 1.10.4 et une sauvegarde (ou
+   **Nouvelle partie**), puis **Préparer pour iPhone**. L'IPA est créée à côté de l'APK Android.
+2. Installer Sideloadly. Brancher l'iPhone, le déverrouiller, puis toucher **Se fier**.
+3. Sur l'iPhone : Réglages > Confidentialité et sécurité > **Mode développeur** : l'activer, puis
+   redémarrer.
+4. Dans Sideloadly : déposer l'IPA, choisir l'iPhone, entrer le compte Apple, puis **Start**.
+5. Sur l'iPhone : Réglages > Général > VPN et gestion de l'appareil > le compte Apple >
+   **Faire confiance**.
+6. Ouvrir Ranger Rumble. Tout tourne sur l'iPhone, hors ligne.
+
+Avec un compte Apple gratuit, l'app s'arrête au bout de 7 jours : refaire l'étape 4. La progression
+est gardée.
+
+**Éditer la sauvegarde de l'iPhone**
+1. Ouvrir le jeu une fois, puis le fermer. Brancher l'iPhone.
+2. Finder (Mac) ou l'app Appareils Apple (Windows) > l'iPhone > **Fichiers** > Ranger Rumble :
+   glisser `sauvegarde_actuelle.msgpack` sur l'ordinateur.
+3. iOS > **Éditer une sauvegarde** > **L'iPhone** > **Choisir le fichier**, puis faire les
+   changements.
+4. **Envoyer à l'iPhone** : fermer le jeu. Dans le même onglet Fichiers, déplier Ranger Rumble,
+   supprimer le fichier `.msgpack` qui s'y trouve, puis y glisser le fichier que montre le launcher
+   (`a_importer.msgpack`). Ouvrir le jeu.
+
+**Mettre à jour le jeu**
+iOS > **Mises à jour** > **Mettre à jour le jeu**, puis refaire l'étape 4. La progression est gardée.
 
 ## Le jeu officiel
 
